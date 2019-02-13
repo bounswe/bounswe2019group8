@@ -13,5 +13,5 @@ This is our project repository for the courses CMPE352 in Boğaziçi University.
 * Barış Zöngür https://github.com/baris-zongur-2016400285
 * Alper Çakan
 * Yusuf Yüksel   https://github.com/yusufyuksel96
-* Mehmet Can Ünal
+* Mehmet Can Ünal https://github.com/m-canunal
 * Ali Özden
