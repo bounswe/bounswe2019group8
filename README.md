@@ -5,7 +5,7 @@ This is our project repository for the courses CMPE352 in Boğaziçi University.
 ### Authors
 
 * Sercan Ersoy (communicator)  https://github.com/sercan-ersoy-2015400039
-* Ceren Tahtasız
+* Ceren Tahtasız  https://github.com/cerentahtasiz
 * Furkan Aydar  https://github.com/furkanaydar
 * Ahmet Bilal Uçan
 * Efe Önal  https://github.com/efe-onal-2016400267
