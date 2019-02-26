@@ -2,6 +2,12 @@
 
 This is our project repository for the courses CMPE352 in Boğaziçi University. 
 
+![alt text](https://github.com/bounswe/bounswe2019group8/blob/master/group%20photo.jpeg)
+
+left top: Ali Özden
+
+from left to right: Mehmet Can Ünal, Furkan Aydar, Sercan Ersoy, Ahmet Yiğit Gedik, Barış Zöngür, Efe Önal, Alper Çakan, Yusuf Yüksel, Ceren Tahtasız
+
 ### Authors
 
 * [Sercan Ersoy](https://github.com/sercan-ersoy-2015400039) (communicator)
