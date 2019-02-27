@@ -10,7 +10,7 @@ from left to right: Mehmet Can Ünal, Furkan Aydar, Sercan Ersoy, Ahmet Yiğit G
 
 ### Authors
 
-* [Sercan Ersoy](https://github.com/sercan-ersoy-2015400039) (communicator)
+* [Sercan Ersoy](https://github.com/sercanersoy) (communicator)
 * [Ceren Tahtasız](https://github.com/cerentahtasiz)
 * [Furkan Aydar](https://github.com/furkanaydar)
 * [Efe Önal](https://github.com/efe-onal-2016400267)
