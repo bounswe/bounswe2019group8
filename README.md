@@ -2,7 +2,7 @@
 
 This is our project repository for the courses CMPE352 in Boğaziçi University. 
 
-![alt text](https://github.com/bounswe/bounswe2019group8/blob/master/images/group%20photo.jpeg)
+![alt text](https://github.com/bounswe/bounswe2019group8/blob/master/images/group-photo.jpeg)
 
 left top: Ali Özden
 
