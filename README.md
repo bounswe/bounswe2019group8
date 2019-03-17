@@ -1,14 +1,17 @@
-# bounswe2019group8's CMPE352 Project
+# CmpE 352 Project of Group 8
 
-This is our project repository for the courses CMPE352 in Boğaziçi University. 
+This is our project repository for the course CMPE352 in Boğaziçi University. 
 
 ![alt text](https://github.com/bounswe/bounswe2019group8/blob/master/images/group-photo.jpeg)
 
-left top: Ali Özden
+**top-left corner:** Ali Özden
 
-from left to right: Mehmet Can Ünal, Furkan Aydar, Sercan Ersoy, Ahmet Yiğit Gedik, Barış Zöngür, Efe Önal, Alper Çakan, Yusuf Yüksel, Ceren Tahtasız
+**from left to right:** Mehmet Can Ünal, Furkan Aydar, Sercan Ersoy, Ahmet Yiğit Gedik, Barış Zöngür, Efe Önal, Alper Çakan, Yusuf Yüksel, Ceren Tahtasız
 
-### Authors
+## About Us
+We are a group of computer engineering students who are currently studying at Bogazici University. Our purpose is to understand what our customers want and respond to their requests magnificently. We expect to reach our goal by adequate communicative and collaborative manners.
+
+## Group Members
 
 * [Sercan Ersoy](https://github.com/sercanersoy) (communicator)
 * [Ceren Tahtasız](https://github.com/cerentahtasiz)
