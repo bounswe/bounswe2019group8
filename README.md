@@ -23,3 +23,16 @@ We are a group of computer engineering students who are currently studying at Bo
 * [Yusuf Yüksel](https://github.com/yusufyuksel96)
 * [Mehmet Can Ünal](https://github.com/m-canunal)
 * [Ali Özden](https://github.com/ozdenali)
+
+## Running the Practice App
+### Backend
+```
+$ cd practice-app/backend
+$ ./serve.sh
+```
+
+### Frontend
+```
+$ cd practice-app/frontend
+$ yarn start
+```
