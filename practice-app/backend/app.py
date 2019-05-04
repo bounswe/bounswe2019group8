@@ -50,6 +50,16 @@ def hello_world():
 def get_health():
     return jsonify({'status': 'OK'})
 
-@app.route('/comments', methods=['GET'])
-def get_comments():
-    return jsonify([c.serialize() for c in Comment.all()])
+@app.route('/comments/<string:symbol>', methods=['POST'])
+def create_comment(symbol):
+	# check if json format is valid
+	if not 'author' in request.json.keys():
+		return jsonify({'message': 'Posted JSON does not have "author" field'})
+	if not 'content' in request.json.keys():
+		return jsonify({'message': 'Posted JSON does not have "content" field'})
+
+	# create comment instance in database
+	current_datetime = datetime.datetime.now()
+	Comment.create(author=request.json['author'], content=request.json['content'], tr_eq_sym=symbol, created_at=current_datetime)
+
+	return jsonify({'message': 'Comment is successfully created'})
