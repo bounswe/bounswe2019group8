@@ -63,3 +63,13 @@ def create_comment(symbol):
 	Comment.create(author=request.json['author'], content=request.json['content'], tr_eq_sym=symbol, created_at=current_datetime)
 
 	return jsonify({'message': 'Comment is successfully created'})
+
+@app.route('/comments/<int:com_id>', methods=['DELETE'])
+def delete_comment(com_id):
+	# check if comment with com_id exists
+	comment_to_delete = Comment.find(com_id)
+	if comment_to_delete == None:
+		return jsonify({'message': 'Comment with that id does not exist'})
+	# delete comment
+	Comment.destroy(com_id)
+	return jsonify({'message': 'Comment is successfully deleted'})
