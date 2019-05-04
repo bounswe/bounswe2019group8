@@ -8,6 +8,10 @@ from . import db
 Base = db.Base
 
 
+def _default_key():
+    return str(uuid.uuid4())
+
+
 class BaseModel(Base, ActiveRecordMixin, ReprMixin):
     __abstract__ = True
     __repr__ = ReprMixin.__repr__
@@ -16,7 +20,7 @@ class BaseModel(Base, ActiveRecordMixin, ReprMixin):
 
 class Comment(BaseModel):
     __tablename__ = 'comment'
-    id = sa.Column(sa.Integer, primary_key=True)
+    id = sa.Column(sa.String, primary_key=True, default=_default_key)
     author = sa.Column(sa.String)
     content = sa.Column(sa.String)
     tr_eq_sym = sa.Column(sa.String)
