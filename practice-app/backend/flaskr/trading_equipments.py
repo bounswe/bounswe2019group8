@@ -1,7 +1,8 @@
 # trading_equipments.py
 
-from flask import Blueprint, abort, jsonify
+from flask import Blueprint, abort, jsonify, request
 from .models import Comment
+from datetime import datetime
 
 bp = Blueprint('tr-eqs', __name__, url_prefix='/tr-eqs')
 
@@ -17,9 +18,9 @@ def create_comment(sym):
     comment = Comment.create(author=request.json['author'],
                              content=request.json['content'],
                              tr_eq_sym=sym,
-                             created_at=current_datetime)
+                             created_at=datetime.now())
 
-    return jsonify({'comment': comment})
+    return jsonify({'comment': comment.serialize()})
 
 
 @bp.route('<string:sym>/comments/', methods=['GET'])
