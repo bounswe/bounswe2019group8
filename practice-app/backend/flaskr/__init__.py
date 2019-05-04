@@ -2,7 +2,6 @@
 
 import os
 from flask import Flask
-from .db import prepare_db_conn
 
 def create_app(test_config=None):
     # create and configure the app
@@ -27,15 +26,23 @@ def create_app(test_config=None):
         app.config.from_mapping(test_config)
 
     with app.app_context():
+        from .db import prepare_db_conn, init_db, session
         prepare_db_conn()
 
     from . import trading_equipments, health
     app.register_blueprint(trading_equipments.bp)
     app.register_blueprint(health.bp)
 
-    # a simple page that says hello
-    @app.route('/hello')
+    @app.cli.command('initdb')
+    def initdb_command():
+        init_db()
+
+    @app.route('/')
     def hello():
         return 'Hello, World!'
+
+    @app.teardown_appcontext
+    def shutdown_session(exception=None):
+        session.remove()
 
     return app

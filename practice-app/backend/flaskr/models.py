@@ -1,10 +1,11 @@
 # models.py
 
+import uuid
 import sqlalchemy as sa
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy_mixins import ActiveRecordMixin, ReprMixin, ModelNotFoundError
+from . import db
 
-Base = declarative_base()
+Base = db.Base
 
 
 class BaseModel(Base, ActiveRecordMixin, ReprMixin):
