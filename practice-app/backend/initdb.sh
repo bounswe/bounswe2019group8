@@ -3,4 +3,4 @@ export FLASK_ENV=development
 
 BASE_DIR="./.."
 export MERCATUS_SETTINGS="$BASE_DIR/../settings/settings.py"
-flask run
+flask initdb
