@@ -6,6 +6,22 @@ from datetime import datetime
 
 bp = Blueprint('tr-eqs', __name__, url_prefix='/tr-eqs')
 
+@bp.route('<string:sym>/predictions/', methods=['GET'])
+def get_prediction(sym):
+	return jsonify([pred.serialize() for pred in Prediction.query.filter_by(tr_eq_sym=sym).all()])
+
+@bp.route('<string:sym>/predictions/', methods=['POST'])
+def create_prediction(sym):
+    # upvote-> 'upvote' = 1 & 'downvote' = 0
+    # downvote -> 'upvote' = 0 & 'downvote' = 1
+    if 'upvote' not in request.json or \
+       'downvote' not in request.json:
+       abort(400)
+    prediction = Prediction.create(upvote=request.json['upvote'],
+                             	   downvote=request.json['downvote'],
+                                   tr_eq_sym=sym)
+    return jsonify({'prediction': prediction.serialize()})
+
 
 @bp.route('<string:sym>/comments/', methods=['POST'])
 def create_comment(sym):
