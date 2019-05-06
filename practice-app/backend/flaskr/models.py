@@ -34,18 +34,18 @@ class Comment(BaseModel):
             'tr_eq_sym': self.tr_eq_sym,
             'created_at': self.created_at
         }
-		
+
+
 class Prediction(BaseModel):
     __tablename__ = 'prediction'
-    id = sa.Column(sa.Integer, primary_key=True)
-    upvote = sa.Column(sa.Integer)
-    downvote = sa.Column(sa.Integer)
+    id = sa.Column(sa.String, primary_key=True, default=_default_key)
+    upvote = sa.Column(sa.Integer, default=int)
+    downvote = sa.Column(sa.Integer, default=int)
     tr_eq_sym = sa.Column(sa.String)
 
     def serialize(self):
         return {
             'upvote': self.upvote,
             'downvote': self.downvote,
-            'id': self.id,
             'tr_eq_sym': self.tr_eq_sym
         }
