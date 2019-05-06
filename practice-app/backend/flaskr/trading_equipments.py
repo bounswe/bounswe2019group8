@@ -7,6 +7,23 @@ from .price_api_uplink import get_from_api
 
 bp = Blueprint('tr-eqs', __name__, url_prefix='/tr-eqs')
 
+
+@bp.route('<string:sym>/price', methods=['GET'])
+def get_current_price(sym):
+    # TODO move these functionalities (get_price etc.) to price_api_uplink
+    resp = get_from_api(symbol=sym,
+                        function='TIME_SERIES_INTRADAY',
+                        interval='1min')['Time Series (1min)']
+
+    last_time = list(resp.keys())[0]
+
+    return jsonify({
+        'symbol': sym,
+        'price': resp[last_time]['4. close'],
+        'time': last_time
+    })
+
+
 @bp.route('<string:sym>/movingavg/', methods=['GET'])
 def get_sma(sym):
     # let possible parameters be:
@@ -31,11 +48,13 @@ def get_sma(sym):
     for i in range(int(request.args['data_amount'])):
         result.append(json_obj['Technical Analysis: SMA'][time_points[i]])
 
+    return jsonify(result)
 
 
 @bp.route('<string:sym>/predictions/', methods=['GET'])
-def get_prediction(sym):
+def get_predictions(sym):
 	return jsonify([pred.serialize() for pred in Prediction.query.filter_by(tr_eq_sym=sym).all()])
+
 
 @bp.route('<string:sym>/predictions/', methods=['POST'])
 def create_prediction(sym):
