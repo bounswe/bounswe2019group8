@@ -39,10 +39,15 @@ def get_prediction(sym):
 
 @bp.route('<string:sym>/predictions/', methods=['POST'])
 def create_prediction(sym):
-    # upvote = 1 downvote = 0
+    # vote = 1 => upvote, vote = 0 => downvote
     if 'vote' not in request.json:
        abort(400)
-    prediction = Prediction.query.filter_by(tr_eq_sym = sym).first()
+
+    prediction = Prediction.query.filter_by(tr_eq_sym=sym).first()
+
+    if prediction is None:  # no prediction for that stock yet
+        prediction = Prediction.create(tr_eq_sym=sym)
+
     if request.json['vote'] == 1:
         prediction.upvote = prediction.upvote+1
     else:
