@@ -2,10 +2,13 @@
 
 import os
 from flask import Flask
+from flask_cors import CORS, cross_origin
 
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
+
+    app.url_map.strict_slashes = False
 
     # ensure the instance folder exists
     try:
@@ -24,6 +27,9 @@ def create_app(test_config=None):
     else:
         # load the test config if passed in
         app.config.from_mapping(test_config)
+
+    if app.config['ENV'] == 'development':
+        CORS(app)
 
     with app.app_context():
         from .db import prepare_db_conn, init_db, session
