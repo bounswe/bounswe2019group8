@@ -49,9 +49,11 @@ def create_prediction(sym):
         prediction = Prediction.create(tr_eq_sym=sym)
 
     if request.json['vote'] == 1:
-        prediction.upvote = prediction.upvote+1
+        prediction.upvote = prediction.upvote + 1
     else:
-        prediction.downvote = prediction.downvote+1
+        prediction.downvote = prediction.downvote + 1
+
+    prediction.update()
 
     return jsonify({'prediction': prediction.serialize()})
 
