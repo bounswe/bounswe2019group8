@@ -10,6 +10,7 @@ class App extends Component {
         return (
             <div className="App">
                 <Toolbar/>
+                <Route path="/tr-eqs/:symbol" component={TradingEquipment} />
 
 
             </div>
