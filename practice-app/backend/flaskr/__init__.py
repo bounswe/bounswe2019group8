@@ -29,6 +29,8 @@ def create_app(test_config=None):
         from .db import prepare_db_conn, init_db, session
         prepare_db_conn()
 
+        from . import price_api_uplink
+
     from . import trading_equipments, health
     app.register_blueprint(trading_equipments.bp)
     app.register_blueprint(health.bp)

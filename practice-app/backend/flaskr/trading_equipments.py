@@ -1,52 +1,78 @@
 # trading_equipments.py
 
 from flask import Blueprint, abort, jsonify, request
-from .models import Comment
+from .models import Comment, Prediction
 from datetime import datetime
+from .price_api_uplink import get_from_api
 
 bp = Blueprint('tr-eqs', __name__, url_prefix='/tr-eqs')
 
+
+@bp.route('<string:sym>/price', methods=['GET'])
+def get_current_price(sym):
+    # TODO move these functionalities (get_price etc.) to price_api_uplink
+    resp = get_from_api(symbol=sym,
+                        function='TIME_SERIES_INTRADAY',
+                        interval='1min')['Time Series (1min)']
+
+    last_time = list(resp.keys())[0]
+
+    return jsonify({
+        'symbol': sym,
+        'price': resp[last_time]['4. close'],
+        'time': last_time
+    })
+
+
 @bp.route('<string:sym>/movingavg/', methods=['GET'])
 def get_sma(sym):
-    av_key = "D5G9T6LX297WEZXA"
     # let possible parameters be:
     # interval = '60 min' or 'daily' or 'weekly' or 'monthly'
     # series_type = 'close' or 'open' or 'high' or 'low'
-    
-    time_period = "10"
-    if 'interval' not in request.json or \
-        'series_type' not in request.json or\
-        'data_amount' not in request.json: # how many 'intervals' of avg data is requested
-        abort(400)
-	
-    api_req = 'https://www.alphavantage.co/query?function=SMA&symbol='+\
-                request.json['sym'] + '&interval=' + request.json['interval']+\
-                '&time_period=' + time_period + '&series_type='+\
-                request.json['series_type'] + '&apikey=' + av_key + '&datatype=json'
-    query = request.get(api_req)
-    json_obj = jsonify(query)
 
+    time_period = "10"
+    if 'interval' not in request.args or \
+       'series_type' not in request.args or\
+       'data_amount' not in request.args:  # how many 'intervals' of avg data is requested
+        abort(400)
+
+    json_obj = get_from_api(symbol=sym,
+                        function='SMA',
+                        interval=request.args['interval'],
+                        series_type=request.args['series_type'],
+                        time_period=time_period)
+
+    print(json_obj)
     result = []
-    for i in range(0,request.json['data_amount']):
-        result.append(json_obj[1][i])
+    time_points = list(json_obj['Technical Analysis: SMA'].keys())
+    for i in range(int(request.args['data_amount'])):
+        result.append(json_obj['Technical Analysis: SMA'][time_points[i]])
+
     return jsonify(result)
 
 
-
 @bp.route('<string:sym>/predictions/', methods=['GET'])
-def get_prediction(sym):
+def get_predictions(sym):
 	return jsonify([pred.serialize() for pred in Prediction.query.filter_by(tr_eq_sym=sym).all()])
+
 
 @bp.route('<string:sym>/predictions/', methods=['POST'])
 def create_prediction(sym):
-    # upvote = 1 downvote = 0
+    # vote = 1 => upvote, vote = 0 => downvote
     if 'vote' not in request.json:
        abort(400)
-    prediction = Prediction.query.filter_by(tr_eq_sym = sym).first()
+
+    prediction = Prediction.query.filter_by(tr_eq_sym=sym).first()
+
+    if prediction is None:  # no prediction for that stock yet
+        prediction = Prediction.create(tr_eq_sym=sym)
+
     if request.json['vote'] == 1:
-        prediction.upvote = prediction.upvote+1
+        prediction.upvote = prediction.upvote + 1
     else:
-        prediction.downvote = prediction.downvote+1
+        prediction.downvote = prediction.downvote + 1
+
+    prediction.update()
 
     return jsonify({'prediction': prediction.serialize()})
 
