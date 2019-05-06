@@ -29,7 +29,7 @@ def get_sma(sym):
     result = []
     for i in range(0,request.json['data_amount']):
         result.append(json_obj[1][i])
-    return result
+    return jsonify(result)
 
 
 
