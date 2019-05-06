@@ -1,34 +1,20 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import './App.css';
-import TradingEquipment from './TradingEquipment';
-import axios from 'axios';
+import React, { Component } from 'react';
 
-axios.defaults.baseURL = 'http://127.0.0.1:5000';
-axios.defaults.headers.post['Content-Type'] = 'text/json';
+import Toolbar from './components/Toolbar/Toolbar';
+import TradingEquipment from "./TradingEquipment";
 
-function App() {
-    return (
-        <Router>
-            <div>
-            <nav>
-                <ul>
-                <li>
-                    <Link to="/">Home</Link>
-                </li>
-                <li>
-                    <Link to="/about/">About</Link>
-                </li>
-                <li>
-                    <Link to="/users/">Users</Link>
-                </li>
-                </ul>
-            </nav>
 
-            <Route path="/tr-eqs/:symbol" component={TradingEquipment} />
+class App extends Component {
+  render()
+    {
+        return (
+            <div className="App">
+                <Toolbar/>
+
+
             </div>
-        </Router>
         );
+    }
 }
 
 export default App;
