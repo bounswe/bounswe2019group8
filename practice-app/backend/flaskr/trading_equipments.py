@@ -6,6 +6,33 @@ from datetime import datetime
 
 bp = Blueprint('tr-eqs', __name__, url_prefix='/tr-eqs')
 
+@bp.route('<string:sym>/movingavg/', methods=['GET'])
+def get_sma(sym):
+    av_key = "D5G9T6LX297WEZXA"
+    # let possible parameters be:
+    # interval = '60 min' or 'daily' or 'weekly' or 'monthly'
+    # series_type = 'close' or 'open' or 'high' or 'low'
+    
+    time_period = "10"
+    if 'interval' not in request.json or \
+        'series_type' not in request.json or\
+        'data_amount' not in request.json: # how many 'intervals' of avg data is requested
+        abort(400)
+	
+    api_req = 'https://www.alphavantage.co/query?function=SMA&symbol='+\
+                request.json['sym'] + '&interval=' + request.json['interval']+\
+                '&time_period=' + time_period + '&series_type='+\
+                request.json['series_type'] + '&apikey=' + av_key + '&datatype=json'
+    query = request.get(api_req)
+    json_obj = jsonify(query)
+
+    result = []
+    for i in range(0,request.json['data_amount']):
+        result.append(json_obj[1][i])
+    return result
+
+
+
 @bp.route('<string:sym>/predictions/', methods=['GET'])
 def get_prediction(sym):
 	return jsonify([pred.serialize() for pred in Prediction.query.filter_by(tr_eq_sym=sym).all()])
