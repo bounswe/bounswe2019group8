@@ -6,6 +6,11 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
 
+if current_app.config['TESTING']:
+    DB_NAME = current_app.config['TEST_DB_NAME']
+else:
+    DB_NAME = current_app.config['DB_NAME']
+
 engine = create_engine(
     'postgresql+psycopg2://{}:{}@{}/{}'.format(
         current_app.config['DB_USERNAME'],
