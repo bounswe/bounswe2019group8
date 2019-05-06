@@ -39,14 +39,15 @@ def get_prediction(sym):
 
 @bp.route('<string:sym>/predictions/', methods=['POST'])
 def create_prediction(sym):
-    # upvote-> 'upvote' = 1 & 'downvote' = 0
-    # downvote -> 'upvote' = 0 & 'downvote' = 1
-    if 'upvote' not in request.json or \
-       'downvote' not in request.json:
+    # upvote = 1 downvote = 0
+    if 'vote' not in request.json:
        abort(400)
-    prediction = Prediction.create(upvote=request.json['upvote'],
-                             	   downvote=request.json['downvote'],
-                                   tr_eq_sym=sym)
+    prediction = Prediction.query.filter_by(tr_eq_sym = sym).first()
+    if request.json['vote'] == 1:
+        prediction.upvote = prediction.upvote+1
+    else:
+        prediction.downvote = prediction.downvote+1
+
     return jsonify({'prediction': prediction.serialize()})
 
 
