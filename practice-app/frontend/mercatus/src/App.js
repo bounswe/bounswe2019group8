@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import Toolbar from './components/Toolbar/Toolbar';
-import TradingEquipment from "./TradingEquipment";
+import Table from './components/Table/Table';
 
 
 class App extends Component {
@@ -10,9 +10,7 @@ class App extends Component {
         return (
             <div className="App">
                 <Toolbar/>
-                <Route path="/tr-eqs/:symbol" component={TradingEquipment} />
-
-
+                <Table/>
             </div>
         );
     }

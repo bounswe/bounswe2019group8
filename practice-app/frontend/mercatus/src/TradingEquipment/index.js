@@ -24,7 +24,8 @@ class TradingEquipment extends React.Component {
             <div key={comment.id} className="comment-container">
                 <div className="author"><b>{comment.author}</b> yazdı:</div>
                 <div>{comment.content}</div>
-            </div>)
+            </div>
+        )
     }
 
     render() {
