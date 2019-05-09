@@ -98,8 +98,8 @@ def get_comments(sym):
     return jsonify([c.serialize() for c in Comment.query.filter_by(tr_eq_sym=sym).all()])
 
 
-@bp.route('<string:sym>/comments/<int:com_id>', methods=['DELETE'])
-def delete_comment(com_id):
+@bp.route('<string:sym>/comments/<string:com_id>', methods=['DELETE'])
+def delete_comment(sym, com_id):
     # check if comment with com_id exists
     comment_to_delete = Comment.find(com_id)
 
