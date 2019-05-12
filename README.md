@@ -26,13 +26,20 @@ We are a group of computer engineering students who are currently studying at Bo
 
 ## Running the Practice App
 ### Backend
+#### How to Run
 ```
 $ cd practice-app/backend
+$ ./initdb.sh # one time only 
 $ ./serve.sh
 ```
+#### Web Link
+[Back-end API Link](http://18.188.149.114:8080)
 
 ### Frontend
+#### How to Run
 ```
 $ cd practice-app/frontend
 $ yarn start
 ```
+#### Web Link
+[Front-end App Link](http://18.188.149.114)
