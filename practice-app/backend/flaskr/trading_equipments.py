@@ -54,7 +54,12 @@ def get_sma(sym):
 
 @bp.route('<string:sym>/predictions/', methods=['GET'])
 def get_predictions(sym):
-	return jsonify([pred.serialize() for pred in Prediction.query.filter_by(tr_eq_sym=sym).all()])
+    pred = Prediction.query.filter_by(tr_eq_sym=sym).first()
+
+    if pred is None:
+        return jsonify([])
+    else:
+        return jsonify(pred.serialize())
 
 
 @bp.route('<string:sym>/predictions/', methods=['POST'])
@@ -75,7 +80,7 @@ def create_prediction(sym):
 
     prediction.update()
 
-    return jsonify({'prediction': prediction.serialize()})
+    return jsonify(prediction.serialize())
 
 
 @bp.route('<string:sym>/comments/', methods=['POST'])
