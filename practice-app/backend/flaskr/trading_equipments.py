@@ -4,6 +4,7 @@ from flask import Blueprint, abort, jsonify, request
 from .models import Comment, Prediction
 from datetime import datetime
 from .price_api_uplink import get_from_api
+from .price_api_uplink import get_from_api, get_symbols_from_nasdaq
 
 bp = Blueprint('tr-eqs', __name__, url_prefix='/tr-eqs')
 
@@ -110,3 +111,8 @@ def delete_comment(sym, com_id):
     Comment.destroy(com_id)
 
     return ''
+
+
+@bp.route('/', methods=['GET'])
+def get_all_symbols():
+    return jsonify(get_symbols_from_nasdaq())
