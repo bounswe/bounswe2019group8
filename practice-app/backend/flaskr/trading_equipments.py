@@ -3,7 +3,7 @@
 from flask import Blueprint, abort, jsonify, request
 from .models import Comment, Prediction
 from datetime import datetime
-from .price_api_uplink import get_from_api
+from .price_api_uplink import get_from_api, get_symbols_from_nasdaq
 
 bp = Blueprint('tr-eqs', __name__, url_prefix='/tr-eqs')
 
@@ -37,10 +37,10 @@ def get_sma(sym):
         abort(400)
 
     json_obj = get_from_api(symbol=sym,
-                        function='SMA',
-                        interval=request.args['interval'],
-                        series_type=request.args['series_type'],
-                        time_period=time_period)
+                            function='SMA',
+                            interval=request.args['interval'],
+                            series_type=request.args['series_type'],
+                            time_period=time_period)
 
     print(json_obj)
     result = []
@@ -53,14 +53,19 @@ def get_sma(sym):
 
 @bp.route('<string:sym>/predictions/', methods=['GET'])
 def get_predictions(sym):
-	return jsonify([pred.serialize() for pred in Prediction.query.filter_by(tr_eq_sym=sym).all()])
+    pred = Prediction.query.filter_by(tr_eq_sym=sym).first()
+
+    if pred is None:
+        return jsonify([])
+    else:
+        return jsonify(pred.serialize())
 
 
 @bp.route('<string:sym>/predictions/', methods=['POST'])
 def create_prediction(sym):
     # vote = 1 => upvote, vote = 0 => downvote
     if 'vote' not in request.json:
-       abort(400)
+        abort(400)
 
     prediction = Prediction.query.filter_by(tr_eq_sym=sym).first()
 
@@ -74,7 +79,7 @@ def create_prediction(sym):
 
     prediction.update()
 
-    return jsonify({'prediction': prediction.serialize()})
+    return jsonify(prediction.serialize())
 
 
 @bp.route('<string:sym>/comments/', methods=['POST'])
@@ -82,7 +87,7 @@ def create_comment(sym):
     # check if json format is valid
     if 'author' not in request.json or \
        'content' not in request.json:
-       abort(400)
+        abort(400)
 
     # create comment instance in database
     comment = Comment.create(author=request.json['author'],
@@ -110,3 +115,8 @@ def delete_comment(sym, com_id):
     Comment.destroy(com_id)
 
     return ''
+
+
+@bp.route('/', methods=['GET'])
+def get_all_symbols():
+    return jsonify(get_symbols_from_nasdaq())

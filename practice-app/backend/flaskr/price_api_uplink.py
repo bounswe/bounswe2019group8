@@ -14,3 +14,14 @@ def get_from_api(**kwargs):
     params['datatype'] = 'json'
 
     return json.loads(requests.get('{}/query?{}'.format(_ROOT, urlencode(params))).content)
+
+def get_symbols_from_nasdaq():
+    as_csv = requests.get('http://www.nasdaq.com/screening/companies-by-industry.aspx?exchange=NASDAQ&render=download').content
+    res = []
+
+    for line in as_csv.splitlines():
+        line = str(line.decode())
+        res.append(line[:line.find(',')][1:-1])
+
+    return res[1:]
+
