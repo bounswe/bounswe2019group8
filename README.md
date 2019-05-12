@@ -38,7 +38,7 @@ $ ./serve.sh
 ### Frontend
 #### How to Run
 ```
-$ cd practice-app/frontend
+$ cd practice-app/frontend/mercatus/
 $ yarn start
 ```
 #### Web Link
