@@ -23,6 +23,7 @@ We are a group of computer engineering students who are currently studying at Bo
 * [Yusuf Yüksel](https://github.com/yusufyuksel96)
 * [Mehmet Can Ünal](https://github.com/m-canunal)
 * [Ali Özden](https://github.com/ozdenali)
+* [İsmet Dağlı](https://github.com/ismet-dagli)
 
 ## Running the Practice App
 ### Backend
