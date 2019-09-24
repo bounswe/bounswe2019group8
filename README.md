@@ -1,12 +1,11 @@
-# Volvox
+<p align="middle">
+  <img src="https://github.com/bounswe/bounswe2019group8/blob/master/images/group-logo.png" width=400>
+</p>
 
-<img src="https://github.com/bounswe/bounswe2019group8/blob/master/images/group-logo.png"
-width=400>
-
-## About Us
+# About Us
 We are a group of computer engineering students who are currently studying at Bogazici University. Our purpose is to understand what our customers want and respond to their requests magnificently. We expect to reach our goal by adequate communicative and collaborative manners.
 
-## Group Members
+# Group Members
 
 * [Sercan Ersoy](https://github.com/sercanersoy) (communicator)
 * [Ceren Tahtasız](https://github.com/cerentahtasiz)
@@ -17,22 +16,22 @@ We are a group of computer engineering students who are currently studying at Bo
 * [Ali Özden](https://github.com/ozdenali)
 * [İsmet Dağlı](https://github.com/ismet-dagli)
 
-## Running the Practice App
-### Backend
-#### How to Run
+# Running the Practice App
+## Backend
+### How to Run
 ```
 $ cd practice-app/backend
 $ ./initdb.sh # one time only 
 $ ./serve.sh
 ```
-#### Web Link
+### Web Link
 [Back-end API Link](http://18.188.149.114:8080)
 
-### Frontend
-#### How to Run
+## Frontend
+### How to Run
 ```
 $ cd practice-app/frontend/mercatus/
 $ yarn start
 ```
-#### Web Link
+### Web Link
 [Front-end App Link](http://18.188.149.114)
