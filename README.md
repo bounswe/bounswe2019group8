@@ -1,6 +1,7 @@
-# CmpE 352 Project of Group 8
+# Volvox
 
-This is our project repository for the course CMPE352 in Boğaziçi University. 
+<img src="https://github.com/bounswe/bounswe2019group8/blob/master/images/group-logo.png"
+width=400>
 
 ## About Us
 We are a group of computer engineering students who are currently studying at Bogazici University. Our purpose is to understand what our customers want and respond to their requests magnificently. We expect to reach our goal by adequate communicative and collaborative manners.
