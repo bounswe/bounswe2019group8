@@ -5,17 +5,22 @@
 # About Us
 We are a group of computer engineering students who are currently studying at Bogazici University. Our purpose is to understand what our customers want and respond to their requests magnificently. We expect to reach our goal by adequate communicative and collaborative manners.
 
-# Group Members
+<p align="middle">
+  <img src="https://github.com/bounswe/bounswe2019group8/blob/master/images/group-photo-updated.png" width=700>
+</p>
+ 
+# Group Members (from left to right)
 
-* [Sercan Ersoy](https://github.com/sercanersoy) (communicator)
-* [Ceren Tahtasız](https://github.com/cerentahtasiz)
-* [Furkan Aydar](https://github.com/furkanaydar)
+* [Ali Özden](https://github.com/ozdenali)
+* [Volkan Yilmaz](https://github.com/yilmazvolkan)
 * [Efe Önal](https://github.com/efe-onal-2016400267)
 * [Barış Zöngür](https://github.com/baris-zongur-2016400285)
-* [Alper Çakan](https://github.com/alpercakan)
-* [Ali Özden](https://github.com/ozdenali)
 * [İsmet Dağlı](https://github.com/ismet-dagli)
-* [Volkan Yilmaz](https://github.com/yilmazvolkan)
+* [Furkan Aydar](https://github.com/furkanaydar)
+* [Sercan Ersoy](https://github.com/sercanersoy) (communicator)
+* [Alper Çakan](https://github.com/alpercakan)
+* [Ceren Tahtasız](https://github.com/cerentahtasiz)
+
 
 # Running the Practice App
 ## Backend
