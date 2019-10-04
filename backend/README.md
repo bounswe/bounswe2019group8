@@ -66,9 +66,9 @@ on, in order to be able to change it easily.
 		"password" : "test"
 	}
   ```
-	This request will return the result "Bearer {jwtToken}" if login is successful.
-	Retrieved jwtToken should be added to the header for every API request now.
-	(in header, key should be 'Authorization' and value should be 'Bearer jwtToken') 	
+- This request will return the result ``` Bearer {jwtToken} ``` if login is successful.
+- Retrieved ``` jwtToken ``` should be added to the header for every API request now.
+(in header, key should be ``` Authorization ``` and value should be ``` Bearer {jwtToken} ```) 	
 
 ## GET ```/admin/allusers```
 - This request will return all currently registered users if
