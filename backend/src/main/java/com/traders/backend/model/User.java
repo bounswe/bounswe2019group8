@@ -2,7 +2,6 @@ package com.traders.backend.model;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -20,14 +19,13 @@ public class User {
     public String password;
     public String email;
     public List<String> roles;
-    public User(){
 
+    public User() {
     }
 
-    public User(String username, String password, String email){
+    public User(String username, String password, String email) {
         this.username = username;
         this.password = password;
         this.email = email;
     }
-
 }

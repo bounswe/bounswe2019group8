@@ -1,3 +1,5 @@
 __pycache__
 .vscode
 practice-app/settings/settings.py
+backend/target
+backend/.idea

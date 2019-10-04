@@ -3,7 +3,6 @@ package com.traders.backend.security;
 import com.traders.backend.model.User;
 import lombok.Getter;
 import lombok.Setter;
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -12,7 +11,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
 
 @Getter
 @Setter
@@ -23,7 +21,7 @@ public class UserPrincipal implements UserDetails {
     private String password;
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserPrincipal(String _id, String username, String password, Collection<? extends GrantedAuthority> authorities) {
+    private UserPrincipal(String _id, String username, String password, Collection<? extends GrantedAuthority> authorities) {
         this._id = _id;
         this.username = username;
         this.password = password;
@@ -33,8 +31,9 @@ public class UserPrincipal implements UserDetails {
     public static UserPrincipal create(User user) {
         List<GrantedAuthority> authoritiesList = new ArrayList<>();
         List<String> userRoles = user.getRoles();
-        for(int i=0 ; i<userRoles.size() ; i++)
-            authoritiesList.add(new SimpleGrantedAuthority(userRoles.get(i)));
+        for (String userRole : userRoles) {
+            authoritiesList.add(new SimpleGrantedAuthority(userRole));
+        }
         return new UserPrincipal(user.get_id(), user.getUsername(), user.getPassword(), authoritiesList);
     }
 

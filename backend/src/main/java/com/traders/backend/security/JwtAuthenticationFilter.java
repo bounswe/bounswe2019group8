@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
-
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
 
@@ -27,18 +26,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
         try {
             String jwtToken = extractJwtFromRequest(httpServletRequest);
-            if(StringUtils.hasText(jwtToken) && jwtTokenProvider.validateToken(jwtToken)) {
+            if (StringUtils.hasText(jwtToken) && jwtTokenProvider.validateToken(jwtToken)) {
                 String userId = jwtTokenProvider.getUserIdFromJwt(jwtToken);
                 UserDetails userDetails = userDetailsService.loadUserById(userId);
-                if(userDetails != null) {
+                if (userDetails != null) {
                     UsernamePasswordAuthenticationToken authenticationToken =
                             new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                     authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
                     SecurityContextHolder.getContext().setAuthentication(authenticationToken);
                 }
             }
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             return;
         }
         filterChain.doFilter(httpServletRequest, httpServletResponse);
@@ -46,8 +44,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private String extractJwtFromRequest(HttpServletRequest httpServletRequest) {
         String bearer = httpServletRequest.getHeader("Authorization");
-        if(StringUtils.hasText(bearer) && bearer.startsWith("Bearer "))
-            return bearer.substring("Bearer".length()+1, bearer.length());
+        if (StringUtils.hasText(bearer) && bearer.startsWith("Bearer "))
+            return bearer.substring("Bearer".length() + 1);
         return null;
     }
 }

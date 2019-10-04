@@ -8,6 +8,7 @@ public class AppException extends RuntimeException {
     public AppException(String errorMessage) {
         super(errorMessage);
     }
+
     public AppException(String errorMessage, Throwable errorCause) {
         super(errorMessage, errorCause);
     }

@@ -9,7 +9,6 @@ import java.util.Date;
 
 @Component
 public class JwtTokenProvider {
-
     // THESE FILEDS WILL BE MOVED TO application_properties.
     // later on we should store it in a safer place.
     @Value("${traders.APP_SECRET}")
@@ -24,29 +23,24 @@ public class JwtTokenProvider {
                 .setExpiration(expireDate).signWith(SignatureAlgorithm.HS512, APP_SECRET).compact();
     }
 
-    public String getUserIdFromJwt(String token) {
+    String getUserIdFromJwt(String token) {
         Claims claims = Jwts.parser().setSigningKey(APP_SECRET).parseClaimsJws(token).getBody();
         return claims.getSubject();
     }
 
-    public boolean validateToken(String authToken) {
+    boolean validateToken(String authToken) {
         try {
             Jwts.parser().setSigningKey(APP_SECRET).parseClaimsJws(authToken);
             return true;
-        }
-        catch(SignatureException e){
+        } catch (SignatureException e) {
             return false;
-        }
-        catch(MalformedJwtException e) {
+        } catch (MalformedJwtException e) {
             return false;
-        }
-        catch(ExpiredJwtException e) {
+        } catch (ExpiredJwtException e) {
             return false;
-        }
-        catch(UnsupportedJwtException e){
+        } catch (UnsupportedJwtException e) {
             return false;
-        }
-        catch(IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             return false;
         }
     }
