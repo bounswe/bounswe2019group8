@@ -30,8 +30,6 @@ $ cd practice-app/backend
 $ ./initdb.sh # one time only 
 $ ./serve.sh
 ```
-### Web Link
-[Back-end API Link](http://18.188.149.114:8080)
 
 ## Frontend
 ### How to Run
@@ -39,5 +37,3 @@ $ ./serve.sh
 $ cd practice-app/frontend/mercatus/
 $ yarn start
 ```
-### Web Link
-[Front-end App Link](http://18.188.149.114)
