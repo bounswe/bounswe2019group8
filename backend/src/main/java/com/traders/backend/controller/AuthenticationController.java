@@ -1,5 +1,7 @@
 package com.traders.backend.controller;
 
+import com.traders.backend.dto.LoginCredentials;
+import com.traders.backend.dto.RegisterCredentials;
 import com.traders.backend.model.User;
 import com.traders.backend.repository.UsersRepository;
 import com.traders.backend.security.JwtTokenProvider;
@@ -10,9 +12,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -36,11 +38,10 @@ public class AuthenticationController {
         this.jwtTokenProvider = jwtTokenProvider;
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ResponseEntity<?> login(@RequestParam String username, @RequestParam String password) {
-
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginCredentials data) {
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
-                new UsernamePasswordAuthenticationToken(username, password);
+                new UsernamePasswordAuthenticationToken(data.getUsername(), data.getPassword());
 
         Authentication authentication = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
 
@@ -51,24 +52,21 @@ public class AuthenticationController {
         return ResponseEntity.ok("Bearer " + jwtToken);
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ResponseEntity<?> register(@RequestParam String username,
-                                      @RequestParam String password,
-                                      @RequestParam String email,
-                                      @RequestParam List<String> authorityList) {
-        if (usersRepository.findByUsername(username) != null) {
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody RegisterCredentials data) {
+        if (usersRepository.findByUsername(data.getUsername()) != null) {
             return new ResponseEntity<>("Username already in use.", HttpStatus.BAD_REQUEST);
-        } else if (usersRepository.findByEmail(email) != null) {
+        } else if (usersRepository.findByEmail(data.getEmail()) != null) {
             return new ResponseEntity<>("Email already in use.", HttpStatus.BAD_REQUEST);
         }
 
-        User user = new User(username, passwordEncoder.encode(password), email);
-        if (authorityList == null || authorityList.size() == 0) {
+        User user = new User(data.getUsername(), passwordEncoder.encode(data.getPassword()), data.getEmail());
+        if (data.getAuthorityList() == null || data.getAuthorityList().size() == 0) {
             List<String> baseAuthorityList = new ArrayList<>();
             baseAuthorityList.add("basic");
             user.setRoles(baseAuthorityList);
         } else {
-            user.setRoles(authorityList);
+            user.setRoles(data.getAuthorityList());
         }
         usersRepository.save(user);
         return new ResponseEntity<>("User successfully registered.", HttpStatus.OK);

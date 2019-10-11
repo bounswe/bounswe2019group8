@@ -3,3 +3,4 @@ __pycache__
 practice-app/settings/settings.py
 backend/target
 backend/.idea
+.DS_Store
