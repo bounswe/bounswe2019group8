@@ -19,13 +19,14 @@ public class JwtTokenProvider {
     public String generateJwtToken(Authentication authentication) {
         UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
         Date expireDate = new Date(new Date().getTime() + EXPIRES_IN);
-        return Jwts.builder().setSubject(userPrincipal.get_id()).setIssuedAt(new Date())
+        return Jwts.builder().setSubject(Long.toString( userPrincipal.get_id() ) ).setIssuedAt(new Date())
                 .setExpiration(expireDate).signWith(SignatureAlgorithm.HS512, APP_SECRET).compact();
     }
 
-    String getUserIdFromJwt(String token) {
+    Long getUserIdFromJwt(String token) {
         Claims claims = Jwts.parser().setSigningKey(APP_SECRET).parseClaimsJws(token).getBody();
-        return claims.getSubject();
+        Long subject = Long.parseLong( claims.getSubject() );
+        return subject;
     }
 
     boolean validateToken(String authToken) {

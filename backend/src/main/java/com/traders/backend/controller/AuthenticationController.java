@@ -3,8 +3,8 @@ package com.traders.backend.controller;
 import com.traders.backend.dto.LoginCredentials;
 import com.traders.backend.dto.RegisterCredentials;
 import com.traders.backend.model.User;
-import com.traders.backend.repository.UsersRepository;
 import com.traders.backend.security.JwtTokenProvider;
+import com.traders.backend.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -25,15 +25,16 @@ import java.util.List;
 public class AuthenticationController {
     private final AuthenticationManager authenticationManager;
 
-    private final UsersRepository usersRepository;
+
+    private final UserService userService;
 
     private final PasswordEncoder passwordEncoder;
 
     private final JwtTokenProvider jwtTokenProvider;
 
-    public AuthenticationController(AuthenticationManager authenticationManager, UsersRepository usersRepository, PasswordEncoder passwordEncoder, JwtTokenProvider jwtTokenProvider) {
+    public AuthenticationController(AuthenticationManager authenticationManager, UserService userService, PasswordEncoder passwordEncoder, JwtTokenProvider jwtTokenProvider) {
         this.authenticationManager = authenticationManager;
-        this.usersRepository = usersRepository;
+        this.userService = userService;
         this.passwordEncoder = passwordEncoder;
         this.jwtTokenProvider = jwtTokenProvider;
     }
@@ -54,21 +55,19 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterCredentials data) {
-        if (usersRepository.findByUsername(data.getUsername()) != null) {
+        if (userService.findUserByUsername(data.getUsername()) != null) {
             return new ResponseEntity<>("Username already in use.", HttpStatus.BAD_REQUEST);
-        } else if (usersRepository.findByEmail(data.getEmail()) != null) {
+        } else if (userService.findUserByEmail(data.getEmail()) != null) {
             return new ResponseEntity<>("Email already in use.", HttpStatus.BAD_REQUEST);
         }
 
         User user = new User(data.getUsername(), passwordEncoder.encode(data.getPassword()), data.getEmail());
-        if (data.getAuthorityList() == null || data.getAuthorityList().size() == 0) {
-            List<String> baseAuthorityList = new ArrayList<>();
-            baseAuthorityList.add("basic");
-            user.setRoles(baseAuthorityList);
+        if (data.getUserRole() == null) {
+            user.setUserRole("basic");
         } else {
-            user.setRoles(data.getAuthorityList());
+            user.setUserRole(data.getUserRole());
         }
-        usersRepository.save(user);
+        userService.saveUser(user);
         return new ResponseEntity<>("User successfully registered.", HttpStatus.OK);
     }
 }

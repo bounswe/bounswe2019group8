@@ -9,5 +9,5 @@ public class RegisterCredentials {
     private String username;
     private String password;
     private String email;
-    private List<String> authorityList;
+    private String userRole;
 }
