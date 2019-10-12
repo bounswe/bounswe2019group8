@@ -1,19 +1,7 @@
 This is the initial version of the backend API.
+Request to API should be in application/json format.
 
-Currently completed steps:
------------------------
-- [x] Created a Spring Boot project.
-- [x] Implemented the MongoDB Connection.
-- [x] Added JWT authentication along with the role based security configuration
-- [x] Created simple endpoints for login, signup, and retrieving all registered
-users from DB. Last one needs an admin authentication.
-- [x] User roles are needed to be stored in the user object for now.
-Current user model in DB consists of fields:
-  - ```username(String)```
-  - ```password(String)```
-  - ```email```
-  - ```roles(array)```
-  
+
 
 Running the Project
 ----------- 
@@ -33,7 +21,7 @@ Now project will run at ```localhost:8080```
 
 Database
 -----------
-- You need to create a MongoDB database and collection.
+- You need to create a PostGreSQL database and collection.
 - You can name the database as you wish, but you should modify the
 ``` application.properties ``` file under the resources folder accordingly.
 - Then you should create a collection named ```users```. This parameter is currently
@@ -52,11 +40,10 @@ on, in order to be able to change it easily.
 		"username" : "test",
 		"password" : "test",
 		"email" : "email",
-		"authorityList" : {
-			"0" : "trader"
-		}
+		"userRole" : "trader"
 	}
   ```
+  Current options for userRole are : *basic*, *trader*, *admin*
 
 ## POST ```/auth/login```
 - Inside API request, *username* and *password* parameters should be provided. See:
@@ -73,3 +60,13 @@ on, in order to be able to change it easily.
 ## GET ```/admin/allusers```
 - This request will return all currently registered users if
 	current user's *authorityList* includes ```admin```		
+
+## POST ```/follows```
+- This request will make currenty logged in user follow another user.
+  ```
+  {
+		"id" = "5"
+  }
+  ```
+  Currently logged in user will follow user with id = 5.
+  
