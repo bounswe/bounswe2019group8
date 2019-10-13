@@ -1,16 +1,20 @@
-import React from 'react';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
 import Login from "./containers/Login";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import NavBar from "./components/navbar";
 
-
-function App() {
-  return (
-      <Router>
+class App extends Component {
+  render() {
+    return (
+      <React.Fragment>
+        <NavBar />
+        <Router>
           <Route path="/login" exact component={Login} />
-      </Router>
-
-  );
+        </Router>
+      </React.Fragment>
+    );
+  }
 }
 
 export default App;
