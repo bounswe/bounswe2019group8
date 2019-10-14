@@ -3,6 +3,8 @@ import "./App.css";
 import Login from "./containers/Login";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import NavBar from "./components/navbar";
+import TraderNavBar from "./components/traderNavbar";
+import BasicNavBar from "./components/basicNavbar";
 
 class App extends Component {
   render() {

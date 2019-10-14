@@ -12,7 +12,7 @@ import {
   FormLabel
 } from "react-bootstrap";
 
-class NavBar extends Component {
+class BasicNavBar extends Component {
   state = {};
 
   render() {
@@ -36,7 +36,19 @@ class NavBar extends Component {
             <Nav.Link href="#link">Events</Nav.Link>
             <Nav.Link href="#link">Articles</Nav.Link>
           </Nav>
-
+          <NavDropdown title="User" id="basic-nav-dropdown">
+            <NavDropdown.Item href="#action/3.1">Profile</NavDropdown.Item>
+            <NavDropdown.Item href="#action/3.2">Settings</NavDropdown.Item>
+            <NavDropdown.Divider />
+            <Button
+              style={loginStyles}
+              href="/signup"
+              variant="outline-danger"
+              size="sm"
+            >
+              Logout
+            </Button>
+          </NavDropdown>
           <Button style={loginStyles} href="/signup" variant="outline-danger">
             SignUp
           </Button>
@@ -53,4 +65,4 @@ class NavBar extends Component {
   }
 }
 
-export default NavBar;
+export default BasicNavBar;
