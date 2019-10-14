@@ -1,13 +1,25 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.css";
+import DropDownMenu from "./dropDownMenu";
 
 class NavBar extends Component {
   state = {
-    isOpen: false
+    isOpen: false,
+    dropDownMenuM: [{}]
   };
 
-  toggleOpen = () => {
+  handleDropDown = () => {
     this.setState({ isOpen: !this.state.isOpen });
+    let dropDownMenuM = this.state.dropDownMenuM;
+    if (this.state.isOpen) {
+      dropDownMenuM[0] = { id: 1 };
+      this.setState({ dropDownMenuM });
+    } else {
+      {
+        dropDownMenuM.pop();
+        this.setState({ dropDownMenuM });
+      }
+    }
   };
 
   render() {
@@ -16,13 +28,12 @@ class NavBar extends Component {
       fontWeight: "bold"
     };
     return (
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <a style={navBarStyles} className="navbar-brand" href="#">
           Mercatus
         </a>
         <button
           className="navbar-toggler"
-          onClick={this.toggleOpen}
           type="button"
           data-toggle="collapse"
           data-target="#navbarSupportedContent"
@@ -54,21 +65,19 @@ class NavBar extends Component {
                 data-toggle="dropdown"
                 aria-haspopup="true"
                 aria-expanded="false"
+                onClick={this.handleDropDown}
               >
                 Dropdown
               </a>
-              <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a className="dropdown-item" href="#">
-                  Action
-                </a>
-                <a className="dropdown-item" href="#">
-                  Another action
-                </a>
-                <div className="dropdown-divider"></div>
-                <a className="dropdown-item" href="#">
-                  Something else here
-                </a>
-              </div>
+              {/*The dropdown menu comes here*/}
+              {this.state.dropDownMenuM.map(myDropDownMenu => (
+                <DropDownMenu
+                  key={myDropDownMenu.id}
+                  dropDownMenu={myDropDownMenu}
+                  className="dropdown-menu"
+                  aria-labelledby="navbarDropdown"
+                />
+              ))}
             </li>
             <li className="nav-item">
               <a
