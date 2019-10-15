@@ -22,7 +22,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return UserPrincipal.create(user);
     }
 
-    public UserDetails loadUserById(String id) {
+    public UserDetails loadUserById(Long id) {
         User user = usersRepository.findBy_id(id);
         return UserPrincipal.create(user);
     }
