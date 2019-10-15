@@ -2,62 +2,52 @@ import React, { Component } from "react";
 import "./App.css";
 import Login from "./containers/Login";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import NavBar from "./components/navbar";
 import Signup from "./containers/Signup";
 import TraderNavBar from "./components/traderNavbar";
-import BasicNavBar from "./components/basicNavbar";
+
 
 class App extends Component {
   state = {
-    isGuest: false,
+    isGuest: true,
     isBasic: false,
-    isTrader: true
+    isTrader: false,
+    loginClicked: false,
+    signUpClicked: false
   };
   render() {
-    if (
-      this.state.isBasic === false &&
-      this.state.isGuest === true &&
-      this.state.isTrader === false
-    ) {
-      return (
-        <React.Fragment>
-          <NavBar />
-          <Router>
-            <Route path="/login" exact component={Login} />
-            <Route path="/signup" exact component={Signup} />
-          </Router>
-        </React.Fragment>
-      );
-    } else if (
-      this.state.isBasic === true &&
-      this.state.isGuest === false &&
-      this.state.isTrader === false
-    ) {
-      return (
-        <React.Fragment>
-          <BasicNavBar />
-          <Router>
-            <Route path="/login" exact component={Login} />
-            <Route path="/signup" exact component={Signup} />
-          </Router>
-        </React.Fragment>
-      );
-    } else if (
-      this.state.isBasic === false &&
-      this.state.isGuest === false &&
-      this.state.isTrader === true
-    ) {
-      return (
-        <React.Fragment>
-          <TraderNavBar />
-          <Router>
-            <Route path="/login" exact component={Login} />
-            <Route path="/signup" exact component={Signup} />
-          </Router>
-        </React.Fragment>
-      );
-    }
+        if(this.state.loginClicked === true && this.state.signUpClicked === false){
+          return (
+            <React.Fragment>
+              <TraderNavBar loginClick={this.loginClick} signUpClick={this.signUpClick} isGuest={this.state.isGuest} isBasic={this.state.isBasic} isTrader={this.state.isTrader}/>
+              <Login/>
+            </React.Fragment>
+          );
+        }
+        else if(this.state.loginClicked === false && this.state.signUpClicked === true){
+           return(
+           <React.Fragment>
+              <TraderNavBar loginClick={this.loginClick} signUpClick={this.signUpClick} isGuest={this.state.isGuest} isBasic={this.state.isBasic} isTrader={this.state.isTrader}/>
+              <Signup/>
+           </React.Fragment>
+           );
+        }
+        else if(this.state.loginClicked === false && this.state.signUpClicked === false){
+           return(
+           <React.Fragment>
+              <TraderNavBar loginClick={this.loginClick} signUpClick={this.signUpClick} isGuest={this.state.isGuest} isBasic={this.state.isBasic} isTrader={this.state.isTrader}/>
+           </React.Fragment>
+           );
+        }
+    
   }
+  loginClick = () =>{
+    this.setState({loginClicked: true})
+    this.setState({signUpClicked: false})
+  };
+  signUpClick = () =>{
+    this.setState({loginClicked: false})
+    this.setState({signUpClicked: true})
+  };
 }
 
 export default App;
