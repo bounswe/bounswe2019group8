@@ -84,11 +84,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:layout_marginStart="8dp"
                         android:layout_marginTop="25dp"
-                        android:text="Login"
-                        android:background="@drawable/button_shape1"
                         android:layout_marginEnd="8dp"
-                        android:layout_marginStart="8dp"/>
+                        android:background="@drawable/button_shape1"
+                        android:text="Login" />
                 </LinearLayout>
             </ScrollView>
         </androidx.cardview.widget.CardView>
