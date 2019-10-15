@@ -1,5 +1,7 @@
 package com.traders.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,14 +18,32 @@ import java.util.Set;
 @Entity
 @Table(name = "users")
 public class User {
+    public enum UserRole {
+        BASIC("basic"),
+        TRADER("trader"),
+        ADMIN("admin");
+
+        @JsonValue
+        public final String value;
+
+        UserRole(final String value) {
+            this.value = value;
+        }
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public long _id;
+
     public String username;
+
     @Size(max = 100)
     public String password;
+
     public String email;
-    public String userRole;
+
+    @Enumerated(EnumType.STRING)
+    public UserRole userRole;
 
     @ManyToMany
     private Set<User> following;
@@ -32,10 +52,8 @@ public class User {
     private Set<User> followedBy;
 
 
-
     public User() {
     }
-
 
 
     public User(String username, String password, String email) {
@@ -44,6 +62,5 @@ public class User {
         this.email = email;
         this.following = new HashSet<>();
         this.followedBy = new HashSet<>();
-
     }
 }

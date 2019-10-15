@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,20 +55,26 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody RegisterCredentials data) {
+    public ResponseEntity<User> register(@RequestBody RegisterCredentials data) {
         if (userService.findUserByUsername(data.getUsername()) != null) {
-            return new ResponseEntity<>("Username already in use.", HttpStatus.BAD_REQUEST);
-        } else if (userService.findUserByEmail(data.getEmail()) != null) {
-            return new ResponseEntity<>("Email already in use.", HttpStatus.BAD_REQUEST);
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Username already in use.");
+        }
+
+        if (userService.findUserByEmail(data.getEmail()) != null) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Email address already in use.");
         }
 
         User user = new User(data.getUsername(), passwordEncoder.encode(data.getPassword()), data.getEmail());
+
         if (data.getUserRole() == null) {
-            user.setUserRole("basic");
+            user.setUserRole(User.UserRole.BASIC);
+            System.out.println(User.UserRole.BASIC);
         } else {
             user.setUserRole(data.getUserRole());
         }
+
         userService.saveUser(user);
-        return new ResponseEntity<>("User successfully registered.", HttpStatus.OK);
+
+        return ResponseEntity.ok(user);
     }
 }
