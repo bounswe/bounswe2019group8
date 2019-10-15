@@ -13,18 +13,18 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         // Button click listener
-        btnLogin.setOnClickListener {
+        buttonSigin.setOnClickListener {
             if (isValidForm()){
                 Toast.makeText(this,"Login success",Toast.LENGTH_SHORT).show()
             }
         }
 
-        btnGuest.setOnClickListener {
+        buttonGuest.setOnClickListener {
             val intent = Intent(this, GuestActivity::class.java)
             startActivity(intent)
         }
 
-        btnRegister.setOnClickListener {
+        buttonRegister.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
         }
@@ -32,23 +32,23 @@ class LoginActivity : AppCompatActivity() {
     }
     private fun isValidForm():Boolean{
         var isValid = true
-        val email = eMail.text.toString().trim()
-        val password = ePassword.text.toString().trim()
+        val email = editMail.text.toString().trim()
+        val password = editPassword.text.toString().trim()
 
         if (!email.isValidEmail()){
-            lMail.isErrorEnabled = true
-            lMail.error = "Email address is wrong!"
+            layMail.isErrorEnabled = true
+            layMail.error = "Email address is wrong!"
             isValid = false
         }else{
-            lMail.isErrorEnabled = false
+            layMail.isErrorEnabled = false
         }
 
         if (password.isNullOrEmpty()){
-            lPassword.isErrorEnabled = true
-            lPassword.error = "Password cannot be empty!"
+            layPassword.isErrorEnabled = true
+            layPassword.error = "Password cannot be empty!"
             isValid = false
         }else{
-            lPassword.isErrorEnabled = false
+            layPassword.isErrorEnabled = false
         }
 
         return isValid

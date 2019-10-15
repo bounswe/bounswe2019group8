@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity"
+    tools:context=".TraderUserActivity"
     android:background="@color/colorPrimary">
 
     <FrameLayout
@@ -49,13 +49,43 @@
                         android:src="@drawable/icon" />
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/layMail"
+                        android:id="@+id/layName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/editMail"
+                            android:id="@+id/editName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/name"
+                            android:imeOptions="actionNext"
+                            android:inputType="textEmailAddress" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/laySurname"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/editSurname"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/surname"
+                            android:imeOptions="actionNext"
+                            android:inputType="textEmailAddress" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/lMail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/eMail"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/mail_address"
@@ -64,14 +94,14 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/layPassword"
+                        android:id="@+id/lPassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         app:passwordToggleEnabled="true">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/editPassword"
+                            android:id="@+id/ePassword"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/password"
@@ -79,13 +109,13 @@
                             android:inputType="textPassword" />
                     </com.google.android.material.textfield.TextInputLayout>
 
-                   <Button
-                        android:id="@+id/buttonSigin"
+                    <Button
+                        android:id="@+id/buttonLogin"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="25dp"
-                        android:text="@string/sign_in"
+                        android:text="@string/sign_up"
                         android:background="@drawable/button_shape1"
                         android:layout_marginEnd="8dp"
                         android:layout_marginStart="8dp"/>
@@ -93,29 +123,4 @@
             </ScrollView>
         </androidx.cardview.widget.CardView>
     </FrameLayout>
-    <Button
-        android:id="@+id/buttonGuest"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="45dp"
-        android:text="@string/continue_guest"
-        android:background="@drawable/button_shape1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:padding="5dp"
-        android:textSize="12sp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/frameLayout"/>
-
-    <Button
-        android:id="@+id/buttonRegister"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="25dp"
-        android:text="@string/sign_up"
-        android:background="@drawable/button_shape1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonGuest"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
