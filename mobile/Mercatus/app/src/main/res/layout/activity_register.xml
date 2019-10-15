@@ -10,11 +10,14 @@
         android:id="@+id/textViewTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:text="Sign Up"
         android:textSize="25dp"
-        android:layout_gravity="center_horizontal"
-        tools:layout_editor_absoluteX="165dp"
-        tools:layout_editor_absoluteY="59dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="46dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="30dp"/>
 
     <RelativeLayout
         android:id="@+id/frameLayout"
@@ -52,7 +55,7 @@
                 />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/btnBasic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Be basic"
@@ -92,7 +95,7 @@
             app:cardElevation="6dp">>
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/btnTrader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Be trader"
