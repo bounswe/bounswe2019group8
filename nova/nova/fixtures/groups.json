@@ -1,0 +1,20 @@
+[
+  {
+    "model": "django.contrib.auth.models.Group",
+    "fields": {
+      "name": "basic"
+    }
+  },
+  {
+    "model": "django.contrib.auth.models.Group",
+    "fields": {
+      "name": "trader"
+    }
+  },
+  {
+    "model": "django.contrib.auth.models.Group",
+    "fields": {
+      "name": "admin"
+    }
+  }
+]

@@ -1,7 +1,5 @@
-from django.db import models
-from django.contrib.auth.models import Group
-
 from django.contrib.auth.models import AbstractUser
+from django.db import models
 
 
 class User(AbstractUser):
@@ -9,6 +7,14 @@ class User(AbstractUser):
 
     date_of_birth = models.DateField()
 
-    lat, long = models.FloatField(), models.FloatField()
+    lat = models.FloatField()
+
+    long = models.FloatField()
 
     profile_image = models.ImageField()
+
+    email = models.EmailField(unique=True)
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['created_at', 'date_of_birth', 'password']
+
