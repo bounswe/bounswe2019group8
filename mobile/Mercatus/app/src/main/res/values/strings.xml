@@ -5,4 +5,6 @@
     <string name="mail_address">Mail Address</string>
     <string name="sign_up">Sign Up</string>
     <string name="continue_guest">Continue as Guest</string>
+    <string name="basic">Basic</string>
+    <string name="Free">Free</string>
 </resources>
