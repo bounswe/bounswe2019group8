@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">Mercatus</string>
+    <string name="sign_in">Sign In</string>
+    <string name="password">Password</string>
+    <string name="mail_address">Mail Address</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="continue_guest">Continue as Guest</string>
     <string name="basic">Basic</string>
     <string name="Free">Free</string>
 </resources>
