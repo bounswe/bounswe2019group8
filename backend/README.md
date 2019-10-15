@@ -44,6 +44,16 @@ on, in order to be able to change it easily.
 
 - Now you can use ```/auth/register``` and ```/auth/login``` endpoints.
 
+Adding a New Endpoint
+------
+1. Decide on the necessary access privileges and then accordingly add the endpoint into the method `configure` in `com.traders.backend.config.SecurityConfig`.
+1. If the endpoint is of a new resource, add the corresponding controller.
+1. Create a method for you endpoint.
+1. Do not forget to return an object which has getters and setter, so that Spring can use Jackson to automatically convert the response into JSON.
+
+Implemented Endpoints
+------
+
 ## POST ```/auth/register```
 - Inside API request, *username* , *password* , *email* , and *authorityList*
 	parameters should be provided. See example:
