@@ -37,7 +37,7 @@ class LoginActivity : AppCompatActivity() {
 
         if (!email.isValidEmail()){
             lMail.isErrorEnabled = true
-            lMail.error = "input your email"
+            lMail.error = "Email address is wrong!"
             isValid = false
         }else{
             lMail.isErrorEnabled = false
@@ -45,7 +45,7 @@ class LoginActivity : AppCompatActivity() {
 
         if (password.isNullOrEmpty()){
             lPassword.isErrorEnabled = true
-            lPassword.error = "Input password"
+            lPassword.error = "Password cannot be empty!"
             isValid = false
         }else{
             lPassword.isErrorEnabled = false
