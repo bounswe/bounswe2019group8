@@ -7,6 +7,10 @@
     <string name="continue_guest">Continue as Guest</string>
     <string name="name">Name</string>
     <string name="surname">Surname</string>
+    <string name="basic_user">Basic User</string>
+    <string name="trader_user">Trader</string>
+    <string name="id_number">ID Number</string>
+    <string name="iban_number">Iban Number</string>
     <string name="basic">Basic</string>
     <string name="Free">Free</string>
 </resources>
