@@ -1,0 +1,20 @@
+[
+  {
+    "model": "auth.Group",
+    "fields": {
+      "name": "basic"
+    }
+  },
+  {
+    "model": "auth.Group",
+    "fields": {
+      "name": "trader"
+    }
+  },
+  {
+    "model": "auth.Group",
+    "fields": {
+      "name": "admin"
+    }
+  }
+]
