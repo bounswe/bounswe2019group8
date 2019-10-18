@@ -4,6 +4,7 @@ import Login from "./containers/Login";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Signup from "./containers/Signup";
 import TraderNavBar from "./components/traderNavbar";
+import ProfilePage from "./components/ProfilePage";
 
 class App extends Component {
   state = {
@@ -11,7 +12,12 @@ class App extends Component {
     isBasic: false,
     isTrader: true,
     loginClicked: false,
-    signUpClicked: false
+    signUpClicked: false,
+    profileClicked: false,
+    credentials: {
+      userName: "trial-name",
+      userEmail: "trial@email.com"
+    }
   };
   render() {
     if (
@@ -26,6 +32,7 @@ class App extends Component {
             isGuest={this.state.isGuest}
             isBasic={this.state.isBasic}
             isTrader={this.state.isTrader}
+            credentials={this.state.credentials}
           />
           <Login />
         </React.Fragment>
@@ -42,22 +49,48 @@ class App extends Component {
             isGuest={this.state.isGuest}
             isBasic={this.state.isBasic}
             isTrader={this.state.isTrader}
+            credentials={this.state.credentials}
           />
           <Signup />
         </React.Fragment>
       );
     } else if (
       this.state.loginClicked === false &&
-      this.state.signUpClicked === false
+      this.state.signUpClicked === false &&
+      this.state.profileClicked === false
     ) {
       return (
         <React.Fragment>
           <TraderNavBar
             loginClick={this.loginClick}
             signUpClick={this.signUpClick}
+            profileClick={this.profileClick}
             isGuest={this.state.isGuest}
             isBasic={this.state.isBasic}
             isTrader={this.state.isTrader}
+            credentials={this.state.credentials}
+          />
+        </React.Fragment>
+      );
+    } else if (
+      this.state.loginClicked === false &&
+      this.state.signUpClicked === false &&
+      this.state.profileClicked === true
+    ) {
+      return (
+        <React.Fragment>
+          <TraderNavBar
+            loginClick={this.loginClick}
+            signUpClick={this.signUpClick}
+            profileClick={this.profileClick}
+            isGuest={this.state.isGuest}
+            isBasic={this.state.isBasic}
+            isTrader={this.state.isTrader}
+            credentials={this.state.credentials}
+          />
+          <ProfilePage
+            profileClick={this.profileClick}
+            credentials={this.state.credentials}
           />
         </React.Fragment>
       );
@@ -70,6 +103,9 @@ class App extends Component {
   signUpClick = () => {
     this.setState({ loginClicked: false });
     this.setState({ signUpClicked: !this.state.signUpClicked });
+  };
+  profileClick = () => {
+    this.setState({ profileClicked: !this.state.profileClicked });
   };
 }
 

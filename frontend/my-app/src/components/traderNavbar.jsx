@@ -141,7 +141,12 @@ class TraderNavBar extends Component {
               <Nav.Link href="#link">Articles</Nav.Link>
             </Nav>
             <NavDropdown title="User" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Profile</NavDropdown.Item>
+              <NavDropdown.Item
+                href="#action/3.1"
+                onClick={() => this.props.profileClick()}
+              >
+                Profile
+              </NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">Settings</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.3">Portfolio</NavDropdown.Item>
               <NavDropdown.Divider />
@@ -162,21 +167,6 @@ class TraderNavBar extends Component {
               width="50"
               height="55"
             />
-
-            <Button
-              style={loginStyles}
-              onClick={() => this.props.signUpClick()}
-              variant="outline-danger"
-            >
-              SignUp
-            </Button>
-            <Button
-              style={loginStyles}
-              onClick={() => this.props.loginClick()}
-              variant="outline-success"
-            >
-              Login
-            </Button>
             {/* <Form inline>
               <FormControl type="text" placeholder="Search" className="mr-sm-2" />
               <Button variant="outline-success">Search</Button>
