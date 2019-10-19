@@ -7,7 +7,10 @@ class ProfilePage extends React.Component {
   render() {
     return (
       <div>
-        <ProfileArea credentials={this.props.credentials} />
+        <ProfileArea
+          credentials={this.props.credentials}
+          follows={this.props.follows}
+        />
       </div>
     );
   }

@@ -16,12 +16,12 @@ class App extends Component {
     signUpClicked: false,
     profileClicked: false,
     searchClicked: false,
-    successfulLogin:false,
+    successfulLogin: false,
     credentials: {
-      userName: "trial-name",
-      userEmail: "trial@email.com"
+      userName: "rick-sanchez",
+      userEmail: "rick.sanchez@gmail.com"
     },
-    follows: [{ id: 1, userName: "Ali" }, { id: 2, userName: "Veli" }]
+    follows: [{ id: 1, userName: "Beth" }, { id: 2, userName: "Morty" }]
   };
   render() {
     if (
@@ -40,7 +40,7 @@ class App extends Component {
             credentials={this.state.credentials}
             follows={this.state.follows}
           />
-          <Login loginSuccess = {this.loginIsSucessfull} />
+          <Login loginSuccess={this.loginIsSuccessful} />
         </React.Fragment>
       );
     } else if (
@@ -132,6 +132,7 @@ class App extends Component {
           <ProfilePage
             profileClick={this.profileClick}
             credentials={this.state.credentials}
+            follows={this.state.follows}
           />
         </React.Fragment>
       );
@@ -150,6 +151,7 @@ class App extends Component {
     this.setState({ signUpClicked: false });
     this.setState({ isTrader: false });
     this.setState({ isGuest: true });
+    this.setState({ profileClicked: false });
   };
   profileClick = () => {
     this.setState({ profileClicked: !this.state.profileClicked });
@@ -157,7 +159,7 @@ class App extends Component {
   searchClick = () => {
     this.setState({ searchClicked: !this.state.searchClicked });
   };
-  loginIsSucessfull = () => {
+  loginIsSuccessful = () => {
     this.setState({ isGuest: false });
     this.setState({ isBasic: true });
     this.setState({ loginClicked: !this.state.loginClicked });

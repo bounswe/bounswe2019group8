@@ -27,7 +27,7 @@ class TraderNavBar extends Component {
     if (this.props.isGuest === true) {
       return (
         <Navbar bg="light" expand="lg">
-          <Navbar.Brand href="#home" style={navBarStyles}>
+          <Navbar.Brand href="#" style={navBarStyles}>
             <img
               src={require("./MERCATUS-LOGO72DP.png")}
               height="50"
@@ -37,9 +37,9 @@ class TraderNavBar extends Component {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
-              <Nav.Link href="#home">Trading Equipment</Nav.Link>
-              <Nav.Link href="#link">Events</Nav.Link>
-              <Nav.Link href="#link">Articles</Nav.Link>
+              <Nav.Link href="#">Trading Equipment</Nav.Link>
+              <Nav.Link href="#">Events</Nav.Link>
+              <Nav.Link href="#">Articles</Nav.Link>
             </Nav>
 
             <Button
@@ -66,7 +66,7 @@ class TraderNavBar extends Component {
     } else if (this.props.isBasic === true) {
       return (
         <Navbar bg="light" expand="lg">
-          <Navbar.Brand href="#home" style={navBarStyles}>
+          <Navbar.Brand href="#" style={navBarStyles}>
             <img
               src={require("./MERCATUS-LOGO72DP.png")}
               height="50"
@@ -76,22 +76,29 @@ class TraderNavBar extends Component {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
-              <Nav.Link href="#home">Trading Equipment</Nav.Link>
-              <Nav.Link href="#link">Events</Nav.Link>
-              <Nav.Link href="#link">Articles</Nav.Link>
+              <Nav.Link href="#">Trading Equipment</Nav.Link>
+              <Nav.Link href="#">Events</Nav.Link>
+              <Nav.Link href="#">Articles</Nav.Link>
             </Nav>
             <Form inline>
-              <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+              <FormControl
+                type="text"
+                placeholder="Search"
+                className="mr-sm-2"
+              />
               <Button variant="outline-success">Search</Button>
             </Form>
-            <NavDropdown title="User" id="basic-nav-dropdown">
+            <NavDropdown
+              title={this.props.credentials.userName}
+              id="basic-nav-dropdown"
+            >
               <NavDropdown.Item
-                href="#action/3.1"
+                href="#"
                 onClick={() => this.props.profileClick()}
               >
                 Profile
               </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">Settings</NavDropdown.Item>
+              <NavDropdown.Item href="#">Settings</NavDropdown.Item>
               <NavDropdown.Divider />
               <Button
                 style={loginStyles}
@@ -105,10 +112,10 @@ class TraderNavBar extends Component {
             </NavDropdown>
             <img
               className="rounded-circle"
-              src="http://uzak.konyasm.gov.tr:27038/web/personel/hekimler/betul-kaya.JPG"
+              src={require("./rick.jpg")}
               size="sm"
               alt="10x10"
-              width="50"
+              width="80"
               height="55"
             />
 
@@ -122,7 +129,7 @@ class TraderNavBar extends Component {
     } else if (this.props.isTrader === true) {
       return (
         <Navbar bg="light" expand="lg">
-          <Navbar.Brand href="#home" style={navBarStyles}>
+          <Navbar.Brand href="#" style={navBarStyles}>
             <img
               src={require("./MERCATUS-LOGO72DP.png")}
               height="50"
@@ -132,23 +139,30 @@ class TraderNavBar extends Component {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
-              <Nav.Link href="#home">Trading Equipment</Nav.Link>
-              <Nav.Link href="#link">Events</Nav.Link>
-              <Nav.Link href="#link">Articles</Nav.Link>
+              <Nav.Link href="#">Trading Equipment</Nav.Link>
+              <Nav.Link href="#">Events</Nav.Link>
+              <Nav.Link href="#">Articles</Nav.Link>
             </Nav>
-          <Form inline>
-            <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-            <Button variant="outline-success">Search</Button>
-          </Form>
-            <NavDropdown title="User" id="basic-nav-dropdown">
+            <Form inline>
+              <FormControl
+                type="text"
+                placeholder="Search"
+                className="mr-sm-2"
+              />
+              <Button variant="outline-success">Search</Button>
+            </Form>
+            <NavDropdown
+              title={this.props.credentials.userName}
+              id="basic-nav-dropdown"
+            >
               <NavDropdown.Item
-                href="#action/3.1"
+                href="#"
                 onClick={() => this.props.profileClick()}
               >
                 Profile
               </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">Settings</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Portfolio</NavDropdown.Item>
+              <NavDropdown.Item href="#">Settings</NavDropdown.Item>
+              <NavDropdown.Item href="#">Portfolio</NavDropdown.Item>
 
               <NavDropdown.Divider />
               <Button
@@ -162,10 +176,10 @@ class TraderNavBar extends Component {
             </NavDropdown>
             <img
               className="rounded-circle"
-              src="http://uzak.konyasm.gov.tr:27038/web/personel/hekimler/betul-kaya.JPG"
+              src={require("./rick.jpg")}
               size="sm"
               alt="10x10"
-              width="50"
+              width="80"
               height="55"
             />
             {/* <Form inline>
