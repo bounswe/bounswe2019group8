@@ -9,13 +9,14 @@ import FollowItem from "./components/FollowItem";
 
 class App extends Component {
   state = {
-    isGuest: false,
-    isBasic: true,
+    isGuest: true,
+    isBasic: false,
     isTrader: false,
     loginClicked: false,
     signUpClicked: false,
     profileClicked: false,
     searchClicked: false,
+    sucessfullLogin:false,
     credentials: {
       userName: "trial-name",
       userEmail: "trial@email.com"
@@ -38,7 +39,7 @@ class App extends Component {
             credentials={this.state.credentials}
             follows={this.state.follows}
           />
-          <Login />
+          <Login loginSuccess = {this.loginIsSucessfull} />
         </React.Fragment>
       );
     } else if (
@@ -144,6 +145,11 @@ class App extends Component {
   };
   searchClick = () => {
     this.setState({ searchClicked: !this.state.searchClicked });
+  };
+  loginIsSucessfull = () => {
+    this.setState({ isGuest: false });
+    this.setState({ isBasic: true });
+    this.setState({ loginClicked: !this.state.loginClicked });
   };
 }
 
