@@ -9,14 +9,14 @@ import FollowItem from "./components/FollowItem";
 
 class App extends Component {
   state = {
-    isGuest: true,
-    isBasic: false,
+    isGuest: false,
+    isBasic: true,
     isTrader: false,
     loginClicked: false,
     signUpClicked: false,
     profileClicked: false,
     searchClicked: false,
-    sucessfullLogin:false,
+    successfulLogin:false,
     credentials: {
       userName: "trial-name",
       userEmail: "trial@email.com"
@@ -32,6 +32,7 @@ class App extends Component {
         <React.Fragment>
           <TraderNavBar
             loginClick={this.loginClick}
+            logoutClick={this.logoutClick}
             signUpClick={this.signUpClick}
             isGuest={this.state.isGuest}
             isBasic={this.state.isBasic}
@@ -50,6 +51,7 @@ class App extends Component {
         <React.Fragment>
           <TraderNavBar
             loginClick={this.loginClick}
+            logoutClick={this.logoutClick}
             signUpClick={this.signUpClick}
             isGuest={this.state.isGuest}
             isBasic={this.state.isBasic}
@@ -70,6 +72,7 @@ class App extends Component {
         <React.Fragment>
           <TraderNavBar
             loginClick={this.loginClick}
+            logoutClick={this.logoutClick}
             signUpClick={this.signUpClick}
             profileClick={this.profileClick}
             searchClick={this.searchClick}
@@ -91,6 +94,7 @@ class App extends Component {
         <React.Fragment>
           <TraderNavBar
             loginClick={this.loginClick}
+            logoutClick={this.logoutClick}
             signUpClick={this.signUpClick}
             profileClick={this.profileClick}
             searchClick={this.searchClick}
@@ -115,6 +119,7 @@ class App extends Component {
         <React.Fragment>
           <TraderNavBar
             loginClick={this.loginClick}
+            logoutClick={this.logoutClick}
             signUpClick={this.signUpClick}
             profileClick={this.profileClick}
             isGuest={this.state.isGuest}
@@ -139,6 +144,12 @@ class App extends Component {
   signUpClick = () => {
     this.setState({ loginClicked: false });
     this.setState({ signUpClicked: !this.state.signUpClicked });
+  };
+  logoutClick = () => {
+    this.setState({ loginClicked: !this.state.loginClicked });
+    this.setState({ signUpClicked: false });
+    this.setState({ isTrader: false });
+    this.setState({ isGuest: true });
   };
   profileClick = () => {
     this.setState({ profileClicked: !this.state.profileClicked });

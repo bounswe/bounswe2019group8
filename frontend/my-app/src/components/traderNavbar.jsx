@@ -80,6 +80,10 @@ class TraderNavBar extends Component {
               <Nav.Link href="#link">Events</Nav.Link>
               <Nav.Link href="#link">Articles</Nav.Link>
             </Nav>
+            <Form inline>
+              <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+              <Button variant="outline-success">Search</Button>
+            </Form>
             <NavDropdown title="User" id="basic-nav-dropdown">
               <NavDropdown.Item
                 href="#action/3.1"
@@ -91,14 +95,7 @@ class TraderNavBar extends Component {
               <NavDropdown.Divider />
               <Button
                 style={loginStyles}
-                onClick={() => this.props.searchClick()}
-                variant="outline-success"
-              >
-                Search
-              </Button>
-              <Button
-                style={loginStyles}
-                href="/signup"
+                onClick={() => this.props.logoutClick()}
                 variant="outline-danger"
                 size="sm"
                 backGroundColor="white"
@@ -139,6 +136,10 @@ class TraderNavBar extends Component {
               <Nav.Link href="#link">Events</Nav.Link>
               <Nav.Link href="#link">Articles</Nav.Link>
             </Nav>
+          <Form inline>
+            <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+            <Button variant="outline-success">Search</Button>
+          </Form>
             <NavDropdown title="User" id="basic-nav-dropdown">
               <NavDropdown.Item
                 href="#action/3.1"
@@ -148,17 +149,11 @@ class TraderNavBar extends Component {
               </NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">Settings</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.3">Portfolio</NavDropdown.Item>
+
               <NavDropdown.Divider />
               <Button
                 style={loginStyles}
-                onClick={() => this.props.searchClick()}
-                variant="outline-success"
-              >
-                Search
-              </Button>
-              <Button
-                style={loginStyles}
-                href="/signup"
+                onClick={() => this.props.logoutClick()}
                 variant="outline-danger"
                 size="sm"
               >
