@@ -44,10 +44,21 @@ def user_res(request, pk):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     if request.method == 'PUT':
+        if not is_user_in_group(request.user, "admin") and pk != request.user.pk:
+            raise PermissionDenied()
+
         serializer.save()
         return Response(serializer.data, status=status.HTTP_200_OK)
+
     elif request.method == 'GET':
         return Response(serializer.data)
+
+    elif request.method == 'DELETE':
+        if not is_user_in_group(request.user, "admin") and pk != request.user.pk:
+            raise PermissionDenied()
+
+        user.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 @api_view(['POST'])
