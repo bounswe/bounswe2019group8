@@ -7,6 +7,6 @@ class NovaSerializer(serializers.ModelSerializer):
             create_only_fields = self.Meta.create_only_fields
 
             for k in create_only_fields or []:
-                validated_data.pop(k)
+                validated_data.pop(k, None)
 
         return super(NovaSerializer, self).update(instance, validated_data)
