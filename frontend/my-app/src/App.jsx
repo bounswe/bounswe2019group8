@@ -5,19 +5,22 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Signup from "./containers/Signup";
 import TraderNavBar from "./components/traderNavbar";
 import ProfilePage from "./components/ProfilePage";
+import FollowItem from "./components/FollowItem";
 
 class App extends Component {
   state = {
     isGuest: false,
-    isBasic: false,
-    isTrader: true,
+    isBasic: true,
+    isTrader: false,
     loginClicked: false,
     signUpClicked: false,
     profileClicked: false,
+    searchClicked: false,
     credentials: {
       userName: "trial-name",
       userEmail: "trial@email.com"
-    }
+    },
+    follows: [{ id: 1, userName: "Ali" }, { id: 2, userName: "Veli" }]
   };
   render() {
     if (
@@ -33,6 +36,7 @@ class App extends Component {
             isBasic={this.state.isBasic}
             isTrader={this.state.isTrader}
             credentials={this.state.credentials}
+            follows={this.state.follows}
           />
           <Login />
         </React.Fragment>
@@ -50,6 +54,7 @@ class App extends Component {
             isBasic={this.state.isBasic}
             isTrader={this.state.isTrader}
             credentials={this.state.credentials}
+            follows={this.state.follows}
           />
           <Signup />
         </React.Fragment>
@@ -57,7 +62,8 @@ class App extends Component {
     } else if (
       this.state.loginClicked === false &&
       this.state.signUpClicked === false &&
-      this.state.profileClicked === false
+      this.state.profileClicked === false &&
+      this.state.searchClicked === false
     ) {
       return (
         <React.Fragment>
@@ -65,17 +71,44 @@ class App extends Component {
             loginClick={this.loginClick}
             signUpClick={this.signUpClick}
             profileClick={this.profileClick}
+            searchClick={this.searchClick}
             isGuest={this.state.isGuest}
             isBasic={this.state.isBasic}
             isTrader={this.state.isTrader}
             credentials={this.state.credentials}
+            follows={this.state.follows}
           />
         </React.Fragment>
       );
     } else if (
       this.state.loginClicked === false &&
       this.state.signUpClicked === false &&
-      this.state.profileClicked === true
+      this.state.profileClicked === false &&
+      this.state.searchClicked === true
+    ) {
+      return (
+        <React.Fragment>
+          <TraderNavBar
+            loginClick={this.loginClick}
+            signUpClick={this.signUpClick}
+            profileClick={this.profileClick}
+            searchClick={this.searchClick}
+            isGuest={this.state.isGuest}
+            isBasic={this.state.isBasic}
+            isTrader={this.state.isTrader}
+            credentials={this.state.credentials}
+            follows={this.state.follows}
+          />
+          {this.state.follows.map(follows => (
+            <FollowItem key={follows.id} follows={follows}></FollowItem>
+          ))}
+        </React.Fragment>
+      );
+    } else if (
+      this.state.loginClicked === false &&
+      this.state.signUpClicked === false &&
+      this.state.profileClicked === true &&
+      this.state.searchClicked === false
     ) {
       return (
         <React.Fragment>
@@ -87,6 +120,8 @@ class App extends Component {
             isBasic={this.state.isBasic}
             isTrader={this.state.isTrader}
             credentials={this.state.credentials}
+            follows={this.state.follows}
+            searchClick={this.searchClick}
           />
           <ProfilePage
             profileClick={this.profileClick}
@@ -106,6 +141,9 @@ class App extends Component {
   };
   profileClick = () => {
     this.setState({ profileClicked: !this.state.profileClicked });
+  };
+  searchClick = () => {
+    this.setState({ searchClicked: !this.state.searchClicked });
   };
 }
 
