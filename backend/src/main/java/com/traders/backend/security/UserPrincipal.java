@@ -15,13 +15,12 @@ import java.util.List;
 @Getter
 @Setter
 public class UserPrincipal implements UserDetails {
-    @Id
-    public String _id;
+    public Long _id;
     private String username;
     private String password;
     private Collection<? extends GrantedAuthority> authorities;
 
-    private UserPrincipal(String _id, String username, String password, Collection<? extends GrantedAuthority> authorities) {
+    private UserPrincipal(Long _id, String username, String password, Collection<? extends GrantedAuthority> authorities) {
         this._id = _id;
         this.username = username;
         this.password = password;
@@ -30,10 +29,8 @@ public class UserPrincipal implements UserDetails {
 
     public static UserPrincipal create(User user) {
         List<GrantedAuthority> authoritiesList = new ArrayList<>();
-        List<String> userRoles = user.getRoles();
-        for (String userRole : userRoles) {
-            authoritiesList.add(new SimpleGrantedAuthority(userRole));
-        }
+        String userRole = user.getUserRole();
+        authoritiesList.add(new SimpleGrantedAuthority(userRole));
         return new UserPrincipal(user.get_id(), user.getUsername(), user.getPassword(), authoritiesList);
     }
 

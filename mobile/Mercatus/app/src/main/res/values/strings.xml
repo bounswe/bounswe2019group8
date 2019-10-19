@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Mercatus</string>
+    <string name="sign_in">Sign In</string>
+    <string name="password">Password</string>
+    <string name="mail_address">Mail Address</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="continue_guest">Continue as Guest</string>
+    <string name="name">Name</string>
+    <string name="surname">Surname</string>
+    <string name="basic">Basic</string>
+    <string name="Free">Free</string>
+    <string name="basic_features"> • provide your investment information and learn your profit/loss state \n \n
+• view articles on economy and share your opinion \n \n
+• follow important economic figures, events and trading equipments \n \n
+• set alerts for trading equipment prices </string>
+    <string name="trader_features"> • enjoy all the features basic users have \n \n
+        • invest in trading equipments through Mercatus \n \n
+        • set stop-loss orders
+    </string>
+</resources>
