@@ -9,15 +9,17 @@ import LoaderButton from "../components/LoaderButton";
 import { useFormFields } from "../libs/hooksLib";
 import "./Signup.css";
 
-export default function Signup(props) {
+export default function Signup({api, signUpClicked,...props}) {
     const [fields, handleFieldChange] = useFormFields({
-        username: "",
+        username:"",
+        firstName: "",
+        lastName:"",
+        dateOfBirth:"",
         email: "",
         password: "",
         confirmPassword: "",
         confirmationCode: ""
     });
-    const [newUser, setNewUser] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
     function validateForm() {
@@ -37,19 +39,38 @@ export default function Signup(props) {
         event.preventDefault();
 
         setIsLoading(true);
+       
 
-        setNewUser("test");
+        api.post('/users', {
+            username:fields.username,
+            email: fields.email,
+            first_name: fields.firstName,
+            last_name: fields.lastName,
+            date_of_birth: fields.dateOfBirth,
+            password:fields.password
+          })
+          .then(function (response) {
+            alert("sign-up successful")
+            signUpClicked();
 
-        setIsLoading(false);
+          })
+          .catch(function (error) {
+          alert("failed sign-up")
+          console.log(error);
+          });
+        
+
+        setIsLoading(false); 
+        
     }
 
-    async function handleConfirmationSubmit(event) {
+   /* async function handleConfirmationSubmit(event) {
         event.preventDefault();
 
         setIsLoading(true);
     }
 
-    function renderConfirmationForm() {
+  /*  function renderConfirmationForm() {
         return (
             <form onSubmit={handleConfirmationSubmit}>
                 <FormGroup controlId="confirmationCode" bsSize="large">
@@ -73,7 +94,7 @@ export default function Signup(props) {
                 </LoaderButton>
             </form>
         );
-    }
+    }*/
 
     function renderForm() {
         return (
@@ -96,6 +117,30 @@ export default function Signup(props) {
                         onChange={handleFieldChange}
                     />
                 </FormGroup>
+                <FormGroup controlId="firstName" bsSize="large">
+                    <FormLabel>First Name</FormLabel>
+                    <FormControl
+                        type="firstName"
+                        value={fields.firstName}
+                        onChange={handleFieldChange}
+                    />
+                </FormGroup>
+                <FormGroup controlId="lastName" bsSize="large">
+                    <FormLabel>Last Name</FormLabel>
+                    <FormControl
+                        type="lastName"
+                        value={fields.lastName}
+                        onChange={handleFieldChange}
+                    />
+                </FormGroup>
+                <FormGroup controlId="dateOfBirth" bsSize="large">
+                    <FormLabel>Date Of Birth</FormLabel>
+                    <FormControl
+                        type="dateOfBirth"
+                        value={fields.dateOfBirth}
+                        onChange={handleFieldChange}
+                    />
+                </FormGroup>
                 <FormGroup controlId="password" bsSize="large">
                     <FormLabel>Password</FormLabel>
                     <FormControl
@@ -112,6 +157,7 @@ export default function Signup(props) {
                         value={fields.confirmPassword}
                     />
                 </FormGroup>
+                
                 <LoaderButton
                     block
                     type="submit"
@@ -127,7 +173,7 @@ export default function Signup(props) {
 
     return (
         <div className="Signup">
-            {newUser === null ? renderForm() : renderConfirmationForm()}
+            {renderForm()}
         </div>
     );
 }

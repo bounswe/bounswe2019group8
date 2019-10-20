@@ -6,6 +6,7 @@ import Signup from "./containers/Signup";
 import TraderNavBar from "./components/traderNavbar";
 import ProfilePage from "./components/ProfilePage";
 import FollowItem from "./components/FollowItem";
+import axios from 'axios';
 
 class App extends Component {
   state = {
@@ -21,9 +22,17 @@ class App extends Component {
       userName: "rick-sanchez",
       userEmail: "rick.sanchez@gmail.com"
     },
-    follows: [{ id: 1, userName: "Beth" }, { id: 2, userName: "Morty" }]
+    follows: [{ id: 1, userName: "Beth" }, { id: 2, userName: "Morty" }],
+    api : axios.create({
+      baseURL: 'http://127.0.0.1:8000/',
+    
+    })
   };
+  
+
+ 
   render() {
+    
     if (
       this.state.loginClicked === true &&
       this.state.signUpClicked === false
@@ -40,7 +49,7 @@ class App extends Component {
             credentials={this.state.credentials}
             follows={this.state.follows}
           />
-          <Login loginSuccess={this.loginIsSuccessful} />
+          <Login loginSuccess={this.loginIsSuccessful} api = {this.state.api}/>
         </React.Fragment>
       );
     } else if (
@@ -59,7 +68,7 @@ class App extends Component {
             credentials={this.state.credentials}
             follows={this.state.follows}
           />
-          <Signup />
+          <Signup  api = {this.state.api} signUpClicked={this.signUpClick}/>
         </React.Fragment>
       );
     } else if (

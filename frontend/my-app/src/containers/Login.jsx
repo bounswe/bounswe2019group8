@@ -5,7 +5,7 @@ import LoaderButton from "../components/LoaderButton";
 import { useFormFields } from "../libs/hooksLib";
 import "./Login.css";
 
-export default function Login({ loginSuccess, ...props }) {
+export default function Login({ loginSuccess,api, ...props }) {
   const [isLoading, setIsLoading] = useState(false);
   const [fields, handleFieldChange] = useFormFields({
     email: "",
@@ -21,12 +21,28 @@ export default function Login({ loginSuccess, ...props }) {
 
     setIsLoading(true);
 
+        api.post('auth_tokens', {
+            email: fields.email,
+            password: fields.password
+          })
+          .then(function (response) {
+          
+          })
+          .catch(function (error) {
+          console.log(error.data.email);
+          })
+          .finally(function () {
+  // always executed
+          });
+          
+
     if (
       fields.email === "rick.sanchez@gmail.com" &&
       fields.password === "123456"
     ) {
       loginSuccess();
-    } else {
+    } 
+    /*else {
       try {
         await Auth.signIn(fields.email, fields.password);
         props.userHasAuthenticated(true);
@@ -35,7 +51,7 @@ export default function Login({ loginSuccess, ...props }) {
         alert(e.message);
         setIsLoading(false);
       }
-    }
+    }*/
   }
 
   return (

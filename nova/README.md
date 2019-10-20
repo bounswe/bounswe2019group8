@@ -12,6 +12,7 @@ conda install -c conda-forge django-filter
 conda install -c conda-forge markdown
 conda install pillow
 conda install psycopg2
+conda install -c conda-forge django-cors-headers
 ```
 
 Then, create a PostgreSQL database named `mercatus`. Supply the DB credentials to the project by running:

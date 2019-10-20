@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
-    'nova'
+    'nova',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -48,7 +49,14 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware'
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_WHITELIST = ['http://localhost:3000']
+CORS_ORIGIN_REGEX_WHITELIST = ['http://localhost:3000']
 
 ROOT_URLCONF = 'nova.urls'
 
@@ -75,15 +83,8 @@ WSGI_APPLICATION = 'nova.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get('MERCATUS_DB_NAME'),
-        'USER': os.environ.get('MERCATUS_DB_USER'),
-        'PASSWORD': os.environ.get('MERCATUS_DB_PASSWORD'),
-        'HOST': os.environ.get('MERCATUS_DB_HOST'),
-        'PORT': '',
-        'TEST': {
-            'NAME': os.environ.get('MERCATUS_TEST_DB_NAME'),
-        }
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'mydatabase',
     }
 }
 
