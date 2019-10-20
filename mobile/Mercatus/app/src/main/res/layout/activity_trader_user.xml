@@ -10,7 +10,7 @@
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="wrap_content"
-        android:layout_height="320dp"
+        android:layout_height="520dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginRight="16dp"
@@ -25,7 +25,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cardV"
             android:layout_width="330dp"
-            android:layout_height="400dp"
+            android:layout_height="490dp"
             android:alpha="0.85"
             app:cardCornerRadius="6dp"
             app:cardElevation="6dp">
@@ -48,6 +48,25 @@
                         android:layout_gravity="center_horizontal"
                         android:src="@drawable/icon" />
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="25sp"
+                        android:text="@string/trader_user"
+                        android:layout_gravity="center"
+                        android:textColor="@color/colorAccent"
+                        android:layout_marginTop="15dp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="25sp"
+                        android:text="@string/sign_up"
+                        android:layout_gravity="center"
+                        android:textColor="@color/colorAccent"
+                        android:textStyle="bold"/>
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layName"
                         android:layout_width="match_parent"
@@ -60,7 +79,7 @@
                             android:layout_height="wrap_content"
                             android:hint="@string/name"
                             android:imeOptions="actionNext"
-                            android:inputType="textEmailAddress" />
+                            android:inputType="textPersonName" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -75,52 +94,81 @@
                             android:layout_height="wrap_content"
                             android:hint="@string/surname"
                             android:imeOptions="actionNext"
-                            android:inputType="textEmailAddress" />
+                            android:inputType="textPersonName" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/lMail"
+                        android:id="@+id/layMail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/eMail"
+                            android:id="@+id/editMail"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/mail_address"
                             android:imeOptions="actionNext"
-                            android:inputType="textEmailAddress" />
+                            android:inputType="textEmailAddress"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/lPassword"
+                        android:id="@+id/layPassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         app:passwordToggleEnabled="true">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/ePassword"
+                            android:id="@+id/editPassword"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/password"
-                            android:imeOptions="actionDone"
+                            android:imeOptions="actionNext"
                             android:inputType="textPassword" />
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <Button
-                        android:id="@+id/buttonLogin"
-                        android:layout_width="wrap_content"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layIban"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="25dp"
-                        android:text="@string/sign_up"
-                        android:background="@drawable/button_shape1"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginStart="8dp"/>
+                        android:layout_marginTop="10dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/editIban"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/iban_number"
+                            android:imeOptions="actionNext"
+                            android:inputType="number" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layID"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/editID"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/id_number"
+                            android:imeOptions="actionDone"
+                            android:inputType="number" />
+                    </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
             </ScrollView>
         </androidx.cardview.widget.CardView>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-24dp"
+            android:layout_gravity="bottom|center_horizontal"
+            android:clickable="true"
+            android:focusable="true"
+            tools:ignore="VectorDrawableCompat"
+            app:srcCompat="@drawable/ic_check" />
     </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
