@@ -1,8 +1,9 @@
-from .models import User
-from .libs.serializers import NovaSerializer
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import Group
 from rest_framework import serializers
+
+from .libs.serializers import NovaSerializer
+from .models import User
 
 
 class UserSerializer(NovaSerializer):
@@ -30,5 +31,6 @@ class UserSerializer(NovaSerializer):
         return super(UserSerializer, self).create(validated_data)
 
     def update(self, instance, validated_data):
-        validated_data['password'] = make_password(validated_data.get('password'))
+        if 'password' in validated_data:
+            validated_data['password'] = make_password(validated_data['password'])
         return super(UserSerializer, self).update(instance, validated_data)
