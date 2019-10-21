@@ -4,8 +4,9 @@ import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import LoaderButton from "../components/LoaderButton";
 import { useFormFields } from "../libs/hooksLib";
 import "./Login.css";
+import axios from "axios";
 
-export default function Login({ loginSuccess,api, ...props }) {
+export default function Login({ loginSuccess, api, ...props }) {
   const [isLoading, setIsLoading] = useState(false);
   const [fields, handleFieldChange] = useFormFields({
     email: "",
@@ -20,29 +21,31 @@ export default function Login({ loginSuccess,api, ...props }) {
     event.preventDefault();
 
     setIsLoading(true);
+    let success = false;
+    api
+      .post("auth_tokens", {
+        email: fields.email,
+        password: fields.password
+      })
+      .then(response => {
+        console.log(response);
+        if (response.statusText === "OK") {
+          success = true;
+          loginSuccess(response.data.user_id, response.data.token);
+        }
+      })
+      .catch(function(error) {
+        //console.log(error.data.email);
+      })
+      .finally(response => {
+        // console.log(response);
+      });
 
-        api.post('auth_tokens', {
-            email: fields.email,
-            password: fields.password
-          })
-          .then(function (response) {
-          
-          })
-          .catch(function (error) {
-          console.log(error.data.email);
-          })
-          .finally(function () {
-  // always executed
-          });
-          
-
-    if (
-      fields.email === "rick.sanchez@gmail.com" &&
-      fields.password === "123456"
-    ) {
+    /*
+    if (success) {
       loginSuccess();
-    } 
-    /*else {
+    }
+    else {
       try {
         await Auth.signIn(fields.email, fields.password);
         props.userHasAuthenticated(true);

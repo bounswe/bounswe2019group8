@@ -6,12 +6,12 @@ import Signup from "./containers/Signup";
 import TraderNavBar from "./components/traderNavbar";
 import ProfilePage from "./components/ProfilePage";
 import FollowItem from "./components/FollowItem";
-import axios from 'axios';
+import axios from "axios";
 
 class App extends Component {
   state = {
-    isGuest: false,
-    isBasic: true,
+    isGuest: true,
+    isBasic: false,
     isTrader: false,
     loginClicked: false,
     signUpClicked: false,
@@ -19,20 +19,31 @@ class App extends Component {
     searchClicked: false,
     successfulLogin: false,
     credentials: {
+      userToken: "",
+      id: "",
       userName: "rick-sanchez",
       userEmail: "rick.sanchez@gmail.com"
     },
     follows: [{ id: 1, userName: "Beth" }, { id: 2, userName: "Morty" }],
-    api : axios.create({
-      baseURL: 'http://127.0.0.1:8000/',
-    
+    api: axios.create({
+      baseURL: "http://127.0.0.1:8000/"
     })
   };
-  
 
- 
   render() {
-    
+    if (this.state.credentials.id !== "") {
+      var token = this.state.credentials.userToken;
+      console.log(this.state.credentials.id);
+      console.log("efe");
+      var url = "http://127.0.0.1:8000/users/" + this.state.credentials.id;
+      console.log(token);
+
+      axios
+        .get(url, { headers: { Authentication: `Token ${token}` } })
+        .then(res => {
+          //console.log(res);
+        });
+    }
     if (
       this.state.loginClicked === true &&
       this.state.signUpClicked === false
@@ -49,7 +60,7 @@ class App extends Component {
             credentials={this.state.credentials}
             follows={this.state.follows}
           />
-          <Login loginSuccess={this.loginIsSuccessful} api = {this.state.api}/>
+          <Login loginSuccess={this.loginIsSuccessful} api={this.state.api} />
         </React.Fragment>
       );
     } else if (
@@ -68,7 +79,7 @@ class App extends Component {
             credentials={this.state.credentials}
             follows={this.state.follows}
           />
-          <Signup  api = {this.state.api} signUpClicked={this.signUpClick}/>
+          <Signup api={this.state.api} signUpClicked={this.signUpClick} />
         </React.Fragment>
       );
     } else if (
@@ -168,10 +179,16 @@ class App extends Component {
   searchClick = () => {
     this.setState({ searchClicked: !this.state.searchClicked });
   };
-  loginIsSuccessful = () => {
-    this.setState({ isGuest: false });
+  loginIsSuccessful = (id1, token) => {
     this.setState({ isBasic: true });
+    this.setState({ isGuest: false });
     this.setState({ loginClicked: !this.state.loginClicked });
+    //console.log(id1);
+    var credentials = { ...this.state.credentials };
+    credentials.id = id1;
+    credentials.userToken = token;
+    this.setState({ credentials });
+    console.log(this.state.credentials.userToken);
   };
 }
 
