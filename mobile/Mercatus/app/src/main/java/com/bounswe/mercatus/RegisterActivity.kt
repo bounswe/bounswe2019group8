@@ -1,8 +1,8 @@
 package com.bounswe.mercatus
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_register.*
 
 
@@ -19,7 +19,7 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         btnTrader.setOnClickListener {
-            val intent = Intent(this, RegisterActivity::class.java)
+            val intent = Intent(this, TraderUserActivity::class.java)
             startActivity(intent)
         }
     }
