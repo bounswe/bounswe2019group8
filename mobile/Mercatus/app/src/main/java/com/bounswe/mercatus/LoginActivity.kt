@@ -2,7 +2,6 @@ package com.bounswe.mercatus
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.util.Patterns
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -37,7 +36,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         buttonRegister.setOnClickListener {
-            val intent = Intent(this, BasicUserActivity::class.java)
+            val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
         }
 
@@ -62,7 +61,7 @@ class LoginActivity : AppCompatActivity() {
         }
         return isValid
     }
-    fun String.isValidEmail(): Boolean
+    private fun String.isValidEmail(): Boolean
             = !this.isNullOrEmpty() &&
             Patterns.EMAIL_ADDRESS.matcher(this).matches()
 
@@ -72,7 +71,7 @@ class LoginActivity : AppCompatActivity() {
 
         mercatus.signin(signInInfo).enqueue(object : Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                Log.i("ApiRequest", "Request failed: " + t.toString())
+                //Log.i("ApiRequest", "Request failed: " + t.toString())
                 Toast.makeText(
                     this@LoginActivity,
                     t.message,
@@ -89,7 +88,6 @@ class LoginActivity : AppCompatActivity() {
                     Toast.makeText(this@LoginActivity, "Login failed.", Toast.LENGTH_SHORT).show()
                 }
             }
-
         })
     }
 }
