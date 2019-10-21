@@ -24,9 +24,9 @@ class App extends Component {
       userName: "rick-sanchez",
       userEmail: "rick.sanchez@gmail.com"
     },
-    follows: [{ id: 1, userName: "Beth" }, { id: 2, userName: "Morty" }],
+    users: [{ id: 1, userName: "Beth" }, { id: 2, userName: "Morty" }],
     api: axios.create({
-      baseURL: "http://127.0.0.1:8000/"
+      baseURL: "http://8.209.81.242:8000/"
     })
   };
 
@@ -35,7 +35,7 @@ class App extends Component {
       var token = this.state.credentials.userToken;
       console.log(this.state.credentials.id);
       console.log("efe");
-      var url = "http://127.0.0.1:8000/users/" + this.state.credentials.id;
+      var url = "http://8.209.81.242:8000/users/" + this.state.credentials.id;
       console.log(token);
 
       axios
@@ -58,7 +58,7 @@ class App extends Component {
             isBasic={this.state.isBasic}
             isTrader={this.state.isTrader}
             credentials={this.state.credentials}
-            follows={this.state.follows}
+            users={this.state.users}
           />
           <Login loginSuccess={this.loginIsSuccessful} api={this.state.api} />
         </React.Fragment>
@@ -77,7 +77,7 @@ class App extends Component {
             isBasic={this.state.isBasic}
             isTrader={this.state.isTrader}
             credentials={this.state.credentials}
-            follows={this.state.follows}
+            users={this.state.users}
           />
           <Signup api={this.state.api} signUpClicked={this.signUpClick} />
         </React.Fragment>
@@ -100,7 +100,7 @@ class App extends Component {
             isBasic={this.state.isBasic}
             isTrader={this.state.isTrader}
             credentials={this.state.credentials}
-            follows={this.state.follows}
+            users={this.state.users}
           />
         </React.Fragment>
       );
@@ -122,10 +122,10 @@ class App extends Component {
             isBasic={this.state.isBasic}
             isTrader={this.state.isTrader}
             credentials={this.state.credentials}
-            follows={this.state.follows}
+            users={this.state.users}
           />
-          {this.state.follows.map(follows => (
-            <FollowItem key={follows.id} follows={follows}></FollowItem>
+          {this.state.users.map(users => (
+            <FollowItem key={users.id} users={users}></FollowItem>
           ))}
         </React.Fragment>
       );
@@ -146,13 +146,13 @@ class App extends Component {
             isBasic={this.state.isBasic}
             isTrader={this.state.isTrader}
             credentials={this.state.credentials}
-            follows={this.state.follows}
+            users={this.state.users}
             searchClick={this.searchClick}
           />
           <ProfilePage
             profileClick={this.profileClick}
             credentials={this.state.credentials}
-            follows={this.state.follows}
+            users={this.state.users}
           />
         </React.Fragment>
       );

@@ -9,7 +9,7 @@ class ProfilePage extends React.Component {
       <div>
         <ProfileArea
           credentials={this.props.credentials}
-          follows={this.props.follows}
+          users={this.props.users}
         />
       </div>
     );

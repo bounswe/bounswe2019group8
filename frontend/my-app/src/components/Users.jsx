@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Card, ListGroup, Modal, ListGroupItem } from "react-bootstrap";
 
-export default function Followers({ follows, ...props }) {
+export default function Users({ users, ...props }) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -10,23 +10,24 @@ export default function Followers({ follows, ...props }) {
   return (
     <>
       <Button variant="outline-success" onClick={handleShow}>
-        Followers
+        Users
       </Button>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Followers</Modal.Title>
+          <Modal.Title>Users</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <ListGroup>
-            {follows.map(follows1 => (
+            {users.map(users1 => (
               <ListGroup.Item
                 action
                 variant="info"
-                key={follows1.id}
-                follows={follows1}
+                key={users1.id}
+                users={users1}
               >
-                {follows1.userName}
+                {users1.userName}
+                <button>Follow</button>
               </ListGroup.Item>
             ))}
           </ListGroup>

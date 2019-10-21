@@ -35,7 +35,8 @@ export default function Login({ loginSuccess, api, ...props }) {
         }
       })
       .catch(function(error) {
-        //console.log(error.data.email);
+        alert(error.message);
+        setIsLoading(false);
       })
       .finally(response => {
         // console.log(response);
