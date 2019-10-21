@@ -6,7 +6,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
-import com.bounswe.mercatus.Models.User
+import com.bounswe.mercatus.Models.UserBody
 import kotlinx.android.synthetic.main.activity_basic_user.*
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -71,7 +71,7 @@ class BasicUserActivity : AppCompatActivity() {
 
     private fun signup(date: String, email: String, name: String, surname: String, password: String){
         val mercatus = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
-        val registerInfo = User(date,email,name, surname,password)
+        val registerInfo = UserBody(date,email,name, surname,password)
 
         mercatus.registerUser(registerInfo).enqueue(object :
             Callback<ResponseBody> {

@@ -1,3 +1,6 @@
 package com.bounswe.mercatus.Models
 
-data class SignInRes(val token: String, val id: Int)
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class SignInRes(val token: String, val user_id: Long)
