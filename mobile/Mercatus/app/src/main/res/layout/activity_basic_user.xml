@@ -127,6 +127,14 @@
                             android:imeOptions="actionDone"
                             android:inputType="textPassword" />
                     </com.google.android.material.textfield.TextInputLayout>
+
+                    <DatePicker
+                        android:id="@+id/datePicker1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:datePickerMode="spinner"
+                        android:calendarViewShown="false"/>
+
                 </LinearLayout>
             </ScrollView>
         </androidx.cardview.widget.CardView>
