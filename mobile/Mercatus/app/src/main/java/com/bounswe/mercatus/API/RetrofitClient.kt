@@ -1,15 +1,13 @@
 package com.bounswe.mercatus.API
 
 import com.bounswe.mercatus.Models.SignInBody
-import com.bounswe.mercatus.Models.User
+import com.bounswe.mercatus.Models.UserBody
 import okhttp3.OkHttpClient
 import okhttp3.ResponseBody
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.Body
-import retrofit2.http.Headers
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface ApiInterface {
 
@@ -20,8 +18,29 @@ interface ApiInterface {
     @Headers("Content-Type:application/json")
     @POST("users")
     fun registerUser(
-        @Body info: User
+        @Body info: UserBody
     ): retrofit2.Call<ResponseBody>
+
+    @Headers(
+        "Content-Type: application/json"
+    )
+    @GET("users/{user_id}")
+    fun getUser(
+        @Path("user_id") id: Long,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<ResponseBody>
+
+
+
+    @Headers(
+        "Content-Type: application/json"
+    )
+    @PUT("users/{user_id}")
+    fun updateUser(
+        @Path("user_id") id: Long,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<ResponseBody>
+
 
 }
 class RetrofitInstance {
