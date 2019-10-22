@@ -1,6 +1,4 @@
-// src/containers/ProfilePage.js
-
-import React, { PropTypes } from "react";
+import React from "react";
 import ProfileArea from "./ProfileArea";
 
 class ProfilePage extends React.Component {
@@ -10,6 +8,7 @@ class ProfilePage extends React.Component {
         <ProfileArea
           credentials={this.props.credentials}
           users={this.props.users}
+          api={this.props.api}
         />
       </div>
     );

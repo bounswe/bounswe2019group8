@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {
-    FormText,
     FormGroup,
     FormControl,
     FormLabel
@@ -11,7 +10,6 @@ import "./Signup.css";
 
 export default function Signup({api, signUpClicked,...props}) {
     const [fields, handleFieldChange] = useFormFields({
-        username:"",
         firstName: "",
         lastName:"",
         dateOfBirth:"",
@@ -24,16 +22,14 @@ export default function Signup({api, signUpClicked,...props}) {
 
     function validateForm() {
         return (
-            fields.username.length > 0 &&
+            fields.firstName.length > 0 &&
+            fields.lastName.length > 0 &&
             fields.email.length > 0 &&
             fields.password.length > 0 &&
             fields.password === fields.confirmPassword
         );
     }
 
-    function validateConfirmationForm() {
-        return fields.confirmationCode.length > 0;
-    }
 
     async function handleSubmit(event) {
         event.preventDefault();
@@ -42,7 +38,6 @@ export default function Signup({api, signUpClicked,...props}) {
        
 
         api.post('/users', {
-            username:fields.username,
             email: fields.email,
             first_name: fields.firstName,
             last_name: fields.lastName,
@@ -55,7 +50,7 @@ export default function Signup({api, signUpClicked,...props}) {
 
           })
           .catch(function (error) {
-          alert("failed sign-up")
+          alert("Try Again")
           console.log(error);
           });
         
@@ -99,16 +94,7 @@ export default function Signup({api, signUpClicked,...props}) {
     function renderForm() {
         return (
             <form onSubmit={handleSubmit}>
-                <FormGroup controlId="username" bsSize="large">
-                    <FormLabel>Username</FormLabel>
-                    <FormControl
-                        autoFocus
-                        type="username"
-                        value={fields.username}
-                        onChange={handleFieldChange}
-                    />
-                </FormGroup>
-                <FormGroup controlId="email" bsSize="large">
+                <FormGroup controlId="email" size="large">
                     <FormLabel>Email</FormLabel>
                     <FormControl
                         autoFocus
@@ -117,7 +103,7 @@ export default function Signup({api, signUpClicked,...props}) {
                         onChange={handleFieldChange}
                     />
                 </FormGroup>
-                <FormGroup controlId="firstName" bsSize="large">
+                <FormGroup controlId="firstName" size="large">
                     <FormLabel>First Name</FormLabel>
                     <FormControl
                         type="firstName"
@@ -125,7 +111,7 @@ export default function Signup({api, signUpClicked,...props}) {
                         onChange={handleFieldChange}
                     />
                 </FormGroup>
-                <FormGroup controlId="lastName" bsSize="large">
+                <FormGroup controlId="lastName" size="large">
                     <FormLabel>Last Name</FormLabel>
                     <FormControl
                         type="lastName"
@@ -133,7 +119,7 @@ export default function Signup({api, signUpClicked,...props}) {
                         onChange={handleFieldChange}
                     />
                 </FormGroup>
-                <FormGroup controlId="dateOfBirth" bsSize="large">
+                <FormGroup controlId="dateOfBirth" size="large">
                     <FormLabel>Date Of Birth</FormLabel>
                     <FormControl
                         type="dateOfBirth"
@@ -141,7 +127,7 @@ export default function Signup({api, signUpClicked,...props}) {
                         onChange={handleFieldChange}
                     />
                 </FormGroup>
-                <FormGroup controlId="password" bsSize="large">
+                <FormGroup controlId="password" size="large">
                     <FormLabel>Password</FormLabel>
                     <FormControl
                         type="password"
@@ -149,7 +135,7 @@ export default function Signup({api, signUpClicked,...props}) {
                         onChange={handleFieldChange}
                     />
                 </FormGroup>
-                <FormGroup controlId="confirmPassword" bsSize="large">
+                <FormGroup controlId="confirmPassword" size="large">
                     <FormLabel>Confirm Password</FormLabel>
                     <FormControl
                         type="password"
@@ -161,7 +147,7 @@ export default function Signup({api, signUpClicked,...props}) {
                 <LoaderButton
                     block
                     type="submit"
-                    bsSize="large"
+                    size="large"
                     isLoading={isLoading}
                     disabled={!validateForm()}
                 >

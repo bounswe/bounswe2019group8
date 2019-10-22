@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Card, ListGroup, Modal, ListGroupItem } from "react-bootstrap";
+import { Button, ListGroup, Modal } from "react-bootstrap";
 
 export default function Users({ users, ...props }) {
   const [show, setShow] = useState(false);

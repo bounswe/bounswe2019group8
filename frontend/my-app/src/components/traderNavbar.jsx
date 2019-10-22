@@ -1,16 +1,13 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.css";
-import DropDownMenu from "./dropDownMenu";
+
 import {
   Button,
   Form,
   Navbar,
   Nav,
   NavDropdown,
-  FormGroup,
   FormControl,
-  FormLabel,
-  Figure
 } from "react-bootstrap";
 
 class TraderNavBar extends Component {
@@ -32,6 +29,7 @@ class TraderNavBar extends Component {
               src={require("./MERCATUS-LOGO72DP.png")}
               height="50"
               weight="70"
+              alt="mercatus"
             />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -71,6 +69,7 @@ class TraderNavBar extends Component {
               src={require("./MERCATUS-LOGO72DP.png")}
               height="50"
               weight="70"
+              alt="mercatus"
             />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -86,10 +85,13 @@ class TraderNavBar extends Component {
                 placeholder="Search"
                 className="mr-sm-2"
               />
-              <Button variant="outline-success">Search</Button>
+              <Button
+                  variant="outline-success"
+                  onClick={() => this.props.searchClick()}
+              >Search</Button>
             </Form>
             <NavDropdown
-              title={this.props.credentials.userName}
+              title={this.props.credentials.firstName + " " + this.props.credentials.lastName}
               id="basic-nav-dropdown"
             >
               <NavDropdown.Item
@@ -105,7 +107,7 @@ class TraderNavBar extends Component {
                 onClick={() => this.props.logoutClick()}
                 variant="outline-danger"
                 size="sm"
-                backGroundColor="white"
+                background-color ="white"
               >
                 Logout
               </Button>
@@ -134,6 +136,7 @@ class TraderNavBar extends Component {
               src={require("./MERCATUS-LOGO72DP.png")}
               height="50"
               weight="70"
+              alt="mercatus"
             />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />

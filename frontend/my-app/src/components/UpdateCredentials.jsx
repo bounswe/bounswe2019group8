@@ -1,58 +1,51 @@
 import React, { useState } from "react";
-import { FormText, FormGroup, FormControl, FormLabel } from "react-bootstrap";
+import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import LoaderButton from "../components/LoaderButton";
 import { useFormFields } from "../libs/hooksLib";
 import "./UpdateCredentials.css";
 
-export default function UpdateCredentials({ api, signUpClicked, ...props }) {
+export default function UpdateCredentials({ api, ...props }) {
   const [fields, handleFieldChange] = useFormFields({
-    username: "",
     firstName: "",
     lastName: "",
     dateOfBirth: "",
     email: "",
     password: "",
-    confirmPassword: "",
-    confirmationCode: ""
+    confirmPassword: ""
   });
   const [isLoading, setIsLoading] = useState(false);
 
   function validateForm() {
     return (
-      fields.username.length > 0 &&
-      fields.email.length > 0 &&
       fields.password.length > 0 &&
       fields.password === fields.confirmPassword
     );
   }
 
-  function validateConfirmationForm() {
-    return fields.confirmationCode.length > 0;
-  }
-
   async function handleSubmit(event) {
-    event.preventDefault();
 
-    setIsLoading(true);
 
-    api
-      .put("/users", {
-        username: fields.username,
-        email: fields.email,
-        first_name: fields.firstName,
-        last_name: fields.lastName,
-        date_of_birth: fields.dateOfBirth,
-        password: fields.password
-      })
-      .then(function(response) {
-        alert("update successful");
-        signUpClicked();
-      })
-      .catch(function(error) {
-        alert("failed update");
-        console.log(error);
-      });
+      event.preventDefault();
 
+      setIsLoading(true);
+
+      var url = "http://8.209.81.242:8000/users/" + this.props.credentials.id;
+
+      api.put(url, { headers: { Authorization: `Token ${this.props.credentials.token}` } },
+          {
+              first_name: fields.firstName,
+              last_name: fields.lastName,
+              email: fields.email,
+              date_of_birth: fields.dateOfBirth,
+              password: fields.password
+          })
+          .then(function(response) {
+              alert("update successful");
+          })
+          .catch(function(error) {
+              alert("failed update");
+              console.log(error);
+          });
     setIsLoading(false);
   }
 
@@ -91,37 +84,30 @@ export default function UpdateCredentials({ api, signUpClicked, ...props }) {
   function renderForm() {
     return (
       <form onSubmit={handleSubmit}>
-        <FormGroup controlId="username" bsSize="large">
-          <FormLabel>Username</FormLabel>
-          <FormControl
-            autoFocus
-            type="username"
-            value={fields.username}
-            onChange={handleFieldChange}
-          />
-        </FormGroup>
+          <FormGroup controlId="firstName" bsSize="large">
+              <FormLabel>First Name</FormLabel>
+              <FormControl
+                  autoFocus
+                  type="firstName"
+                  value={fields.firstName}
+                  onChange={handleFieldChange}
+              />
+          </FormGroup>
+          <FormGroup controlId="lastName" bsSize="large">
+              <FormLabel>Last Name</FormLabel>
+              <FormControl
+                  autoFocus
+                  type="lastName"
+                  value={fields.lastName}
+                  onChange={handleFieldChange}
+              />
+          </FormGroup>
         <FormGroup controlId="email" bsSize="large">
           <FormLabel>Email</FormLabel>
           <FormControl
             autoFocus
             type="email"
             value={fields.email}
-            onChange={handleFieldChange}
-          />
-        </FormGroup>
-        <FormGroup controlId="firstName" bsSize="large">
-          <FormLabel>First Name</FormLabel>
-          <FormControl
-            type="firstName"
-            value={fields.firstName}
-            onChange={handleFieldChange}
-          />
-        </FormGroup>
-        <FormGroup controlId="lastName" bsSize="large">
-          <FormLabel>Last Name</FormLabel>
-          <FormControl
-            type="lastName"
-            value={fields.lastName}
             onChange={handleFieldChange}
           />
         </FormGroup>
@@ -163,5 +149,8 @@ export default function UpdateCredentials({ api, signUpClicked, ...props }) {
     );
   }
 
-  return <div className="UpdateCredentials">{renderForm()}</div>;
-}
+  return (
+      <div className="UpdateCredentials">
+        {renderForm()}
+     </div>);
+    }

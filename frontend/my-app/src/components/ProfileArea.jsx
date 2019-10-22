@@ -1,6 +1,5 @@
-import React, { PropTypes, useState } from "react";
-import { Button, Card, ListGroup, Modal } from "react-bootstrap";
-import Users from "./Users";
+import React from "react";
+import { Button, Card, ListGroup} from "react-bootstrap";
 import UpdateCredentials from "./UpdateCredentials";
 class ProfileArea extends React.Component {
   state = { updateClicked: false };
@@ -10,76 +9,31 @@ class ProfileArea extends React.Component {
     };
     if (this.state.updateClicked === true) {
       return (
-        <Card style={{ width: "36rem" }}>
-          <Card.Img variant="top" src={require("./rick.jpg")} />
+        <Card style={{ width: "36rem", align: 'center' }} >
+
           <Card.Body>
-            <Card.Title>Bio</Card.Title>
-            <Card.Text>
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </Card.Text>
-          </Card.Body>
-          <ListGroup className="list-group-flush">
-            <ListGroup.Item>{this.props.credentials.userName}</ListGroup.Item>
-            <ListGroup.Item>{this.props.credentials.userEmail}</ListGroup.Item>
-            <ListGroup.Item>Another Info</ListGroup.Item>
-          </ListGroup>
-          <Card.Body>
-            <Card.Link href="#">
-              <Users users={this.props.users} />
-            </Card.Link>
-            <Card.Link href="#">
-              <Button style={myCredentials} variant="outline-success" size="sm">
-                Follows
-              </Button>
-            </Card.Link>
-            <Card.Link href="#">
-              <Button
-                style={myCredentials}
-                variant="outline-danger"
-                size="sm"
-                onClick={this.handleUpdateClick}
-              >
-                Update Info
-              </Button>
-            </Card.Link>
-            <Card.Link href="#">
               <UpdateCredentials
+                  credentials = {this.props.credentials}
+                  api={this.props.api}
                 style={myCredentials}
                 variant="outline-danger"
                 size="sm"
               >
                 Update Info
               </UpdateCredentials>
-            </Card.Link>
           </Card.Body>
         </Card>
       );
     } else {
       return (
-        <Card style={{ width: "36rem" }}>
+        <Card style={{ width: "36rem", align: "center" }}>
           <Card.Img variant="top" src={require("./rick.jpg")} />
-          <Card.Body>
-            <Card.Title>Bio</Card.Title>
-            <Card.Text>
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </Card.Text>
-          </Card.Body>
           <ListGroup className="list-group-flush">
-            <ListGroup.Item>{this.props.credentials.userName}</ListGroup.Item>
+            <ListGroup.Item>{this.props.credentials.firstName + " " + this.props.credentials.lastName}</ListGroup.Item>
             <ListGroup.Item>{this.props.credentials.userEmail}</ListGroup.Item>
-            <ListGroup.Item>Another Info</ListGroup.Item>
+            <ListGroup.Item>{this.props.credentials.dateOfBirth}</ListGroup.Item>
           </ListGroup>
           <Card.Body>
-            <Card.Link href="#">
-              <Users users={this.props.users} />
-            </Card.Link>
-            <Card.Link href="#">
-              <Button style={myCredentials} variant="outline-success" size="sm">
-                Follows
-              </Button>
-            </Card.Link>
             <Card.Link href="#">
               <Button
                 style={myCredentials}
@@ -96,7 +50,6 @@ class ProfileArea extends React.Component {
     }
   }
   handleUpdateClick = () => {
-    console.log("Efe hello");
     this.setState({ updateClicked: !this.state.updateClicked });
   };
 }

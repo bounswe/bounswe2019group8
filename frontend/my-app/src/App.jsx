@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Signup from "./containers/Signup";
 import TraderNavBar from "./components/traderNavbar";
 import ProfilePage from "./components/ProfilePage";
-import FollowItem from "./components/FollowItem";
+/*import FollowItem from "./components/FollowItem";*/
 import axios from "axios";
 
 class App extends Component {
@@ -21,8 +21,10 @@ class App extends Component {
     credentials: {
       userToken: "",
       id: "",
-      userName: "rick-sanchez",
-      userEmail: "rick.sanchez@gmail.com"
+      userEmail: "",
+      firstName: "User",
+      lastName: "Menu",
+      dateOfBirth: ""
     },
     users: [{ id: 1, userName: "Beth" }, { id: 2, userName: "Morty" }],
     api: axios.create({
@@ -33,15 +35,15 @@ class App extends Component {
   render() {
     if (this.state.credentials.id !== "") {
       var token = this.state.credentials.userToken;
-      console.log(this.state.credentials.id);
-      console.log("efe");
       var url = "http://8.209.81.242:8000/users/" + this.state.credentials.id;
-      console.log(token);
 
       axios
-        .get(url, { headers: { Authentication: `Token ${token}` } })
+        .get(url, { headers: { Authorization: `Token ${token}` } })
         .then(res => {
-          //console.log(res);
+          this.state.credentials.userEmail = res.data.email;
+          this.state.credentials.firstName = res.data.first_name;
+          this.state.credentials.lastName = res.data.last_name;
+          this.state.credentials.dateOfBirth = res.data.date_of_birth;
         });
     }
     if (
@@ -124,9 +126,6 @@ class App extends Component {
             credentials={this.state.credentials}
             users={this.state.users}
           />
-          {this.state.users.map(users => (
-            <FollowItem key={users.id} users={users}></FollowItem>
-          ))}
         </React.Fragment>
       );
     } else if (
@@ -153,6 +152,7 @@ class App extends Component {
             profileClick={this.profileClick}
             credentials={this.state.credentials}
             users={this.state.users}
+            api={this.state.api}
           />
         </React.Fragment>
       );
@@ -178,17 +178,21 @@ class App extends Component {
   };
   searchClick = () => {
     this.setState({ searchClicked: !this.state.searchClicked });
+    axios
+        .get('http://8.209.81.242:8000/users/', { headers: { Authorization: `Token ${this.state.credentials.userToken}` } })
+        .then(userList => {
+          this.state.users = userList
+        });
   };
   loginIsSuccessful = (id1, token) => {
+
     this.setState({ isBasic: true });
     this.setState({ isGuest: false });
     this.setState({ loginClicked: !this.state.loginClicked });
-    //console.log(id1);
     var credentials = { ...this.state.credentials };
     credentials.id = id1;
     credentials.userToken = token;
     this.setState({ credentials });
-    console.log(this.state.credentials.userToken);
   };
 }
 

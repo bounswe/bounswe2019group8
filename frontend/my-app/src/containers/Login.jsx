@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-import { Auth } from "aws-amplify";
 import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import LoaderButton from "../components/LoaderButton";
 import { useFormFields } from "../libs/hooksLib";
 import "./Login.css";
-import axios from "axios";
 
 export default function Login({ loginSuccess, api, ...props }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -35,7 +33,7 @@ export default function Login({ loginSuccess, api, ...props }) {
         }
       })
       .catch(function(error) {
-        alert(error.message);
+        alert("Invalid e-mail or password");
         setIsLoading(false);
       })
       .finally(response => {
@@ -61,7 +59,7 @@ export default function Login({ loginSuccess, api, ...props }) {
   return (
     <div className="Login">
       <form onSubmit={handleSubmit}>
-        <FormGroup controlId="email" bsSize="large">
+        <FormGroup controlId="email" size="large">
           <FormLabel>Email</FormLabel>
           <FormControl
             autoFocus
@@ -70,7 +68,7 @@ export default function Login({ loginSuccess, api, ...props }) {
             onChange={handleFieldChange}
           />
         </FormGroup>
-        <FormGroup controlId="password" bsSize="large">
+        <FormGroup controlId="password" size="large">
           <FormLabel>Password</FormLabel>
           <FormControl
             type="password"
@@ -81,7 +79,7 @@ export default function Login({ loginSuccess, api, ...props }) {
         <LoaderButton
           block
           type="submit"
-          bsSize="large"
+          size="large"
           isLoading={isLoading}
           disabled={!validateForm()}
         >
