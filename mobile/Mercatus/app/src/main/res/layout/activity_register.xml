@@ -37,7 +37,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cardV"
             android:layout_width="330dp"
-            android:layout_height="250dp"
+            android:layout_height="240dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_marginStart="0dp"
@@ -92,7 +92,7 @@
         android:layout_width="wrap_content"
         android:layout_height="250dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="350dp"
+        android:layout_marginTop="330dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="16dp"
         android:orientation="vertical"
@@ -105,11 +105,11 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cardV2"
             android:layout_width="330dp"
-            android:layout_height="250dp"
+            android:layout_height="240dp"
             android:alpha="0.85"
             app:cardBackgroundColor="@color/colorPrimary"
             app:cardCornerRadius="6dp"
-            app:cardElevation="6dp">>
+            app:cardElevation="6dp">
 
             <Button
                 android:id="@+id/btnTrader"

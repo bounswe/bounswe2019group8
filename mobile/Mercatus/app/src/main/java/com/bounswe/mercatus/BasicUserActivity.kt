@@ -1,5 +1,6 @@
 package com.bounswe.mercatus
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.util.Patterns
 import android.widget.Toast
@@ -12,6 +13,7 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 
 class BasicUserActivity : AppCompatActivity() {
 
@@ -19,35 +21,38 @@ class BasicUserActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_basic_user)
 
+        val c = Calendar.getInstance()
+        pickDate(c)
+
         floatingActionButton.setOnClickListener{
             val name = editName.text.toString()
             val surname = editSurname.text.toString()
             val email = editMail.text.toString()
             val password = editPassword.text.toString()
 
-            val date = "1906-05-13"
-            if (isValidForm(email, name, surname, password)) {
+            val date = dateTv.text.toString()
+            if (isValidForm(email, name, surname, password, date)) {
                 signup(date, email, password, surname, password)
             }
         }
     }
-    private fun isValidForm(email: String, name: String, surname: String, password: String):Boolean{
+    private fun isValidForm(email: String, name: String, surname: String, password: String, date: String):Boolean{
 
         var isValid = true
 
         if (name.isNullOrEmpty()){
-            layPassword.isErrorEnabled = true
-            layPassword.error = "Name cannot be empty!"
+            layName.isErrorEnabled = true
+            layName.error = "Name cannot be empty!"
             isValid = false
         }else{
-            layPassword.isErrorEnabled = false
+            layName.isErrorEnabled = false
         }
         if (surname.isNullOrEmpty()){
-            layPassword.isErrorEnabled = true
-            layPassword.error = "Surname cannot be empty!"
+            laySurname.isErrorEnabled = true
+            laySurname.error = "Surname cannot be empty!"
             isValid = false
         }else{
-            layPassword.isErrorEnabled = false
+            laySurname.isErrorEnabled = false
         }
         if (!email.isValidEmail()){
             layMail.isErrorEnabled = true
@@ -62,6 +67,10 @@ class BasicUserActivity : AppCompatActivity() {
             isValid = false
         }else{
             layPassword.isErrorEnabled = false
+        }
+        if (date == "Date"){
+            dateTv.error = "Date cannot be empty!"
+            isValid = false
         }
         return isValid
     }
@@ -87,12 +96,29 @@ class BasicUserActivity : AppCompatActivity() {
                     Toast.makeText(this@BasicUserActivity, "Registration success!", Toast.LENGTH_SHORT)
                         .show()
 
-                } else {
+                }
+                else if (response.code() == 201) {
+                    Toast.makeText(this@BasicUserActivity, "User exists!", Toast.LENGTH_SHORT)
+                        .show()
+                }
+                else{
                     Toast.makeText(this@BasicUserActivity, "Registration failed!", Toast.LENGTH_SHORT)
                         .show()
                 }
             }
         })
 
+    }
+    private fun pickDate(c : Calendar){
+        val year = c.get(Calendar.YEAR)
+        val month = c.get(Calendar.MONTH)
+        val day = c.get(Calendar.DAY_OF_MONTH)
+
+        dataPick.setOnClickListener{
+            val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener{view, mYear, Mmonth, mDayOfMonth ->
+                dateTv.setText("" + mYear + "-" + Mmonth + "-" + mDayOfMonth)
+            }, year, month, day)
+            dpd.show()
+        }
     }
 }

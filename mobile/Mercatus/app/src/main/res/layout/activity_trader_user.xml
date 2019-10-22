@@ -32,9 +32,7 @@
 
             <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:layout_editor_absoluteX="-162dp"
-                tools:layout_editor_absoluteY="413dp">
+                android:layout_height="match_parent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -157,6 +155,35 @@
                             android:imeOptions="actionDone"
                             android:inputType="number" />
                     </com.google.android.material.textfield.TextInputLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="10dp"
+                        android:layout_marginBottom="40dp">
+                        <Button
+                            android:id="@+id/dataPick"
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginStart="20dp"
+                            android:text="@string/date_pick"/>
+
+                        <TextView
+                            android:id="@+id/dateTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="20sp"
+                            android:text="Date"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginStart="15dp"
+                            android:textColor="@color/colorAccent"
+                            android:textStyle="bold"/>
+                    </LinearLayout>
+
                 </LinearLayout>
             </ScrollView>
         </androidx.cardview.widget.CardView>
