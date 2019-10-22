@@ -24,12 +24,14 @@ class ProfileActivity : AppCompatActivity() {
             val intent = Intent(this, ModifyActivity::class.java)
             intent.putExtra("userJson", JSON.stringify(UserRes.serializer(), userObj))
             startActivity(intent)
+            finish()
         }
 
         btnSearch.setOnClickListener {
             val intent = Intent(this, SearchActivity::class.java)
             intent.putExtra("userJson", JSON.stringify(UserRes.serializer(), userObj))
             startActivity(intent)
+            finish()
         }
 
 

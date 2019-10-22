@@ -1,6 +1,8 @@
 package com.bounswe.mercatus
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Patterns
 import android.widget.Toast
@@ -29,8 +31,10 @@ class LoginActivity : AppCompatActivity() {
         buttonSigin.setOnClickListener {
             val email = editMail.text.toString()
             val password = editPassword.text.toString()
+            val sharedPreferences = getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
+            val editor = sharedPreferences.edit()
             if (isValidForm(email, password)){
-                signin(email, password)
+                signin(email, password, editor)
             }
         }
 
@@ -69,7 +73,7 @@ class LoginActivity : AppCompatActivity() {
             = !this.isNullOrEmpty() &&
             Patterns.EMAIL_ADDRESS.matcher(this).matches()
 
-    private fun signin(email: String, password: String){
+    private fun signin(email: String, password: String, editor: SharedPreferences.Editor){
         val mercatus = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
         val signInInfo = SignInBody(email, password)
 
@@ -95,6 +99,11 @@ class LoginActivity : AppCompatActivity() {
                             print("yass")
                             val userObj = JSON.parse(UserRes.serializer(), response.body()?.string() ?: "{\"error\": \"error\"}")
                             val intent = Intent(this@LoginActivity, ProfileActivity::class.java)
+
+
+                            editor.putString("token", signInRes.token)
+                            editor.apply()
+
                             intent.putExtra("userJson", JSON.stringify(UserRes.serializer(), userObj))
                             startActivity(intent)
                             finish()

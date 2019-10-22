@@ -1,75 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ModifyActivity"
+    android:background="@color/colorPrimary">
 
-    <LinearLayout android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal"
-        >
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="520dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3">
 
-        <TextView
-        android:id="@+id/name"
-        android:layout_width="107dp"
-        android:layout_height="wrap_content"
-        android:text="Name:"
-        android:layout_marginLeft="20dp"/>
-        <EditText
-            android:id="@+id/nameChange"
-            android:layout_width="107dp"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardV"
+            android:layout_width="330dp"
+            android:layout_height="490dp"
+            android:alpha="0.85"
+            app:cardCornerRadius="6dp"
+            app:cardElevation="6dp">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:layout_width="200dp"
+                        android:layout_height="60dp"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/icon" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="25sp"
+                        android:text="Edit Profile"
+                        android:layout_gravity="center"
+                        android:textColor="@color/colorAccent"
+                        android:textStyle="bold"/>
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layMail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/editMail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/mail_address"
+                            android:imeOptions="actionNext"
+                            android:inputType="textEmailAddress" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        app:passwordToggleEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/editPassword"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/password"
+                            android:imeOptions="actionDone"
+                            android:inputType="textPassword" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="10dp"
+                        android:layout_marginBottom="40dp">
+                        <Button
+                            android:id="@+id/dataPick"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginStart="20dp"
+                            android:text="@string/date_pick"/>
+
+                        <TextView
+                            android:id="@+id/dateTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="20sp"
+                            android:text="Date"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginStart="15dp"
+                            android:textColor="@color/colorAccent"
+                            android:textStyle="bold"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </ScrollView>
+        </androidx.cardview.widget.CardView>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActionButton"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="GET_NAME" />
-    </LinearLayout>
-
-    <LinearLayout android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal"
-        >
-
-        <TextView
-            android:id="@+id/email"
-            android:layout_width="107dp"
-            android:layout_height="wrap_content"
-            android:text="Email::"
-            android:layout_marginLeft="20dp"/>
-        <EditText
-            android:id="@+id/mailChange"
-            android:layout_width="107dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="GET_EMAIL" />
-    </LinearLayout>
-
-    <LinearLayout android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal"
-        >
-
-        <TextView
-            android:id="@+id/birthday"
-            android:layout_width="107dp"
-            android:layout_height="wrap_content"
-            android:text="Birthday:"
-            android:layout_marginLeft="20dp"/>
-        <EditText
-            android:id="@+id/birthChange"
-            android:layout_width="107dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="GET_BIRTH" />
-    </LinearLayout>
-
-    <ImageButton
-        android:id="@+id/btnSave"
-        android:layout_width="59dp"
-        android:layout_height="wrap_content"
-        app:srcCompat="@android:drawable/ic_menu_save"
-        android:layout_gravity="center"/>
-
-</LinearLayout>
+            android:layout_marginTop="-24dp"
+            android:layout_gravity="bottom|center_horizontal"
+            android:clickable="true"
+            android:focusable="true"
+            tools:ignore="VectorDrawableCompat"
+            app:srcCompat="@drawable/ic_check" />
+    </FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

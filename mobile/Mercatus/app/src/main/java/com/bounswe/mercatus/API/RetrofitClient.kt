@@ -2,6 +2,7 @@ package com.bounswe.mercatus.API
 
 import com.bounswe.mercatus.Models.SignInBody
 import com.bounswe.mercatus.Models.UserBody
+import com.google.gson.JsonElement
 import okhttp3.OkHttpClient
 import okhttp3.ResponseBody
 import okhttp3.logging.HttpLoggingInterceptor
@@ -30,13 +31,12 @@ interface ApiInterface {
         @Header("Authorization") token: String
     ): retrofit2.Call<ResponseBody>
 
-
-
     @Headers(
         "Content-Type: application/json"
     )
     @PUT("users/{user_id}")
     fun updateUser(
+        @Body userBody: MutableMap<String, String>,
         @Path("user_id") id: Long,
         @Header("Authorization") token: String
     ): retrofit2.Call<ResponseBody>

@@ -33,7 +33,7 @@ class TraderUserActivity : AppCompatActivity() {
 
             val date = dateTv.text.toString()
             if (isValidForm(email, name, surname, password, iban, id, date)) {
-                signup(date, email, password, surname, password)
+                signup(date, email, name, surname, password)
             }
         }
     }

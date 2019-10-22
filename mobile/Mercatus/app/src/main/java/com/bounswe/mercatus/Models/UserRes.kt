@@ -18,5 +18,7 @@ data class UserRes(
     val last_name: String,
     val date_of_birth: String,
     val groups: List<Int>,
-    val profile_image: String?
+    val profile_image: String?,
+    val followers: List<UserRes>,
+    val followings: List<UserRes>
 )
