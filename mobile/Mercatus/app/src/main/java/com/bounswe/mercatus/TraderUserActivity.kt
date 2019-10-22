@@ -1,5 +1,6 @@
 package com.bounswe.mercatus
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.util.Patterns
 import android.widget.Toast
@@ -12,6 +13,7 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 
 class TraderUserActivity : AppCompatActivity() {
 
@@ -19,23 +21,25 @@ class TraderUserActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_trader_user)
 
-
+        val c = Calendar.getInstance()
+        pickDate(c)
         floatingActionButton.setOnClickListener{
             val name = editName.text.toString()
             val surname = editSurname.text.toString()
             val email = editMail.text.toString()
             val password = editPassword.text.toString()
-            val iban = editIban.text.toString().toInt()
-            val id  = editID.text.toString().toInt()
+            val iban = editIban.text.toString()
+            val id  = editID.text.toString()
 
-            val date = "1906-05-13"
-            if (isValidForm(email, name, surname, password, iban, id)) {
+            val date = dateTv.text.toString()
+            if (isValidForm(email, name, surname, password, iban, id, date)) {
                 signup(date, email, password, surname, password)
             }
         }
     }
 
-    private fun isValidForm(email: String, name: String, surname: String, password: String, iban: Int, id: Int):Boolean{
+    private fun isValidForm(email: String, name: String, surname: String,
+                            password: String, iban: String, id: String, date:String):Boolean{
 
         var isValid = true
 
@@ -67,6 +71,24 @@ class TraderUserActivity : AppCompatActivity() {
         }else{
             layPassword.isErrorEnabled = false
         }
+        if (iban.length > 24 || iban.length < 24){
+            layIban.isErrorEnabled = true
+            layIban.error = "Iban is not valid!"
+            isValid = false
+        }else{
+            layIban.isErrorEnabled = false
+        }
+        if (id.length > 11 || id.length < 11){
+            layID.isErrorEnabled = true
+            layID.error = "TC id is not valid!"
+            isValid = false
+        }else{
+            layID.isErrorEnabled = false
+        }
+        if (date == "Date"){
+            dateTv.error = "Date cannot be empty!"
+            isValid = false
+        }
         return isValid
     }
     private fun String.isValidEmail(): Boolean
@@ -97,6 +119,17 @@ class TraderUserActivity : AppCompatActivity() {
                 }
             }
         })
+    }
+    private fun pickDate(c : Calendar){
+        val year = c.get(Calendar.YEAR)
+        val month = c.get(Calendar.MONTH)
+        val day = c.get(Calendar.DAY_OF_MONTH)
 
+        dataPick.setOnClickListener{
+            val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener{ view, mYear, Mmonth, mDayOfMonth ->
+                dateTv.setText("" + mYear + "-" + Mmonth + "-" + mDayOfMonth)
+            }, year, month, day)
+            dpd.show()
+        }
     }
 }

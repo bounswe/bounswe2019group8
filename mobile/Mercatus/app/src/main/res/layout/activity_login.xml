@@ -10,7 +10,7 @@
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="wrap_content"
-        android:layout_height="320dp"
+        android:layout_height="300dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginRight="16dp"
@@ -25,7 +25,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cardV"
             android:layout_width="330dp"
-            android:layout_height="400dp"
+            android:layout_height="340dp"
             android:alpha="0.85"
             app:cardCornerRadius="6dp"
             app:cardElevation="6dp">
@@ -82,9 +82,9 @@
                    <Button
                         android:id="@+id/buttonSigin"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="40dp"
                         android:layout_gravity="center"
-                        android:layout_marginTop="25dp"
+                        android:layout_marginTop="30dp"
                         android:text="@string/sign_in"
                         android:background="@drawable/button_shape1"
                         android:layout_marginEnd="8dp"
@@ -96,9 +96,9 @@
     <Button
         android:id="@+id/buttonGuest"
         android:layout_width="150dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_gravity="center"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="35dp"
         android:text="@string/continue_guest"
         android:background="@drawable/button_shape1"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -110,9 +110,9 @@
     <Button
         android:id="@+id/buttonRegister"
         android:layout_width="150dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_gravity="center"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="20dp"
         android:text="@string/sign_up"
         android:background="@drawable/button_shape1"
         app:layout_constraintLeft_toLeftOf="parent"
