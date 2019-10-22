@@ -31,14 +31,14 @@ export default function UpdateCredentials({ api, ...props }) {
 
       var url = "http://8.209.81.242:8000/users/" + this.props.credentials.id;
 
-      api.put(url, { headers: { Authorization: `Token ${this.props.credentials.token}` } },
+      api.put(url,
           {
               first_name: fields.firstName,
               last_name: fields.lastName,
               email: fields.email,
               date_of_birth: fields.dateOfBirth,
               password: fields.password
-          })
+          }, { headers: { Authorization: `Token ${this.props.credentials.token}` } })
           .then(function(response) {
               alert("update successful");
           })
