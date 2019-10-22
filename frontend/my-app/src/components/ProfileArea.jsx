@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, Card, ListGroup} from "react-bootstrap";
+import Users from "./Users";
 import UpdateCredentials from "./UpdateCredentials";
 class ProfileArea extends React.Component {
   state = { updateClicked: false };
@@ -34,6 +35,14 @@ class ProfileArea extends React.Component {
             <ListGroup.Item>{this.props.credentials.dateOfBirth}</ListGroup.Item>
           </ListGroup>
           <Card.Body>
+              <Card.Link href="#">
+                  <Users users={this.props.users} />
+              </Card.Link>
+              <Card.Link href="#">
+                  <Button style={myCredentials} variant="outline-success" size="sm">
+                      Follows
+                  </Button>
+              </Card.Link>
             <Card.Link href="#">
               <Button
                 style={myCredentials}
