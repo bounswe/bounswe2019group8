@@ -26,7 +26,7 @@ export default function Users({ users, ...props }) {
                 key={users1.id}
                 users={users1}
               >
-                {users1.userName}
+                {users1.first_name + " " + users1.last_name}
                 <button>Follow</button>
               </ListGroup.Item>
             ))}

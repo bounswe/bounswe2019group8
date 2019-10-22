@@ -26,7 +26,7 @@ class App extends Component {
       lastName: "Menu",
       dateOfBirth: ""
     },
-    users: [{ id: 1, userName: "Beth" }, { id: 2, userName: "Morty" }],
+    users: [],
     api: axios.create({
       baseURL: "http://8.209.81.242:8000/"
     })
@@ -38,6 +38,13 @@ class App extends Component {
       var url = "http://8.209.81.242:8000/users/" + this.state.credentials.id;
 
       axios
+        .get('http://8.209.81.242:8000/users', { headers: { Authorization: `Token ${token}` } })
+        .then(res => {
+          console.log(res);
+          this.setState({ users: res.data });
+        });
+
+      axios
         .get(url, { headers: { Authorization: `Token ${token}` } })
         .then(res => {
           this.state.credentials.userEmail = res.data.email;
@@ -46,6 +53,8 @@ class App extends Component {
           this.state.credentials.dateOfBirth = res.data.date_of_birth;
         });
     }
+
+    
     if (
       this.state.loginClicked === true &&
       this.state.signUpClicked === false

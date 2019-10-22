@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, Card, ListGroup} from "react-bootstrap";
+import Users from "./Users";
 import UpdateCredentials from "./UpdateCredentials";
 class ProfileArea extends React.Component {
 
@@ -14,6 +15,30 @@ class ProfileArea extends React.Component {
   componentDidMount() {
     console.log(this.props);
     this.updateMe();
+  }
+
+  follow(id) {
+    console.log('follow');
+    console.log(id);
+
+    this.props.api.post(`users/${this.props.credentials.id}/followings/${id}`, { headers: { Authorization: `Token ${this.props.credentials.userToken}` } },
+      {
+       following_pk: id,
+     })
+      .then(response => {
+        console.log(response);
+
+
+          console.log('xxx');
+          console.log(this.state);
+          console.log(id);
+          const me = {
+            ...this.state.me,
+            followings: this.state.me.followings.filter(x => x.pk != id)
+          }
+
+          this.setState({ me: me });
+      })
   }
 
   unfollow(id) {
@@ -96,8 +121,31 @@ class ProfileArea extends React.Component {
 
               </ListGroup>
             </ListGroup.Item>
+
+            <ListGroup.Item>
+            <ListGroup>
+              Other users you can follow:
+              {this.props.users.map(users1 => (
+                <ListGroup.Item
+                  action
+                  variant="info"
+                  key={users1.id}
+                  users={users1}
+                >
+                  {users1.first_name + " " + users1.last_name}
+                  <button style={{margin: "10px"}} onClick={() => this.follow(users1.pk)}>Follow</button>
+                </ListGroup.Item>
+              ))}
+            </ListGroup>
+            </ListGroup.Item>
           </ListGroup>
           <Card.Body>
+              <Card.Link href="#">
+
+              </Card.Link>
+              <Card.Link href="#">
+
+              </Card.Link>
             <Card.Link href="#">
               <Button
                 style={myCredentials}
