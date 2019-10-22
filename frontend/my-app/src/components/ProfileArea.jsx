@@ -21,10 +21,10 @@ class ProfileArea extends React.Component {
     console.log('follow');
     console.log(id);
 
-    this.props.api.post(`users/${this.props.credentials.id}/followings/${id}`, { headers: { Authorization: `Token ${this.props.credentials.userToken}` } },
-      {
-       following_pk: id,
-     })
+    this.props.api.post(`users/${this.props.credentials.id}/followings`,{
+     following_pk: id,
+   }, { headers: { Authorization: `Token ${this.props.credentials.userToken}` } },
+      )
       .then(response => {
         console.log(response);
 
@@ -32,12 +32,7 @@ class ProfileArea extends React.Component {
           console.log('xxx');
           console.log(this.state);
           console.log(id);
-          const me = {
-            ...this.state.me,
-            followings: this.state.me.followings.filter(x => x.pk != id)
-          }
-
-          this.setState({ me: me });
+          
       })
   }
 
