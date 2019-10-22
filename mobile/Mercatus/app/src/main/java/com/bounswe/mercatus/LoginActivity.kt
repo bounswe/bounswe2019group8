@@ -8,11 +8,15 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
 import com.bounswe.mercatus.Models.SignInBody
+import com.bounswe.mercatus.Models.SignInRes
+import com.bounswe.mercatus.Models.UserRes
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.serialization.json.*
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.Serializable
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -81,9 +85,23 @@ class LoginActivity : AppCompatActivity() {
 
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if (response.code() == 200) {
-                    val intent = Intent(this@LoginActivity, GuestActivity::class.java)
-                    startActivity(intent)
-                    finish()
+                    val signInRes = JSON.parse(SignInRes.serializer(), response.body()?.string() ?: "{\"error\": \"error\"}")
+                    mercatus.getUser(signInRes.user_id, "Token ${signInRes.token}").enqueue(object : Callback<ResponseBody> {
+                        override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                            print("hataa")
+                        }
+
+                        override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                            print("yass")
+                            val userObj = JSON.parse(UserRes.serializer(), response.body()?.string() ?: "{\"error\": \"error\"}")
+                            val intent = Intent(this@LoginActivity, ProfileActivity::class.java)
+                            intent.putExtra("userJson", JSON.stringify(UserRes.serializer(), userObj))
+                            startActivity(intent)
+                            finish()
+                            print(userObj)
+                        }
+                    })
+
                 } else {
                     Toast.makeText(this@LoginActivity, "Login failed.", Toast.LENGTH_SHORT).show()
                 }
