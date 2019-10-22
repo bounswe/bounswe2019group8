@@ -83,8 +83,15 @@ WSGI_APPLICATION = 'nova.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'mydatabase',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.environ.get('MERCATUS_DB_NAME'),
+        'USER': os.environ.get('MERCATUS_DB_USER'),
+        'PASSWORD': os.environ.get('MERCATUS_DB_PASSWORD'),
+        'HOST': os.environ.get('MERCATUS_DB_HOST'),
+        'PORT': os.environ.get('MERCATUS_DB_PORT'),
+        'TEST': {
+            'NAME': os.environ.get('MERCATUS_TEST_DB_NAME'),
+        }
     }
 }
 

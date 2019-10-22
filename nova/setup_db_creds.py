@@ -11,7 +11,7 @@ def create_dir_if_not_exists(path):
 
 
 CRED_KEYS = ['MERCATUS_DB_NAME', 'MERCATUS_DB_USER', 'MERCATUS_DB_PASSWORD', 'MERCATUS_DB_HOST',
-             'MERCATUS_TEST_DB_NAME']
+             'MERCATUS_DB_PORT', 'MERCATUS_TEST_DB_NAME']
 
 CONDA_DIR = os.path.join(os.environ.get("CONDA_PREFIX"), "etc", "conda")
 ACTIVATE_DIR = os.path.join(CONDA_DIR, "activate.d")
