@@ -17,7 +17,8 @@ class ProfileArea extends React.Component {
     this.updateMe();
   }
 
-  follow(id) {
+  follow(user) {
+    let id = user.pk;
     console.log('follow');
     console.log(id);
 
@@ -32,7 +33,12 @@ class ProfileArea extends React.Component {
           console.log('xxx');
           console.log(this.state);
           console.log(id);
-          
+          const me = {
+            ...this.state.me,
+            followings: [...this.state.me.followings, user]
+          }
+
+          this.setState({ me: me });
       })
   }
 
@@ -128,7 +134,7 @@ class ProfileArea extends React.Component {
                   users={users1}
                 >
                   {users1.first_name + " " + users1.last_name}
-                  <button style={{margin: "10px"}} onClick={() => this.follow(users1.pk)}>Follow</button>
+                  <button style={{margin: "10px"}} onClick={() => this.follow(users1)}>Follow</button>
                 </ListGroup.Item>
               ))}
             </ListGroup>
