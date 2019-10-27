@@ -22,8 +22,8 @@ class App extends Component {
       userToken: "",
       id: "",
       userEmail: "",
-      firstName: "User",
-      lastName: "Menu",
+      firstName: "",
+      lastName: "",
       dateOfBirth: ""
     },
     users: [],
@@ -33,17 +33,19 @@ class App extends Component {
   };
 
   render() {
+    //console.log(localStorage.credentials.id);
+    //this.componentDidMount();
     if (this.state.credentials.id !== "") {
       var token = this.state.credentials.userToken;
       var url = "http://8.209.81.242:8000/users/" + this.state.credentials.id;
 
       axios
-        .get('http://8.209.81.242:8000/users', { headers: { Authorization: `Token ${token}` } })
+        .get("http://8.209.81.242:8000/users", {
+          headers: { Authorization: `Token ${token}` }
+        })
         .then(res => {
-          console.log(res);
           this.setState({ users: res.data });
         });
-
       axios
         .get(url, { headers: { Authorization: `Token ${token}` } })
         .then(res => {
@@ -54,7 +56,6 @@ class App extends Component {
         });
     }
 
-    
     if (
       this.state.loginClicked === true &&
       this.state.signUpClicked === false
@@ -179,8 +180,11 @@ class App extends Component {
     this.setState({ loginClicked: !this.state.loginClicked });
     this.setState({ signUpClicked: false });
     this.setState({ isTrader: false });
+    this.setState({ isBasic: false });
     this.setState({ isGuest: true });
     this.setState({ profileClicked: false });
+    localStorage.setItem("userId", null);
+    localStorage.setItem("userToken", null);
   };
   profileClick = () => {
     this.setState({ profileClicked: !this.state.profileClicked });
@@ -188,13 +192,14 @@ class App extends Component {
   searchClick = () => {
     this.setState({ searchClicked: !this.state.searchClicked });
     axios
-        .get('http://8.209.81.242:8000/users/', { headers: { Authorization: `Token ${this.state.credentials.userToken}` } })
-        .then(userList => {
-          this.state.users = userList
-        });
+      .get("http://8.209.81.242:8000/users/", {
+        headers: { Authorization: `Token ${this.state.credentials.userToken}` }
+      })
+      .then(userList => {
+        this.state.users = userList;
+      });
   };
   loginIsSuccessful = (id1, token) => {
-
     this.setState({ isBasic: true });
     this.setState({ isGuest: false });
     this.setState({ loginClicked: !this.state.loginClicked });
@@ -202,7 +207,46 @@ class App extends Component {
     credentials.id = id1;
     credentials.userToken = token;
     this.setState({ credentials });
+    localStorage.setItem("userToken", credentials.userToken);
+    localStorage.setItem("userId", credentials.id);
+    //console.log(localStorage.getItem(""));
   };
+
+  //mounting function for local storage
+
+  componentDidMount() {
+    //console.log("efe");
+    if (localStorage.getItem("userId") !== null) {
+      var url =
+        "http://8.209.81.242:8000/users/" + localStorage.getItem("userId");
+      var credentials1 = { ...this.state.credentials };
+      var id = localStorage.getItem("userId");
+      var token = localStorage.getItem("userToken");
+      credentials1.id = id;
+      credentials1.userToken = token;
+      this.setState({ isTrader: true, isGuest: false });
+      var userType;
+
+      axios
+        .get(url, { headers: { Authorization: `Token ${token}` } })
+        .then(res => {
+          userType = res.data.groups;
+          console.log(userType);
+          credentials1.firstName = res.data.first_name;
+          credentials1.lastName = res.data.last_name;
+          this.setState({ credentials: credentials1 });
+        });
+
+      //const profileClicked = localStorage.getItem("profileClicked");
+      //console.log(credentials1.id);
+      this.setState({
+        //credentials: credentials1
+        //loginClicked: loginClicked
+        //signUpClicked,
+        //profileClicked
+      });
+    }
+  }
 }
 
 export default App;

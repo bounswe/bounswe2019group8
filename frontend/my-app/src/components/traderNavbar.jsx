@@ -7,7 +7,7 @@ import {
   Navbar,
   Nav,
   NavDropdown,
-  FormControl,
+  FormControl
 } from "react-bootstrap";
 
 class TraderNavBar extends Component {
@@ -86,12 +86,18 @@ class TraderNavBar extends Component {
                 className="mr-sm-2"
               />
               <Button
-                  variant="outline-success"
-                  onClick={() => this.props.searchClick()}
-              >Search</Button>
+                variant="outline-success"
+                onClick={() => this.props.searchClick()}
+              >
+                Search
+              </Button>
             </Form>
             <NavDropdown
-              title={this.props.credentials.firstName + " " + this.props.credentials.lastName}
+              title={
+                this.props.credentials.firstName +
+                " " +
+                this.props.credentials.lastName
+              }
               id="basic-nav-dropdown"
             >
               <NavDropdown.Item
@@ -107,7 +113,7 @@ class TraderNavBar extends Component {
                 onClick={() => this.props.logoutClick()}
                 variant="outline-danger"
                 size="sm"
-                background-color ="white"
+                background-color="white"
               >
                 Logout
               </Button>
@@ -155,7 +161,11 @@ class TraderNavBar extends Component {
               <Button variant="outline-success">Search</Button>
             </Form>
             <NavDropdown
-              title={this.props.credentials.userName}
+              title={
+                this.props.credentials.firstName +
+                " " +
+                this.props.credentials.lastName
+              }
               id="basic-nav-dropdown"
             >
               <NavDropdown.Item

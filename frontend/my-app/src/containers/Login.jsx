@@ -26,7 +26,7 @@ export default function Login({ loginSuccess, api, ...props }) {
         password: fields.password
       })
       .then(response => {
-        console.log(response);
+        //console.log(response);
         if (response.statusText === "OK") {
           success = true;
           loginSuccess(response.data.user_id, response.data.token);
