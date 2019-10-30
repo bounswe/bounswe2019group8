@@ -19,7 +19,6 @@ export default function Login({ loginSuccess, api, ...props }) {
     event.preventDefault();
 
     setIsLoading(true);
-    let success = false;
     api
       .post("auth_tokens", {
         email: fields.email,
@@ -28,7 +27,7 @@ export default function Login({ loginSuccess, api, ...props }) {
       .then(response => {
         //console.log(response);
         if (response.statusText === "OK") {
-          success = true;
+
           loginSuccess(response.data.user_id, response.data.token);
         }
       })

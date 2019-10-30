@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.css";
-
+import "./traderNavbar.css"
 import {
   Button,
   Form,
@@ -14,46 +14,36 @@ class TraderNavBar extends Component {
   state = {};
 
   render() {
-    const navBarStyles = {
+   /* const navBarStyles = {
       color: "green",
       fontWeight: "bold"
-    };
-    const loginStyles = {
+    };*/
+  /*const loginStyles = {
       margin: 10
-    };
+    };*/
     if (this.props.isGuest === true) {
       return (
         <Navbar bg="light" expand="lg">
-          <Navbar.Brand href="#" style={navBarStyles}>
-            <img
-              src={require("./MERCATUS-LOGO72DP.png")}
-              height="50"
-              weight="70"
-              alt="mercatus"
-            />
-          </Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          {this.initalsOfNavbar()}
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="mr-auto">
-              <Nav.Link href="#">Trading Equipment</Nav.Link>
-              <Nav.Link href="#">Events</Nav.Link>
-              <Nav.Link href="#">Articles</Nav.Link>
-            </Nav>
-
-            <Button
-              style={loginStyles}
+           {this.otherPages()}
+            <button
+              id = "loginStyles"
+              class = "myButton"
               onClick={() => this.props.signUpClick()}
-              variant="outline-danger"
+              //variant="outline-success"
             >
               SignUp
-            </Button>
-            <Button
-              style={loginStyles}
+            </button>
+            
+            <button
+              id = "loginStyles"
+              class = "myButton"
               onClick={() => this.props.loginClick()}
-              variant="outline-success"
+              //variant="outline-success"
             >
               Login
-            </Button>
+            </button>
             {/* <Form inline>
             <FormControl type="text" placeholder="Search" className="mr-sm-2" />
             <Button variant="outline-success">Search</Button>
@@ -64,21 +54,9 @@ class TraderNavBar extends Component {
     } else if (this.props.isBasic === true) {
       return (
         <Navbar bg="light" expand="lg">
-          <Navbar.Brand href="#" style={navBarStyles}>
-            <img
-              src={require("./MERCATUS-LOGO72DP.png")}
-              height="50"
-              weight="70"
-              alt="mercatus"
-            />
-          </Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          {this.initalsOfNavbar()}
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="mr-auto">
-              <Nav.Link href="#">Trading Equipment</Nav.Link>
-              <Nav.Link href="#">Events</Nav.Link>
-              <Nav.Link href="#">Articles</Nav.Link>
-            </Nav>
+           {this.otherPages()}
             <Form inline>
               <FormControl
                 type="text"
@@ -109,7 +87,7 @@ class TraderNavBar extends Component {
               <NavDropdown.Item href="#">Settings</NavDropdown.Item>
               <NavDropdown.Divider />
               <Button
-                style={loginStyles}
+                id = "loginStyles"
                 onClick={() => this.props.logoutClick()}
                 variant="outline-danger"
                 size="sm"
@@ -137,7 +115,7 @@ class TraderNavBar extends Component {
     } else if (this.props.isTrader === true) {
       return (
         <Navbar bg="light" expand="lg">
-          <Navbar.Brand href="#" style={navBarStyles}>
+          <Navbar.Brand href="#" className="navBarSyles">
             <img
               src={require("./MERCATUS-LOGO72DP.png")}
               height="50"
@@ -179,7 +157,7 @@ class TraderNavBar extends Component {
 
               <NavDropdown.Divider />
               <Button
-                style={loginStyles}
+                id = "loginStyles"
                 onClick={() => this.props.logoutClick()}
                 variant="outline-danger"
                 size="sm"
@@ -204,6 +182,29 @@ class TraderNavBar extends Component {
       );
     }
   }
+  initalsOfNavbar = () => {
+    return (<React.Fragment>
+        <Navbar.Brand href="#" className="navBarSyles">
+            <img
+              src={require("./MERCATUS-LOGO72DP.png")}
+              height="50"
+              weight="70"
+              alt="mercatus"
+            />
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+    </React.Fragment>)
+  }
+  otherPages = () => {
+    return (<Nav className="mr-auto">
+    <Nav.Link href="#">Trading Equipment</Nav.Link>
+    <Nav.Link href="#">Events</Nav.Link>
+    <Nav.Link href="#">Articles</Nav.Link>
+  </Nav>)
+  }
+
+  
+
 }
 
 export default TraderNavBar;

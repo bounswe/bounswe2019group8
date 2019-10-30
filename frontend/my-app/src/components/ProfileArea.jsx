@@ -10,17 +10,14 @@ class ProfileArea extends React.Component {
       updateClicked: false
     };
   }
-
   componentDidMount() {
     console.log(this.props);
     this.updateMe();
   }
-
   follow(user) {
     let id = user.pk;
     console.log("follow");
     console.log(id);
-
     this.props.api
       .post(
         `users/${this.props.credentials.id}/followings`,

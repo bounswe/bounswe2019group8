@@ -14,17 +14,13 @@ export default function UpdateCredentials({ api, ...props }) {
     confirmPassword: ""
   });
   const [isLoading, setIsLoading] = useState(false);
-
   function validateForm() {
     return (
       fields.password.length > 0 &&
       fields.password === fields.confirmPassword
     );
   }
-
   async function handleSubmit(event) {
-
-
       event.preventDefault();
 
       setIsLoading(true);
