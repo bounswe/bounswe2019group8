@@ -1,36 +1,76 @@
-#navBarStyles  {
-    color: "green"
+#navBarStyles {
+  color: "green";
 }
 #loginStyles {
-    margin: 10px;
+  margin: 10px;
 }
 .myButton {
-	box-shadow: 0px 10px 14px -7px #4c7327;
-	background:linear-gradient(to bottom, #97b359 5%, #999940 100%);
-	background-color:#97b359;
-	border-radius:8px;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:Arial;
-	font-size:20px;
-	font-weight:bold;
-	padding:8px 21px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #3e6c8a;
+  box-shadow: 0px 10px 14px -7px rgb(168, 184, 101);
+  background: linear-gradient(to bottom, #97b359 5%, #999940 100%);
+  background-color: rgb(168, 184, 101);
+  border-radius: 8px;
+  display: inline-block;
+  cursor: pointer;
+  color: #4e3939;
+  font-family: Arial;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 8px 21px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #3e6c8a;
 }
 .myButton:hover {
-	background:linear-gradient(to bottom, #999940 5%, #97b359 100%);
-	background-color:#999940;
+  background: linear-gradient(to bottom, rgb(0, 255, 98) 5%, #97b359 100%);
+  background-color: rgb(168, 184, 101);
 }
 .myButton:active {
-	position:relative;
-	top:1px;
+  position: relative;
+  top: 1px;
 }
 
-        
+.myNavbar {
+  background-color: #082030;
+}
 
+.navbar-light .navbar-toggler {
+  background-color: rgb(168, 184, 101);
+  border-color: rgb(168, 184, 101);
+}
+.navbar-light .navbar-nav .nav-link {
+  color: rgb(168, 184, 101);
+}
+.navbar-light .navbar-nav .nav-link:hover {
+  text-decoration: none;
+  color: rgb(0, 255, 98);
+}
+.btn-outline-success:hover {
+  color: rgb(70, 82, 78);
+  background-color: rgb(0, 255, 98);
+  border-color: rgb(0, 255, 98);
+}
+.btn-outline-success {
+  color: rgb(70, 82, 78);
+  background-color: rgb(168, 184, 101);
+  border-color: rgb(168, 184, 101);
+}
 
-
-
-
+.nav-link:hover,
+.nav-link:focus {
+  color: rgb(0, 255, 98);
+}
+.nav-link,
+.nav-link:focus {
+  color: rgb(168, 184, 101);
+}
+.dropdown-menu {
+  background-color: rgb(70, 82, 78);
+}
+.dropdown-divider {
+  border-color: rgb(168, 184, 101);
+}
+.dropdown-item:hover,
+.dropdown-item:focus {
+  color: #16181b;
+  text-decoration: none;
+  background-color: rgb(78, 87, 84);
+}
