@@ -19,7 +19,11 @@
                 android:value=".ProfileActivity" />
         </activity>
 
-
+        <activity android:name=".TraderUserActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".RegisterActivity" />
+        </activity>
         <activity android:name=".SearchActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
