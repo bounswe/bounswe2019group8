@@ -14,31 +14,27 @@ export default function UpdateCredentials({ api, ...props }) {
     confirmPassword: ""
   });
   const [isLoading, setIsLoading] = useState(false);
-
   function validateForm() {
     return (
       fields.password.length > 0 &&
       fields.password === fields.confirmPassword
     );
   }
-
   async function handleSubmit(event) {
-
-
       event.preventDefault();
 
       setIsLoading(true);
 
       var url = "http://8.209.81.242:8000/users/" + this.props.credentials.id;
 
-      api.put(url, { headers: { Authorization: `Token ${this.props.credentials.token}` } },
+      api.put(url,
           {
               first_name: fields.firstName,
               last_name: fields.lastName,
               email: fields.email,
               date_of_birth: fields.dateOfBirth,
               password: fields.password
-          })
+          }, { headers: { Authorization: `Token ${this.props.credentials.token}` } })
           .then(function(response) {
               alert("update successful");
           })
