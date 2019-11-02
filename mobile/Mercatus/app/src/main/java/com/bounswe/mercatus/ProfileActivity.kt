@@ -10,6 +10,7 @@ import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.serialization.json.JSON
 
 
+
 class ProfileActivity : AppCompatActivity() {
 
 
