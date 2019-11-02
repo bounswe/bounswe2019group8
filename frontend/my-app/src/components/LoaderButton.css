@@ -1,9 +1,24 @@
 .LoaderButton .spinning.glyphicon {
-    margin-right: 7px;
-    top: 2px;
-    animation: spin 1s infinite linear;
+  margin-right: 7px;
+  top: 2px;
+  animation: spin 1s infinite linear;
 }
 @keyframes spin {
-    from { transform: scale(1) rotate(0deg); }
-    to { transform: scale(1) rotate(360deg); }
+  from {
+    transform: scale(1) rotate(0deg);
+  }
+  to {
+    transform: scale(1) rotate(360deg);
+  }
+}
+.LoaderButton.btn-primary:hover {
+  color: rgb(70, 82, 78);
+  background-color: rgb(0, 255, 98);
+  border-color: rgb(0, 255, 98);
+}
+
+.LoaderButton.btn-primary {
+  color: rgb(70, 82, 78);
+  background-color: rgb(168, 184, 101);
+  border-color: rgb(168, 184, 101);
 }

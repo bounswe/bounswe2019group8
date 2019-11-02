@@ -70,7 +70,12 @@
 }
 .dropdown-item:hover,
 .dropdown-item:focus {
-  color: #16181b;
+  color: white;
   text-decoration: none;
   background-color: rgb(168, 184, 101);
+}
+.dropdown-item,
+.dropdown-item:focus {
+  color: black;
+  text-decoration: none;
 }

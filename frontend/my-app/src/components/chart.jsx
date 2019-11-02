@@ -19,6 +19,7 @@ class Chart extends Component {
       { time: "2019-04-19", value: 81.89 },
       { time: "2019-04-20", value: 74.43 }
     ];
+    console.log("here is the chart:");
     chart.applyOptions({
       priceScale: {
         position: "right",
@@ -62,10 +63,12 @@ class Chart extends Component {
     });
     lineSeries.setData(jsonList);
   }
+  componentDidMount() {}
+
   state = {};
 
   render() {
-    return <React.Fragment></React.Fragment>;
+    return <div></div>;
   }
 }
 
