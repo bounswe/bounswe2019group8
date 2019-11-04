@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import ReactDOM from "react-dom";
 class CheckBox extends Component {
   constructor() {
     super();
@@ -12,13 +11,6 @@ class CheckBox extends Component {
   }
 
   render() {
-    var txt;
-    if (this.state.isChecked) {
-      txt = "checked";
-    } else {
-      txt = "unchecked";
-    }
-
     // remove () after handleChecked because you need pass
     // reference to function
     // also add return before <div>

@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { FormGroup, FormControl, FormLabel, InputGroup } from "react-bootstrap";
+import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import LoaderButton from "../components/LoaderButton";
 import { useFormFields } from "../libs/hooksLib";
 import "./Signup.css";
 import CheckBox from "../components/checkBox";
+import axios from "axios";
 
 export default function Signup({ api, signUpClicked, ...props }) {
   const [fields, handleFieldChange] = useFormFields({
@@ -22,11 +23,15 @@ export default function Signup({ api, signUpClicked, ...props }) {
     email: "",
     password: "",
     iban: "",
+    address: "",
     confirmPassword: "",
     confirmationCode: ""
   });
   const [isLoading, setIsLoading] = useState(false);
   var [trader, traderChecked] = useState(false);
+  var [userLat, userLatFunc] = useState(0);
+  var [userLong, userLongFunc] = useState(0);
+  var [didComponentMount, didIt] = useState(false);
 
   function validateForm() {
     return (
@@ -37,14 +42,51 @@ export default function Signup({ api, signUpClicked, ...props }) {
       fields.password === fields.confirmPassword
     );
   }
+  function componentDidMount() {
+    //didIt(true);
+    var userAddress = traderFields.address;
+    var userAddressForGoogle = userAddress.replace(/ /g, "+");
+    //var userLat;
+    //var userLng;
+    axios
+      .get("https://maps.googleapis.com/maps/api/geocode/json", {
+        params: {
+          address: userAddress,
+          key: "AIzaSyDuZfKf8HkUVrF0LlxT8bqFUdrIqbXtrHk"
+        }
+      })
+      .then(res => {
+        //console.log(res);
+        console.log("lat is: " + res.data.results[0].geometry.location.lat);
+        //console.log("lng is: " + res.data.results[0].geometry.location.lng);
+        //userLat = res.data.results[0].geometry.location.lat;
+        //userLng = res.data.results[0].geometry.location.lng;
+        userLatFunc(res.data.results[0].geometry.location.lat);
+        userLongFunc(res.data.results[0].geometry.location.lng);
+        console.log("userLat: " + userLat);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+    console.log("again: " + userLat);
+  }
   function validateTraderForm() {
+    // console.log("state: " + didComponentMount);
+    // if (!didComponentMount) {
+    //  componentDidMount();
+    //}
+    if (traderFields.iban.length === 26) {
+      componentDidMount();
+      console.log("state: " + didComponentMount);
+    }
     return (
       traderFields.firstName.length > 0 &&
       traderFields.lastName.length > 0 &&
       traderFields.email.length > 0 &&
       traderFields.password.length > 0 &&
       traderFields.password === traderFields.confirmPassword &&
-      traderFields.iban.length === 26
+      traderFields.iban.length === 26 &&
+      traderFields.address.length > 0
     );
   }
   function handleCheckTrader() {
@@ -62,7 +104,8 @@ export default function Signup({ api, signUpClicked, ...props }) {
         first_name: fields.firstName,
         last_name: fields.lastName,
         date_of_birth: fields.dateOfBirth,
-        password: fields.password
+        password: fields.password,
+        groups: [1]
       })
       .then(function(response) {
         alert("sign-up successful");
@@ -76,10 +119,11 @@ export default function Signup({ api, signUpClicked, ...props }) {
     setIsLoading(false);
   }
   async function handleTraderSubmit(event) {
+    //didIt(true);
     event.preventDefault();
 
     setIsLoading(true);
-
+    componentDidMount();
     api
       .post("/users", {
         email: traderFields.email,
@@ -87,7 +131,10 @@ export default function Signup({ api, signUpClicked, ...props }) {
         last_name: traderFields.lastName,
         date_of_birth: traderFields.dateOfBirth,
         password: traderFields.password,
-        iban: traderFields.iban
+        iban: traderFields.iban,
+        lat: userLat,
+        long: userLong,
+        groups: [2]
       })
       .then(function(response) {
         alert("sign-up successful");
@@ -227,6 +274,15 @@ export default function Signup({ api, signUpClicked, ...props }) {
                 value={traderFields.confirmPassword}
               />
             </FormGroup>
+
+            <FormGroup controlId="address" size="large">
+              <FormLabel>Address</FormLabel>
+              <FormControl
+                type="address"
+                onChange={handleTraderFieldChange}
+                value={traderFields.address}
+              />
+            </FormGroup>
             <FormGroup controlId="iban" size="large">
               <FormLabel>IBAN</FormLabel>
               <FormControl
@@ -240,7 +296,7 @@ export default function Signup({ api, signUpClicked, ...props }) {
               type="submit"
               size="large"
               isLoading={isLoading}
-              disabled={!validateForm()}
+              disabled={!validateTraderForm()}
             >
               Signup
             </LoaderButton>

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { createChart } from "lightweight-charts";
-import { LightweightCharts } from "lightweight-charts";
 
 class Chart extends Component {
   constructor(props) {

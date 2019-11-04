@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import { createChart } from "lightweight-charts";
-import { LightweightCharts } from "lightweight-charts";
 
 class Chart2 extends Component {
-  state = { x: null };
+  state = { x: 0 };
 
   componentDidMount() {
     var jsonList = [

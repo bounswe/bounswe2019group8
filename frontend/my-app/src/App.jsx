@@ -150,7 +150,6 @@ class App extends Component {
         .then(res => {
           userType = res.data.groups;
           var credentials = { ...this.state.credentials };
-          console.log(userType);
           credentials.userEmail = res.data.email;
           credentials.firstName = res.data.first_name;
           credentials.lastName = res.data.last_name;
