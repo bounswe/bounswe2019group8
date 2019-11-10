@@ -13,8 +13,8 @@ import com.bounswe.mercatus.API.RetrofitInstance
 import com.bounswe.mercatus.Models.SignInBody
 import com.bounswe.mercatus.Models.SignInRes
 import com.bounswe.mercatus.Models.UserBody
+import com.bounswe.mercatus.Models.UserRes
 import kotlinx.android.synthetic.main.activity_basic_user.*
-import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -127,20 +127,31 @@ class BasicUserActivity : AppCompatActivity() {
         val registerInfo = UserBody(date,email,name, surname,password)
 
         mercatus.registerUser(registerInfo).enqueue(object :
-            Callback<ResponseBody> {
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                Toast.makeText(
-                    this@BasicUserActivity,
-                    t.message,
-                    Toast.LENGTH_SHORT
-                ).show()
+            Callback<UserRes> {
+            override fun onFailure(call: Call<UserRes>, t: Throwable) {
+                if(t.cause is ConnectException){
+                    Toast.makeText(
+                        this@BasicUserActivity,
+                        "Check your connection!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else{
+                    Toast.makeText(
+                        this@BasicUserActivity,
+                        "Something bad happened!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+            override fun onResponse(call: Call<UserRes>, response: Response<UserRes>) {
                 if (response.code() == 201) {
                     Toast.makeText(this@BasicUserActivity, "Registration success!", Toast.LENGTH_SHORT)
                         .show()
                     val sharedPreferences = getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
                     val editor = sharedPreferences.edit()
+
+                    //Since we need token, we need to do signin
                     signin(email, password, editor)
                 }
                 else  {

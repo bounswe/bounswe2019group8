@@ -23,7 +23,7 @@ interface ApiInterface {
     @POST("users")
     fun registerUser(
         @Body info: UserBody
-    ): retrofit2.Call<ResponseBody>
+    ): retrofit2.Call<UserRes>
 
     // Get user request
     @Headers("Content-Type: application/json")

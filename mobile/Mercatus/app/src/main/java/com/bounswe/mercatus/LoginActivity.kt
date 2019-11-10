@@ -22,13 +22,14 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-
         // Button click listener
         buttonSigin.setOnClickListener {
             val email = editMail.text.toString()
             val password = editPassword.text.toString()
+
             val sharedPreferences = getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
             val editor = sharedPreferences.edit()
+
             if (isValidForm(email, password)){
                 signin(email, password, editor)
             }
@@ -43,7 +44,6 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
         }
-
     }
     private fun isValidForm(email: String, password: String):Boolean{
 
