@@ -76,6 +76,7 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         val mercatus = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
         val res = getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
         val token = res.getString("token", "Data Not Found!")
+
         mercatus.getUsers("Token " + token.toString()).enqueue(object : Callback<List<UserRes>> {
             override fun onFailure(call: Call<List<UserRes>>, t: Throwable) {
                 //Log.i("ApiRequest", "Request failed: " + t.toString())
@@ -98,19 +99,13 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
             override fun onResponse(call: Call<List<UserRes>>, response: Response<List<UserRes>>) {
                 if (response.code() == 200) {
-
                     val users: List<UserRes>? = response.body()
-
-
                     Toast.makeText(this@MainActivity, users?.get(0)?.first_name , Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(this@MainActivity, "Login failed.", Toast.LENGTH_SHORT).show()
                 }
             }
         })
-
-
-
         return false
     }
 
@@ -121,5 +116,11 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
     companion object {
         var movieNamesArrayList = ArrayList<UserNames>()
+    }
+
+
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
     }
 }

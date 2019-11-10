@@ -2,25 +2,24 @@ package com.bounswe.mercatus
 
 import android.app.DatePickerDialog
 import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Patterns
 import android.widget.Toast
-import android.content.Intent
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
 import com.bounswe.mercatus.Models.SignInBody
 import com.bounswe.mercatus.Models.SignInRes
 import com.bounswe.mercatus.Models.UserBody
-import com.bounswe.mercatus.Models.UserRes
 import kotlinx.android.synthetic.main.activity_basic_user.*
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.net.ConnectException
 import java.util.*
-import kotlinx.serialization.json.JSON
 
 class BasicUserActivity : AppCompatActivity() {
 
@@ -43,46 +42,40 @@ class BasicUserActivity : AppCompatActivity() {
             }
         }
     }
-
     private fun signin(email: String, password: String, editor: SharedPreferences.Editor){
         val mercatus = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
         val signInInfo = SignInBody(email, password)
 
-        mercatus.signin(signInInfo).enqueue(object : Callback<ResponseBody> {
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                //Log.i("ApiRequest", "Request failed: " + t.toString())
-                Toast.makeText(
-                    this@BasicUserActivity,
-                    t.message,
-                    Toast.LENGTH_SHORT
-                ).show()
+        mercatus.signin(signInInfo).enqueue(object : Callback<SignInRes> {
+            override fun onFailure(call: Call<SignInRes>, t: Throwable) {
+                if(t.cause is ConnectException){
+                    Toast.makeText(
+                        this@BasicUserActivity,
+                        "Check your connection!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else{
+                    Toast.makeText(
+                        this@BasicUserActivity,
+                        "Something bad happened!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
-
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+            override fun onResponse(call: Call<SignInRes>, response: Response<SignInRes>) {
                 if (response.code() == 200) {
-                    val signInRes = JSON.parse(SignInRes.serializer(), response.body()?.string() ?: "{\"error\": \"error\"}")
-                    mercatus.getUser(signInRes.user_id, "Token ${signInRes.token}").enqueue(object : Callback<ResponseBody> {
-                        override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                    editor.putString("token", response.body()?.token)
+                    editor.apply()
 
-                        }
+                    Toast.makeText(this@BasicUserActivity, "Login success!.", Toast.LENGTH_SHORT).show()
 
-                        override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                            val userObj = JSON.parse(UserRes.serializer(), response.body()?.string() ?: "{\"error\": \"error\"}")
-                            val intent = Intent(this@BasicUserActivity, ProfileActivity::class.java)
-
-
-                            editor.putString("token", signInRes.token)
-                            editor.apply()
-
-                            intent.putExtra("userJson", JSON.stringify(UserRes.serializer(), userObj))
-                            startActivity(intent)
-                        //    finish()
-                            print(userObj)
-                        }
-                    })
+                    val intent = Intent(this@BasicUserActivity, MainActivity::class.java)
+                    startActivity(intent)
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
 
                 } else {
-                    Toast.makeText(this@BasicUserActivity, "Login failed.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@BasicUserActivity, "Login failed!", Toast.LENGTH_SHORT).show()
                 }
             }
         })
@@ -154,10 +147,8 @@ class BasicUserActivity : AppCompatActivity() {
                     Toast.makeText(this@BasicUserActivity, "Registration failed", Toast.LENGTH_SHORT)
                         .show()
                 }
-
             }
         })
-
     }
     private fun pickDate(c : Calendar){
         val year = c.get(Calendar.YEAR)
