@@ -22,5 +22,6 @@
         • set stop-loss orders
     </string>
     <string name="date_pick">Pick Birthday</string>
-
+    <string name="search_title">Search</string>
+    <string name="search_hint">Enter text to search</string>
 </resources>
