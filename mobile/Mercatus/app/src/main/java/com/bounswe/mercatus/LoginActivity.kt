@@ -13,18 +13,17 @@ import com.bounswe.mercatus.Models.SignInBody
 import com.bounswe.mercatus.Models.SignInRes
 import com.bounswe.mercatus.Models.UserRes
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.serialization.json.*
+import kotlinx.serialization.json.JSON
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.io.Serializable
+import java.net.ConnectException
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-
 
 
         // Button click listener
@@ -80,11 +79,21 @@ class LoginActivity : AppCompatActivity() {
         mercatus.signin(signInInfo).enqueue(object : Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 //Log.i("ApiRequest", "Request failed: " + t.toString())
-                Toast.makeText(
-                    this@LoginActivity,
-                    t.message,
-                    Toast.LENGTH_SHORT
-                ).show()
+
+                if(t.cause is ConnectException){
+                    Toast.makeText(
+                        this@LoginActivity,
+                        "Check your connection!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else{
+                    Toast.makeText(
+                        this@LoginActivity,
+                        "Something bad happened!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
 
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
@@ -98,7 +107,7 @@ class LoginActivity : AppCompatActivity() {
                         override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                             print("yass")
                             val userObj = JSON.parse(UserRes.serializer(), response.body()?.string() ?: "{\"error\": \"error\"}")
-                            val intent = Intent(this@LoginActivity, ProfileActivity::class.java)
+                            val intent = Intent(this@LoginActivity, MainActivity::class.java)
 
 
                             editor.putString("token", signInRes.token)
