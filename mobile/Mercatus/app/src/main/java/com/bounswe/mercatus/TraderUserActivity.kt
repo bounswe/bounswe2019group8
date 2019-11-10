@@ -1,19 +1,26 @@
 package com.bounswe.mercatus
 
 import android.app.DatePickerDialog
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Patterns
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
+import com.bounswe.mercatus.Models.SignInBody
+import com.bounswe.mercatus.Models.SignInRes
 import com.bounswe.mercatus.Models.UserBody
+import com.bounswe.mercatus.Models.UserRes
 import kotlinx.android.synthetic.main.activity_trader_user.*
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
+import kotlinx.serialization.json.JSON
 
 class TraderUserActivity : AppCompatActivity() {
 
@@ -36,6 +43,50 @@ class TraderUserActivity : AppCompatActivity() {
                 signup(date, email, name, surname, password)
             }
         }
+    }
+
+    private fun signin(email: String, password: String, editor: SharedPreferences.Editor){
+        val mercatus = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
+        val signInInfo = SignInBody(email, password)
+
+        mercatus.signin(signInInfo).enqueue(object : Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                //Log.i("ApiRequest", "Request failed: " + t.toString())
+                Toast.makeText(
+                    this@TraderUserActivity,
+                    t.message,
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if (response.code() == 200) {
+                    val signInRes = JSON.parse(SignInRes.serializer(), response.body()?.string() ?: "{\"error\": \"error\"}")
+                    mercatus.getUser(signInRes.user_id, "Token ${signInRes.token}").enqueue(object : Callback<ResponseBody> {
+                        override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+
+                        }
+
+                        override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                            val userObj = JSON.parse(UserRes.serializer(), response.body()?.string() ?: "{\"error\": \"error\"}")
+                            val intent = Intent(this@TraderUserActivity, ProfileActivity::class.java)
+
+
+                            editor.putString("token", signInRes.token)
+                            editor.apply()
+
+                            intent.putExtra("userJson", JSON.stringify(UserRes.serializer(), userObj))
+                            startActivity(intent)
+                            //    finish()
+                            print(userObj)
+                        }
+                    })
+
+                } else {
+                    Toast.makeText(this@TraderUserActivity, "Login failed.", Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
     }
 
     private fun isValidForm(email: String, name: String, surname: String,
@@ -112,7 +163,9 @@ class TraderUserActivity : AppCompatActivity() {
                 if (response.code() == 201) {
                     Toast.makeText(this@TraderUserActivity, "Registration success!", Toast.LENGTH_SHORT)
                         .show()
-
+                    val sharedPreferences = getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
+                    val editor = sharedPreferences.edit()
+                    signin(email, password, editor)
                 } else {
                     Toast.makeText(this@TraderUserActivity, "Registration failed!", Toast.LENGTH_SHORT)
                         .show()
