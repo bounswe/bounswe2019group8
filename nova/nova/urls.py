@@ -14,6 +14,7 @@ urlpatterns = [
 
     path('user_searches', views.user_searches_res),
 
+    path('activations/<uidb64>/<token>', views.activate_account),
 
     path('articles', views.article_coll),
 ]

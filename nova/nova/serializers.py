@@ -10,7 +10,7 @@ class UserSerializer(NovaSerializer):
     class Meta:
         model = User
         fields = ['email', 'lat', 'long', 'first_name', 'last_name', 'date_of_birth', 'profile_image', 'password', 'pk',
-                  'groups']
+                  'groups', 'email_activated']
         create_only_fields = ['first_name', 'last_name']
 
     password = serializers.CharField(
@@ -18,6 +18,7 @@ class UserSerializer(NovaSerializer):
         required=True,
         style={'input_type': 'password', 'placeholder': 'Password'}
     )
+
 
     def validate(self, attrs):
         if len(attrs.get('groups', [])) != 1:

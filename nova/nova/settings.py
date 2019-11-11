@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'nova',
-    'corsheaders'
+    'corsheaders',
+    'django_filters'
 ]
 
 MIDDLEWARE = [
@@ -85,13 +86,13 @@ WSGI_APPLICATION = 'nova.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get('MERCATUS_DB_NAME'),
-        'USER': os.environ.get('MERCATUS_DB_USER'),
-        'PASSWORD': os.environ.get('MERCATUS_DB_PASSWORD'),
-        'HOST': os.environ.get('MERCATUS_DB_HOST'),
-        'PORT': os.environ.get('MERCATUS_DB_PORT'),
+        'NAME': 'mercatus',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'localhost',
+        'PORT': '5432',
         'TEST': {
-            'NAME': os.environ.get('MERCATUS_TEST_DB_NAME'),
+            'NAME': 'postgres'
         }
     }
 }
@@ -140,6 +141,14 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     ],
     'DATE_INPUT_FORMATS': ['iso-8601'],
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
 }
 
 AUTH_USER_MODEL = 'nova.User'
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'mercatus.bounswe@gmail.com'
+# this app password is configured for the host email
+EMAIL_HOST_PASSWORD = 'fnyycxorasikyxkl'
+EMAIL_PORT = 587

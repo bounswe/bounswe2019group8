@@ -27,6 +27,8 @@ class User(AbstractUser):
 
     following_tr_eqs = models.ManyToManyField('TradingEquipment', 'followers')
 
+    email_activated = models.BooleanField(blank=True, default=False)
+
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['created_at', 'date_of_birth', 'groups', 'first_name', 'last_name']
 
