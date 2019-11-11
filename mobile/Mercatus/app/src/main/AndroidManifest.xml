@@ -13,53 +13,53 @@
         android:theme="@style/AppTheme">
 
 
-        <activity android:name=".ModifyActivity">
+        <activity android:name=".Fragments.ModifyActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ProfileActivity" />
+                android:value=".Fragments.ProfileActivity" />
         </activity>
 
-        <activity android:name=".TraderUserActivity">
+        <activity android:name=".Fragments.TraderUserActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".RegisterActivity" />
+                android:value=".Fragments.RegisterActivity" />
         </activity>
-        <activity android:name=".SearchActivity">
+        <activity android:name=".Fragments.SearchActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".SearchActivity" />
+                android:value=".Fragments.SearchActivity" />
         </activity>
-        <activity android:name=".ProfileActivity">
+        <activity android:name=".Fragments.ProfileActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ProfileActivity" />
+                android:value=".Fragments.ProfileActivity" />
         </activity>
-        <activity android:name=".BasicUserActivity" >
+        <activity android:name=".Fragments.BasicUserActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".RegisterActivity" />
+                android:value=".Fragments.RegisterActivity" />
         </activity>
-        <activity android:name=".RegisterActivity" >
+        <activity android:name=".Fragments.RegisterActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".LoginActivity" />
+                android:value=".Fragments.LoginActivity" />
         </activity>
-        <activity android:name=".GuestActivity" >
+        <activity android:name=".Fragments.GuestActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".LoginActivity" />
+                android:value=".Fragments.LoginActivity" />
         </activity>
-        <activity android:name=".LoginActivity">
+        <activity android:name=".Fragments.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" >
+        <activity android:name=".Fragments.MainActivity" >
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
-            android:value=".LoginActivity" />
+            android:value=".Fragments.LoginActivity" />
         </activity>
     </application>
 

@@ -1,4 +1,4 @@
-package com.bounswe.mercatus
+package com.bounswe.mercatus.Fragments
 
 import android.app.DatePickerDialog
 import android.content.Context
@@ -14,6 +14,7 @@ import com.bounswe.mercatus.Models.SignInBody
 import com.bounswe.mercatus.Models.SignInRes
 import com.bounswe.mercatus.Models.UserBody
 import com.bounswe.mercatus.Models.UserRes
+import com.bounswe.mercatus.R
 import kotlinx.android.synthetic.main.activity_trader_user.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -73,7 +74,10 @@ class TraderUserActivity : AppCompatActivity() {
 
                     val intent = Intent(this@TraderUserActivity, MainActivity::class.java)
                     startActivity(intent)
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                    overridePendingTransition(
+                        R.anim.slide_in_right,
+                        R.anim.slide_out_left
+                    )
 
                 } else {
                     Toast.makeText(this@TraderUserActivity, "Login failed!", Toast.LENGTH_SHORT).show()
@@ -188,5 +192,9 @@ class TraderUserActivity : AppCompatActivity() {
             }, year, month, day)
             dpd.show()
         }
+    }
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
     }
 }

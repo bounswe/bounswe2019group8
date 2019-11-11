@@ -1,34 +1,25 @@
-package com.bounswe.mercatus
+package com.bounswe.mercatus.Fragments
 
 import android.app.DatePickerDialog
 import android.content.Context
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import android.content.Intent
-import android.content.SharedPreferences
+import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
 import com.bounswe.mercatus.Models.UserRes
-import kotlinx.android.synthetic.main.activity_basic_user.*
+import com.bounswe.mercatus.R
 import kotlinx.android.synthetic.main.activity_modify.*
-import kotlinx.android.synthetic.main.activity_modify.dataPick
-import kotlinx.android.synthetic.main.activity_modify.dateTv
-import kotlinx.android.synthetic.main.activity_modify.editMail
-import kotlinx.android.synthetic.main.activity_modify.editPassword
-import kotlinx.android.synthetic.main.activity_modify.floatingActionButton
-import kotlinx.serialization.internal.MapEntrySerializer
-import kotlinx.serialization.internal.MapLikeSerializer
 import kotlinx.serialization.json.JSON
-import kotlinx.serialization.json.JsonElement
-import kotlinx.serialization.stringify
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.net.ConnectException
 import java.util.*
-import kotlin.collections.HashMap
 
 
 class ModifyActivity : AppCompatActivity() {
@@ -62,10 +53,22 @@ class ModifyActivity : AppCompatActivity() {
             mercatus.updateUser(map, userObj.pk, "Token ${token}").enqueue(
                 object : Callback<ResponseBody> {
                     override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                        print("sadfsdaf")
+                        if(t.cause is ConnectException){
+                            Toast.makeText(
+                                this@ModifyActivity,
+                                "Check your connection!",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                        else{
+                            Toast.makeText(
+                                this@ModifyActivity,
+                                "Something bad happened!",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
                     }
                     override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                        print("sdffd")
                         val intent = Intent(this@ModifyActivity, ProfileActivity::class.java)
                         intent.putExtra("userJson", JSON.stringify(UserRes.serializer(), userObj))
                         startActivity(intent)

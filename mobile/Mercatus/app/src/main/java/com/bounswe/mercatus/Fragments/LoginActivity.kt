@@ -1,4 +1,4 @@
-package com.bounswe.mercatus
+package com.bounswe.mercatus.Fragments
 
 import android.content.Context
 import android.content.Intent
@@ -11,6 +11,7 @@ import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
 import com.bounswe.mercatus.Models.SignInBody
 import com.bounswe.mercatus.Models.SignInRes
+import com.bounswe.mercatus.R
 import kotlinx.android.synthetic.main.activity_login.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -38,11 +39,19 @@ class LoginActivity : AppCompatActivity() {
         buttonGuest.setOnClickListener {
             val intent = Intent(this, GuestActivity::class.java)
             startActivity(intent)
+            overridePendingTransition(
+                R.anim.slide_in_right,
+                R.anim.slide_out_left
+            )
         }
 
         buttonRegister.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
+            overridePendingTransition(
+                R.anim.slide_in_right,
+                R.anim.slide_out_left
+            )
         }
     }
     private fun isValidForm(email: String, password: String):Boolean{
@@ -99,7 +108,10 @@ class LoginActivity : AppCompatActivity() {
 
                     val intent = Intent(this@LoginActivity, MainActivity::class.java)
                     startActivity(intent)
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                    overridePendingTransition(
+                            R.anim.slide_in_right,
+                    R.anim.slide_out_left
+                    )
 
                 } else {
                     Toast.makeText(this@LoginActivity, "Login failed!", Toast.LENGTH_SHORT).show()

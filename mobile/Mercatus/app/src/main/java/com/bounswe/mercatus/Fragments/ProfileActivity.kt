@@ -1,11 +1,12 @@
-package com.bounswe.mercatus
+package com.bounswe.mercatus.Fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import android.content.Intent
 import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
 import com.bounswe.mercatus.Models.UserRes
+import com.bounswe.mercatus.R
 import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.serialization.json.JSON
 

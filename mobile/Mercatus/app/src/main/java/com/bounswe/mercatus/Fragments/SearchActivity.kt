@@ -1,7 +1,8 @@
-package com.bounswe.mercatus
+package com.bounswe.mercatus.Fragments
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.bounswe.mercatus.R
 
 class SearchActivity : AppCompatActivity() {
 
