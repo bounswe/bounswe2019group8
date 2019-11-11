@@ -1,14 +1,17 @@
 from django.contrib.auth import authenticate
+from django.db.models import Q
 from rest_framework import permissions
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.exceptions import AuthenticationFailed, PermissionDenied, NotFound, ValidationError
 from rest_framework.response import Response
+from django.contrib.postgres.search import SearchQuery, SearchVector, SearchRank, TrigramSimilarity
 
-from .models import User
+
+from .models import User, Article
 from .permissions import IsPostOrIsAuthenticated, is_user_in_group
-from .serializers import UserSerializer
+from .serializers import UserSerializer, ArticleSerializer
 
 
 @api_view(['GET', 'POST'])
@@ -115,7 +118,6 @@ def user_followers_coll(request, pk):
         serializer = UserSerializer(followers, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
 def auth_tokens_coll(request):
@@ -127,3 +129,31 @@ def auth_tokens_coll(request):
 
     token, created = Token.objects.get_or_create(user=user)
     return Response({'token': token.key, 'user_id': user.pk}, status=status.HTTP_200_OK)
+
+# kinda creating a user_searches object
+@api_view(['POST'])
+def user_searches_res(request):
+    search_text = request.data.get('search_text')
+    vector = SearchVector('first_name') + SearchVector('last_name')
+    fts_qs = User.objects.annotate(search = vector).filter(Q(search__icontains=search_text) | Q(search=search_text))
+    serializer = UserSerializer(fts_qs, many = True)
+    return Response(serializer.data, status = status.HTTP_200_OK)
+
+@api_view(['GET', 'POST'])
+def article_coll(request):
+    # GET ALL ARTICLES
+    if request.method == 'GET' :
+        articles = Article.objects.all()
+        serializer = ArticleSerializer(articles, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    # CREATE ARTICLE
+    if request.method == 'POST' :
+        serializer = ArticleSerializer(data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+

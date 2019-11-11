@@ -3,7 +3,7 @@ from django.contrib.auth.models import Group
 from rest_framework import serializers
 
 from .libs.serializers import NovaSerializer
-from .models import User
+from .models import User, Article, TradingEquipment, Comment
 
 
 class UserSerializer(NovaSerializer):
@@ -34,3 +34,38 @@ class UserSerializer(NovaSerializer):
         if 'password' in validated_data:
             validated_data['password'] = make_password(validated_data['password'])
         return super(UserSerializer, self).update(instance, validated_data)
+
+class ArticleSerializer(NovaSerializer):
+    class Meta:
+        model = Article
+        fields = ['author', 'title', 'content', 'rating', 'pk']
+        create_only_fields = ['author']
+
+        def create(self, data):
+            return super(ArticleSerializer, self).create(data)
+
+        def update(self, instance, data):
+            return super(ArticleSerializer, self).update(instance, data)
+
+class TradingEquipmentSerializer(NovaSerializer):
+    class Meta:
+         model = TradingEquipment
+         fields = ['type', 'name', 'daily_prices', 'current_price', 'pk']
+         create_only_fields = ['type', 'name']
+
+         def create(self, data):
+            return super(TradingEquipmentSerializer, self).create(data)
+         def update(self, instance, data):
+             return super(TradingEquipmentSerializer, self).update(instance, data)
+
+class CommentSerializer(NovaSerializer):
+    class Meta:
+        model = Comment
+        fields = ['author', 'content']
+        create_only_fields = ['author']
+
+        def create(self, data):
+            return super(CommentSerializer, self).create(data)
+
+        def update(self, instance, data):
+            return super(CommentSerializer, self).update(data)

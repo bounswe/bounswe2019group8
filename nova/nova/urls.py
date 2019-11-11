@@ -9,6 +9,11 @@ urlpatterns = [
     path('users/<int:user_pk>/followings/<int:following_pk>', views.user_following_res),
 
     path('users/<int:pk>/followers', views.user_followers_coll),
+ 
+    path('auth_tokens', views.auth_tokens_coll),
 
-    path('auth_tokens', views.auth_tokens_coll)
+    path('user_searches', views.user_searches_res),
+
+
+    path('articles', views.article_coll),
 ]
