@@ -1,6 +1,7 @@
 package com.bounswe.mercatus.API
 
 import com.bounswe.mercatus.Models.SignInBody
+import com.bounswe.mercatus.Models.SignInRes
 import com.bounswe.mercatus.Models.UserBody
 import com.bounswe.mercatus.Models.UserRes
 import okhttp3.OkHttpClient
@@ -15,14 +16,14 @@ interface ApiInterface {
     // Sign in request
     @Headers("Content-Type:application/json")
     @POST("auth_tokens")
-    fun signin(@Body info: SignInBody): retrofit2.Call<ResponseBody>
+    fun signin(@Body info: SignInBody): retrofit2.Call<SignInRes>
 
     // Sign up request
     @Headers("Content-Type:application/json")
     @POST("users")
     fun registerUser(
         @Body info: UserBody
-    ): retrofit2.Call<ResponseBody>
+    ): retrofit2.Call<UserRes>
 
     // Get user request
     @Headers("Content-Type: application/json")

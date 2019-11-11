@@ -11,10 +11,7 @@ import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
 import com.bounswe.mercatus.Models.SignInBody
 import com.bounswe.mercatus.Models.SignInRes
-import com.bounswe.mercatus.Models.UserRes
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.serialization.json.JSON
-import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -25,13 +22,14 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-
         // Button click listener
         buttonSigin.setOnClickListener {
             val email = editMail.text.toString()
             val password = editPassword.text.toString()
+
             val sharedPreferences = getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
             val editor = sharedPreferences.edit()
+
             if (isValidForm(email, password)){
                 signin(email, password, editor)
             }
@@ -46,7 +44,6 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
         }
-
     }
     private fun isValidForm(email: String, password: String):Boolean{
 
@@ -76,10 +73,8 @@ class LoginActivity : AppCompatActivity() {
         val mercatus = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
         val signInInfo = SignInBody(email, password)
 
-        mercatus.signin(signInInfo).enqueue(object : Callback<ResponseBody> {
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                //Log.i("ApiRequest", "Request failed: " + t.toString())
-
+        mercatus.signin(signInInfo).enqueue(object : Callback<SignInRes> {
+            override fun onFailure(call: Call<SignInRes>, t: Throwable) {
                 if(t.cause is ConnectException){
                     Toast.makeText(
                         this@LoginActivity,
@@ -95,33 +90,19 @@ class LoginActivity : AppCompatActivity() {
                     ).show()
                 }
             }
-
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+            override fun onResponse(call: Call<SignInRes>, response: Response<SignInRes>) {
                 if (response.code() == 200) {
-                    val signInRes = JSON.parse(SignInRes.serializer(), response.body()?.string() ?: "{\"error\": \"error\"}")
-                    mercatus.getUser(signInRes.user_id, "Token ${signInRes.token}").enqueue(object : Callback<ResponseBody> {
-                        override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                            print("hataa")
-                        }
+                    editor.putString("token", response.body()?.token)
+                    editor.apply()
 
-                        override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                            print("yass")
-                            val userObj = JSON.parse(UserRes.serializer(), response.body()?.string() ?: "{\"error\": \"error\"}")
-                            val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    Toast.makeText(this@LoginActivity, "Login success!.", Toast.LENGTH_SHORT).show()
 
-
-                            editor.putString("token", signInRes.token)
-                            editor.apply()
-
-                            intent.putExtra("userJson", JSON.stringify(UserRes.serializer(), userObj))
-                            startActivity(intent)
-                            finish()
-                            print(userObj)
-                        }
-                    })
+                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    startActivity(intent)
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
 
                 } else {
-                    Toast.makeText(this@LoginActivity, "Login failed.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@LoginActivity, "Login failed!", Toast.LENGTH_SHORT).show()
                 }
             }
         })

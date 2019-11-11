@@ -15,12 +15,11 @@ import com.bounswe.mercatus.Models.SignInRes
 import com.bounswe.mercatus.Models.UserBody
 import com.bounswe.mercatus.Models.UserRes
 import kotlinx.android.synthetic.main.activity_trader_user.*
-import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.net.ConnectException
 import java.util.*
-import kotlinx.serialization.json.JSON
 
 class TraderUserActivity : AppCompatActivity() {
 
@@ -44,46 +43,40 @@ class TraderUserActivity : AppCompatActivity() {
             }
         }
     }
-
     private fun signin(email: String, password: String, editor: SharedPreferences.Editor){
         val mercatus = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
         val signInInfo = SignInBody(email, password)
 
-        mercatus.signin(signInInfo).enqueue(object : Callback<ResponseBody> {
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                //Log.i("ApiRequest", "Request failed: " + t.toString())
-                Toast.makeText(
-                    this@TraderUserActivity,
-                    t.message,
-                    Toast.LENGTH_SHORT
-                ).show()
+        mercatus.signin(signInInfo).enqueue(object : Callback<SignInRes> {
+            override fun onFailure(call: Call<SignInRes>, t: Throwable) {
+                if(t.cause is ConnectException){
+                    Toast.makeText(
+                        this@TraderUserActivity,
+                        "Check your connection!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else{
+                    Toast.makeText(
+                        this@TraderUserActivity,
+                        "Something bad happened!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
-
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+            override fun onResponse(call: Call<SignInRes>, response: Response<SignInRes>) {
                 if (response.code() == 200) {
-                    val signInRes = JSON.parse(SignInRes.serializer(), response.body()?.string() ?: "{\"error\": \"error\"}")
-                    mercatus.getUser(signInRes.user_id, "Token ${signInRes.token}").enqueue(object : Callback<ResponseBody> {
-                        override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                    editor.putString("token", response.body()?.token)
+                    editor.apply()
 
-                        }
+                    Toast.makeText(this@TraderUserActivity, "Login success!.", Toast.LENGTH_SHORT).show()
 
-                        override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                            val userObj = JSON.parse(UserRes.serializer(), response.body()?.string() ?: "{\"error\": \"error\"}")
-                            val intent = Intent(this@TraderUserActivity, ProfileActivity::class.java)
-
-
-                            editor.putString("token", signInRes.token)
-                            editor.apply()
-
-                            intent.putExtra("userJson", JSON.stringify(UserRes.serializer(), userObj))
-                            startActivity(intent)
-                            //    finish()
-                            print(userObj)
-                        }
-                    })
+                    val intent = Intent(this@TraderUserActivity, MainActivity::class.java)
+                    startActivity(intent)
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
 
                 } else {
-                    Toast.makeText(this@TraderUserActivity, "Login failed.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@TraderUserActivity, "Login failed!", Toast.LENGTH_SHORT).show()
                 }
             }
         })
@@ -151,20 +144,31 @@ class TraderUserActivity : AppCompatActivity() {
         val registerInfo = UserBody(date,email,name, surname,password)
 
         mercatus.registerUser(registerInfo).enqueue(object :
-            Callback<ResponseBody> {
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                Toast.makeText(
-                    this@TraderUserActivity,
-                    t.message,
-                    Toast.LENGTH_SHORT
-                ).show()
+            Callback<UserRes> {
+            override fun onFailure(call: Call<UserRes>, t: Throwable) {
+                if(t.cause is ConnectException){
+                    Toast.makeText(
+                        this@TraderUserActivity,
+                        "Check your connection!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else{
+                    Toast.makeText(
+                        this@TraderUserActivity,
+                        "Something bad happened!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+            override fun onResponse(call: Call<UserRes>, response: Response<UserRes>) {
                 if (response.code() == 201) {
                     Toast.makeText(this@TraderUserActivity, "Registration success!", Toast.LENGTH_SHORT)
                         .show()
                     val sharedPreferences = getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
                     val editor = sharedPreferences.edit()
+
+                    //Since we need token, we need to do signin
                     signin(email, password, editor)
                 } else {
                     Toast.makeText(this@TraderUserActivity, "Registration failed!", Toast.LENGTH_SHORT)
