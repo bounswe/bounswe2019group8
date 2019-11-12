@@ -28,21 +28,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Fragments.RegisterActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Fragments.LoginActivity" />
-        </activity>
         <activity android:name=".Fragments.ModifyActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Fragments.ProfileActivity" />
         </activity>
-        <activity android:name=".Fragments.TraderUserActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Fragments.RegisterActivity" />
-        </activity>
+        <activity android:name=".Fragments.TraderUserActivity"/>
         <activity android:name=".Fragments.SearchActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -54,9 +45,6 @@
                 android:value=".Fragments.ProfileActivity" />
         </activity>
         <activity android:name=".Fragments.BasicUserActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Fragments.RegisterActivity" />
         </activity>
         <activity android:name=".Fragments.GuestActivity">
             <meta-data

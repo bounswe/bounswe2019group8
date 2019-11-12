@@ -4,13 +4,8 @@ import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.bounswe.mercatus.R
-
-private val TAB_TITLES = arrayOf(
-    R.string.tab_text_1,
-    R.string.tab_text_2
-)
-
+import com.bounswe.mercatus.Fragments.BasicFragment
+import com.bounswe.mercatus.Fragments.TraderFragment
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
  * one of the sections/tabs/pages.
@@ -22,12 +17,23 @@ class SectionsPagerAdapter(private val context: Context, fm: FragmentManager) :
         // getItem is called to instantiate the fragment for the given page.
         // Return a PlaceholderFragment (defined as a static inner class below).
 
-
-        return PlaceholderFragment.newInstance(position + 1)
+        return when (position) {
+            0 -> {
+                BasicFragment()
+            }
+            else -> {
+                TraderFragment()
+            }
+        }
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
-        return context.resources.getString(TAB_TITLES[position])
+        return when (position) {
+            0 -> "Basic User"
+            else -> {
+                return "Trader User"
+            }
+        }
     }
 
     override fun getCount(): Int {
