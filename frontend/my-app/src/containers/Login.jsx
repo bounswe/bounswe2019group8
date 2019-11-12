@@ -3,6 +3,8 @@ import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import LoaderButton from "../components/LoaderButton";
 import { useFormFields } from "../libs/hooksLib";
 import "./Login.css";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import App from "../App";
 
 export default function Login({ loginSuccess, api, ...props }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -27,7 +29,6 @@ export default function Login({ loginSuccess, api, ...props }) {
       .then(response => {
         //console.log(response);
         if (response.statusText === "OK") {
-
           loginSuccess(response.data.user_id, response.data.token);
         }
       })
@@ -35,24 +36,7 @@ export default function Login({ loginSuccess, api, ...props }) {
         alert("Invalid e-mail or password");
         setIsLoading(false);
       })
-      .finally(response => {
-        // console.log(response);
-      });
-
-    /*
-    if (success) {
-      loginSuccess();
-    }
-    else {
-      try {
-        await Auth.signIn(fields.email, fields.password);
-        props.userHasAuthenticated(true);
-        props.history.push("/");
-      } catch (e) {
-        alert(e.message);
-        setIsLoading(false);
-      }
-    }*/
+      .finally(response => {});
   }
 
   return (

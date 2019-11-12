@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Card, ListGroup } from "react-bootstrap";
-import Users from "./Users";
 import UpdateCredentials from "./UpdateCredentials";
+import "./ProfileArea.css";
 class ProfileArea extends React.Component {
   constructor() {
     super();
@@ -58,7 +58,7 @@ class ProfileArea extends React.Component {
         console.log(id);
         const me = {
           ...this.state.me,
-          followings: this.state.me.followings.filter(x => x.pk != id)
+          followings: this.state.me.followings.filter(x => x.pk !== id)
         };
 
         this.setState({ me: me });
@@ -133,9 +133,12 @@ class ProfileArea extends React.Component {
                   this.state.me.followings.map((f, i) => (
                     <div key={f.pk}>
                       {i + 1} - {`${f.first_name} ${f.last_name}`}
-                      <Button onClick={() => this.unfollow(f.pk)}>
+                      <button
+                        class="myButton"
+                        onClick={() => this.unfollow(f.pk)}
+                      >
                         Unfollow
-                      </Button>
+                      </button>
                     </div>
                   ))}
               </ListGroup>
@@ -153,6 +156,7 @@ class ProfileArea extends React.Component {
                   >
                     {users1.first_name + " " + users1.last_name}
                     <button
+                      class="myButton"
                       style={{ margin: "10px" }}
                       onClick={() => this.follow(users1)}
                     >
