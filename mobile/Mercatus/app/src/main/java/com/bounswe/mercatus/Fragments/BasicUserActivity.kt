@@ -71,7 +71,7 @@ class BasicUserActivity : AppCompatActivity() {
 
                     Toast.makeText(this@BasicUserActivity, "Login success!.", Toast.LENGTH_SHORT).show()
 
-                    val intent = Intent(this@BasicUserActivity, MainActivity::class.java)
+                    val intent = Intent(this@BasicUserActivity, SearchActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(
                         R.anim.slide_in_right,

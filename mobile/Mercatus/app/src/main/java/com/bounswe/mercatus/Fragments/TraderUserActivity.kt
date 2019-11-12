@@ -72,7 +72,7 @@ class TraderUserActivity : AppCompatActivity() {
 
                     Toast.makeText(this@TraderUserActivity, "Login success!.", Toast.LENGTH_SHORT).show()
 
-                    val intent = Intent(this@TraderUserActivity, MainActivity::class.java)
+                    val intent = Intent(this@TraderUserActivity, SearchActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(
                         R.anim.slide_in_right,
