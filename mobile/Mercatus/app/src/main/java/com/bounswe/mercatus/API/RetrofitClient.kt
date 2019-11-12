@@ -1,9 +1,6 @@
 package com.bounswe.mercatus.API
 
-import com.bounswe.mercatus.Models.SignInBody
-import com.bounswe.mercatus.Models.SignInRes
-import com.bounswe.mercatus.Models.UserBody
-import com.bounswe.mercatus.Models.UserRes
+import com.bounswe.mercatus.Models.*
 import okhttp3.OkHttpClient
 import okhttp3.ResponseBody
 import okhttp3.logging.HttpLoggingInterceptor
@@ -48,6 +45,14 @@ interface ApiInterface {
     fun getUsers(
         @Header("Authorization") token: String
     ): retrofit2.Call<List<UserRes>>
+
+    // Search user request
+    @Headers("Content-Type:application/json")
+    @POST("user_searches")
+    fun searchUser(
+        @Body info: SearchBody,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<List<SearchRes>>
 }
 class RetrofitInstance {
     companion object {

@@ -1,8 +1,9 @@
 package com.bounswe.mercatus
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import android.content.Intent
+import com.bounswe.mercatus.Fragments.ProfileActivity
 import kotlinx.android.synthetic.main.activity_modify.*
 
 
