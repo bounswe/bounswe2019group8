@@ -7,11 +7,16 @@
     <string name="continue_guest">Continue as Guest</string>
     <string name="name">Name</string>
     <string name="surname">Surname</string>
+    <string name="date_birth">Date of birth</string>
+    <string name="email">Email</string>
+    <string name="followers">Followers</string>
+    <string name="followings">Followings</string>
     <string name="basic_user">Basic User</string>
     <string name="trader_user">Trader</string>
     <string name="id_number">ID Number</string>
     <string name="iban_number">TR Iban Number</string>
     <string name="basic">Basic</string>
+    <string name="trader">Trader</string>
     <string name="free">Free</string>
     <string name="register">Register</string>
     <string name="basic_header">As a Basic member</string>
@@ -42,6 +47,5 @@
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
     <string name="title_activity_choose">ChooseActivity</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
+    <string name="go_back">Go back</string>
 </resources>

@@ -37,7 +37,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         buttonGuest.setOnClickListener {
-            val intent = Intent(this, GuestActivity::class.java)
+            val intent = Intent(this, ShowProfileActivity::class.java)
             startActivity(intent)
             overridePendingTransition(
                 R.anim.slide_in_right,

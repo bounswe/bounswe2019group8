@@ -16,7 +16,7 @@
         <activity
             android:name=".Fragments.ChooseActivity"
             android:label="@string/title_activity_choose"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Fragments.MainActivity"
             android:label="@string/title_activity_main"
@@ -33,7 +33,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Fragments.ProfileActivity" />
         </activity>
-        <activity android:name=".Fragments.TraderUserActivity"/>
+        <activity android:name=".Fragments.TraderUserActivity" />
         <activity android:name=".Fragments.SearchActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -44,12 +44,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Fragments.ProfileActivity" />
         </activity>
-        <activity android:name=".Fragments.BasicUserActivity">
-        </activity>
+        <activity android:name=".Fragments.BasicUserActivity"></activity>
         <activity android:name=".Fragments.GuestActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Fragments.LoginActivity" />
+        </activity>
+        <activity
+            android:name=".Fragments.ShowProfileActivity"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>
 
