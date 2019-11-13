@@ -36,10 +36,6 @@ class SearchActivity : AppCompatActivity() {
         rv.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 
         val users = ArrayList<SearchShow>()
-        //users.add(SearchShow("Paul", "Mr"))
-        //users.add(SearchShow("Jane", "Miss"))
-        //users.add(SearchShow("John", "Dr"))
-        //users.add(SearchShow("Amy", "Mrs"))
 
         var adapter = CustomAdapter(this@SearchActivity, users)
         rv.adapter = adapter

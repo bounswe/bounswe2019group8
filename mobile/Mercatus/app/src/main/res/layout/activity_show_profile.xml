@@ -57,6 +57,7 @@
                 android:weightSum="2">
 
                 <LinearLayout
+                    android:id="@+id/followerAction"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:layout_width="0dp"
@@ -80,6 +81,7 @@
 
                 </LinearLayout>
                 <LinearLayout
+                    android:id="@+id/followingAction"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:layout_width="0dp"

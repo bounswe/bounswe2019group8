@@ -29,6 +29,9 @@ class MainActivity : AppCompatActivity() {
         fab.setOnClickListener { view ->
             val intent = Intent(this@MainActivity, SearchActivity::class.java)
             startActivity(intent)
+            /*
+            Smooth activity transition
+             */
             overridePendingTransition(
                 R.anim.slide_in_right,
                 R.anim.slide_out_left
