@@ -23,21 +23,23 @@
                 android:src="@drawable/ic_add_a_photo"/>
 
             <TextView
+                android:id="@+id/fullName"
                 android:layout_marginTop="10dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/name"
+                android:text=""
                 android:textColor="#fff"
                 android:textStyle="bold"
                 android:textSize="21sp"/>
 
             <TextView
+                android:id="@+id/isTrader"
                 android:layout_marginTop="3dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/trader"
+                android:text=""
                 android:textColor="#fff"
                 android:textStyle="bold|italic"
                 android:textSize="14sp"/>
@@ -63,13 +65,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Followers"
+                        android:text="@string/followers"
                         android:textSize="20sp"
                         />
                     <TextView
+                        android:id="@+id/followers"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="1205"
+                        android:text=""
                         android:textStyle="bold"
                         android:textSize="20sp"
                         android:paddingTop="10dp"
@@ -85,13 +88,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Following"
+                        android:text="@string/followings"
                         android:textSize="20sp"
                         />
                     <TextView
+                        android:id="@+id/followings"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="360"
+                        android:text=""
                         android:textStyle="bold"
                         android:textSize="20sp"
                         android:paddingTop="10dp"
@@ -118,12 +122,13 @@
                 android:layout_height="36dp"
                 android:src="@drawable/ic_email_black_24dp"/>
             <TextView
+                android:id="@+id/email"
                 android:textStyle="bold"
                 android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp"
-                android:text="example@gmail.com"/>
+                android:text=""/>
         </LinearLayout>
         <LinearLayout
             android:layout_marginTop="25dp"
@@ -136,21 +141,22 @@
                 android:layout_height="36dp"
                 android:src="@drawable/ic_date_range_black_24dp"/>
             <TextView
+                android:id="@+id/date"
                 android:textStyle="bold"
-
                 android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp"
-                android:text="09/05/2019"/>
+                android:text=""/>
         </LinearLayout>
     </LinearLayout>
     <Button
+        android:id="@+id/follow"
         android:textColor="#fff"
         android:background="@drawable/button_style"
         android:layout_marginTop="35dp"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Follow Me"/>
+        android:text="@string/follow_me"/>
 </LinearLayout>
