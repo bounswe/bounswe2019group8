@@ -28,7 +28,7 @@ interface ApiInterface {
     fun getUser(
         @Path("user_id") id: Long,
         @Header("Authorization") token: String
-    ): retrofit2.Call<ResponseBody>
+    ): retrofit2.Call<UserRes>
 
     // Update user request
     @Headers("Content-Type: application/json")

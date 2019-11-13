@@ -41,7 +41,7 @@ class SearchActivity : AppCompatActivity() {
         //users.add(SearchShow("John", "Dr"))
         //users.add(SearchShow("Amy", "Mrs"))
 
-        var adapter = CustomAdapter(users)
+        var adapter = CustomAdapter(this@SearchActivity, users)
         rv.adapter = adapter
 
         val manager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
@@ -85,9 +85,12 @@ class SearchActivity : AppCompatActivity() {
                                 val res: List<SearchRes>? = response.body()
 
                                 for(i in res.orEmpty()){
-                                  users.add(SearchShow(i.first_name, i.last_name))
-                                    adapter.notifyDataSetChanged()
+                                  users.add(SearchShow(i.first_name, i.last_name, i.pk))
                                 }
+                                if(users.isEmpty()){
+                                    Toast.makeText(this@SearchActivity, "No users found!", Toast.LENGTH_SHORT).show()
+                                }
+                                adapter.notifyDataSetChanged()
                                 //val users: List<UserRes>? = response.body()
                                 //Toast.makeText(this@SearchActivity, users?.get(0)?.first_name , Toast.LENGTH_SHORT).show()
                             } else {
@@ -105,6 +108,7 @@ class SearchActivity : AppCompatActivity() {
         })
         return super.onCreateOptionsMenu(menu)
     }
+
     override fun finish() {
         super.finish()
         overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
