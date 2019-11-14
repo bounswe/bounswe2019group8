@@ -8,8 +8,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
-import com.bounswe.mercatus.FollowersActivity
-import com.bounswe.mercatus.FollowingsActivity
 import com.bounswe.mercatus.Models.UserRes
 import com.bounswe.mercatus.R
 import kotlinx.android.synthetic.main.activity_show_profile.*
@@ -45,22 +43,6 @@ class ShowProfileActivity : AppCompatActivity() {
          */
         follow.setOnClickListener {
             followUser()
-        }
-        followerAction.setOnClickListener {
-            val intent = Intent(this, FollowersActivity::class.java)
-            startActivity(intent)
-            overridePendingTransition(
-                R.anim.slide_in_right,
-                R.anim.slide_out_left
-            )
-        }
-        followingAction.setOnClickListener {
-            val intent = Intent(this, FollowingsActivity::class.java)
-            startActivity(intent)
-            overridePendingTransition(
-                R.anim.slide_in_right,
-                R.anim.slide_out_left
-            )
         }
     }
 
@@ -108,6 +90,25 @@ class ShowProfileActivity : AppCompatActivity() {
 
                     if(response.body()?.groups?.get(0) == 2){
                         isTrader.text = "Trader"
+                    }
+
+                    followerAction.setOnClickListener {
+                        val intent = Intent(this@ShowProfileActivity, FollowersActivity::class.java)
+                        intent.putExtra("FOLLOWERS", response.body()?.pk.toString())
+                        startActivity(intent)
+                        overridePendingTransition(
+                            R.anim.slide_in_right,
+                            R.anim.slide_out_left
+                        )
+                    }
+                    followingAction.setOnClickListener {
+                        val intent = Intent(this@ShowProfileActivity, FollowingsActivity::class.java)
+                        intent.putExtra("FOLLOWINGS", response.body()?.pk.toString())
+                        startActivity(intent)
+                        overridePendingTransition(
+                            R.anim.slide_in_right,
+                            R.anim.slide_out_left
+                        )
                     }
 
                 }
