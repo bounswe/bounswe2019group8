@@ -9,6 +9,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.exceptions import AuthenticationFailed, PermissionDenied, NotFound, ValidationError
 from rest_framework.response import Response
 from django.contrib.postgres.search import SearchQuery, SearchVector, SearchRank, TrigramSimilarity
+from django.conf import settings
 
 from nova.email_token import account_activation_token
 
@@ -159,6 +160,8 @@ def auth_tokens_coll(request):
                         username=request.data.get('email'), password=request.data.get('password'))
     if user is None:
         raise AuthenticationFailed()
+    elif not user.email_activated and settings.DEBUG:
+        raise PermissionDenied("Email activation not completed")
 
     token, created = Token.objects.get_or_create(user=user)
     return Response({'token': token.key, 'user_id': user.pk}, status=status.HTTP_200_OK)
