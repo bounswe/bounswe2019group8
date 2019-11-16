@@ -147,8 +147,7 @@ REST_FRAMEWORK = {
 AUTH_USER_MODEL = 'nova.User'
 
 EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'mercatus.bounswe@gmail.com'
-# this app password is configured for the host email
-EMAIL_HOST_PASSWORD = 'fnyycxorasikyxkl'
-EMAIL_PORT = 587
+EMAIL_HOST = os.environ.get('MERCATUS_EMAIL_HOST')
+EMAIL_HOST_USER = os.environ.get('MERCATUS_EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('MERCATUS_EMAIL_HOST_PASSWORD')
+EMAIL_PORT = os.environ.get('MERCATUS_EMAIL_HOST_PORT')
