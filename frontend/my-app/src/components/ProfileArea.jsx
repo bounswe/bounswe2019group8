@@ -113,7 +113,6 @@ class ProfileArea extends React.Component {
             <ListGroup.Item>
               {this.props.credentials.dateOfBirth}
             </ListGroup.Item>
-
             <ListGroup.Item>
               Followers:
               <ListGroup className="list-group-flush">
@@ -125,7 +124,6 @@ class ProfileArea extends React.Component {
                   ))}
               </ListGroup>
             </ListGroup.Item>
-
             <ListGroup.Item>
               Followed by me:
               <ListGroup className="list-group-flush">
@@ -143,7 +141,6 @@ class ProfileArea extends React.Component {
                   ))}
               </ListGroup>
             </ListGroup.Item>
-
             <ListGroup.Item>
               <ListGroup>
                 Other users you can follow:

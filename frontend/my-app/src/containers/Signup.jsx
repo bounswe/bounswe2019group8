@@ -105,7 +105,7 @@ export default function Signup({ api, signUpClicked, ...props }) {
         last_name: fields.lastName,
         date_of_birth: fields.dateOfBirth,
         password: fields.password,
-        groups: [1]
+        groups: [0]
       })
       .then(function(response) {
         alert("sign-up successful");
@@ -134,7 +134,7 @@ export default function Signup({ api, signUpClicked, ...props }) {
         iban: traderFields.iban,
         lat: userLat,
         long: userLong,
-        groups: [2]
+        groups: [1]
       })
       .then(function(response) {
         alert("sign-up successful");

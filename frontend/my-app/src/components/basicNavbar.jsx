@@ -10,37 +10,43 @@ import {
   FormControl
 } from "react-bootstrap";
 
-class TraderNavbar extends Component {
+class BasicNavbar extends Component {
   state = {};
 
   render() {
+   
       return (
         <Navbar bg="dark" expand="lg">
           <Navbar.Brand href="#" className="navBarSyles">
-            <img
-              src={require("./MERCATUS-LOGO72DP.png")}
-              height="50"
-              weight="70"
-              alt="mercatus"
-            />
-          </Navbar.Brand>
-          <Navbar.Toggle
+          <img
+            src={require("./MERCATUS-LOGO72DP.png")}
+            height="50"
+            weight="70"
+            alt="mercatus"
+          />
+            </Navbar.Brand>
+            <Navbar.Toggle
             class="navbar-toggler"
             aria-controls="basic-navbar-nav"
-          />
+             />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="mr-auto">
-              <Nav.Link href="#">Trading Equipment</Nav.Link>
-              <Nav.Link href="#">Events</Nav.Link>
-              <Nav.Link href="#">Articles</Nav.Link>
-            </Nav>
+          <Nav className="mr-auto">
+            <Nav.Link href="#">Trading Equipment</Nav.Link>
+            <Nav.Link href="#">Events</Nav.Link>
+            <Nav.Link href="#">Articles</Nav.Link>
+          </Nav>
             <Form inline>
               <FormControl
                 type="text"
                 placeholder="Search"
                 className="mr-sm-2"
               />
-              <Button variant="outline-success">Search</Button>
+              <Button
+                variant="outline-success"
+                onClick={() => this.props.searchClick()}
+              >
+                Search
+              </Button>
             </Form>
             <NavDropdown
               title={
@@ -57,14 +63,13 @@ class TraderNavbar extends Component {
                 Profile
               </NavDropdown.Item>
               <NavDropdown.Item href="#">Settings</NavDropdown.Item>
-              <NavDropdown.Item href="#">Portfolio</NavDropdown.Item>
-
               <NavDropdown.Divider />
               <Button
                 id="loginStyles"
                 onClick={() => this.props.logoutClick()}
                 variant="outline-danger"
                 size="sm"
+                background-color="white"
               >
                 Logout
               </Button>
@@ -77,14 +82,17 @@ class TraderNavbar extends Component {
               width="80"
               height="55"
             />
+
             {/* <Form inline>
-              <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-              <Button variant="outline-success">Search</Button>
-            </Form>*/}
+            <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+            <Button variant="outline-success">Search</Button>
+          </Form>*/}
           </Navbar.Collapse>
         </Navbar>
-      );  
+      );
   }
+
+
 }
 
-export default TraderNavbar;
+export default BasicNavbar;
