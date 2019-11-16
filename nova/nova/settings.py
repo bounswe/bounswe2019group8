@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'nova',
-    'corsheaders'
+    'corsheaders',
+    'django_filters'
 ]
 
 MIDDLEWARE = [
@@ -140,6 +141,13 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     ],
     'DATE_INPUT_FORMATS': ['iso-8601'],
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
 }
 
 AUTH_USER_MODEL = 'nova.User'
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = os.environ.get('MERCATUS_EMAIL_HOST')
+EMAIL_HOST_USER = os.environ.get('MERCATUS_EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('MERCATUS_EMAIL_HOST_PASSWORD')
+EMAIL_PORT = os.environ.get('MERCATUS_EMAIL_HOST_PORT')
