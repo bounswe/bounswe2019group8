@@ -53,6 +53,14 @@ interface ApiInterface {
         @Body info: SearchBody,
         @Header("Authorization") token: String
     ): retrofit2.Call<List<SearchRes>>
+
+    @Headers("Content-Type:application/json")
+    @POST("users/{user_id}/followings")
+    fun followUser(
+        @Body info: FollowBody,
+        @Path("user_id") id: Long,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<UserRes>
 }
 class RetrofitInstance {
     companion object {

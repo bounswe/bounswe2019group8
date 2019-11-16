@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
 import com.bounswe.mercatus.Models.UserRes
+import com.bounswe.mercatus.Models.FollowBody
 import com.bounswe.mercatus.R
 import kotlinx.android.synthetic.main.activity_show_profile.*
 import retrofit2.Call
@@ -22,6 +23,8 @@ class ShowProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_show_profile)
         val pkval = intent.getStringExtra("pk_val")
+        val res = getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
+        val user_id = res.getString("user_id", "Data Not Found!")
 
         val name = findViewById<TextView>(R.id.fullName)
         val isTrader = findViewById<TextView>(R.id.isTrader)
@@ -42,14 +45,49 @@ class ShowProfileActivity : AppCompatActivity() {
         When click follow me button, set action here
          */
         follow.setOnClickListener {
-            followUser()
+            followUser(pkval.toLong(),
+                user_id!!.toLong() )
         }
     }
 
-    private fun followUser(){
-        //TODO implement follow user backend call here
-        Toast.makeText(this@ShowProfileActivity, "implement follow user backend call here", Toast.LENGTH_SHORT)
-            .show()
+    private fun followUser(pk : Long, user_id : Long){
+        val mercatus = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
+        val res = getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
+        val tokenV = res.getString("token", "Data Not Found!")
+        val fB = FollowBody(pk)
+
+        mercatus.followUser(fB,user_id ,"Token " + tokenV.toString()).enqueue(object :
+            Callback<UserRes> {
+            override fun onFailure(call: Call<UserRes>, t: Throwable) {
+                if(t.cause is ConnectException){
+                    Toast.makeText(
+                        this@ShowProfileActivity,
+                        "Check your connection!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else{
+                    Toast.makeText(
+                        this@ShowProfileActivity,
+                        "Something bad happened!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+            override fun onResponse(call: Call<UserRes>, response: Response<UserRes>) =
+
+
+                if (response.code() == 200) {
+                    Toast.makeText(this@ShowProfileActivity, response.body()?.first_name, Toast.LENGTH_SHORT)
+                        .show()
+
+                }
+                else  {
+                    Toast.makeText(this@ShowProfileActivity, "Following Failed "+response.code(), Toast.LENGTH_SHORT)
+                        .show()
+                }
+
+        })
     }
 
     /*
