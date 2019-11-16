@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Fragments.FollowersActivity"
-            android:label="@string/title_activity_followers">>
+            android:label="@string/title_activity_followers">
         </activity>
         <activity
             android:name=".Fragments.FollowingsActivity"
