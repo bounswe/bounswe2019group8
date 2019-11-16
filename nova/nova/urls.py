@@ -1,5 +1,15 @@
 from django.urls import path
+
+from nova.class_views.article_view import ArticleUpdateView
+from nova.class_views.trading_eq_view import TradingEquipmentViewSet
 from . import views
+from rest_framework import routers
+from django.conf.urls import url, include
+
+router = routers.DefaultRouter()
+router.register(r'equipments', TradingEquipmentViewSet)
+router.register(r'articles', ArticleUpdateView)
+
 
 urlpatterns = [
     path('users', views.users_coll),
@@ -17,4 +27,6 @@ urlpatterns = [
     path('activations/<uidb64>/<token>', views.activate_account),
 
     path('articles', views.article_coll),
+
+    url(r'^', include(router.urls))
 ]
