@@ -7,5 +7,6 @@
     <color name="grayLight">#fafafa</color>
     <color name="startBlue">#09c6df</color>
     <color name="endBlue">#0bcce6</color>
+    <color name="red">#b8122b</color>
 
 </resources>

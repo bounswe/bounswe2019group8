@@ -3,15 +3,19 @@ package com.bounswe.mercatus.Fragments
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
 import com.bounswe.mercatus.Models.UserRes
 import com.bounswe.mercatus.Models.FollowBody
+import com.bounswe.mercatus.Models.UserFollower
 import com.bounswe.mercatus.R
 import kotlinx.android.synthetic.main.activity_show_profile.*
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -33,7 +37,11 @@ class ShowProfileActivity : AppCompatActivity() {
         val date = findViewById<TextView>(R.id.date)
         val email = findViewById<TextView>(R.id.email)
 
-        getUser(pkval.toLong(),
+
+
+        getUser(
+            user_id!!.toLong(),
+            pkval.toLong(),
             name,
             isTrader,
             followers,
@@ -48,6 +56,48 @@ class ShowProfileActivity : AppCompatActivity() {
             followUser(pkval.toLong(),
                 user_id!!.toLong() )
         }
+
+        if(user_id == pkval){
+            follow.visibility = View.GONE
+        }
+    }
+    private fun unfollowUser(pk: Long, user_id: Long){
+        val mercatus = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
+        val res = getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
+        val tokenV = res.getString("token", "Data Not Found!")
+
+        mercatus.unfollowUser(pk ,"Token " + tokenV.toString(),user_id).enqueue(object :
+            Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                if(t.cause is ConnectException){
+                    Toast.makeText(
+                        this@ShowProfileActivity,
+                        "Check your connection!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else{
+                    Toast.makeText(
+                        this@ShowProfileActivity,
+                        "Something bad happened!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) =
+
+
+                if (response.code() == 204) {
+                    Toast.makeText(this@ShowProfileActivity, response.body()?.toString(), Toast.LENGTH_SHORT)
+                        .show()
+
+                }
+                else  {
+                    Toast.makeText(this@ShowProfileActivity, "Following Failed "+response.code(), Toast.LENGTH_SHORT)
+                        .show()
+                }
+
+        })
     }
 
     private fun followUser(pk : Long, user_id : Long){
@@ -93,7 +143,7 @@ class ShowProfileActivity : AppCompatActivity() {
     /*
     Gets user based on pk value and a token that was coming from login
      */
-    private fun getUser(pk : Long, name: TextView, isTrader: TextView,
+    private fun getUser(user_id: Long, pk : Long, name: TextView, isTrader: TextView,
                         followers: TextView, followings: TextView, date: TextView,email: TextView){
         val mercatus = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
         val res = getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
@@ -126,6 +176,16 @@ class ShowProfileActivity : AppCompatActivity() {
                     followers.text = response.body()?.followers?.size.toString()
                     followings.text = response.body()?.followings?.size.toString()
 
+                    val followingsList = response.body()?.followers
+                    for (item in followingsList!!){
+                        if(item.pk == user_id){
+                            follow.setText("Unflow")
+                            follow.setBackgroundColor(ContextCompat.getColor(applicationContext, R.color.red))
+                            follow.setOnClickListener {
+                                unfollowUser(user_id, pk)
+                            }
+                        }
+                    }
                     if(response.body()?.groups?.get(0) == 2){
                         isTrader.text = "Trader"
                     }
