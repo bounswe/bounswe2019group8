@@ -1,5 +1,11 @@
 from django.urls import path
+
 from . import views
+
+
+from .class_views import article_view, trading_eq_view
+
+
 
 urlpatterns = [
     path('users', views.users_coll),
@@ -16,5 +22,11 @@ urlpatterns = [
 
     path('activations/<uidb64>/<token>', views.activate_account),
 
-    path('articles', views.article_coll),
+    path('articles', article_view.article_coll),
+
+    path('articles/<int:pk>', article_view.article_res),
+
+    path('trading_equipments', trading_eq_view.trading_eq_coll),
+
+    path('trading_equipments/<int:pk>', trading_eq_view.trading_eq_res)
 ]

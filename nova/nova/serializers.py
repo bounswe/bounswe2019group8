@@ -3,14 +3,14 @@ from django.contrib.auth.models import Group
 from rest_framework import serializers
 
 from .libs.serializers import NovaSerializer
-from .models import User, Article, TradingEquipment, Comment
+from .models import User, Article, TradingEquipment, Comment, Parity
 
 
 class UserSerializer(NovaSerializer):
     class Meta:
         model = User
         fields = ['email', 'lat', 'long', 'first_name', 'last_name', 'date_of_birth', 'profile_image', 'password', 'pk',
-                  'groups', 'email_activated']
+                  'groups']
         create_only_fields = ['first_name', 'last_name']
 
     password = serializers.CharField(
@@ -18,7 +18,6 @@ class UserSerializer(NovaSerializer):
         required=True,
         style={'input_type': 'password', 'placeholder': 'Password'}
     )
-
 
     def validate(self, attrs):
         if len(attrs.get('groups', [])) != 1:
@@ -74,3 +73,15 @@ class CommentSerializer(NovaSerializer):
 
     def update(self, instance, data):
         return super(CommentSerializer, self).update(data)
+
+
+class ParitySerializer(NovaSerializer):
+    class Meta:
+        model = Parity
+        fields = ['observed_at', 'from_eq', 'to_eq', 'open', 'close', 'high', 'low']
+
+    def create(self, validated_data):
+        return super(ParitySerializer, self).create(validated_data)
+
+    def update(self, instance, validated_data):
+        return super(ParitySerializer, self).update(validated_data)
