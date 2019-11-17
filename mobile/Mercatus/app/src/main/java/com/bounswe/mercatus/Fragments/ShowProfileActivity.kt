@@ -179,7 +179,7 @@ class ShowProfileActivity : AppCompatActivity() {
                     val followingsList = response.body()?.followers
                     for (item in followingsList!!){
                         if(item.pk == user_id){
-                            follow.setText("Unflow")
+                            follow.setText("Unfollow")
                             follow.setBackgroundColor(ContextCompat.getColor(applicationContext, R.color.red))
                             follow.setOnClickListener {
                                 unfollowUser(user_id, pk)

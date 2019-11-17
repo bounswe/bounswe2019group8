@@ -23,6 +23,33 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        val sharedPreferences = getSharedPreferences("user_id", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+
+
+  //      Toast.makeText(
+  //          this@LoginActivity,
+  //          "ASDASD! "+sharedPreferences.getString("user_id"," ") ,
+  //          Toast.LENGTH_SHORT
+  //      ).show()
+
+
+        if(sharedPreferences.getString("user_id"," ") !=" "){
+ //           Toast.makeText(
+ //               this@LoginActivity,
+ //               "ASDASD!"+sharedPreferences.getString("user_id"," ")+sharedPreferences.getString("user_id"," ")!!.length ,
+ //               Toast.LENGTH_SHORT
+ //           ).show()
+            val intent = Intent(this@LoginActivity, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+
+
+
+
+
         // Button click listener
         buttonSigin.setOnClickListener {
             val email = editMail.text.toString()
@@ -101,11 +128,13 @@ class LoginActivity : AppCompatActivity() {
             }
             override fun onResponse(call: Call<SignInRes>, response: Response<SignInRes>) {
                 if (response.code() == 200) {
+                    val sharedPreferences2 = getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
                     editor.putString("token", response.body()?.token)
                     editor.putString("user_id", response.body()?.user_id.toString())
-                    editor.apply()
+                    editor.commit()
 
-                    Toast.makeText(this@LoginActivity, "Login success!.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@LoginActivity, "Login success! my user id is  "+
+                            sharedPreferences2.getString("user_id"," ") ,Toast.LENGTH_SHORT).show()
 
                     val intent = Intent(this@LoginActivity, MainActivity::class.java)
                     startActivity(intent)
@@ -113,6 +142,8 @@ class LoginActivity : AppCompatActivity() {
                             R.anim.slide_in_right,
                     R.anim.slide_out_left
                     )
+
+                    finish()
 
                 } else {
                     Toast.makeText(this@LoginActivity, "Login failed!", Toast.LENGTH_SHORT).show()
