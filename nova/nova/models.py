@@ -63,16 +63,16 @@ class Comment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     ## article comment, foreignkey -> many to one
-    article = models.ForeignKey(Article, on_delete=models.CASCADE)
+    article = models.ForeignKey('Article' , on_delete=models.CASCADE, null = True)
 
     ## trading equipment comment
-    trading_eq = models.ForeignKey(TradingEquipment, on_delete=models.CASCADE)
+    trading_eq = models.ForeignKey(TradingEquipment, on_delete=models.CASCADE, null=True)
 
-    author = models.OneToOneField(User, on_delete=models.CASCADE)
+    author = models.ForeignKey('User', on_delete=models.CASCADE)
 
     content = models.CharField(max_length = 300)
 
-    REQUIRED_FIELDS = ['created_at', 'author']
+    REQUIRED_FIELDS = ['created_at', 'author', 'content']
 
 
 class Parity(models.Model):

@@ -65,14 +65,13 @@ class TradingEquipmentSerializer(NovaSerializer):
 class CommentSerializer(NovaSerializer):
     class Meta:
         model = Comment
-        fields = ['author', 'content']
         create_only_fields = ['author']
-
+        fields = ['author', 'content', 'article', 'trading_eq', 'pk']
     def create(self, data):
         return super(CommentSerializer, self).create(data)
 
     def update(self, instance, data):
-        return super(CommentSerializer, self).update(data)
+        return super(CommentSerializer, self).update(instance, data)
 
 
 class ParitySerializer(NovaSerializer):

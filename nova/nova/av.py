@@ -18,4 +18,3 @@ def get_currency_list(list_type):
     return Response(cur_dict, status = status.HTTP_200_OK)
 
 
-
