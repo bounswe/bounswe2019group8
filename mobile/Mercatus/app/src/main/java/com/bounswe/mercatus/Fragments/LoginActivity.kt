@@ -37,12 +37,16 @@ class LoginActivity : AppCompatActivity() {
         }
 
         buttonGuest.setOnClickListener {
-            val intent = Intent(this, ShowProfileActivity::class.java)
+            val intent = Intent(this, MapsActivity::class.java)
             startActivity(intent)
+
+            //temporary change to test maps functionality easily
+            /*
             overridePendingTransition(
                 R.anim.slide_in_right,
                 R.anim.slide_out_left
             )
+             */
         }
 
         buttonRegister.setOnClickListener {

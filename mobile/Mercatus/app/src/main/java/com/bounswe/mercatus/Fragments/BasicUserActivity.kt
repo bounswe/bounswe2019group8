@@ -42,6 +42,7 @@ class BasicUserActivity : AppCompatActivity() {
                 signup(date, email, name, surname, password)
             }
         }
+
     }
     private fun signin(email: String, password: String, editor: SharedPreferences.Editor){
         val mercatus = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
@@ -154,6 +155,9 @@ class BasicUserActivity : AppCompatActivity() {
                         .show()
                     val sharedPreferences = getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
                     val editor = sharedPreferences.edit()
+
+                    //Go to maps first then profile
+                    TODO()
 
                     //Since we need token, we need to do signin
                     signin(email, password, editor)

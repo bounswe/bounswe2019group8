@@ -8,10 +8,14 @@ class GuestActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_guest)
+        setContentView(R.layout.activity_maps)
     }
+
+    //TO TEST MAPS FUNCTIONALITY
+    /*
     override fun finish() {
         super.finish()
         overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
     }
+    */
 }

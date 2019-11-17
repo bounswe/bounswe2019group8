@@ -129,29 +129,30 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="40dp"
                         android:orientation="horizontal"
-                        android:padding="10dp"
-                        android:layout_marginBottom="40dp">
+                        android:padding="10dp">
+
                         <Button
                             android:id="@+id/dataPick"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_marginTop="8dp"
                             android:layout_marginStart="20dp"
-                            android:text="@string/date_pick"/>
+                            android:layout_marginTop="8dp"
+                            android:text="@string/date_pick" />
 
                         <TextView
                             android:id="@+id/dateTv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="20sp"
-                            android:text="Date"
                             android:layout_gravity="center"
-                            android:layout_marginTop="8dp"
                             android:layout_marginStart="15dp"
+                            android:layout_marginTop="8dp"
+                            android:text="Date"
                             android:textColor="@color/colorAccent"
-                            android:textStyle="bold"/>
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
                     </LinearLayout>
                 </LinearLayout>
             </ScrollView>
