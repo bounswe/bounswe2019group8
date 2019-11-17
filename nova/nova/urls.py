@@ -1,9 +1,9 @@
 from django.urls import path
 
+from nova.other_views import article_view, trading_eq_view
 from . import views
 
 
-from .class_views import article_view, trading_eq_view
 
 
 
