@@ -52,11 +52,17 @@ class TradingEquipment(models.Model):
 
     name = models.CharField(max_length=50)
 
-    daily_prices =  ArrayField(models.FloatField(), default=list)
+    sym = models.CharField(max_length=12, unique=True, blank=True)
 
-    current_price = models.FloatField(default=0)
+    #daily_prices =  ArrayField(models.FloatField(), default=list)
 
-    REQUIRED_FIELDS = ['type', 'name']
+    #weekly_prices = ArrayField(models.FloatField(), default=list)
+
+    #monthly_prices = ArrayField(models.FloatField(), default=list)
+
+    #current_price = ArrayField(models.FloatField(), default=list)
+
+    REQUIRED_FIELDS = ['type', 'name', 'sym']
 
 
 class Comment(models.Model):
@@ -76,11 +82,29 @@ class Comment(models.Model):
 
 
 class Parity(models.Model):
+
+    # COMMENTS ARE RELATED TO ALPHAVANTAGE
+
+    # for intraday, we can set the time interval for 10mins, which results in 144 entries per day
+    # At the end of the day we can clear the previous data from database
+
+    # for weekly, we can store the last 156 weeks = 3 years
+    # Once a week, we can update these 156 week data
+
+    # for monthly, we can store the last 36 months = 3 years
+    # Once a month, we can update these 36 months data
+
+    INTERVAL_CHOICES = (
+        ('intraday', 'intraday'),
+        ('weekly', 'weekly'),
+        ('monthly', 'monthly')
+    )
+
+    interval_category = models.CharField(max_length=32, choices=INTERVAL_CHOICES, default='weekly')
+
     observed_at = models.DateTimeField(blank=True)
 
-    from_eq = models.ForeignKey(TradingEquipment, on_delete=models.CASCADE, blank=False, related_name='parity_from')
-
-    to_eq  = models.ForeignKey(TradingEquipment, on_delete=models.CASCADE, blank=False, related_name='parity_to')
+    tr_eq = models.ForeignKey(TradingEquipment, on_delete=models.CASCADE, null=True)
 
     open = models.DecimalField(max_digits=14, decimal_places=8, blank=False)
 
@@ -90,4 +114,5 @@ class Parity(models.Model):
 
     low = models.DecimalField(max_digits=14, decimal_places=8, blank=False)
 
-    REQUIRED_FIELDS = ['observed_at', 'from_eq', 'from_to', 'open', 'close', 'high', 'low']
+    REQUIRED_FIELDS = ['observed_at', 'interval_category', 'tr_eq', 'open', 'close', 'high', 'low']
+

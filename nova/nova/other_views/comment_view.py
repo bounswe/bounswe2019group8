@@ -1,9 +1,11 @@
 from rest_framework import status
+from rest_framework import permissions
 from rest_framework.decorators import permission_classes, api_view
 
 from nova.serializers import CommentSerializer
-from ..permissions import IsAuthenticated, is_user_in_group
+from ..permissions import is_user_in_group
 from ..models import Comment, Article, TradingEquipment
+
 
 from rest_framework.exceptions import PermissionDenied, NotFound
 
@@ -12,7 +14,7 @@ from rest_framework.response import Response
 
 
 @api_view(['POST', 'GET'])
-@permission_classes((IsAuthenticated, ))
+@permission_classes((permissions.IsAuthenticated, ))
 def comment_coll_article(request, pk):
     try:
         article = Article.objects.get(pk=pk)
@@ -36,7 +38,7 @@ def comment_coll_article(request, pk):
 
 
 @api_view(['POST', 'GET'])
-@permission_classes((IsAuthenticated, ))
+@permission_classes((permissions.IsAuthenticated, ))
 def comment_coll_tr_eq(request, pk):
     try:
         tr_eq = TradingEquipment.objects.get(pk=pk)
@@ -60,7 +62,7 @@ def comment_coll_tr_eq(request, pk):
 
 
 @api_view(['PUT', 'DELETE'])
-@permission_classes((IsAuthenticated, ))
+@permission_classes((permissions.IsAuthenticated, ))
 def comment_res(request, pk):
     try:
         comment = Comment.objects.get(pk = pk)

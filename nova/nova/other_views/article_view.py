@@ -3,8 +3,9 @@ from rest_framework.response import Response
 from rest_framework import status
 from ..models import Article
 from ..serializers import ArticleSerializer
-from ..permissions import IsAuthenticated, IsGetOrIsAuthenticated, is_user_in_group
+from ..permissions import IsGetOrIsAuthenticated, is_user_in_group
 from rest_framework.exceptions import PermissionDenied, NotFound
+from rest_framework import permissions
 
 
 @api_view(['GET', 'POST'])
@@ -27,7 +28,7 @@ def article_coll(request):
 
 
 @api_view(['PUT', 'DELETE', 'GET'])
-@permission_classes((IsAuthenticated, ))
+@permission_classes((permissions.IsAuthenticated, ))
 def article_res(request, pk):
     try:
         article = Article.objects.get(pk = pk)

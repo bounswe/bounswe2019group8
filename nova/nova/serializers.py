@@ -10,7 +10,7 @@ class UserSerializer(NovaSerializer):
     class Meta:
         model = User
         fields = ['email', 'lat', 'long', 'first_name', 'last_name', 'date_of_birth', 'profile_image', 'password', 'pk',
-                  'groups']
+                  'groups', 'email_activated']
         create_only_fields = ['first_name', 'last_name']
 
     password = serializers.CharField(
@@ -52,8 +52,8 @@ class ArticleSerializer(NovaSerializer):
 class TradingEquipmentSerializer(NovaSerializer):
     class Meta:
         model = TradingEquipment
-        fields = ['type', 'name', 'daily_prices', 'current_price', 'pk']
-        create_only_fields = ['type', 'name']
+        fields = ['type', 'name', 'sym', 'pk']
+        create_only_fields = ['type', 'name', 'sym']
 
     def create(self, data):
         return super(TradingEquipmentSerializer, self).create(data)
@@ -77,7 +77,7 @@ class CommentSerializer(NovaSerializer):
 class ParitySerializer(NovaSerializer):
     class Meta:
         model = Parity
-        fields = ['observed_at', 'from_eq', 'to_eq', 'open', 'close', 'high', 'low']
+        fields = ['interval_category', 'observed_at', 'tr_eq',  'open', 'close', 'high', 'low']
 
     def create(self, validated_data):
         return super(ParitySerializer, self).create(validated_data)

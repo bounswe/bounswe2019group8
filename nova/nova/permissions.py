@@ -13,11 +13,6 @@ class IsPostOrIsAuthenticated(permissions.BasePermission):
         return bool(request.user and request.user.is_authenticated)
 
 
-class IsAuthenticated(permissions.BasePermission):
-    def has_permission(self, request, view):
-        return bool(request.user and request.user.is_authenticated)
-
-
 class IsGetOrIsAdmin(permissions.BasePermission):
     def has_permission(self, request, view):
         if request.method == 'GET':

@@ -4,6 +4,7 @@ import csv
 from rest_framework import status
 from rest_framework.response import Response
 
+from nova.models import TradingEquipment
 from .settings import AV_URLS, ALPHAVANTAGE_KEYS
 
 
@@ -15,6 +16,8 @@ def get_currency_list(list_type):
     cur_dict = {}
     for cur in response_list:
         cur_dict[cur[0]] = cur[1]
-    return Response(cur_dict, status = status.HTTP_200_OK)
+    return cur_dict
 
-
+def fill_parities():
+    # TODO
+    return
