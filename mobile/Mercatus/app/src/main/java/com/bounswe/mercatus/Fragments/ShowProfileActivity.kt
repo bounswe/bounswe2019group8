@@ -90,7 +90,8 @@ class ShowProfileActivity : AppCompatActivity() {
                 if (response.code() == 204) {
                     Toast.makeText(this@ShowProfileActivity, response.body()?.toString(), Toast.LENGTH_SHORT)
                         .show()
-
+                    finish()
+                    startActivity(getIntent())
                 }
                 else  {
                     Toast.makeText(this@ShowProfileActivity, "Following Failed "+response.code(), Toast.LENGTH_SHORT)
@@ -130,7 +131,8 @@ class ShowProfileActivity : AppCompatActivity() {
                 if (response.code() == 200) {
                     Toast.makeText(this@ShowProfileActivity, response.body()?.first_name, Toast.LENGTH_SHORT)
                         .show()
-
+                    finish()
+                    startActivity(getIntent())
                 }
                 else  {
                     Toast.makeText(this@ShowProfileActivity, "Following Failed "+response.code(), Toast.LENGTH_SHORT)
@@ -179,7 +181,7 @@ class ShowProfileActivity : AppCompatActivity() {
                     val followingsList = response.body()?.followers
                     for (item in followingsList!!){
                         if(item.pk == user_id){
-                            follow.setText("Unflow")
+                            follow.setText("Unfollow")
                             follow.setBackgroundColor(ContextCompat.getColor(applicationContext, R.color.red))
                             follow.setOnClickListener {
                                 unfollowUser(user_id, pk)
