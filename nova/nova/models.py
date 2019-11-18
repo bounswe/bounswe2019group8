@@ -54,14 +54,6 @@ class TradingEquipment(models.Model):
 
     sym = models.CharField(max_length=12, unique=True, blank=True)
 
-    #daily_prices =  ArrayField(models.FloatField(), default=list)
-
-    #weekly_prices = ArrayField(models.FloatField(), default=list)
-
-    #monthly_prices = ArrayField(models.FloatField(), default=list)
-
-    #current_price = ArrayField(models.FloatField(), default=list)
-
     REQUIRED_FIELDS = ['type', 'name', 'sym']
 
 
