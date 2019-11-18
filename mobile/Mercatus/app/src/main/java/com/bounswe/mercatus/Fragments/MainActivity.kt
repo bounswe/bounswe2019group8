@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         val toolbar: Toolbar = findViewById(com.bounswe.mercatus.R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        val token = getSharedPreferences("user_id", Context.MODE_PRIVATE)
+        val token = getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
 
         val fab: FloatingActionButton = findViewById(com.bounswe.mercatus.R.id.fab)
         fab.setOnClickListener { view ->
@@ -82,12 +82,16 @@ class MainActivity : AppCompatActivity() {
             msgShow("Successfully logged out")
 
             val intent = Intent(this@MainActivity, LoginActivity::class.java)
-            startActivity(intent)
 
-            val preferences = getSharedPreferences("user_id", Context.MODE_PRIVATE)
+
+
+
+            val preferences = getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
             val editor = preferences.edit()
-            editor.putString("user_id", " ")
+            editor.putString("token", " ")
             editor.commit()
+
+            startActivity(intent)
             finish()
             true
         }

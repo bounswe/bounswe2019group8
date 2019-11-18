@@ -23,23 +23,15 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        val sharedPreferences = getSharedPreferences("user_id", Context.MODE_PRIVATE)
+        val sharedPreferences = getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
 
 
-  //      Toast.makeText(
-  //          this@LoginActivity,
-  //          "ASDASD! "+sharedPreferences.getString("user_id"," ") ,
-  //          Toast.LENGTH_SHORT
-  //      ).show()
 
 
-        if(sharedPreferences.getString("user_id"," ") !=" "){
- //           Toast.makeText(
- //               this@LoginActivity,
- //               "ASDASD!"+sharedPreferences.getString("user_id"," ")+sharedPreferences.getString("user_id"," ")!!.length ,
- //               Toast.LENGTH_SHORT
- //           ).show()
+
+        if(sharedPreferences.getString("token"," ") !=" "){
+
             val intent = Intent(this@LoginActivity, MainActivity::class.java)
             startActivity(intent)
             finish()
@@ -133,8 +125,7 @@ class LoginActivity : AppCompatActivity() {
                     editor.putString("user_id", response.body()?.user_id.toString())
                     editor.commit()
 
-                    Toast.makeText(this@LoginActivity, "Login success! my user id is  "+
-                            sharedPreferences2.getString("user_id"," ") ,Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@LoginActivity, "Login success! ",Toast.LENGTH_SHORT).show()
 
                     val intent = Intent(this@LoginActivity, MainActivity::class.java)
                     startActivity(intent)
