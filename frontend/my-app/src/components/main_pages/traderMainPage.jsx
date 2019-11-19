@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import "../../App.css";
-import { withRouter, Route, Switch} from "react-router-dom";
+import { withRouter, Route, Switch } from "react-router-dom";
 import TraderNavbar from "../nav_bars/traderNavbar";
 import axios from "axios";
 import "../profile_components/ProfilePage";
 import ProfilePage from "../profile_components/ProfilePage";
 import Home from "../../home";
-
+import ArticleHolder from "../article_components/articleHolder";
+import WriteArticle from "../article_components/writeArticlePage";
 
 class TraderMainPage extends Component {
   state = {
@@ -18,8 +19,7 @@ class TraderMainPage extends Component {
       firstName: "",
       lastName: "",
       dateOfBirth: "",
-      userGroup:""
-
+      userGroup: ""
     },
     users: [],
     api: axios.create({
@@ -28,15 +28,15 @@ class TraderMainPage extends Component {
   };
 
   render() {
-  return(
-    <React.Fragment>
-    <Switch>
-    <Route path ="/profile" component={ProfilePage}/>  
-    </Switch>
-    {this.traderNavbar()}
-  
-    </React.Fragment>
-  )
+    return (
+      <React.Fragment>
+        <Switch>
+          <Route path="/profile" component={ProfilePage} />
+        </Switch>
+        {this.traderNavbar()}
+        <WriteArticle />
+      </React.Fragment>
+    );
   }
   searchClick = () => {
     this.setState({ searchClicked: !this.state.searchClicked });
@@ -50,37 +50,36 @@ class TraderMainPage extends Component {
   };
   //mounting function for local storage
   componentDidMount() {
-        var url =
-          "http://8.209.81.242:8000/users/" + localStorage.getItem("userId");
-        var credentials1 = { ...this.state.credentials };
-        var id = localStorage.getItem("userId");
-        var token = localStorage.getItem("userToken");
-        credentials1.id = id;
-        credentials1.userToken = token;
-        var userType;
-        axios
-          .get("http://8.209.81.242:8000/users", {
-            headers: { Authorization: `Token ${token}` }
-          })
-          .then(res => {
-            this.setState({ users: res.data });
-          });
-        axios
-          .get(url, { headers: { Authorization: `Token ${token}` } })
-          .then(res => {
-    
-            var credentials = { ...this.state.credentials };
-            credentials.userEmail = res.data.email;
-            credentials.firstName = res.data.first_name;
-            credentials.lastName = res.data.last_name;
-            credentials.dateOfBirth = res.data.date_of_birth;
-            credentials.id = id;
-            credentials.userToken = token;
-            credentials.userGroup = res.data.groups[0];
-            this.setState({ credentials: credentials });
-          });   
+    var url =
+      "http://8.209.81.242:8000/users/" + localStorage.getItem("userId");
+    var credentials1 = { ...this.state.credentials };
+    var id = localStorage.getItem("userId");
+    var token = localStorage.getItem("userToken");
+    credentials1.id = id;
+    credentials1.userToken = token;
+    var userType;
+    axios
+      .get("http://8.209.81.242:8000/users", {
+        headers: { Authorization: `Token ${token}` }
+      })
+      .then(res => {
+        this.setState({ users: res.data });
+      });
+    axios
+      .get(url, { headers: { Authorization: `Token ${token}` } })
+      .then(res => {
+        var credentials = { ...this.state.credentials };
+        credentials.userEmail = res.data.email;
+        credentials.firstName = res.data.first_name;
+        credentials.lastName = res.data.last_name;
+        credentials.dateOfBirth = res.data.date_of_birth;
+        credentials.id = id;
+        credentials.userToken = token;
+        credentials.userGroup = res.data.groups[0];
+        this.setState({ credentials: credentials });
+      });
   }
-  
+
   logoutClick = () => {
     localStorage.setItem("userId", null);
     localStorage.setItem("userToken", null);
@@ -90,11 +89,11 @@ class TraderMainPage extends Component {
   traderNavbar = () => {
     return (
       <TraderNavbar
-      profileClick={this.profileClick}
-      logoutClick={this.logoutClick}
-      credentials={this.state.credentials}
-      users={this.state.users}
-      searchClick={this.searchClick}
+        profileClick={this.profileClick}
+        logoutClick={this.logoutClick}
+        credentials={this.state.credentials}
+        users={this.state.users}
+        searchClick={this.searchClick}
       />
     );
   };
