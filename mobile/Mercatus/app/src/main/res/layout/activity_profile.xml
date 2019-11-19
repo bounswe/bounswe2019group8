@@ -45,7 +45,7 @@
         android:layout_marginTop="80dp"
         android:layout_width="match_parent"
         android:layout_height="49dp"
-        android:text="Name:" />
+        android:text="Name: " />
 
     <TextView
         android:id="@+id/profileMail"
@@ -57,14 +57,6 @@
         android:id="@+id/profileBirthday"
         android:layout_width="match_parent"
         android:layout_height="43dp"
-        android:text="Birth date:" />
-
-
-    <ImageButton
-        android:id="@+id/btnSearch"
-        android:layout_width="59dp"
-        android:layout_height="wrap_content"
-        app:srcCompat="@android:drawable/ic_search_category_default"
-        android:layout_gravity="center"/>
+        android:text="Birth date: " />
 
 </LinearLayout>

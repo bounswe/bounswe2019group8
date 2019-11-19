@@ -3,7 +3,7 @@ package com.bounswe.mercatus
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.bounswe.mercatus.Fragments.ProfileActivity
+import com.bounswe.mercatus.ui.ProfileActivity
 import kotlinx.android.synthetic.main.activity_modify.*
 
 

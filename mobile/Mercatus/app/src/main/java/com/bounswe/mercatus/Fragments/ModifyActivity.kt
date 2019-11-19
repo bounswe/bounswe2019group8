@@ -12,6 +12,7 @@ import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
 import com.bounswe.mercatus.Models.UserRes
 import com.bounswe.mercatus.R
+import com.bounswe.mercatus.ui.ProfileActivity
 import kotlinx.android.synthetic.main.activity_modify.*
 import kotlinx.serialization.json.JSON
 import okhttp3.ResponseBody

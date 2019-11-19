@@ -53,4 +53,7 @@
     <string name="title_activity_followings">Followings</string>
     <string name="title_activity_followers">Followers</string>
     <string name="title_activity_trading">TradingActivity</string>
+
+    <string name="open">Open</string>
+    <string name="close">Close</string>
 </resources>
