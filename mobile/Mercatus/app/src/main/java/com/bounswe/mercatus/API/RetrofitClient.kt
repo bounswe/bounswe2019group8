@@ -85,7 +85,7 @@ interface ApiInterface {
     @Headers("Content-Type:application/json")
     @POST("articles")
     fun createArticle(
-        @Body info: ShowArticleBody,
+        @Body info: CreateArticleBody,
         @Header("Authorization") token: String
     ): retrofit2.Call<GetArticleBody>
 }

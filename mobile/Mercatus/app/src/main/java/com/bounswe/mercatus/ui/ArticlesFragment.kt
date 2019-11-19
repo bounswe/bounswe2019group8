@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
 import com.bounswe.mercatus.Adapters.ArticlesAdapter
-import com.bounswe.mercatus.Fragments.SearchActivity
+import com.bounswe.mercatus.Fragments.CreateArticleActivity
 import com.bounswe.mercatus.Models.GetArticleBody
 import com.bounswe.mercatus.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -38,7 +38,7 @@ class ArticlesFragment : Fragment() {
 
         fab  = root.findViewById(R.id.fab)
         fab.setOnClickListener { view ->
-            val intent = Intent(root.context, SearchActivity::class.java)
+            val intent = Intent(root.context, CreateArticleActivity::class.java)
             startActivity(intent)
         }
         getArticles(root)
@@ -88,42 +88,10 @@ class ArticlesFragment : Fragment() {
                 }
             }
         })
+    }
 
-        /*
-        var aB = ShowArticleBody("Android Navigation Drawer ", "Hello guys, here is another tutorial for one of the most common things in any android application, navigation drawer. So in this Android Navigation Drawer Example you will learn how you can use the Android Navigation Drawer from the predefined template.\n" +
-                "\n" +
-                "You may already know what is Android Navigation Drawer but if you are confused in implementing it with multiple fragments then don’t worry, this android navigation drawer example will clear all your doubts. So lets begin our Android Navigation Drawer Example. https://www.simplifiedcoding.net/android-navigation-drawer-example-using-fragments/")
-        mer.createArticle(aB,"Token " + tokenV.toString()).enqueue(object :
-            Callback<GetArticleBody> {
-            override fun onFailure(call: Call<GetArticleBody>, t: Throwable) {
-                if(t.cause is ConnectException){
-                    Toast.makeText(
-                        activity,
-                        "Check your connection!",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-                else{
-                    Toast.makeText(
-                        activity,
-                        "Something bad happened!",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-            override fun onResponse(call: Call<GetArticleBody>, response: Response<GetArticleBody>) {
-                if (response.code() == 201) {
-
-                }
-                else  {
-                    Toast.makeText(activity, "Create article failed.", Toast.LENGTH_SHORT)
-                        .show()
-                }
-            }
-        })
-
-         */
-
-
+    override fun onStart() {
+        getArticles(super.getView()!!)
+        super.onStart()
     }
 }
