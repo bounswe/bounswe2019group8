@@ -61,6 +61,7 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
             itemView.makeComment.setOnClickListener {
                 Toast.makeText(context, "Make me a comment!", Toast.LENGTH_SHORT).show()
             }
+
         }
         fun setData(title : String, content : String, author: Long, pk: Int, rating: Float, position: Int){
             itemView.article_heading.text = title
