@@ -74,6 +74,20 @@ interface ApiInterface {
         @Path("user_id") id: Long
     ): retrofit2.Call<ResponseBody>
 
+    // Get all articles
+    @Headers("Content-Type:application/json")
+    @GET("articles")
+    fun getArticles(
+        @Header("Authorization") token: String
+    ): retrofit2.Call<List<GetArticleBody>>
+
+    // Create an article
+    @Headers("Content-Type:application/json")
+    @POST("articles")
+    fun createArticle(
+        @Body info: CreateArticleBody,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<GetArticleBody>
 }
 class RetrofitInstance {
     companion object {

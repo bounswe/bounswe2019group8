@@ -13,16 +13,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Fragments.CreateArticleActivity"></activity>
         <activity
             android:name=".Fragments.TradingActivity"
             android:label="@string/title_activity_trading"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Fragments.FollowersActivity"
-            android:label="@string/title_activity_followers"></activity>
+            android:label="@string/title_activity_followers" />
         <activity
             android:name=".Fragments.FollowingsActivity"
-            android:label="@string/title_activity_followings"></activity>
+            android:label="@string/title_activity_followings" />
         <activity
             android:name=".Fragments.ChooseActivity"
             android:label="@string/title_activity_choose"

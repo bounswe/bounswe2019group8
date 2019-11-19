@@ -57,4 +57,11 @@
     <string name="open">Open</string>
     <string name="close">Close</string>
     <string name="edit_profile">Edit Profile</string>
+
+    <string name="title">Title</string>
+    <string name="content">Content</string>
+    <string name="cre_content">Content:</string>
+    <string name="write_article">What do you think?</string>
+    <string name="comment">Comment</string>
+    <string name="create_article">Create Article</string>
 </resources>

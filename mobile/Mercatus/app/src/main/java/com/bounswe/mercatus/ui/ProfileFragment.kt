@@ -60,6 +60,7 @@ class ProfileFragment : Fragment() {
 
         btnModify.setOnClickListener {
             val intent = Intent(activity, ModifyActivity::class.java)
+            activity?.onBackPressed()
             startActivity(intent)
         }
 
