@@ -83,6 +83,7 @@ WSGI_APPLICATION = 'nova.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -136,6 +137,8 @@ STATIC_URL = '/static/'
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.AllowAny',
+
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
@@ -151,3 +154,6 @@ EMAIL_HOST = os.environ.get('MERCATUS_EMAIL_HOST')
 EMAIL_HOST_USER = os.environ.get('MERCATUS_EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('MERCATUS_EMAIL_HOST_PASSWORD')
 EMAIL_PORT = os.environ.get('MERCATUS_EMAIL_HOST_PORT')
+
+ALPHAVANTAGE_KEYS = ['D5G9T6LX297WEZXA', '3IA7WIBFQ24K5BFU']
+AV_URLS = {'alpha' : 'https://www.alphavantage.co/', 'phy_cur' : 'physical_currency_list', 'dig_cur' : 'digital_currency_list'}

@@ -3,7 +3,7 @@ from django.contrib.auth.models import Group
 from rest_framework import serializers
 
 from .libs.serializers import NovaSerializer
-from .models import User, Article, TradingEquipment, Comment
+from .models import User, Article, TradingEquipment, Comment, Parity
 
 class UserBasicSerializer(NovaSerializer):
     class Meta:
@@ -27,7 +27,6 @@ class UserSerializer(NovaSerializer):
         required=True,
         style={'input_type': 'password', 'placeholder': 'Password'}
     )
-
 
     def validate(self, attrs):
         if len(attrs.get('groups', [])) != 1:
@@ -62,8 +61,8 @@ class ArticleSerializer(NovaSerializer):
 class TradingEquipmentSerializer(NovaSerializer):
     class Meta:
         model = TradingEquipment
-        fields = ['type', 'name', 'daily_prices', 'current_price', 'pk']
-        create_only_fields = ['type', 'name']
+        fields = ['type', 'name', 'sym', 'pk']
+        create_only_fields = ['type', 'name', 'sym']
 
     def create(self, data):
         return super(TradingEquipmentSerializer, self).create(data)
@@ -75,11 +74,22 @@ class TradingEquipmentSerializer(NovaSerializer):
 class CommentSerializer(NovaSerializer):
     class Meta:
         model = Comment
-        fields = ['author', 'content']
         create_only_fields = ['author']
-
+        fields = ['author', 'content', 'article', 'trading_eq', 'pk']
     def create(self, data):
         return super(CommentSerializer, self).create(data)
 
     def update(self, instance, data):
-        return super(CommentSerializer, self).update(data)
+        return super(CommentSerializer, self).update(instance, data)
+
+
+class ParitySerializer(NovaSerializer):
+    class Meta:
+        model = Parity
+        fields = ['interval_category', 'observed_at', 'tr_eq',  'open', 'close', 'high', 'low']
+
+    def create(self, validated_data):
+        return super(ParitySerializer, self).create(validated_data)
+
+    def update(self, instance, validated_data):
+        return super(ParitySerializer, self).update(validated_data)
