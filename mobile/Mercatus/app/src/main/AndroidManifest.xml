@@ -41,7 +41,7 @@
         <activity android:name=".Fragments.ModifyActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.ProfileActivity" />
+                android:value=".ui.ProfileFragment" />
         </activity>
         <activity android:name=".Fragments.TraderUserActivity" />
         <activity android:name=".Fragments.SearchActivity">
@@ -49,10 +49,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Fragments.SearchActivity" />
         </activity>
-        <activity android:name=".ui.ProfileActivity">
+        <activity android:name=".ui.ProfileFragment">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.ProfileActivity" />
+                android:value=".ui.ProfileFragment" />
         </activity>
         <activity android:name=".Fragments.BasicUserActivity" />
         <activity android:name=".Fragments.GuestActivity">

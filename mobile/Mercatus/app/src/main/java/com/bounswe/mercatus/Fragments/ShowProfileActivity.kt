@@ -10,9 +10,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
-import com.bounswe.mercatus.Models.UserRes
 import com.bounswe.mercatus.Models.FollowBody
-import com.bounswe.mercatus.Models.UserFollower
+import com.bounswe.mercatus.Models.UserRes
 import com.bounswe.mercatus.R
 import kotlinx.android.synthetic.main.activity_show_profile.*
 import okhttp3.ResponseBody
@@ -66,7 +65,7 @@ class ShowProfileActivity : AppCompatActivity() {
         val res = getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
         val tokenV = res.getString("token", "Data Not Found!")
 
-        mercatus.unfollowUser(pk ,"Token " + tokenV.toString(),user_id).enqueue(object :
+        mercatus.unFollowUser(pk ,"Token " + tokenV.toString(),user_id).enqueue(object :
             Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 if(t.cause is ConnectException){
@@ -138,7 +137,6 @@ class ShowProfileActivity : AppCompatActivity() {
                     Toast.makeText(this@ShowProfileActivity, "Following Failed "+response.code(), Toast.LENGTH_SHORT)
                         .show()
                 }
-
         })
     }
 
@@ -210,7 +208,6 @@ class ShowProfileActivity : AppCompatActivity() {
                             R.anim.slide_out_left
                         )
                     }
-
                 }
                 else  {
                     Toast.makeText(this@ShowProfileActivity, "Show profile failed.", Toast.LENGTH_SHORT)
