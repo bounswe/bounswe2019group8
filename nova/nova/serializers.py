@@ -5,13 +5,22 @@ from rest_framework import serializers
 from .libs.serializers import NovaSerializer
 from .models import User, Article, TradingEquipment, Comment
 
+class UserBasicSerializer(NovaSerializer):
+    class Meta:
+        model = User
+        fields = ['pk', 'first_name', 'last_name']
+
 
 class UserSerializer(NovaSerializer):
     class Meta:
         model = User
         fields = ['email', 'lat', 'long', 'first_name', 'last_name', 'date_of_birth', 'profile_image', 'password', 'pk',
-                  'groups', 'email_activated']
+                  'groups', 'followers', 'followings', 'email_activated']
+        read_only_fields = ['followers', 'followings']
         create_only_fields = ['first_name', 'last_name']
+    
+    followers = UserBasicSerializer(read_only=True, many=True)
+    followings = UserBasicSerializer(read_only=True, many=True)
 
     password = serializers.CharField(
         write_only=True,
