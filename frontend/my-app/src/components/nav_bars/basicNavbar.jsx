@@ -19,7 +19,7 @@ class BasicNavbar extends Component {
         <Navbar bg="dark" expand="lg">
           <Navbar.Brand href="#" className="navBarSyles">
           <img
-            src={require("./MERCATUS-LOGO72DP.png")}
+            src={require("../images/MERCATUS-LOGO72DP.png")}
             height="50"
             weight="70"
             alt="mercatus"
@@ -76,7 +76,7 @@ class BasicNavbar extends Component {
             </NavDropdown>
             <img
               className="rounded-circle"
-              src={require("./rick.jpg")}
+              src={require("../images/rick.jpg")}
               size="sm"
               alt="10x10"
               width="80"

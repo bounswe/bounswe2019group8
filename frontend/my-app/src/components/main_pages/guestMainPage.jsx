@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import "../App.css";
-import Login from "../containers/Login";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import Signup from "../containers/Signup";
-import GuestNavbar from "./guestNavbar";
+import "../../App.css";
+import Login from "../../containers/Login";
+import Signup from "../../containers/Signup";
+import GuestNavbar from "../nav_bars/guestNavbar";
 import axios from "axios";
-import MainPage from "./mainPage";
+import MainPage from "../mainPage";
+import {withRouter} from "react-router-dom";
 
 
 class GuestMainPage extends Component {
@@ -13,7 +13,6 @@ class GuestMainPage extends Component {
     loginClicked: false,
     signUpClicked: false,
     searchClicked: false,
-    successfulLogin: false,
     api: axios.create({
       baseURL: "http://8.209.81.242:8000/"
     })
@@ -50,6 +49,9 @@ class GuestMainPage extends Component {
     this.setState({ loginClicked: false });
     this.setState({ signUpClicked: !this.state.signUpClicked });
   };
+  loginIsSuccessful = () =>{
+    this.props.history.push("/");
+  }
   searchClick = () => {
     this.setState({ searchClicked: !this.state.searchClicked });
     axios
@@ -78,4 +80,4 @@ class GuestMainPage extends Component {
     return <MainPage />;
   };
 }
-export default GuestMainPage;
+export default withRouter(GuestMainPage);

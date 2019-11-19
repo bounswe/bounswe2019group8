@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
-import LoaderButton from "../components/LoaderButton";
-import { useFormFields } from "../libs/hooksLib";
+import LoaderButton from "../../containers/LoaderButton";
+import { useFormFields } from "../../libs/hooksLib";
 import "./UpdateCredentials.css";
 
 export default function UpdateCredentials({ api, ...props }) {

@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
-import LoaderButton from "../components/LoaderButton";
+import LoaderButton from "./LoaderButton";
 import { useFormFields } from "../libs/hooksLib";
 import "./Login.css";
 import axios from "axios";
+import {withRouter} from "react-router-dom";
+
 
 export default function Login({ loginSuccess, api, ...props }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -28,7 +30,6 @@ export default function Login({ loginSuccess, api, ...props }) {
       .then(response => {
         //console.log(response);
         if (response.statusText === "OK") {
-          //loginSuccess(response.data.user_id, response.data.token);
           localStorage.setItem("userId",response.data.user_id)
           localStorage.setItem("userToken",response.data.token)
           axios
@@ -37,6 +38,8 @@ export default function Login({ loginSuccess, api, ...props }) {
           })
           .then(res => {
             localStorage.setItem("userGroup", res.data.groups[0])
+            loginSuccess();
+
           });
         }
       })

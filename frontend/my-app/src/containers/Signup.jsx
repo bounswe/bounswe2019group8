@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
-import LoaderButton from "../components/LoaderButton";
+import LoaderButton from "./LoaderButton";
 import { useFormFields } from "../libs/hooksLib";
 import "./Signup.css";
-import CheckBox from "../components/checkBox";
+import CheckBox from "./checkBox";
 import axios from "axios";
 
 export default function Signup({ api, signUpClicked, ...props }) {

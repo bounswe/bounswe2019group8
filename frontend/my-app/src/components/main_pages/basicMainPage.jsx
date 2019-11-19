@@ -1,11 +1,12 @@
 import React, { Component } from "react";
-import "../App.css";
+import "../../App.css";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import TraderNavbar from "./traderNavbar";
+import BasicNavbar from "../nav_bars/basicNavbar";
 import axios from "axios";
+import MainPage from "../mainPage";
 
 
-class TraderMainPage extends Component {
+class BasicMainPage extends Component {
   state = {
     searchClicked: false,
     credentials: {
@@ -27,7 +28,7 @@ class TraderMainPage extends Component {
   render() {
   return(
     <React.Fragment>
-    {this.traderNavbar()}  
+    {this.basicNavbar()}  
     </React.Fragment>
   )
   }
@@ -71,7 +72,10 @@ class TraderMainPage extends Component {
             credentials.userToken = token;
             credentials.userGroup = res.data.groups[0];
             this.setState({ credentials: credentials });
-          });   
+
+        
+          });
+      
   }
   
   logoutClick = () => {
@@ -79,9 +83,9 @@ class TraderMainPage extends Component {
     localStorage.setItem("userToken", null);
     localStorage.setItem("userGroup", null);
   };
-  traderNavbar = () => {
+  basicNavbar = () => {
     return (
-      <TraderNavbar
+      <BasicNavbar
       profileClick={this.profileClick}
       logoutClick={this.logoutClick}
       credentials={this.state.credentials}
@@ -91,4 +95,4 @@ class TraderMainPage extends Component {
     );
   };
 }
-export default TraderMainPage;
+export default BasicMainPage;

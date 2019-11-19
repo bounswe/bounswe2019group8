@@ -1,12 +1,14 @@
 import React, { Component } from "react";
-import "../App.css";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import BasicNavbar from "./basicNavbar";
+import "../../App.css";
+import { withRouter, Route, Switch} from "react-router-dom";
+import TraderNavbar from "../nav_bars/traderNavbar";
 import axios from "axios";
-import MainPage from "./mainPage";
+import "../profile_components/ProfilePage";
+import ProfilePage from "../profile_components/ProfilePage";
+import Home from "../../home";
 
 
-class BasicMainPage extends Component {
+class TraderMainPage extends Component {
   state = {
     searchClicked: false,
     credentials: {
@@ -28,7 +30,11 @@ class BasicMainPage extends Component {
   render() {
   return(
     <React.Fragment>
-    {this.basicNavbar()}  
+    <Switch>
+    <Route path ="/profile" component={ProfilePage}/>  
+    </Switch>
+    {this.traderNavbar()}
+  
     </React.Fragment>
   )
   }
@@ -72,20 +78,18 @@ class BasicMainPage extends Component {
             credentials.userToken = token;
             credentials.userGroup = res.data.groups[0];
             this.setState({ credentials: credentials });
-
-        
-          });
-      
+          });   
   }
   
   logoutClick = () => {
     localStorage.setItem("userId", null);
     localStorage.setItem("userToken", null);
     localStorage.setItem("userGroup", null);
+    this.props.history.push("/");
   };
-  basicNavbar = () => {
+  traderNavbar = () => {
     return (
-      <BasicNavbar
+      <TraderNavbar
       profileClick={this.profileClick}
       logoutClick={this.logoutClick}
       credentials={this.state.credentials}
@@ -95,4 +99,4 @@ class BasicMainPage extends Component {
     );
   };
 }
-export default BasicMainPage;
+export default withRouter(TraderMainPage);

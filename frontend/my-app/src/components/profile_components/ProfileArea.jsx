@@ -2,40 +2,67 @@ import React from "react";
 import { Button, Card, ListGroup } from "react-bootstrap";
 import UpdateCredentials from "./UpdateCredentials";
 import "./ProfileArea.css";
+import axios from "axios";
 class ProfileArea extends React.Component {
   constructor() {
     super();
 
     this.state = {
-      updateClicked: false
+      updateClicked: false,
+      credentials:{},
+      api: axios.create({
+        baseURL: "http://8.209.81.242:8000/"
+      }),
+      users:[],
+      me:{followings:[],followers:[]}
     };
   }
   componentDidMount() {
-    console.log(this.props);
-    this.updateMe();
+    var url =
+    "http://8.209.81.242:8000/users/" + localStorage.getItem("userId");
+  var credentials1 = { ...this.state.credentials };
+  var id = localStorage.getItem("userId");
+  var token = localStorage.getItem("userToken");
+  credentials1.id = id;
+  credentials1.userToken = token;
+  var userType;
+  axios
+    .get("http://8.209.81.242:8000/users", {
+      headers: { Authorization: `Token ${token}` }
+    })
+    .then(res => {
+      this.setState({ users: res.data });
+    });
+  axios
+    .get(url, { headers: { Authorization: `Token ${token}` } })
+    .then(res => {
+
+      var credentials = { ...this.state.credentials };
+      credentials.userEmail = res.data.email;
+      credentials.firstName = res.data.first_name;
+      credentials.lastName = res.data.last_name;
+      credentials.dateOfBirth = res.data.date_of_birth;
+      credentials.id = id;
+      credentials.userToken = token;
+      credentials.userGroup = res.data.groups[0];
+      this.setState({ credentials: credentials });
+    });   
   }
   follow(user) {
     let id = user.pk;
-    console.log("follow");
-    console.log(id);
-    this.props.api
+    this.state.api
       .post(
-        `users/${this.props.credentials.id}/followings`,
+        `users/${this.state.credentials.id}/followings`,
         {
           following_pk: id
         },
         {
           headers: {
-            Authorization: `Token ${this.props.credentials.userToken}`
+            Authorization: `Token ${this.state.credentials.userToken}`
           }
         }
       )
       .then(response => {
-        console.log(response);
-
-        console.log("xxx");
-        console.log(this.state);
-        console.log(id);
         const me = {
           ...this.state.me,
           followings: [...this.state.me.followings, user]
@@ -46,16 +73,11 @@ class ProfileArea extends React.Component {
   }
 
   unfollow(id) {
-    this.props.api
-      .delete(`users/${this.props.credentials.id}/followings/${id}`, {
-        headers: { Authorization: `Token ${this.props.credentials.userToken}` }
+    this.state.api
+      .delete(`users/${this.state.credentials.id}/followings/${id}`, {
+        headers: { Authorization: `Token ${this.state.credentials.userToken}` }
       })
       .then(response => {
-        console.log(response);
-
-        console.log("xxx");
-        console.log(this.state);
-        console.log(id);
         const me = {
           ...this.state.me,
           followings: this.state.me.followings.filter(x => x.pk !== id)
@@ -102,16 +124,16 @@ class ProfileArea extends React.Component {
     } else {
       return (
         <Card style={{ width: "36rem", align: "center" }}>
-          <Card.Img variant="top" src={require("./rick.jpg")} />
+          <Card.Img variant="top" src={require("../images/rick.jpg")} />
           <ListGroup className="list-group-flush">
             <ListGroup.Item>
-              {this.props.credentials.firstName +
+              {this.state.credentials.firstName +
                 " " +
-                this.props.credentials.lastName}
+                this.state.credentials.lastName}
             </ListGroup.Item>
-            <ListGroup.Item>{this.props.credentials.userEmail}</ListGroup.Item>
+            <ListGroup.Item>{this.state.credentials.userEmail}</ListGroup.Item>
             <ListGroup.Item>
-              {this.props.credentials.dateOfBirth}
+              {this.state.credentials.dateOfBirth}
             </ListGroup.Item>
             <ListGroup.Item>
               Followers:
@@ -144,7 +166,7 @@ class ProfileArea extends React.Component {
             <ListGroup.Item>
               <ListGroup>
                 Other users you can follow:
-                {this.props.users.map(users1 => (
+                {this.state.users.map(users1 => (
                   <ListGroup.Item
                     action
                     variant="info"

@@ -9,6 +9,7 @@ import {
   NavDropdown,
   FormControl
 } from "react-bootstrap";
+import {withRouter} from "react-router-dom";
 
 class TraderNavbar extends Component {
   state = {};
@@ -18,7 +19,7 @@ class TraderNavbar extends Component {
         <Navbar bg="dark" expand="lg">
           <Navbar.Brand href="#" className="navBarSyles">
             <img
-              src={require("./MERCATUS-LOGO72DP.png")}
+              src={require("../images/MERCATUS-LOGO72DP.png")}
               height="50"
               weight="70"
               alt="mercatus"
@@ -52,7 +53,7 @@ class TraderNavbar extends Component {
             >
               <NavDropdown.Item
                 href="#"
-                onClick={() => this.props.profileClick()}
+                onClick={() => this.profileClick()}
               >
                 Profile
               </NavDropdown.Item>
@@ -71,7 +72,7 @@ class TraderNavbar extends Component {
             </NavDropdown>
             <img
               className="rounded-circle"
-              src={require("./rick.jpg")}
+              src={require("../images/rick.jpg")}
               size="sm"
               alt="10x10"
               width="80"
@@ -85,6 +86,9 @@ class TraderNavbar extends Component {
         </Navbar>
       );  
   }
+profileClick = () =>{
+  this.props.history.push("/profile")
+}
 }
 
-export default TraderNavbar;
+export default withRouter(TraderNavbar);

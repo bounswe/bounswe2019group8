@@ -18,7 +18,7 @@ class GuestNavbar extends Component {
         <Navbar bg="dark" expand="lg">
           <Navbar.Brand href="#" className="navBarSyles">
           <img
-            src={require("./MERCATUS-LOGO72DP.png")}
+            src={require("../images/MERCATUS-LOGO72DP.png")}
             height="50"
             weight="70"
             alt="mercatus"
