@@ -1,9 +1,6 @@
 package com.bounswe.mercatus.API
 
-import com.bounswe.mercatus.Models.SignInBody
-import com.bounswe.mercatus.Models.SignInRes
-import com.bounswe.mercatus.Models.UserBody
-import com.bounswe.mercatus.Models.UserRes
+import com.bounswe.mercatus.Models.*
 import okhttp3.OkHttpClient
 import okhttp3.ResponseBody
 import okhttp3.logging.HttpLoggingInterceptor
@@ -31,7 +28,7 @@ interface ApiInterface {
     fun getUser(
         @Path("user_id") id: Long,
         @Header("Authorization") token: String
-    ): retrofit2.Call<ResponseBody>
+    ): retrofit2.Call<UserRes>
 
     // Update user request
     @Headers("Content-Type: application/json")
@@ -48,6 +45,31 @@ interface ApiInterface {
     fun getUsers(
         @Header("Authorization") token: String
     ): retrofit2.Call<List<UserRes>>
+
+    // Search user request
+    @Headers("Content-Type:application/json")
+    @POST("user_searches")
+    fun searchUser(
+        @Body info: SearchBody,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<List<SearchRes>>
+
+    @Headers("Content-Type:application/json")
+    @POST("users/{user_id}/followings")
+    fun followUser(
+        @Body info: FollowBody,
+        @Path("user_id") id: Long,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<UserRes>
+
+    @Headers("Content-Type:application/json")
+    @DELETE("users/{my_id}/followings/{user_id}")
+    fun unfollowUser(
+        @Path("my_id") mid: Long,
+        @Header("Authorization") token: String,
+        @Path("user_id") id: Long
+    ): retrofit2.Call<ResponseBody>
+
 }
 class RetrofitInstance {
     companion object {
