@@ -27,20 +27,12 @@ class LoginActivity : AppCompatActivity() {
         val editor = sharedPreferences.edit()
 
 
-
-
-
         if(sharedPreferences.getString("token"," ") !=" "){
 
             val intent = Intent(this@LoginActivity, MainActivity::class.java)
             startActivity(intent)
             finish()
         }
-
-
-
-
-
 
         // Button click listener
         buttonSigin.setOnClickListener {
@@ -130,8 +122,8 @@ class LoginActivity : AppCompatActivity() {
                     val intent = Intent(this@LoginActivity, MainActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(
-                            R.anim.slide_in_right,
-                    R.anim.slide_out_left
+                        R.anim.slide_in_right,
+                        R.anim.slide_out_left
                     )
 
                     finish()

@@ -35,20 +35,26 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_title">Mercatus</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
+    <string name="user">User</string>
     <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_article">Articles</string>
+    <string name="menu_events">Events</string>
     <string name="menu_tools">Tools</string>
-    <string name="menu_share">Share</string>
-    <string name="menu_send">Send</string>
+    <string name="menu_profile">Profile</string>
+    <string name="menu_profit">Profit</string>
     <string name="title_activity_choose">ChooseActivity</string>
     <string name="go_back">Go back</string>
     <string name="follow_me">Follow Me</string>
     <string name="title_activity_followings">Followings</string>
     <string name="title_activity_followers">Followers</string>
+    <string name="title_activity_trading">TradingActivity</string>
+
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="edit_profile">Edit Profile</string>
 </resources>

@@ -12,6 +12,7 @@ import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
 import com.bounswe.mercatus.Models.UserRes
 import com.bounswe.mercatus.R
+import com.bounswe.mercatus.ui.ProfileFragment
 import kotlinx.android.synthetic.main.activity_modify.*
 import kotlinx.serialization.json.JSON
 import okhttp3.ResponseBody
@@ -69,7 +70,7 @@ class ModifyActivity : AppCompatActivity() {
                         }
                     }
                     override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                        val intent = Intent(this@ModifyActivity, ProfileActivity::class.java)
+                        val intent = Intent(this@ModifyActivity, ProfileFragment::class.java)
                         intent.putExtra("userJson", JSON.stringify(UserRes.serializer(), userObj))
                         startActivity(intent)
                     }

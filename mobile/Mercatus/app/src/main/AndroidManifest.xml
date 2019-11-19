@@ -14,13 +14,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".Fragments.TradingActivity"
+            android:label="@string/title_activity_trading"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".Fragments.FollowersActivity"
-            android:label="@string/title_activity_followers">
-        </activity>
+            android:label="@string/title_activity_followers"></activity>
         <activity
             android:name=".Fragments.FollowingsActivity"
-            android:label="@string/title_activity_followings">
-        </activity>
+            android:label="@string/title_activity_followings"></activity>
         <activity
             android:name=".Fragments.ChooseActivity"
             android:label="@string/title_activity_choose"
@@ -39,20 +41,18 @@
         <activity android:name=".Fragments.ModifyActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Fragments.ProfileActivity" />
+                android:value=".ui.ProfileFragment" />
         </activity>
         <activity android:name=".Fragments.TraderUserActivity" />
-
         <activity android:name=".Fragments.SearchActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Fragments.SearchActivity" />
         </activity>
-
-        <activity android:name=".Fragments.ProfileActivity">
+        <activity android:name=".ui.ProfileFragment">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Fragments.ProfileActivity" />
+                android:value=".ui.ProfileFragment" />
         </activity>
         <activity android:name=".Fragments.BasicUserActivity" />
         <activity android:name=".Fragments.GuestActivity">

@@ -13,7 +13,9 @@ interface ApiInterface {
     // Sign in request
     @Headers("Content-Type:application/json")
     @POST("auth_tokens")
-    fun signin(@Body info: SignInBody): retrofit2.Call<SignInRes>
+    fun signin(
+        @Body info: SignInBody
+    ): retrofit2.Call<SignInRes>
 
     // Sign up request
     @Headers("Content-Type:application/json")
@@ -54,6 +56,7 @@ interface ApiInterface {
         @Header("Authorization") token: String
     ): retrofit2.Call<List<SearchRes>>
 
+    // Follow user
     @Headers("Content-Type:application/json")
     @POST("users/{user_id}/followings")
     fun followUser(
@@ -62,9 +65,10 @@ interface ApiInterface {
         @Header("Authorization") token: String
     ): retrofit2.Call<UserRes>
 
+    // UnFollow user
     @Headers("Content-Type:application/json")
     @DELETE("users/{my_id}/followings/{user_id}")
-    fun unfollowUser(
+    fun unFollowUser(
         @Path("my_id") mid: Long,
         @Header("Authorization") token: String,
         @Path("user_id") id: Long
