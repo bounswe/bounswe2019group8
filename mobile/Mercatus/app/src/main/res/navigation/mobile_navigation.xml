@@ -12,15 +12,15 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
+        android:id="@+id/nav_articles"
         android:name="com.bounswe.mercatus.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
+        android:label="@string/menu_article"
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
         android:id="@+id/nav_slideshow"
         android:name="com.bounswe.mercatus.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
+        android:label="@string/menu_events"
         tools:layout="@layout/fragment_slideshow" />
 
     <fragment
@@ -32,12 +32,12 @@
     <fragment
         android:id="@+id/nav_share"
         android:name="com.bounswe.mercatus.ui.share.ShareFragment"
-        android:label="@string/menu_share"
+        android:label="@string/menu_profile"
         tools:layout="@layout/fragment_share" />
 
     <fragment
         android:id="@+id/nav_send"
         android:name="com.bounswe.mercatus.ui.send.SendFragment"
-        android:label="@string/menu_send"
+        android:label="@string/menu_profit"
         tools:layout="@layout/fragment_send" />
 </navigation>

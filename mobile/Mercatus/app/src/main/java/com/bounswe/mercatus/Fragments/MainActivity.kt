@@ -14,16 +14,8 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
-import android.text.method.TextKeyListener.clear
-import android.R.id.edit
-import android.content.SharedPreferences
-import androidx.core.app.ComponentActivity.ExtraData
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import android.R
 
 
 
@@ -58,10 +50,11 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                com.bounswe.mercatus.R.id.nav_home, com.bounswe.mercatus.R.id.nav_gallery, com.bounswe.mercatus.R.id.nav_slideshow,
+                com.bounswe.mercatus.R.id.nav_home, com.bounswe.mercatus.R.id.nav_articles, com.bounswe.mercatus.R.id.nav_slideshow,
                 com.bounswe.mercatus.R.id.nav_tools, com.bounswe.mercatus.R.id.nav_share, com.bounswe.mercatus.R.id.nav_send
             ), drawerLayout
         )
+
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
