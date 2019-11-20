@@ -65,5 +65,6 @@
     <string name="write_article">What do you think?</string>
     <string name="comment">Comment</string>
     <string name="create_article">Create Article</string>
+    <string name="create_comment">Create Comment</string>
     <string name="article">Article</string>
 </resources>

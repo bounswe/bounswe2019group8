@@ -1,6 +1,7 @@
 package com.bounswe.mercatus.Fragments
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
@@ -8,7 +9,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
 import com.bounswe.mercatus.Models.GetArticleBody
+import com.bounswe.mercatus.Models.UserRes
 import com.bounswe.mercatus.R
+import kotlinx.android.synthetic.main.activity_show_article.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -31,6 +34,12 @@ class ShowArticleActivity : AppCompatActivity() {
         val articleID = intent.getStringExtra("article_header")
 
         getArticle(title, content, author, articleID!!.toInt())
+
+        fab.setOnClickListener {
+            val intent = Intent(this@ShowArticleActivity, CreateCommentActivity::class.java)
+            intent.putExtra("articleID", articleID)
+            startActivity(intent)
+        }
     }
     private fun getArticle(title: TextView, content: TextView,author: TextView, articleID: Int){
         val mercatus = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
@@ -59,8 +68,53 @@ class ShowArticleActivity : AppCompatActivity() {
                 if (response.code() == 200) {
                     title.text = response.body()?.title
                     content.text = response.body()?.content
-                    author.text = response.body()?.author.toString()
+                    getUser(response.body()!!.author, author)
 
+                }
+                else  {
+                    Toast.makeText(this@ShowArticleActivity, "Show profile failed.", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+        })
+    }
+    /*
+    Gets user based on pk value and a token that was coming from login
+    */
+    private fun getUser(pk: Long, name: TextView){
+        val mercatus = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
+
+        val res = getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
+        val tokenV = res.getString("token", "Data Not Found!")
+
+        mercatus.getUser(pk, "Token " + tokenV.toString()).enqueue(object :
+            Callback<UserRes> {
+            override fun onFailure(call: Call<UserRes>, t: Throwable) {
+                if(t.cause is ConnectException){
+                    Toast.makeText(
+                        this@ShowArticleActivity,
+                        "Check your connection!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else{
+                    Toast.makeText(
+                        this@ShowArticleActivity,
+                        "Something bad happened!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+            override fun onResponse(call: Call<UserRes>, response: Response<UserRes>) {
+                if (response.code() == 200) {
+                    val fullName = response.body()?.first_name + " " + response.body()?.last_name
+                    name.text = fullName
+
+                    name.setOnClickListener {
+                        val intent = Intent(this@ShowArticleActivity, ShowProfileActivity::class.java)
+                        intent.putExtra("pk_val", response.body()!!.pk.toString())
+                        startActivity(intent)
+                    }
                 }
                 else  {
                     Toast.makeText(this@ShowArticleActivity, "Show profile failed.", Toast.LENGTH_SHORT)

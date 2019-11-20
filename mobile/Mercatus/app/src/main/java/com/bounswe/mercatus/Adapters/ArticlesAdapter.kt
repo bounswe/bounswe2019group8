@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import at.blogc.android.views.ExpandableTextView
 import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
+import com.bounswe.mercatus.Fragments.CreateCommentActivity
 import com.bounswe.mercatus.Fragments.ShowArticleActivity
 import com.bounswe.mercatus.Fragments.ShowProfileActivity
 import com.bounswe.mercatus.Models.GetArticleBody
@@ -74,7 +75,10 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
             }
 
             itemView.makeComment.setOnClickListener {
-                Toast.makeText(context, "Make me a comment!", Toast.LENGTH_SHORT).show()
+
+                val intent = Intent(context, CreateCommentActivity::class.java)
+                intent.putExtra("articleID", currentArticle?.pk.toString())
+                context.startActivity(intent)
             }
 
             itemView.author.setOnClickListener {

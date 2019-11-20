@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Fragments.ShowArticleActivity"></activity>
+        <activity android:name=".Fragments.CreateCommentActivity"></activity>
+        <activity android:name=".Fragments.ShowArticleActivity" />
         <activity android:name=".Fragments.CreateArticleActivity" />
         <activity
             android:name=".Fragments.TradingActivity"
