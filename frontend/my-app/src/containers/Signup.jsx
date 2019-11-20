@@ -6,7 +6,7 @@ import "./Signup.css";
 import CheckBox from "./checkBox";
 import axios from "axios";
 
-export default function Signup({ api, signUpClicked, ...props }) {
+export default function Signup({ signUpClicked, ...props }) {
   const [fields, handleFieldChange] = useFormFields({
     firstName: "",
     lastName: "",
@@ -98,7 +98,7 @@ export default function Signup({ api, signUpClicked, ...props }) {
 
     setIsLoading(true);
 
-    api
+    axios
       .post("/users", {
         email: fields.email,
         first_name: fields.firstName,
@@ -124,7 +124,7 @@ export default function Signup({ api, signUpClicked, ...props }) {
 
     setIsLoading(true);
     componentDidMount();
-    api
+    axios
       .post("/users", {
         email: traderFields.email,
         first_name: traderFields.firstName,

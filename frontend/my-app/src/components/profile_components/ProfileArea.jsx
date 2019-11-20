@@ -10,9 +10,6 @@ class ProfileArea extends React.Component {
     this.state = {
       updateClicked: false,
       credentials:{},
-      api: axios.create({
-        baseURL: "http://8.209.81.242:8000/"
-      }),
       users:[],
       me:{followings:[],followers:[]}
     };
@@ -46,11 +43,11 @@ class ProfileArea extends React.Component {
       credentials.userToken = token;
       credentials.userGroup = res.data.groups[0];
       this.setState({ credentials: credentials });
-    });   
+    });
   }
   follow(user) {
     let id = user.pk;
-    this.state.api
+    axios
       .post(
         `users/${this.state.credentials.id}/followings`,
         {
@@ -73,7 +70,7 @@ class ProfileArea extends React.Component {
   }
 
   unfollow(id) {
-    this.state.api
+    axios
       .delete(`users/${this.state.credentials.id}/followings/${id}`, {
         headers: { Authorization: `Token ${this.state.credentials.userToken}` }
       })
@@ -88,7 +85,7 @@ class ProfileArea extends React.Component {
   }
 
   updateMe() {
-    this.props.api
+    axios
       .get(`users/${this.props.credentials.id}`, {
         headers: { Authorization: `Token ${this.props.credentials.userToken}` }
       })
@@ -111,7 +108,6 @@ class ProfileArea extends React.Component {
           <Card.Body>
             <UpdateCredentials
               credentials={this.props.credentials}
-              api={this.props.api}
               style={myCredentials}
               variant="outline-danger"
               size="sm"

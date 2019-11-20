@@ -3,8 +3,9 @@ import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import LoaderButton from "../../containers/LoaderButton";
 import { useFormFields } from "../../libs/hooksLib";
 import "./UpdateCredentials.css";
+import axios from "axios";
 
-export default function UpdateCredentials({ api, ...props }) {
+export default function UpdateCredentials({ ...props }) {
   const [fields, handleFieldChange] = useFormFields({
     firstName: "",
     lastName: "",
@@ -27,7 +28,7 @@ export default function UpdateCredentials({ api, ...props }) {
 
       var url = "http://8.209.81.242:8000/users/" + this.props.credentials.id;
 
-      api.put(url,
+      axios.put(url,
           {
               first_name: fields.firstName,
               last_name: fields.lastName,

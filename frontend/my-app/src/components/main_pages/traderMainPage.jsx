@@ -22,9 +22,6 @@ class TraderMainPage extends Component {
       userGroup: ""
     },
     users: [],
-    api: axios.create({
-      baseURL: "http://8.209.81.242:8000/"
-    })
   };
 
   render() {
