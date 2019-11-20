@@ -34,13 +34,13 @@
             </LinearLayout>
 
             <at.blogc.android.views.ExpandableTextView
-                android:id="@+id/article"
+                android:id="@+id/commentText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:autoLink="web"
                 android:lineSpacingExtra="@dimen/line_spacing"
                 android:maxLines="5"
-                android:text="@string/content"
+                android:text="@string/comment"
                 app:animation_duration="300"
                 android:paddingBottom="4dp"
                 android:paddingStart="@dimen/new_margin"

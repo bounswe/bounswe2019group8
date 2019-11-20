@@ -113,6 +113,23 @@ interface ApiInterface {
         @Path("article_id") mid: Int,
         @Header("Authorization") token: String
     ): retrofit2.Call<ResponseBody>
+
+    // Get all comments
+    @Headers("Content-Type:application/json")
+    @GET("articles/{article_id}/comments")
+    fun getComments(
+        @Path("article_id") mid: Int,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<List<CommentBody>>
+
+    // Make a comment
+    @Headers("Content-Type:application/json")
+    @POST("articles/{article_id}/comments")
+    fun makeComment(
+        @Body info: CreateCommentBody,
+        @Path("article_id") mid: Int,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<ResponseBody>
 }
 class RetrofitInstance {
     companion object {
