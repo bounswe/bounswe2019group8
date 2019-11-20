@@ -10,7 +10,8 @@ export default function WriteArticle() {
     content: ""
   });
 
-  const handleSubmit = event => {
+  const xhandleSubmit = event => {
+    var token = localStorage.getItem("userToken");
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.preventDefault();
@@ -19,6 +20,7 @@ export default function WriteArticle() {
       console.log("girdim");
       axios
         .post("http://8.209.81.242:8000/articles", {
+          headers: { Authorization: `Token ${token}` },
           title: "First Article Trial",
           content:
             "This article was created in order to be able to make trials."
@@ -28,6 +30,22 @@ export default function WriteArticle() {
         });
     }
   };
+  function handleSubmit() {
+    var token = localStorage.getItem("userToken");
+    console.log(token);
+    axios
+      .post("http://8.209.81.242:8000/articles", {
+        headers: { Authorization: `Token ${token}` },
+        body: {
+          title: "First Article Trial",
+          content:
+            "This article was created in order to be able to make trials."
+        }
+      })
+      .then(function(response) {
+        console.log(response);
+      });
+  }
 
   function renderForm() {
     return (
@@ -35,12 +53,14 @@ export default function WriteArticle() {
         <Form>
           <Form.Group controlId="exampleForm.ControlInput1">
             <Form.Label>Title:</Form.Label>
-            <Form.Control value={fields.title} onChange={handleFieldChange} />
+            <Form.Control
+              /*value={fields.title}*/ onChange={handleFieldChange}
+            />
           </Form.Group>
           <Form.Group controlId="exampleForm.ControlTextarea1">
             <Form.Label>Content:</Form.Label>
             <Form.Control
-              value={fields.content}
+              //value={fields.content}
               onChange={handleFieldChange}
               as="textarea"
               rows="3"

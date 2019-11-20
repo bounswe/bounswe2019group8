@@ -6,8 +6,10 @@ import axios from "axios";
 
 class ArticleHolder extends Component {
   state = {
-    articles: []
+    articles: [],
+    gridOfArticles: []
   };
+
   render() {
     return (
       <div>
@@ -15,9 +17,13 @@ class ArticleHolder extends Component {
           Write an article
         </Button>
         <div>
-          <ArticleLine />
-          <ArticleLine />
-          <ArticleLine />
+          <ul className="myUl">
+            {this.state.gridOfArticles.map(line => (
+              <li>
+                <ArticleLine articles={line} />
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     );
@@ -29,9 +35,30 @@ class ArticleHolder extends Component {
         headers: { Authorization: `Token ${token}` }
       })
       .then(res => {
-        //this.setState({ articles: res.data });
-        //console.log(res);
+        this.setState({ articles: res.data });
+        console.log(this.state.articles);
+        console.log("hi");
+        var count = -1;
+        for (var i = 0; i < this.state.articles.length; i++) {
+          if (count < i / 5) {
+            this.state.gridOfArticles.push([]);
+            count += 1;
+          }
+          for (var j = 0; j < 5; j++) {
+            if (i + j < this.state.articles.length) {
+              this.state.gridOfArticles[count].push(this.state.articles[i + j]);
+            }
+            if (i + j == this.state.articles.length) {
+              break;
+            }
+          }
+          if (i + j == this.state.articles.length) {
+            break;
+          }
+        }
+        console.log(this.state.gridOfArticles);
       });
+    //const listItems = this.state.gridOfArticles.map(line => <li>{line}</li>);
   }
 }
 

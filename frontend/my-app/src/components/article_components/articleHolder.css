@@ -24,3 +24,6 @@
   background-color: red;
   border-color: red;
 }
+.myUl {
+  list-style-type: none;
+}
