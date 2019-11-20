@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
-import LoaderButton from "../components/LoaderButton";
+import LoaderButton from "./LoaderButton";
 import { useFormFields } from "../libs/hooksLib";
 import "./Signup.css";
-import CheckBox from "../components/checkBox";
+import CheckBox from "./checkBox";
 import axios from "axios";
 
-export default function Signup({ api, signUpClicked, ...props }) {
+export default function Signup({ signUpClicked, ...props }) {
   const [fields, handleFieldChange] = useFormFields({
     firstName: "",
     lastName: "",
@@ -98,14 +98,14 @@ export default function Signup({ api, signUpClicked, ...props }) {
 
     setIsLoading(true);
 
-    api
+    axios
       .post("/users", {
         email: fields.email,
         first_name: fields.firstName,
         last_name: fields.lastName,
         date_of_birth: fields.dateOfBirth,
         password: fields.password,
-        groups: [1]
+        groups: [0]
       })
       .then(function(response) {
         alert("sign-up successful");
@@ -124,7 +124,7 @@ export default function Signup({ api, signUpClicked, ...props }) {
 
     setIsLoading(true);
     componentDidMount();
-    api
+    axios
       .post("/users", {
         email: traderFields.email,
         first_name: traderFields.firstName,
@@ -134,7 +134,7 @@ export default function Signup({ api, signUpClicked, ...props }) {
         iban: traderFields.iban,
         lat: userLat,
         long: userLong,
-        groups: [2]
+        groups: [1]
       })
       .then(function(response) {
         alert("sign-up successful");

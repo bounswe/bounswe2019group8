@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
-import LoaderButton from "../components/LoaderButton";
+import LoaderButton from "./LoaderButton";
 import { useFormFields } from "../libs/hooksLib";
 import "./Login.css";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import App from "../App";
+import axios from "axios";
+import {withRouter} from "react-router-dom";
 
-export default function Login({ loginSuccess, api, ...props }) {
+
+export default function Login({ loginSuccess, ...props }) {
   const [isLoading, setIsLoading] = useState(false);
   const [fields, handleFieldChange] = useFormFields({
     email: "",
@@ -21,7 +22,7 @@ export default function Login({ loginSuccess, api, ...props }) {
     event.preventDefault();
 
     setIsLoading(true);
-    api
+    axios
       .post("auth_tokens", {
         email: fields.email,
         password: fields.password
@@ -29,7 +30,20 @@ export default function Login({ loginSuccess, api, ...props }) {
       .then(response => {
         //console.log(response);
         if (response.statusText === "OK") {
-          loginSuccess(response.data.user_id, response.data.token);
+          localStorage.setItem("userId",response.data.user_id)
+          localStorage.setItem("userToken",response.data.token)
+
+          axios.defaults.headers.common['Authorization'] = `Token: ${response.data.token}`;
+
+          axios
+          .get("http://8.209.81.242:8000/users/" + response.data.user_id, {
+            headers: { Authorization: `Token ${response.data.token}` }
+          })
+          .then(res => {
+            localStorage.setItem("userGroup", res.data.groups[0])
+            loginSuccess();
+
+          });
         }
       })
       .catch(function(error) {

@@ -8,7 +8,6 @@ class ProfilePage extends React.Component {
         <ProfileArea
           credentials={this.props.credentials}
           users={this.props.users}
-          api={this.props.api}
         />
       </div>
     );

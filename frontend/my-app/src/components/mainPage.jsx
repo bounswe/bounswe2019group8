@@ -7,7 +7,7 @@ class MainPage extends Component {
   render() {
     return (
       <div>
-        <Chart2 class="myChart" />
+        {/*<Chart2 class="myChart" />*/}
       </div>
     );
   }
