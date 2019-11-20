@@ -24,8 +24,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layTitle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
+            android:layout_height="wrap_content">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTitle"
@@ -50,19 +49,20 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layContent"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
+            android:layout_height="wrap_content">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editContent"
                 android:inputType="textMultiLine"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:imeOptions="actionNext"
                 android:minLines="6"
-                android:lines="15"
-                android:maxLines="15"
+                android:lines="8"
+                android:maxLines="13"
                 android:autoLink="web"
-                android:lineSpacingExtra="@dimen/line_spacing"/>
+                android:lineSpacingExtra="@dimen/line_spacing"
+                android:padding="@dimen/padding_regular"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
