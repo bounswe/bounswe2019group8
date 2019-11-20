@@ -3,7 +3,7 @@ import { Button, Card, ListGroup } from "react-bootstrap";
 import UpdateCredentials from "./UpdateCredentials";
 import "./ProfileArea.css";
 import axios from "axios";
-class ProfileArea extends React.Component {
+class OwnProfileArea extends React.Component {
   constructor() {
     super();
 
@@ -14,6 +14,7 @@ class ProfileArea extends React.Component {
         baseURL: "http://8.209.81.242:8000/"
       }),
       users:[],
+      me:{followings:[],followers:[]}
     };
   }
   componentDidMount() {
@@ -26,7 +27,7 @@ class ProfileArea extends React.Component {
   credentials1.userToken = token;
   var userType;
   axios
-    .get(`users/${localStorage.getItem("userId")}/followings/`, {
+    .get("http://8.209.81.242:8000/users", {
       headers: { Authorization: `Token ${token}` }
     })
     .then(res => {
@@ -35,12 +36,14 @@ class ProfileArea extends React.Component {
   axios
     .get(url, { headers: { Authorization: `Token ${token}` } })
     .then(res => {
+
       var credentials = { ...this.state.credentials };
       credentials.userEmail = res.data.email;
       credentials.firstName = res.data.first_name;
       credentials.lastName = res.data.last_name;
       credentials.dateOfBirth = res.data.date_of_birth;
       credentials.id = id;
+      credentials.userToken = token;
       credentials.userGroup = res.data.groups[0];
       this.setState({ credentials: credentials });
     });   
@@ -206,9 +209,5 @@ class ProfileArea extends React.Component {
   };
 }
 
-ProfileArea.propTypes = {
-  //username: PropTypes.string.isRequired,
-  //emailAddress: PropTypes.string.isRequired
-};
 
-export default ProfileArea;
+export default OwnProfileArea;

@@ -20,7 +20,7 @@ export default function Login({ loginSuccess, api, ...props }) {
 
   async function handleSubmit(event) {
     event.preventDefault();
-
+   
     setIsLoading(true);
     api
       .post("auth_tokens", {
@@ -39,7 +39,18 @@ export default function Login({ loginSuccess, api, ...props }) {
           .then(res => {
             localStorage.setItem("userGroup", res.data.groups[0])
             loginSuccess();
-
+          });
+          axios
+          .get("http://8.209.81.242:8000/users/"+localStorage.getItem("userId")+"/followings", {
+            headers: { Authorization: `Token ${response.data.token}` }
+          })
+          .then(res => {
+            var tempList=[]
+            
+            res.data.forEach((element)=>{
+              tempList.push(element.pk)
+            });
+            localStorage.setItem("followings",JSON.stringify(tempList)) 
           });
         }
       })

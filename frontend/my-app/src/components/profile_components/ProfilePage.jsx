@@ -1,17 +1,48 @@
 import React from "react";
-import ProfileArea from "./ProfileArea";
+import OthersProfileArea from "./OthersProfileArea";
+import OwnProfileArea from "./OwnProfileArea.jsx"
+import {withRouter} from "react-router-dom";
 
 class ProfilePage extends React.Component {
+  constructor(props){
+    super(props);
+  this.state={
+    id:this.props.match.params.id
+  }
+  }
+componentDidMount(){
+
+};
   render() {
-    return (
-      <div>
-        <ProfileArea
-          credentials={this.props.credentials}
-          users={this.props.users}
-          api={this.props.api}
-        />
-      </div>
-    );
+    var checknull = null
+    checknull = localStorage.getItem("userId")
+    if(localStorage.getItem("userId")==="null"){
+      return (
+        <div>
+        You can't see!
+        </div>
+      );
+    }
+    else{
+      if(this.state.id ===localStorage.getItem("userId") ){
+        return (
+          <div>
+            <OwnProfileArea
+              userId = {this.state.id}
+            />
+          </div>
+        );
+      }
+      else{
+        return (
+          <div>
+            <OthersProfileArea
+              userId = {this.state.id}
+            />
+          </div>
+        );
+      }
+    }
   }
 }
 

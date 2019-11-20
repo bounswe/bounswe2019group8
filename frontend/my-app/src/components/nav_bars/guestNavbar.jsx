@@ -9,11 +9,16 @@ import {
   NavDropdown,
   FormControl
 } from "react-bootstrap";
+import {withRouter} from "react-router-dom";
 
 class GuestNavbar extends Component {
   state = {};
 
   render() {
+    localStorage.setItem("userId","null")
+    localStorage.setItem("followings","null")
+    localStorage.setItem("userToken","null")
+    localStorage.setItem("userType","null")
       return (
         <Navbar bg="dark" expand="lg">
           <Navbar.Brand href="#" className="navBarSyles">
@@ -37,7 +42,7 @@ class GuestNavbar extends Component {
             <button
               id="loginStyles"
               class="myButton"
-              onClick={() => this.props.signUpClick()}
+              onClick={() => this.signUpClick()}
               //variant="outline-success"
             >
               SignUp
@@ -46,7 +51,7 @@ class GuestNavbar extends Component {
             <button
               id="loginStyles"
               class="myButton"
-              onClick={() => this.props.loginClick()}
+              onClick={() => this.loginClick()}
               //variant="outline-success"
             >
               Login
@@ -60,6 +65,12 @@ class GuestNavbar extends Component {
       );
     
   }
+  signUpClick = () =>{
+    this.props.history.push("/signup");
+  }
+  loginClick = () => {
+    this.props.history.push("/login");
+  }
 }
 
-export default GuestNavbar;
+export default withRouter(GuestNavbar);

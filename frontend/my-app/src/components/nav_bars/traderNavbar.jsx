@@ -10,9 +10,10 @@ import {
   FormControl
 } from "react-bootstrap";
 import {withRouter} from "react-router-dom";
+import axios from "axios";
 
 class TraderNavbar extends Component {
-  state = {};
+  state = {credentials:{}};
 
   render() {
       return (
@@ -45,9 +46,9 @@ class TraderNavbar extends Component {
             </Form>
             <NavDropdown
               title={
-                this.props.credentials.firstName +
+                this.state.credentials.firstName +
                 " " +
-                this.props.credentials.lastName
+                this.state.credentials.lastName
               }
               id="basic-nav-dropdown"
             >
@@ -63,7 +64,7 @@ class TraderNavbar extends Component {
               <NavDropdown.Divider />
               <Button
                 id="loginStyles"
-                onClick={() => this.props.logoutClick()}
+                onClick={() => this.logoutClick()}
                 variant="outline-danger"
                 size="sm"
               >
@@ -88,6 +89,44 @@ class TraderNavbar extends Component {
   }
 profileClick = () =>{
   this.props.history.push("/profile")
+}
+logoutClick = () => {
+  localStorage.setItem("userId", null);
+  localStorage.setItem("userToken", null);
+  localStorage.setItem("userGroup", null);
+  localStorage.setItem("followings",null);
+  this.props.history.push("/login");
+};
+componentDidMount() {
+  var url =
+  "http://8.209.81.242:8000/users/" + localStorage.getItem("userId");
+var credentials1 = { ...this.state.credentials };
+var id = localStorage.getItem("userId");
+var token = localStorage.getItem("userToken");
+credentials1.id = id;
+credentials1.userToken = token;
+var userType;
+axios
+  .get("http://8.209.81.242:8000/users", {
+    headers: { Authorization: `Token ${token}` }
+  })
+  .then(res => {
+    this.setState({ users: res.data });
+  });
+axios
+  .get(url, { headers: { Authorization: `Token ${token}` } })
+  .then(res => {
+
+    var credentials = { ...this.state.credentials };
+    credentials.userEmail = res.data.email;
+    credentials.firstName = res.data.first_name;
+    credentials.lastName = res.data.last_name;
+    credentials.dateOfBirth = res.data.date_of_birth;
+    credentials.id = id;
+    credentials.userToken = token;
+    credentials.userGroup = res.data.groups[0];
+    this.setState({ credentials: credentials });
+  });   
 }
 }
 
