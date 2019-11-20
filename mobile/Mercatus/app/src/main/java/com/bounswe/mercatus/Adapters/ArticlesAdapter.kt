@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.OvershootInterpolator
+import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
@@ -95,7 +96,7 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
             itemView.article.text = content
 
             // Write author to items
-            getUser(author, itemView.author)
+            getUser(author, itemView.author, itemView.editArticle, itemView.deleteArticle)
 
             this.currentArticle = GetArticleBody(author, title, content,rating, pk)
             this.currentPosition = position
@@ -105,10 +106,11 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
     /*
     Gets user based on pk value and a token that was coming from login
     */
-    private fun getUser(pk: Long, name: TextView){
+    private fun getUser(pk: Long, name: TextView, editArticle: Button, deleteArticle: Button){
         val mercatus = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
 
         val res = context.getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
+        val user_id = res.getString("user_id", "Data Not Found!")
         val tokenV = res.getString("token", "Data Not Found!")
 
         mercatus.getUser(pk, "Token " + tokenV.toString()).enqueue(object :
@@ -133,6 +135,12 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
                 if (response.code() == 200) {
                     val fullName = response.body()?.first_name + " " + response.body()?.last_name
                     name.text = fullName
+
+                    if(user_id!!.toLong() == response.body()?.pk){
+                        editArticle.visibility = View.VISIBLE
+                        deleteArticle.visibility = View.VISIBLE
+                    }
+
                 }
                 else  {
                     Toast.makeText(context, "Show profile failed.", Toast.LENGTH_SHORT)
