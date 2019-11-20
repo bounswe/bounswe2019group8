@@ -81,6 +81,14 @@ interface ApiInterface {
         @Header("Authorization") token: String
     ): retrofit2.Call<List<GetArticleBody>>
 
+    // Get an article
+    @Headers("Content-Type:application/json")
+    @GET("articles/{article_id}")
+    fun getOneArticle(
+        @Path("article_id") mid: Int,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<GetArticleBody>
+
     // Create an article
     @Headers("Content-Type:application/json")
     @POST("articles")
