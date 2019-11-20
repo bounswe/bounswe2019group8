@@ -227,11 +227,14 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
                     Toast.makeText(context, "Successfully deleted!", Toast.LENGTH_SHORT)
                         .show()
 
-                    articlesList.removeAt(position)
-                    notifyItemRemoved(position)
+                    if(position < articlesList.size){
+                        articlesList.removeAt(position)
+                        notifyItemRemoved(position)
+                        notifyItemRangeChanged(position, itemCount)
+                    }
                 }
                 else  {
-                    Toast.makeText(context, "Show profile failed.", Toast.LENGTH_SHORT)
+                    Toast.makeText(context, "Delete article failed.", Toast.LENGTH_SHORT)
                         .show()
                 }
             }
@@ -245,7 +248,6 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
         val tokenV = res?.getString("token", "Data Not Found!")
         val comBody = CreateCommentBody(commentText)
 
-        val c = CreateCommentBody("new comment")
         mer.makeComment(comBody,article_pk,"Token " + tokenV.toString()).enqueue(object :
             Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {

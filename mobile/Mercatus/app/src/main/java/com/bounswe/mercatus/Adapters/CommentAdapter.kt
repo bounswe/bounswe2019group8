@@ -2,19 +2,22 @@ package com.bounswe.mercatus.Adapters
 
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
+import com.bounswe.mercatus.Fragments.ShowProfileActivity
+import com.bounswe.mercatus.Models.CommentEditBody
 import com.bounswe.mercatus.Models.CommentShowBody
 import com.bounswe.mercatus.Models.UserRes
 import com.bounswe.mercatus.R
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.comment_layout.view.*
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -53,7 +56,11 @@ class CommentAdapter(val context : Context, val commentList: ArrayList<CommentSh
             itemView.authorName.text = author_id.toString()
             itemView.commentText.text = comment
 
-            getUser(position, comment_id, author_id, itemView.authorName, itemView.editCommentValue,itemView.deleteComment, article_id)
+            getUser(position, comment_id, author_id, itemView.authorName,
+                itemView.editCommentValue,itemView.deleteComment,
+                itemView.commentSection, itemView.layComment, itemView.editCommentText,
+                itemView.buttonEditComment,
+                article_id)
             this.currentSearchShow = CommentShowBody(author_id, comment, article_id, comment_id)
             this.currentPosition = position
         }
@@ -67,6 +74,10 @@ class CommentAdapter(val context : Context, val commentList: ArrayList<CommentSh
                         name: TextView,
                         editComment: Button,
                         deleteComment: Button,
+                        commentSection: LinearLayout,
+                        layComment: TextInputLayout,
+                        editCommentText : TextInputEditText,
+                        buttonEditComment: ImageView,
                         article_pk: Int){
         val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
 
@@ -97,7 +108,13 @@ class CommentAdapter(val context : Context, val commentList: ArrayList<CommentSh
                     val fullName = response.body()?.first_name + " " + response.body()?.last_name
                     name.text = fullName
 
-
+                    name.setOnClickListener {
+                        name.setOnClickListener {
+                            val intent = Intent(context, ShowProfileActivity::class.java)
+                            intent.putExtra("pk_val", response.body()!!.pk.toString())
+                            context.startActivity(intent)
+                        }
+                    }
                     if(user_id!!.toLong() == response.body()?.pk){
                         editComment.visibility = View.VISIBLE
                         deleteComment.visibility = View.VISIBLE
@@ -118,11 +135,33 @@ class CommentAdapter(val context : Context, val commentList: ArrayList<CommentSh
                             .setPositiveButton("Yes", DialogInterface.OnClickListener {
                                     dialog, id ->
                                 dialog.dismiss()
-                                deleteComment(comment_id, article_pk, position)
+                                deleteComment(comment_id, position)
                             })
 
                         val alert = dialogBuilder.create()
                         alert.show()
+                    }
+                    editComment.setOnClickListener {
+                        if(commentSection.visibility ==  View.VISIBLE){
+                            commentSection.visibility =View.GONE
+                        }
+                        else{
+                            commentSection.visibility =View.VISIBLE
+
+                            if(position < commentList.size){
+                                editCommentText.setText(commentList.get(position).content)
+                            }
+                            buttonEditComment.setOnClickListener {
+                                if(editCommentText.text.toString().length > 1){
+                                    layComment.isErrorEnabled = false
+                                    editComment(editCommentText.text.toString(), comment_id, position)
+                                }
+                                else{
+                                    layComment.isErrorEnabled = true
+                                    layComment.error = "Comment cannot be empty!"
+                                }
+                            }
+                        }
                     }
                 }
                 else  {
@@ -133,7 +172,7 @@ class CommentAdapter(val context : Context, val commentList: ArrayList<CommentSh
         })
     }
 
-    private fun deleteComment(comment_pk: Int, article_pk: Int, position: Int){
+    private fun deleteComment(comment_pk: Int, position: Int){
         val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
 
         val res = context.getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
@@ -161,11 +200,60 @@ class CommentAdapter(val context : Context, val commentList: ArrayList<CommentSh
                 if (response.code() == 204) {
                     Toast.makeText(context, "Successfully deleted!", Toast.LENGTH_SHORT)
                         .show()
-                    commentList.removeAt(position)
-                    notifyItemRemoved(position)
+                    if(position < commentList.size){
+                        commentList.removeAt(position)
+                        notifyItemRemoved(position)
+                        notifyItemRangeChanged(position, itemCount)
+                    }
                 }
                 else  {
                     Toast.makeText(context, "Deletion failed.", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+        })
+    }
+    private fun editComment(newComment: String, comment_id: Int, position: Int){
+        val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
+
+        val res = context.getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
+        val tokenV = res.getString("token", "Data Not Found!")
+
+        val eB = CommentEditBody(newComment)
+        mer.editComment(eB, comment_id, "Token " + tokenV.toString()).enqueue(object :
+            Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                if(t.cause is ConnectException){
+                    Toast.makeText(
+                        context,
+                        "Check your connection!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else{
+                    Toast.makeText(
+                        context,
+                        "Something bad happened!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if (response.code() == 200) {
+                    Toast.makeText(context, "Successfully edited!", Toast.LENGTH_SHORT)
+                        .show()
+                    if(position < commentList.size){
+                        val a = commentList.get(position).author
+                        val ar = commentList.get(position).article
+                        val p = commentList.get(position).pk
+                        val newCom = CommentShowBody(a,newComment,ar,p)
+                        commentList.set(position, newCom)
+                        notifyItemChanged(position)
+                        notifyItemRangeChanged(position, itemCount)
+                    }
+                }
+                else  {
+                    Toast.makeText(context, "Edit failed.", Toast.LENGTH_SHORT)
                         .show()
                 }
             }

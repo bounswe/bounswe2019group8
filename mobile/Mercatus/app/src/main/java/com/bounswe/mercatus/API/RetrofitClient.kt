@@ -138,6 +138,15 @@ interface ApiInterface {
         @Path("comment_id") mid: Int,
         @Header("Authorization") token: String
     ): retrofit2.Call<ResponseBody>
+
+    // Edit a comment
+    @Headers("Content-Type:application/json")
+    @PUT("comments/{comment_id}")
+    fun editComment(
+        @Body info: CommentEditBody,
+        @Path("comment_id") mid: Int,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<ResponseBody>
 }
 class RetrofitInstance {
     companion object {
