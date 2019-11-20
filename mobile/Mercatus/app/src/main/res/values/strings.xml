@@ -59,6 +59,7 @@
     <string name="edit_profile">Edit Profile</string>
 
     <string name="title">Title</string>
+    <string name="author">Author</string>
     <string name="content">Content</string>
     <string name="cre_content">Content:</string>
     <string name="write_article">What do you think?</string>

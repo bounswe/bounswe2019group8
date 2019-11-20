@@ -8,6 +8,7 @@
     <dimen name="appbar_padding">16dp</dimen>
     <dimen name="appbar_padding_top">8dp</dimen>
 
+    <dimen name="new_margin">12dp</dimen>
     <dimen name="padding_regular">9dp</dimen>
     <dimen name="line_spacing">5sp</dimen>
 </resources>
