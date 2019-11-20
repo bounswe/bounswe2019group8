@@ -96,6 +96,22 @@ interface ApiInterface {
         @Body info: CreateArticleBody,
         @Header("Authorization") token: String
     ): retrofit2.Call<GetArticleBody>
+
+    // Delete an article
+    @Headers("Content-Type:application/json")
+    @DELETE("articles/{article_id}")
+    fun deleteArticle(
+        @Path("article_id") mid: Int,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<ResponseBody>
+
+    // Edit an article
+    @Headers("Content-Type:application/json")
+    @POST("articles")
+    fun editArticle(
+        @Body info: CreateArticleBody,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<GetArticleBody>
 }
 class RetrofitInstance {
     companion object {

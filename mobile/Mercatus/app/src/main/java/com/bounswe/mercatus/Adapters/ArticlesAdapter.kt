@@ -1,6 +1,7 @@
 package com.bounswe.mercatus.Adapters
 
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import android.view.animation.OvershootInterpolator
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import at.blogc.android.views.ExpandableTextView
 import com.bounswe.mercatus.API.ApiInterface
@@ -20,6 +22,7 @@ import com.bounswe.mercatus.Models.GetArticleBody
 import com.bounswe.mercatus.Models.UserRes
 import com.bounswe.mercatus.R
 import kotlinx.android.synthetic.main.article_layout.view.*
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -96,7 +99,7 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
             itemView.article.text = content
 
             // Write author to items
-            getUser(author, itemView.author, itemView.editArticle, itemView.deleteArticle)
+            getUser(position, author, itemView.author, itemView.editArticle, itemView.deleteArticle, pk)
 
             this.currentArticle = GetArticleBody(author, title, content,rating, pk)
             this.currentPosition = position
@@ -106,7 +109,7 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
     /*
     Gets user based on pk value and a token that was coming from login
     */
-    private fun getUser(pk: Long, name: TextView, editArticle: Button, deleteArticle: Button){
+    private fun getUser(position: Int,pk: Long, name: TextView, editArticle: Button, deleteArticle: Button, article_pk: Int){
         val mercatus = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
 
         val res = context.getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
@@ -141,6 +144,68 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
                         deleteArticle.visibility = View.VISIBLE
                     }
 
+                    deleteArticle.setOnClickListener {
+                        val dialogBuilder = AlertDialog.Builder(context)
+                        dialogBuilder.setMessage(it.toString())
+                            // if the dialog is cancelable
+                            .setTitle("Delete")
+                            .setMessage("Do you want to delete article?")
+                            .setCancelable(true)
+                            .setNegativeButton("No", DialogInterface.OnClickListener {
+                                    dialog, id ->
+                                dialog.dismiss()
+
+                            })
+                            .setPositiveButton("Yes", DialogInterface.OnClickListener {
+                                    dialog, id ->
+                                dialog.dismiss()
+                                deleteArticle(article_pk, position)
+                            })
+
+                        val alert = dialogBuilder.create()
+                        alert.setTitle("Test")
+                        alert.show()
+                    }
+                }
+                else  {
+                    Toast.makeText(context, "Show profile failed.", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+        })
+    }
+
+    private fun deleteArticle(pk: Int, position: Int){
+        val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
+
+        val res = context.getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
+        val tokenV = res.getString("token", "Data Not Found!")
+
+        mer.deleteArticle(pk, "Token " + tokenV.toString()).enqueue(object :
+            Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                if(t.cause is ConnectException){
+                    Toast.makeText(
+                        context,
+                        "Check your connection!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else{
+                    Toast.makeText(
+                        context,
+                        "Something bad happened!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if (response.code() == 204) {
+                    Toast.makeText(context, "Successfully deleted!", Toast.LENGTH_SHORT)
+                        .show()
+
+                    articlesList.removeAt(position)
+                    notifyItemRemoved(position)
                 }
                 else  {
                     Toast.makeText(context, "Show profile failed.", Toast.LENGTH_SHORT)
