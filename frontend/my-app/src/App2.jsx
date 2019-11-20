@@ -32,9 +32,6 @@ class App extends Component {
       dateOfBirth: ""
     },
     users: [],
-    api: axios.create({
-      baseURL: "http://8.209.81.242:8000/"
-    })
   };
 
   render() {
@@ -42,14 +39,14 @@ class App extends Component {
       return (
         <React.Fragment>
           {this.guestNavbar()}
-          <Login loginSuccess={this.loginIsSuccessful} api={this.state.api} />
+          <Login loginSuccess={this.loginIsSuccessful} />
         </React.Fragment>
       );
     } else if (this.state.signUpClicked === true) {
       return (
         <React.Fragment>
           {this.guestNavbar()}
-          <Signup api={this.state.api} signUpClicked={this.signUpClick} />
+          <Signup signUpClicked={this.signUpClick} />
         </React.Fragment>
       );
     } else if (
@@ -78,7 +75,6 @@ class App extends Component {
             profileClick={this.profileClick}
             credentials={this.state.credentials}
             users={this.state.users}
-            api={this.state.api}
           />
         </React.Fragment>
       );

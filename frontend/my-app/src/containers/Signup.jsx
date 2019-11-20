@@ -97,7 +97,7 @@ export default function Signup({ api, signUpSuccess, ...props }) {
 
     setIsLoading(true);
 
-    api
+    axios
       .post("/users", {
         email: fields.email,
         first_name: fields.firstName,
@@ -122,7 +122,7 @@ export default function Signup({ api, signUpSuccess, ...props }) {
 
     setIsLoading(true);
     componentDidMount();
-    api
+    axios
       .post("/users", {
         email: traderFields.email,
         first_name: traderFields.firstName,

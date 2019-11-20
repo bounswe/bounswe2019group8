@@ -1,0 +1,8 @@
+.field-container {
+  background-color: white;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.form-control {
+  border-color: black;
+}

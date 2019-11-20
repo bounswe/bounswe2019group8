@@ -13,9 +13,6 @@ class GuestMainPage extends Component {
     loginClicked: false,
     signUpClicked: false,
     searchClicked: false,
-    api: axios.create({
-      baseURL: "http://8.209.81.242:8000/"
-    })
   };
 
   render() {
@@ -23,21 +20,21 @@ class GuestMainPage extends Component {
       return (
         <React.Fragment>
           {this.guestNavbar()}
-          <Login loginSuccess={this.loginIsSuccessful} api={this.state.api} />
+          <Login loginSuccess={this.loginIsSuccessful} />
         </React.Fragment>
       );
     } else if (this.state.signUpClicked === true) {
       return (
         <React.Fragment>
           {this.guestNavbar()}
-          <Signup api={this.state.api} signUpClicked={this.signUpClick} />
+          <Signup signUpClicked={this.signUpClick} />
         </React.Fragment>
       );
-    } 
+    }
     else{
         return(
         <React.Fragment>
-            {this.guestNavbar()}  
+            {this.guestNavbar()}
         </React.Fragment>)
     }
   }

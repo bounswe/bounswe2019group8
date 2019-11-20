@@ -1,66 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.bounswe.mercatus">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:networkSecurityConfig="@xml/network_security_config"
         android:theme="@style/AppTheme">
-
-
-        <activity android:name=".ModifyActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ProfileActivity" />
-        </activity>
-
-        <activity android:name=".TraderUserActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".RegisterActivity" />
-        </activity>
-        <activity android:name=".SearchActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".SearchActivity" />
-        </activity>
-        <activity android:name=".ProfileActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ProfileActivity" />
-        </activity>
-        <activity android:name=".BasicUserActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".RegisterActivity" />
-        </activity>
-        <activity android:name=".RegisterActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".LoginActivity" />
-        </activity>
-        <activity android:name=".GuestActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".LoginActivity" />
-        </activity>
-        <activity android:name=".LoginActivity">
+        <activity android:name=".Fragments.Articles.EditArticleActivity"></activity>
+        <activity android:name=".Fragments.Articles.CreateCommentActivity" />
+        <activity android:name=".Fragments.Articles.ShowArticleActivity" />
+        <activity android:name=".Fragments.Articles.CreateArticleActivity" />
+        <activity
+            android:name=".Fragments.TradingActivity"
+            android:label="@string/title_activity_trading"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Fragments.FollowersActivity"
+            android:label="@string/title_activity_followers" />
+        <activity
+            android:name=".Fragments.FollowingsActivity"
+            android:label="@string/title_activity_followings" />
+        <activity
+            android:name=".Fragments.ChooseActivity"
+            android:label="@string/title_activity_choose"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Fragments.MainActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Fragments.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" >
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value=".LoginActivity" />
+        <activity android:name=".Fragments.ModifyActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.ProfileFragment" />
         </activity>
+        <activity android:name=".Fragments.TraderUserActivity" />
+        <activity android:name=".Fragments.SearchActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Fragments.SearchActivity" />
+        </activity>
+        <activity android:name=".ui.ProfileFragment">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.ProfileFragment" />
+        </activity>
+        <activity android:name=".Fragments.BasicUserActivity" />
+        <activity android:name=".Fragments.GuestActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Fragments.LoginActivity" />
+        </activity>
+        <activity
+            android:name=".Fragments.ShowProfileActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

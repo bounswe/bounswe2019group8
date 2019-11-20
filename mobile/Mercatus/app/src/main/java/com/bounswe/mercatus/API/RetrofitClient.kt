@@ -1,9 +1,6 @@
 package com.bounswe.mercatus.API
 
-import com.bounswe.mercatus.Models.SignInBody
-import com.bounswe.mercatus.Models.SignInRes
-import com.bounswe.mercatus.Models.UserBody
-import com.bounswe.mercatus.Models.UserRes
+import com.bounswe.mercatus.Models.*
 import okhttp3.OkHttpClient
 import okhttp3.ResponseBody
 import okhttp3.logging.HttpLoggingInterceptor
@@ -16,7 +13,9 @@ interface ApiInterface {
     // Sign in request
     @Headers("Content-Type:application/json")
     @POST("auth_tokens")
-    fun signin(@Body info: SignInBody): retrofit2.Call<SignInRes>
+    fun signin(
+        @Body info: SignInBody
+    ): retrofit2.Call<SignInRes>
 
     // Sign up request
     @Headers("Content-Type:application/json")
@@ -31,7 +30,7 @@ interface ApiInterface {
     fun getUser(
         @Path("user_id") id: Long,
         @Header("Authorization") token: String
-    ): retrofit2.Call<ResponseBody>
+    ): retrofit2.Call<UserRes>
 
     // Update user request
     @Headers("Content-Type: application/json")
@@ -48,6 +47,72 @@ interface ApiInterface {
     fun getUsers(
         @Header("Authorization") token: String
     ): retrofit2.Call<List<UserRes>>
+
+    // Search user request
+    @Headers("Content-Type:application/json")
+    @POST("user_searches")
+    fun searchUser(
+        @Body info: SearchBody,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<List<SearchRes>>
+
+    // Follow user
+    @Headers("Content-Type:application/json")
+    @POST("users/{user_id}/followings")
+    fun followUser(
+        @Body info: FollowBody,
+        @Path("user_id") id: Long,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<UserRes>
+
+    // UnFollow user
+    @Headers("Content-Type:application/json")
+    @DELETE("users/{my_id}/followings/{user_id}")
+    fun unFollowUser(
+        @Path("my_id") mid: Long,
+        @Header("Authorization") token: String,
+        @Path("user_id") id: Long
+    ): retrofit2.Call<ResponseBody>
+
+    // Get all articles
+    @Headers("Content-Type:application/json")
+    @GET("articles")
+    fun getArticles(
+        @Header("Authorization") token: String
+    ): retrofit2.Call<List<GetArticleBody>>
+
+    // Get an article
+    @Headers("Content-Type:application/json")
+    @GET("articles/{article_id}")
+    fun getOneArticle(
+        @Path("article_id") mid: Int,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<GetArticleBody>
+
+    // Create an article
+    @Headers("Content-Type:application/json")
+    @POST("articles")
+    fun createArticle(
+        @Body info: CreateArticleBody,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<GetArticleBody>
+
+    // Delete an article
+    @Headers("Content-Type:application/json")
+    @DELETE("articles/{article_id}")
+    fun deleteArticle(
+        @Path("article_id") mid: Int,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<ResponseBody>
+
+    // Edit an article
+    @Headers("Content-Type:application/json")
+    @PUT("articles/{article_id}")
+    fun editArticle(
+        @Body info: EditArticleBody,
+        @Path("article_id") mid: Int,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<ResponseBody>
 }
 class RetrofitInstance {
     companion object {

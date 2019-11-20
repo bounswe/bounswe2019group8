@@ -20,15 +20,12 @@ class BasicMainPage extends Component {
 
     },
     users: [],
-    api: axios.create({
-      baseURL: "http://8.209.81.242:8000/"
-    })
   };
 
   render() {
   return(
     <React.Fragment>
-    {this.basicNavbar()}  
+    {this.basicNavbar()}
     </React.Fragment>
   )
   }
@@ -62,7 +59,7 @@ class BasicMainPage extends Component {
         axios
           .get(url, { headers: { Authorization: `Token ${token}` } })
           .then(res => {
-    
+
             var credentials = { ...this.state.credentials };
             credentials.userEmail = res.data.email;
             credentials.firstName = res.data.first_name;
@@ -73,11 +70,11 @@ class BasicMainPage extends Component {
             credentials.userGroup = res.data.groups[0];
             this.setState({ credentials: credentials });
 
-        
+
           });
-      
+
   }
-  
+
   logoutClick = () => {
     localStorage.setItem("userId", null);
     localStorage.setItem("userToken", null);

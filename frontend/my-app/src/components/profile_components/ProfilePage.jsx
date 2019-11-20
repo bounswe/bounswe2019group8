@@ -46,6 +46,4 @@ componentDidMount(){
   }
 }
 
-ProfilePage.propTypes = {};
-
 export default ProfilePage;

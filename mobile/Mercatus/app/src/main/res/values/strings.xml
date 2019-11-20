@@ -7,21 +7,65 @@
     <string name="continue_guest">Continue as Guest</string>
     <string name="name">Name</string>
     <string name="surname">Surname</string>
+    <string name="date_birth">Date of birth</string>
+    <string name="email">Email</string>
+    <string name="followers">Followers</string>
+    <string name="followings">Followings</string>
     <string name="basic_user">Basic User</string>
     <string name="trader_user">Trader</string>
     <string name="id_number">ID Number</string>
     <string name="iban_number">TR Iban Number</string>
     <string name="basic">Basic</string>
-    <string name="Free">Free</string>
-    <string name="basic_features"> • provide your investment information and learn your profit/loss state \n \n
-• view articles on economy and share your opinion \n \n
-• follow important economic figures, events and trading equipments \n \n
-• set alerts for trading equipment prices </string>
-    <string name="trader_features"> • enjoy all the features basic users have \n \n
-        • invest in trading equipments through Mercatus \n \n
-        • set stop-loss orders
+    <string name="trader">Trader</string>
+    <string name="free">Free</string>
+    <string name="register">Register</string>
+    <string name="basic_header">As a Basic member</string>
+    <string name="basic_features"> • Provide your investment information and learn your profit/loss state \n \n
+• View articles on economy and share your opinion \n \n
+• Follow important economic figures, events and trading equipments \n \n
+• Set alerts for trading equipment prices </string>
+    <string name="trader_header">As a Trader member</string>
+    <string name="trader_features"> • Enjoy all the features basic users have \n \n
+        • Invest in trading equipments through Mercatus \n \n
+        • Set stop-loss orders
     </string>
     <string name="date_pick">Pick Birthday</string>
     <string name="search_title">Search</string>
     <string name="search_hint">Enter text to search</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Mercatus</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="user">User</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_article">Articles</string>
+    <string name="menu_events">Events</string>
+    <string name="menu_tools">Tools</string>
+    <string name="menu_profile">Profile</string>
+    <string name="menu_profit">Profit</string>
+    <string name="title_activity_choose">ChooseActivity</string>
+    <string name="go_back">Go back</string>
+    <string name="follow_me">Follow Me</string>
+    <string name="title_activity_followings">Followings</string>
+    <string name="title_activity_followers">Followers</string>
+    <string name="title_activity_trading">TradingActivity</string>
+
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="edit_profile">Edit Profile</string>
+
+    <string name="title">Title</string>
+    <string name="author">Author</string>
+    <string name="content">Content</string>
+    <string name="cre_content">Content:</string>
+    <string name="write_article">What do you think?</string>
+    <string name="comment">Comment</string>
+    <string name="create_article">Create Article</string>
+    <string name="create_comment">Create Comment</string>
+    <string name="article">Article</string>
+    <string name="edit_article">Edit Article</string>
 </resources>
