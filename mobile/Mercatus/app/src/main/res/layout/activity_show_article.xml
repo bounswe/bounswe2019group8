@@ -81,8 +81,8 @@
                 android:autoLink="web"
                 android:gravity="start"
                 android:lineSpacingExtra="@dimen/line_spacing"
-                android:lines="10"
-                android:minLines="4"
+                android:lines="7"
+                android:minLines="5"
                 android:text="@string/cre_content"
                 android:textSize="16dip" />
 

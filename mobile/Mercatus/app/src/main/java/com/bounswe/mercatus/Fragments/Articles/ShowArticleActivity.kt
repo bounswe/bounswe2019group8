@@ -46,12 +46,10 @@ class ShowArticleActivity : AppCompatActivity() {
 
         val commentsList = ArrayList<CommentShowBody>()
 
-        commentsList.add(CommentShowBody(15,"sss", 1,1))
-        commentsList.add(CommentShowBody(15,"sss", 1,1))
         var adapter = CommentAdapter(this@ShowArticleActivity, commentsList)
         rv.adapter = adapter
 
-        getComments(commentsList, adapter)
+        getComments(articleID.toInt(), commentsList, adapter)
 
         fab.setOnClickListener {
             val intent = Intent(this@ShowArticleActivity, CreateCommentActivity::class.java)
@@ -142,14 +140,14 @@ class ShowArticleActivity : AppCompatActivity() {
         })
     }
 
-    private fun getComments(commentsList: ArrayList<CommentShowBody>, adapter: CommentAdapter){
+    private fun getComments(articleID: Int, commentsList: ArrayList<CommentShowBody>, adapter: CommentAdapter){
         val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
 
         val res = getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
         val tokenV = res?.getString("token", "Data Not Found!")
 
 
-        mer.getComments(5,"Token " + tokenV.toString()).enqueue(object :
+        mer.getComments(articleID,"Token " + tokenV.toString()).enqueue(object :
             Callback<List<CommentBody>> {
             override fun onFailure(call: Call<List<CommentBody>>, t: Throwable) {
                 if(t.cause is ConnectException){
@@ -170,6 +168,7 @@ class ShowArticleActivity : AppCompatActivity() {
             override fun onResponse(call: Call<List<CommentBody>>, response: Response<List<CommentBody>>) {
                 if (response.code() == 200) {
                     val res: List<CommentBody>? = response.body()
+                    commentsList.clear()
                     for(i in res.orEmpty()){
                         commentsList.add(CommentShowBody(i.author, i.content, i.article , i.pk))
                     }

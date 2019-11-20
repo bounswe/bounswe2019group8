@@ -130,10 +130,18 @@ interface ApiInterface {
         @Path("article_id") mid: Int,
         @Header("Authorization") token: String
     ): retrofit2.Call<ResponseBody>
+
+    // Delete a comment
+    @Headers("Content-Type:application/json")
+    @DELETE("comments/{comment_id}")
+    fun deleteComment(
+        @Path("comment_id") mid: Int,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<ResponseBody>
 }
 class RetrofitInstance {
     companion object {
-        val BASE_URL: String = "http://8.209.81.242:8000/"
+        private val BASE_URL: String = "http://8.209.81.242:8000/"
 
 
         val interceptor: HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
