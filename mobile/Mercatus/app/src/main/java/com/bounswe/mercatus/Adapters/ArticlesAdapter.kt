@@ -15,8 +15,9 @@ import androidx.recyclerview.widget.RecyclerView
 import at.blogc.android.views.ExpandableTextView
 import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
-import com.bounswe.mercatus.Fragments.CreateCommentActivity
-import com.bounswe.mercatus.Fragments.ShowArticleActivity
+import com.bounswe.mercatus.Fragments.Articles.CreateCommentActivity
+import com.bounswe.mercatus.Fragments.Articles.EditArticleActivity
+import com.bounswe.mercatus.Fragments.Articles.ShowArticleActivity
 import com.bounswe.mercatus.Fragments.ShowProfileActivity
 import com.bounswe.mercatus.Models.GetArticleBody
 import com.bounswe.mercatus.Models.UserRes
@@ -93,6 +94,11 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
                 context.startActivity(intent)
             }
 
+            itemView.editArticle.setOnClickListener {
+                val intent = Intent(context, EditArticleActivity::class.java)
+                intent.putExtra("article_header", currentArticle?.pk.toString())
+                context.startActivity(intent)
+            }
         }
         fun setData(title : String, content : String, author: Long, pk: Int, rating: Float, position: Int){
             itemView.article_heading.text = title
@@ -143,7 +149,6 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
                         editArticle.visibility = View.VISIBLE
                         deleteArticle.visibility = View.VISIBLE
                     }
-
                     deleteArticle.setOnClickListener {
                         val dialogBuilder = AlertDialog.Builder(context)
                         dialogBuilder.setMessage(it.toString())

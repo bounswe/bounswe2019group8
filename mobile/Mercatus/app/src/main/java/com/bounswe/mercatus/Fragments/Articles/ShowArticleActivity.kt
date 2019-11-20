@@ -1,4 +1,4 @@
-package com.bounswe.mercatus.Fragments
+package com.bounswe.mercatus.Fragments.Articles
 
 import android.content.Context
 import android.content.Intent
@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
+import com.bounswe.mercatus.Fragments.ShowProfileActivity
 import com.bounswe.mercatus.Models.GetArticleBody
 import com.bounswe.mercatus.Models.UserRes
 import com.bounswe.mercatus.R

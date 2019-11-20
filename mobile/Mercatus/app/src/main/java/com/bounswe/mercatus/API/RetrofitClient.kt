@@ -107,11 +107,12 @@ interface ApiInterface {
 
     // Edit an article
     @Headers("Content-Type:application/json")
-    @POST("articles")
+    @PUT("articles/{article_id}")
     fun editArticle(
-        @Body info: CreateArticleBody,
+        @Body info: EditArticleBody,
+        @Path("article_id") mid: Int,
         @Header("Authorization") token: String
-    ): retrofit2.Call<GetArticleBody>
+    ): retrofit2.Call<ResponseBody>
 }
 class RetrofitInstance {
     companion object {
