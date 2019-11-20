@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.OvershootInterpolator
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -15,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView
 import at.blogc.android.views.ExpandableTextView
 import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
-import com.bounswe.mercatus.Fragments.Articles.CreateCommentActivity
 import com.bounswe.mercatus.Fragments.Articles.EditArticleActivity
 import com.bounswe.mercatus.Fragments.Articles.ShowArticleActivity
 import com.bounswe.mercatus.Fragments.ShowProfileActivity
@@ -52,7 +52,7 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
     Each item in RecyclerView is called as viewholder.
      */
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-        val expandableTextView = itemView.findViewById(R.id.article) as ExpandableTextView
+        private val expandableTextView = itemView.findViewById(R.id.article) as ExpandableTextView
 
         var currentArticle : GetArticleBody? = null
         var currentPosition : Int = 0
@@ -79,12 +79,14 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
                 context.startActivity(intent)
             }
 
-            itemView.makeComment.setOnClickListener {
+            /*itemView.makeComment.setOnClickListener {
 
                 val intent = Intent(context, CreateCommentActivity::class.java)
                 intent.putExtra("articleID", currentArticle?.pk.toString())
                 context.startActivity(intent)
             }
+
+             */
 
             itemView.author.setOnClickListener {
 
@@ -105,7 +107,7 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
             itemView.article.text = content
 
             // Write author to items
-            getUser(position, author, itemView.author, itemView.editArticle, itemView.deleteArticle, pk)
+            getUser(position, author, itemView.author, itemView.editArticle, itemView.deleteArticle, itemView.showComment, itemView.commentSection, pk)
 
             this.currentArticle = GetArticleBody(author, title, content,rating, pk)
             this.currentPosition = position
@@ -115,7 +117,9 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
     /*
     Gets user based on pk value and a token that was coming from login
     */
-    private fun getUser(position: Int,pk: Long, name: TextView, editArticle: Button, deleteArticle: Button, article_pk: Int){
+    private fun getUser(position: Int,pk: Long, name: TextView,
+                        editArticle: Button, deleteArticle: Button,showComment: Button,
+                        commentSection: LinearLayout, article_pk: Int){
         val mercatus = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
 
         val res = context.getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
@@ -168,8 +172,16 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
                             })
 
                         val alert = dialogBuilder.create()
-                        alert.setTitle("Test")
                         alert.show()
+                    }
+
+                    showComment.setOnClickListener {
+                        if(commentSection.visibility == View.VISIBLE){
+                            commentSection.visibility = View.GONE
+                        }
+                        else{
+                            commentSection.visibility = View.VISIBLE
+                        }
                     }
                 }
                 else  {
