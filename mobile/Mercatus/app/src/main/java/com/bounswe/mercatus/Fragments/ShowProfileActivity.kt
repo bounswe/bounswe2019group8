@@ -87,13 +87,13 @@ class ShowProfileActivity : AppCompatActivity() {
 
 
                 if (response.code() == 204) {
-                    Toast.makeText(this@ShowProfileActivity, response.body()?.toString(), Toast.LENGTH_SHORT)
+                    Toast.makeText(this@ShowProfileActivity, "Unfollow success!", Toast.LENGTH_SHORT)
                         .show()
                     finish()
                     startActivity(getIntent())
                 }
                 else  {
-                    Toast.makeText(this@ShowProfileActivity, "Following Failed "+response.code(), Toast.LENGTH_SHORT)
+                    Toast.makeText(this@ShowProfileActivity, "Unfollow Failed!"+response.code(), Toast.LENGTH_SHORT)
                         .show()
                 }
 
