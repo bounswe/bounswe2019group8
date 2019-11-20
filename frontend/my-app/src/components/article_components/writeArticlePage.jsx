@@ -19,12 +19,19 @@ export default function WriteArticle() {
     } else {
       console.log("girdim");
       axios
-        .post("http://8.209.81.242:8000/articles", {
-          headers: { Authorization: `Token ${token}` },
-          title: "First Article Trial",
-          content:
-            "This article was created in order to be able to make trials."
-        })
+        .post(
+          "/articles",
+          {
+            title: "First Article Trial",
+            content:
+              "This article was created in order to be able to make trials."
+          },
+          {
+            headers: {
+              Authorization: `Token ${token}`
+            }
+          }
+        )
         .then(function(response) {
           console.log(response);
         });

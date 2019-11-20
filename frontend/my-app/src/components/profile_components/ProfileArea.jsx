@@ -9,41 +9,40 @@ class ProfileArea extends React.Component {
 
     this.state = {
       updateClicked: false,
-      credentials:{},
-      users:[],
-      me:{followings:[],followers:[]}
+      credentials: {},
+      users: [],
+      me: { followings: [], followers: [] }
     };
   }
   componentDidMount() {
     var url =
-    "http://8.209.81.242:8000/users/" + localStorage.getItem("userId");
-  var credentials1 = { ...this.state.credentials };
-  var id = localStorage.getItem("userId");
-  var token = localStorage.getItem("userToken");
-  credentials1.id = id;
-  credentials1.userToken = token;
-  var userType;
-  axios
-    .get("http://8.209.81.242:8000/users", {
-      headers: { Authorization: `Token ${token}` }
-    })
-    .then(res => {
-      this.setState({ users: res.data });
-    });
-  axios
-    .get(url, { headers: { Authorization: `Token ${token}` } })
-    .then(res => {
-
-      var credentials = { ...this.state.credentials };
-      credentials.userEmail = res.data.email;
-      credentials.firstName = res.data.first_name;
-      credentials.lastName = res.data.last_name;
-      credentials.dateOfBirth = res.data.date_of_birth;
-      credentials.id = id;
-      credentials.userToken = token;
-      credentials.userGroup = res.data.groups[0];
-      this.setState({ credentials: credentials });
-    });
+      "http://8.209.81.242:8000/users/" + localStorage.getItem("userId");
+    var credentials1 = { ...this.state.credentials };
+    var id = localStorage.getItem("userId");
+    var token = localStorage.getItem("userToken");
+    credentials1.id = id;
+    credentials1.userToken = token;
+    var userType;
+    axios
+      .get("http://8.209.81.242:8000/users", {
+        headers: { Authorization: `Token ${token}` }
+      })
+      .then(res => {
+        this.setState({ users: res.data });
+      });
+    axios
+      .get(url, { headers: { Authorization: `Token ${token}` } })
+      .then(res => {
+        var credentials = { ...this.state.credentials };
+        credentials.userEmail = res.data.email;
+        credentials.firstName = res.data.first_name;
+        credentials.lastName = res.data.last_name;
+        credentials.dateOfBirth = res.data.date_of_birth;
+        credentials.id = id;
+        credentials.userToken = token;
+        credentials.userGroup = res.data.groups[0];
+        this.setState({ credentials: credentials });
+      });
   }
   follow(user) {
     let id = user.pk;

@@ -8,6 +8,7 @@ import ProfilePage from "../profile_components/ProfilePage";
 import Home from "../../home";
 import ArticleHolder from "../article_components/articleHolder";
 import WriteArticle from "../article_components/writeArticlePage";
+import WholeArticlePage from "../article_components/wholeArticlePage";
 
 class TraderMainPage extends Component {
   state = {
@@ -21,7 +22,7 @@ class TraderMainPage extends Component {
       dateOfBirth: "",
       userGroup: ""
     },
-    users: [],
+    users: []
   };
 
   render() {
@@ -31,7 +32,7 @@ class TraderMainPage extends Component {
           <Route path="/profile" component={ProfilePage} />
         </Switch>
         {this.traderNavbar()}
-        <WriteArticle />
+        <ArticleHolder />
       </React.Fragment>
     );
   }
