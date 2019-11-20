@@ -1,36 +1,26 @@
 import React, { Component } from "react";
 import "./App.css";
-import GuestMainPage from "./components/main_pages/guestMainPage";
-import BasicMainPage from "./components/main_pages/basicMainPage";
-import TraderMainPage from "./components/main_pages/traderMainPage";
-import TraderRouter from "./components/main_pages/traderRouter";
-import {Route} from "react-router-dom";
+import {Route, Switch} from "react-router-dom";
 import ProfilePage from "./components/profile_components/ProfilePage";
+import MainNavbar from "./components/nav_bars/mainNavbar";
 
-
-
+import LoginRouter from "./containers/LoginRouter";
+import SignupRouter from "./containers/SignupRouter";
 class Home extends Component {
   state = {};
 
   render() {
-    if(localStorage.getItem("userGroup")==="0"){
-      return(
-      <React.Fragment>
-        <BasicMainPage/>
-      </React.Fragment>)
-    }
-    else if(localStorage.getItem("userGroup")==="1"){
-      return(
-        <React.Fragment>
-          <TraderRouter/>
-        </React.Fragment>)
-    }
-    else{
-      return(
-        <React.Fragment>
-          <GuestMainPage/>
-        </React.Fragment>)
-    }
+    return( 
+   <React.Fragment>
+    
+      <MainNavbar/>
+      <Switch>
+        <Route exact path="/login" component ={LoginRouter}/>
+        <Route exact path="/signup" component ={SignupRouter}/>
+        <Route exact path ="/profile/:id" component={ProfilePage}/>
+      </Switch>
+  
+  </React.Fragment>)
     
   }
 }

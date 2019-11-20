@@ -6,7 +6,7 @@ import "./Signup.css";
 import CheckBox from "./checkBox";
 import axios from "axios";
 
-export default function Signup({ signUpClicked, ...props }) {
+export default function Signup({ api, signUpSuccess, ...props }) {
   const [fields, handleFieldChange] = useFormFields({
     firstName: "",
     lastName: "",
@@ -90,7 +90,6 @@ export default function Signup({ signUpClicked, ...props }) {
     );
   }
   function handleCheckTrader() {
-    console.log("victory");
     traderChecked(!trader);
   }
   async function handleBasicSubmit(event) {
@@ -105,11 +104,10 @@ export default function Signup({ signUpClicked, ...props }) {
         last_name: fields.lastName,
         date_of_birth: fields.dateOfBirth,
         password: fields.password,
-        groups: [0]
+        groups: [1]
       })
       .then(function(response) {
         alert("sign-up successful");
-        signUpClicked();
       })
       .catch(function(error) {
         alert("Try Again");
@@ -138,7 +136,6 @@ export default function Signup({ signUpClicked, ...props }) {
       })
       .then(function(response) {
         alert("sign-up successful");
-        signUpClicked();
       })
       .catch(function(error) {
         alert("Try Again");
