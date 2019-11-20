@@ -67,9 +67,9 @@
 
         <Button
             android:gravity="center"
-            android:id="@+id/createNewArticle"
+            android:id="@+id/editArticle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/create_article"/>
+            android:text="@string/edit_article"/>
     </LinearLayout>
 </ScrollView>

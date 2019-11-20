@@ -1,4 +1,4 @@
-package com.bounswe.mercatus.Fragments
+package com.bounswe.mercatus.Fragments.Articles
 
 import android.content.Context
 import android.os.Bundle
@@ -21,6 +21,7 @@ class CreateArticleActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_article)
 
+        // Create go back button on toolbar
         val actionBar = supportActionBar
         actionBar!!.title = getString(R.string.create_article)
         actionBar.setDisplayHomeAsUpEnabled(true)

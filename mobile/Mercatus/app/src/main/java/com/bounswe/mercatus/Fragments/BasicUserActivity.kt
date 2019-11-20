@@ -88,14 +88,14 @@ class BasicUserActivity : AppCompatActivity() {
 
         var isValid = true
 
-        if (name.isNullOrEmpty()){
+        if (name.isEmpty()){
             layName.isErrorEnabled = true
             layName.error = "Name cannot be empty!"
             isValid = false
         }else{
             layName.isErrorEnabled = false
         }
-        if (surname.isNullOrEmpty()){
+        if (surname.isEmpty()){
             laySurname.isErrorEnabled = true
             laySurname.error = "Surname cannot be empty!"
             isValid = false
@@ -109,11 +109,17 @@ class BasicUserActivity : AppCompatActivity() {
         }else{
             layMail.isErrorEnabled = false
         }
-        if (password.isNullOrEmpty()){
+        if (password.isEmpty()){
             layPassword.isErrorEnabled = true
             layPassword.error = "Password cannot be empty!"
             isValid = false
-        }else{
+        }
+        else if(password.length <6){
+            layPassword.isErrorEnabled = true
+            layPassword.error = "Password must longer than 6!"
+            isValid = false
+        }
+        else{
             layPassword.isErrorEnabled = false
         }
         if (date == "Date"){
@@ -123,7 +129,7 @@ class BasicUserActivity : AppCompatActivity() {
         return isValid
     }
     private fun String.isValidEmail(): Boolean
-            = !this.isNullOrEmpty() &&
+            = this.isNotEmpty() &&
             Patterns.EMAIL_ADDRESS.matcher(this).matches()
 
     private fun signup(date: String, email: String, name: String, surname: String, password: String){

@@ -81,6 +81,14 @@ interface ApiInterface {
         @Header("Authorization") token: String
     ): retrofit2.Call<List<GetArticleBody>>
 
+    // Get an article
+    @Headers("Content-Type:application/json")
+    @GET("articles/{article_id}")
+    fun getOneArticle(
+        @Path("article_id") mid: Int,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<GetArticleBody>
+
     // Create an article
     @Headers("Content-Type:application/json")
     @POST("articles")
@@ -88,6 +96,23 @@ interface ApiInterface {
         @Body info: CreateArticleBody,
         @Header("Authorization") token: String
     ): retrofit2.Call<GetArticleBody>
+
+    // Delete an article
+    @Headers("Content-Type:application/json")
+    @DELETE("articles/{article_id}")
+    fun deleteArticle(
+        @Path("article_id") mid: Int,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<ResponseBody>
+
+    // Edit an article
+    @Headers("Content-Type:application/json")
+    @PUT("articles/{article_id}")
+    fun editArticle(
+        @Body info: EditArticleBody,
+        @Path("article_id") mid: Int,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<ResponseBody>
 }
 class RetrofitInstance {
     companion object {

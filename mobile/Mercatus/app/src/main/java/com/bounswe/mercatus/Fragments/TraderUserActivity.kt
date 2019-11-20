@@ -91,14 +91,14 @@ class TraderUserActivity : AppCompatActivity() {
 
         var isValid = true
 
-        if (name.isNullOrEmpty()){
+        if (name.isEmpty()){
             layPassword.isErrorEnabled = true
             layPassword.error = "Name cannot be empty!"
             isValid = false
         }else{
             layPassword.isErrorEnabled = false
         }
-        if (surname.isNullOrEmpty()){
+        if (surname.isEmpty()){
             layPassword.isErrorEnabled = true
             layPassword.error = "Surname cannot be empty!"
             isValid = false
@@ -112,7 +112,7 @@ class TraderUserActivity : AppCompatActivity() {
         }else{
             layMail.isErrorEnabled = false
         }
-        if (password.isNullOrEmpty()){
+        if (password.isEmpty()){
             layPassword.isErrorEnabled = true
             layPassword.error = "Password cannot be empty!"
             isValid = false
@@ -130,7 +130,13 @@ class TraderUserActivity : AppCompatActivity() {
             layID.isErrorEnabled = true
             layID.error = "TC id is not valid!"
             isValid = false
-        }else{
+        }
+        else if(password.length <6){
+            layPassword.isErrorEnabled = true
+            layPassword.error = "Password must longer than 6!"
+            isValid = false
+        }
+        else{
             layID.isErrorEnabled = false
         }
         if (date == "Date"){
@@ -140,7 +146,7 @@ class TraderUserActivity : AppCompatActivity() {
         return isValid
     }
     private fun String.isValidEmail(): Boolean
-            = !this.isNullOrEmpty() &&
+            = this.isNotEmpty() &&
             Patterns.EMAIL_ADDRESS.matcher(this).matches()
 
     private fun signup(date: String, email: String, name: String, surname: String, password: String){
