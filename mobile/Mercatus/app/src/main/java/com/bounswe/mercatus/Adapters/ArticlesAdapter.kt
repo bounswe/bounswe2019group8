@@ -86,6 +86,7 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
             itemView.article_heading.text = title
             itemView.article.text = content
 
+            // Write author to items
             getUser(author, itemView.author)
 
             this.currentArticle = GetArticleBody(author, title, content,rating, pk)
@@ -94,8 +95,8 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
     }
 
     /*
-Gets user based on pk value and a token that was coming from login
- */
+    Gets user based on pk value and a token that was coming from login
+    */
     private fun getUser(pk: Long, name: TextView){
         val mercatus = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
 
