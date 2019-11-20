@@ -4,6 +4,10 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import {BrowserRouter} from "react-router-dom";
+import axios from "axios";
+
+axios.defaults.baseURL = 'http://8.209.81.242:8000/';
+axios.defaults.headers.common['Content-Type'] = 'application/json';
 
 ReactDOM.render(
 <BrowserRouter>
