@@ -7,7 +7,7 @@ import axios from "axios";
 import {withRouter} from "react-router-dom";
 
 
-export default function Login({ loginSuccess, api, ...props }) {
+export default function Login({ loginSuccess, ...props }) {
   const [isLoading, setIsLoading] = useState(false);
   const [fields, handleFieldChange] = useFormFields({
     email: "",
@@ -22,7 +22,7 @@ export default function Login({ loginSuccess, api, ...props }) {
     event.preventDefault();
 
     setIsLoading(true);
-    api
+    axios
       .post("auth_tokens", {
         email: fields.email,
         password: fields.password
@@ -32,6 +32,9 @@ export default function Login({ loginSuccess, api, ...props }) {
         if (response.statusText === "OK") {
           localStorage.setItem("userId",response.data.user_id)
           localStorage.setItem("userToken",response.data.token)
+
+          axios.defaults.headers.common['Authorization'] = `Token: ${response.data.token}`;
+
           axios
           .get("http://8.209.81.242:8000/users/" + response.data.user_id, {
             headers: { Authorization: `Token ${response.data.token}` }
