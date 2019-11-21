@@ -50,19 +50,19 @@ class ArticleHolder extends Component {
             count += 1;
           }
           for (var j = 0; j < 5; j++) {
-            if (i + j < this.state.articles.length) {
-              this.state.gridOfArticles[count].push(this.state.articles[i + j]);
+            if (5 * i + j < this.state.articles.length) {
+              this.state.gridOfArticles[count].push(
+                this.state.articles[5 * i + j]
+              );
             }
-            if (i + j == this.state.articles.length) {
+            if (5 * i + j === this.state.articles.length) {
               break;
             }
           }
-          if (i + j == this.state.articles.length) {
+          if (5 * i + j === this.state.articles.length) {
             break;
           }
         }
-        //console.log("olm");
-        //console.log(this.state.gridOfArticles);
       });
     //const listItems = this.state.gridOfArticles.map(line => <li>{line}</li>);
   }

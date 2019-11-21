@@ -86,7 +86,7 @@ class TraderNavbar extends Component {
             </Form>*/}
           </Navbar.Collapse>
         </Navbar>
-        <WriteArticlePage />
+        <ArticleHolder />
       </div>
     );
   }

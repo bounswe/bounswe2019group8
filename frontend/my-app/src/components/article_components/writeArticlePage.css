@@ -6,8 +6,7 @@
 .form-control {
   border-color: black;
 }
-
-.btn-primary {
+.btn-primary .for-post {
   margin-left: 33.3%;
   margin-right: 33.3%;
   width: 33.4%;
@@ -15,11 +14,11 @@
   border-color: rgb(168, 184, 101);
 }
 
-.btn-primary:hover {
+.btn-primary .for-post:hover {
   background-color: rgb(168, 200, 101);
   border-color: rgb(168, 200, 101);
 }
-.btn-primary:disabled {
+.btn-primary .for-post:disabled {
   background-color: rgb(168, 184, 101);
   border-color: rgb(168, 184, 101);
 }

@@ -68,6 +68,7 @@ export default function Login() {
           />
         </FormGroup>
         <Button
+          className="for-post"
           block
           type="submit"
           size="large"
