@@ -93,18 +93,18 @@ class TraderUserActivity : AppCompatActivity() {
         var isValid = true
 
         if (name.isEmpty()){
-            layPassword.isErrorEnabled = true
-            layPassword.error = "Name cannot be empty!"
+            layName.isErrorEnabled = true
+            layName.error = "Name cannot be empty!"
             isValid = false
         }else{
-            layPassword.isErrorEnabled = false
+            layName.isErrorEnabled = false
         }
         if (surname.isEmpty()){
-            layPassword.isErrorEnabled = true
-            layPassword.error = "Surname cannot be empty!"
+            laySurname.isErrorEnabled = true
+            laySurname.error = "Surname cannot be empty!"
             isValid = false
         }else{
-            layPassword.isErrorEnabled = false
+            laySurname.isErrorEnabled = false
         }
         if (!email.isValidEmail()){
             layMail.isErrorEnabled = true

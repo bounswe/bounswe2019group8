@@ -36,7 +36,7 @@ interface ApiInterface {
     @Headers("Content-Type: application/json")
     @PUT("users/{user_id}")
     fun updateUser(
-        @Body userBody: MutableMap<String, String>,
+        @Body userBody: UpdateUserBody,
         @Path("user_id") id: Long,
         @Header("Authorization") token: String
     ): retrofit2.Call<ResponseBody>
