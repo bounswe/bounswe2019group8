@@ -15,7 +15,7 @@ import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
 import com.bounswe.mercatus.Fragments.Articles.EditArticleActivity
 import com.bounswe.mercatus.Fragments.Articles.ShowArticleActivity
-import com.bounswe.mercatus.Fragments.ShowProfileActivity
+import com.bounswe.mercatus.Fragments.User.ShowProfileActivity
 import com.bounswe.mercatus.Models.CreateCommentBody
 import com.bounswe.mercatus.Models.GetArticleBody
 import com.bounswe.mercatus.Models.UserRes

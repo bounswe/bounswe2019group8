@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/grayLight"
-    tools:context=".Fragments.ShowProfileActivity"
+    tools:context=".Fragments.User.ShowProfileActivity"
     android:orientation="vertical">
 
     <RelativeLayout
