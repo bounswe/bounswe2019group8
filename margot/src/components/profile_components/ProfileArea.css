@@ -1,0 +1,32 @@
+.myButton {
+  box-shadow: 0px 10px 14px -7px rgb(168, 184, 101);
+  background: linear-gradient(to bottom, #97b359 5%, #999940 100%);
+  background-color: rgb(168, 184, 101);
+  border-radius: 8px;
+  display: flex;
+  cursor: pointer;
+  color: #4e3939;
+  font-family: Arial;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 8px 21px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #3e6c8a;
+  margin-left: 10px;
+  float: right;
+}
+.myButton:hover {
+  background: linear-gradient(to bottom, rgb(0, 255, 98) 5%, #97b359 100%);
+  background-color: rgb(168, 184, 101);
+}
+.myButton:active {
+  position: relative;
+  top: 1px;
+}
+.list-group-item {
+  background-color: rgb(70, 82, 78);
+}
+.list-group-item .list-group-item-info {
+  color: black;
+  display: flex;
+}

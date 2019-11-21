@@ -1,0 +1,29 @@
+.articleLine {
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+  margin-left: 100px;
+  margin-top: 50px;
+  margin-right: 100px;
+  margin-bottom: 50px;
+}
+.write-article {
+  background-color: rgb(168, 184, 101);
+  border-color: rgb(168, 184, 101);
+  font-size: 3rem;
+  width: 33.4%;
+  margin-left: 33.3%;
+  margin-right: 33.3%;
+}
+.write-article:hover {
+  background-color: rgb(168, 200, 101);
+  border-color: rgb(168, 200, 101);
+  color: black;
+}
+.btn:active {
+  background-color: red;
+  border-color: red;
+}
+.myUl {
+  list-style-type: none;
+}

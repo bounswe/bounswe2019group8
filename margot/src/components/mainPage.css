@@ -1,0 +1,9 @@
+.myDiv {
+  display: flex;
+  flex-direction: row-reverse;
+  margin: 10px;
+}
+.myChart {
+  display: inline-flex;
+  flex-direction: row-reverse;
+}
