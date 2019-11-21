@@ -22,9 +22,9 @@ class Home extends Component {
 
         <Route exact path="/login" component ={LoginRouter}/>
         <Route exact path="/signup" component ={SignupRouter}/>
-        <Route exact path ="/profile/:id" exact key ={Math.random()} component={ProfilePage}/>
-        <Route exact path ="/articles" exact key ={Math.random()} component={RealArticleHolder} />
-        <Route exact path ="/followings" exact key ={Math.random()} component={Followings}/> 
+        <Route exact path ="/profile/:id" exact key ={Math.random()*10} component={ProfilePage}/>
+        <Route exact path ="/articles" exact key ={Math.random()*100} component={RealArticleHolder} />
+        <Route exact path ="/followings" exact key ={Math.random()*1000} component={Followings}/> 
         <Route path ="/articles/write" component={WriteArticlePage}/>
     
   
