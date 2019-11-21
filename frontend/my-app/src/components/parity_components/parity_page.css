@@ -1,0 +1,24 @@
+.graph-div {
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+  width: 80%;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+.vl {
+  border-left: 6px solid rgb(191, 199, 191);
+  min-height: 100vh;
+}
+.parity-current-value-badge {
+  width: 100%;
+  padding-top: 5%;
+  padding-bottom: 5%;
+  font-size: 1vw;
+}
+
+.parity-div {
+  margin-left: 30px;
+  margin-top: 56.2px;
+  width: 20vw;
+}

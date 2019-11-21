@@ -5,14 +5,13 @@ import Signup from "../../containers/Signup";
 import GuestNavbar from "../nav_bars/guestNavbar";
 import axios from "axios";
 import MainPage from "../mainPage";
-import {withRouter} from "react-router-dom";
-
+import { withRouter } from "react-router-dom";
 
 class GuestMainPage extends Component {
   state = {
     loginClicked: false,
     signUpClicked: false,
-    searchClicked: false,
+    searchClicked: false
   };
 
   render() {
@@ -21,6 +20,7 @@ class GuestMainPage extends Component {
         <React.Fragment>
           {this.guestNavbar()}
           <Login loginSuccess={this.loginIsSuccessful} />
+          <ArticleHolder />
         </React.Fragment>
       );
     } else if (this.state.signUpClicked === true) {
@@ -30,12 +30,8 @@ class GuestMainPage extends Component {
           <Signup signUpClicked={this.signUpClick} />
         </React.Fragment>
       );
-    }
-    else{
-        return(
-        <React.Fragment>
-            {this.guestNavbar()}
-        </React.Fragment>)
+    } else {
+      return <React.Fragment>{this.guestNavbar()}</React.Fragment>;
     }
   }
   loginClick = () => {
@@ -46,9 +42,9 @@ class GuestMainPage extends Component {
     this.setState({ loginClicked: false });
     this.setState({ signUpClicked: !this.state.signUpClicked });
   };
-  loginIsSuccessful = () =>{
+  loginIsSuccessful = () => {
     this.props.history.push("/");
-  }
+  };
   searchClick = () => {
     this.setState({ searchClicked: !this.state.searchClicked });
     axios
@@ -60,9 +56,7 @@ class GuestMainPage extends Component {
       });
   };
   //mounting function for local storage
-  componentDidMount() {
-
-  }
+  componentDidMount() {}
   guestNavbar = () => {
     return (
       <GuestNavbar
