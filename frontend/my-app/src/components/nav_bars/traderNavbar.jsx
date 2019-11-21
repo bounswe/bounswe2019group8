@@ -4,6 +4,7 @@ import "./traderNavbar.css";
 import ParityPage from "../parity_components/parity_page";
 import WriteArticlePage from "../article_components/writeArticlePage";
 import ArticleHolder from "../article_components/articleHolder";
+import WholeArticlePage from "../article_components/wholeArticlePage";
 import {
   Button,
   Form,
@@ -86,7 +87,7 @@ class TraderNavbar extends Component {
             </Form>*/}
           </Navbar.Collapse>
         </Navbar>
-        <ArticleHolder />
+        <WholeArticlePage />
       </div>
     );
   }

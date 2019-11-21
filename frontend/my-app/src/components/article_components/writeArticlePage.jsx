@@ -12,7 +12,7 @@ import "./writeArticlePage.css";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
 
-export default function Login() {
+export default function WriteArticlePage() {
   const [isLoading, setIsLoading] = useState(false);
   const [fields, handleFieldChange] = useFormFields({
     title: "",
