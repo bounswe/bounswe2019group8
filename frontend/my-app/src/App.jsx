@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import {Route} from "react-router-dom";
 import Home from "./home";
+import RealArticleHolder from "./components/article_components/realArticleHolder";
 
 class App extends Component {
   state = {};
@@ -8,7 +9,8 @@ class App extends Component {
   render() {
     return(
     <React.Fragment>
-    <Route path="/" component={Home}/>
+    <Home/>
+   
     </React.Fragment>
     )
   }
