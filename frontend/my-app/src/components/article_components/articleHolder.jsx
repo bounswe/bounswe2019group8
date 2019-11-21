@@ -13,7 +13,6 @@ class ArticleHolder extends Component {
   render() {
     return (
       <React.Fragment>
-        {this.componentDidMount}
         <div>
           <Button className="write-article" onClick={this.postArticle}>
             Write an article
@@ -34,8 +33,8 @@ class ArticleHolder extends Component {
     );
   }
   componentDidMount() {
-    console.log("Efe");
     var token = localStorage.getItem("userToken");
+    console.log(token);
     axios
       .get("http://8.209.81.242:8000/articles", {
         headers: { Authorization: `Token ${token}` }
@@ -62,8 +61,8 @@ class ArticleHolder extends Component {
             break;
           }
         }
-        console.log("olm");
-        console.log(this.state.gridOfArticles);
+        //console.log("olm");
+        //console.log(this.state.gridOfArticles);
       });
     //const listItems = this.state.gridOfArticles.map(line => <li>{line}</li>);
   }

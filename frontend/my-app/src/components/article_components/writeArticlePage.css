@@ -6,3 +6,20 @@
 .form-control {
   border-color: black;
 }
+
+.btn-primary {
+  margin-left: 33.3%;
+  margin-right: 33.3%;
+  width: 33.4%;
+  background-color: rgb(168, 184, 101);
+  border-color: rgb(168, 184, 101);
+}
+
+.btn-primary:hover {
+  background-color: rgb(168, 200, 101);
+  border-color: rgb(168, 200, 101);
+}
+.btn-primary:disabled {
+  background-color: rgb(168, 184, 101);
+  border-color: rgb(168, 184, 101);
+}

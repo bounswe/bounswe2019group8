@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import "./traderNavbar.css";
 import ParityPage from "../parity_components/parity_page";
+import WriteArticlePage from "../article_components/writeArticlePage";
+import ArticleHolder from "../article_components/articleHolder";
 import {
   Button,
   Form,
@@ -84,7 +86,7 @@ class TraderNavbar extends Component {
             </Form>*/}
           </Navbar.Collapse>
         </Navbar>
-        <ParityPage></ParityPage>
+        <WriteArticlePage />
       </div>
     );
   }
