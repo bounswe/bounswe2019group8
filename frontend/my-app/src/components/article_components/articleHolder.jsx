@@ -12,23 +12,29 @@ class ArticleHolder extends Component {
 
   render() {
     return (
-      <div>
-        <Button className="write-article" onClick={this.postArticle}>
-          Write an article
-        </Button>
+      <React.Fragment>
+        {this.componentDidMount}
         <div>
-          <ul className="myUl">
-            {this.state.gridOfArticles.map(line => (
-              <li>
-                <ArticleLine articles={line} />
-              </li>
-            ))}
-          </ul>
+          <Button className="write-article" onClick={this.postArticle}>
+            Write an article
+          </Button>
+          {console.log(this.state.gridOfArticles)}
+          <div>
+            <ul className="myUl">
+              {console.log("Hello")}
+              {this.state.gridOfArticles.map(line => (
+                <li>
+                  <ArticleLine articles={line} />
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
-      </div>
+      </React.Fragment>
     );
   }
   componentDidMount() {
+    console.log("Efe");
     var token = localStorage.getItem("userToken");
     axios
       .get("http://8.209.81.242:8000/articles", {
@@ -56,6 +62,7 @@ class ArticleHolder extends Component {
             break;
           }
         }
+        console.log("olm");
         console.log(this.state.gridOfArticles);
       });
     //const listItems = this.state.gridOfArticles.map(line => <li>{line}</li>);

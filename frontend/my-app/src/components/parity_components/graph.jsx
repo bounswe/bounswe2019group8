@@ -1,11 +1,12 @@
 import { Line } from "react-chartjs-2";
 import React, { Component } from "react";
+import { Badge } from "react-bootstrap";
 
 const data = {
   labels: ["January", "February", "March", "April", "May", "June", "July"],
   datasets: [
     {
-      label: "My First dataset",
+      label: "USD/EUR",
       fill: false, //works
       width: "10",
       height: "5",
@@ -20,7 +21,7 @@ const data = {
       pointBackgroundColor: "#fff", //works
       pointBorderWidth: 1,
       pointHoverRadius: 5,
-      pointHoverBackgroundColor: "rgba(75,192,192,1)",
+      pointHoverBackgroundColor: "#E4B8B8",
       pointHoverBorderColor: "rgba(220,220,220,1)",
       pointHoverBorderWidth: 2,
       pointRadius: 1,
@@ -29,22 +30,15 @@ const data = {
     }
   ]
 };
-var options = {
-  responsive: true,
-  datasetStrokeWidth: 3,
-  pointDotStrokeWidth: 4,
-  scaleLabel: "<%= Number(value).toFixed(0).replace('.', ',') + '°C'%>",
-  backgroundColor: "red"
-};
 
 class Graph extends Component {
   //displayName = "LineExample";
 
   render() {
     return (
-      <div className="col-md-5">
-        <h2>Line Example</h2>
-        <Line data={data} height={100} options={options} />
+      <div className="col-md-6">
+        <Badge>USD/EUR</Badge>
+        <Line data={data} height={150} />
       </div>
     );
   }
