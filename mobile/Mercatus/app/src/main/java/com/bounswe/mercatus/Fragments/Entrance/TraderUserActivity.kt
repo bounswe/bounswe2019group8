@@ -1,4 +1,4 @@
-package com.bounswe.mercatus.Fragments
+package com.bounswe.mercatus.Fragments.Entrance
 
 import android.app.DatePickerDialog
 import android.content.Context
@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
+import com.bounswe.mercatus.Fragments.SearchActivity
 import com.bounswe.mercatus.Models.SignInBody
 import com.bounswe.mercatus.Models.SignInRes
 import com.bounswe.mercatus.Models.UserBody
@@ -92,18 +93,18 @@ class TraderUserActivity : AppCompatActivity() {
         var isValid = true
 
         if (name.isEmpty()){
-            layPassword.isErrorEnabled = true
-            layPassword.error = "Name cannot be empty!"
+            layName.isErrorEnabled = true
+            layName.error = "Name cannot be empty!"
             isValid = false
         }else{
-            layPassword.isErrorEnabled = false
+            layName.isErrorEnabled = false
         }
         if (surname.isEmpty()){
-            layPassword.isErrorEnabled = true
-            layPassword.error = "Surname cannot be empty!"
+            laySurname.isErrorEnabled = true
+            laySurname.error = "Surname cannot be empty!"
             isValid = false
         }else{
-            layPassword.isErrorEnabled = false
+            laySurname.isErrorEnabled = false
         }
         if (!email.isValidEmail()){
             layMail.isErrorEnabled = true
