@@ -106,6 +106,22 @@ interface ApiInterface {
         @Header("Authorization") token: String
     ): retrofit2.Call<ResponseBody>
 
+    // Get like for article
+    @Headers("Content-Type:application/json")
+    @GET("articles/{article_id}/likes")
+    fun getLikes(
+        @Path("article_id") mid: Int,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<List<LikerModel>>
+
+    // Get like for article
+    @Headers("Content-Type:application/json")
+    @GET("articles/{article_id}/dislikes")
+    fun getDislikes(
+        @Path("article_id") mid: Int,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<List<LikerModel>>
+
     // Dislike an article
     @Headers("Content-Type:application/json")
     @POST("articles/{article_id}/dislikes")

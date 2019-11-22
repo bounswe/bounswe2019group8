@@ -18,6 +18,7 @@ import com.bounswe.mercatus.Fragments.Articles.ShowArticleActivity
 import com.bounswe.mercatus.Fragments.User.ShowProfileActivity
 import com.bounswe.mercatus.Models.CreateCommentBody
 import com.bounswe.mercatus.Models.GetArticleBody
+import com.bounswe.mercatus.Models.LikerModel
 import com.bounswe.mercatus.Models.UserRes
 import com.bounswe.mercatus.R
 import com.google.android.material.textfield.TextInputEditText
@@ -100,15 +101,16 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
             // Write author to items
             getUser(position, author, itemView.author, itemView.editArticle, itemView.deleteArticle,
                 itemView.makeComment, itemView.commentSection, itemView.buttonMakeComment,
-                itemView.editComment, itemView.layComment, pk)
+                itemView.editComment, itemView.layComment, pk,
+                itemView.likeArticle, itemView.dislikeArticle)
 
             itemView.likeArticle.setOnClickListener {
                 itemView.likeArticle.setBackgroundResource(R.drawable.like)
                 likeArticle(pk, position)
             }
             itemView.dislikeArticle.setOnClickListener {
-                itemView.likeArticle.setBackgroundResource(R.drawable.dislike)
-                likeArticle(pk, position)
+                itemView.dislikeArticle.setBackgroundResource(R.drawable.dislike)
+                dislikeArticle(pk, position)
             }
             this.currentArticle = GetArticleBody(author, title, content,rating, pk)
             this.currentPosition = position
@@ -124,7 +126,8 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
                         buttonMakeComment: ImageView,
                         editComment : TextInputEditText,
                         layComment : TextInputLayout,
-                        article_pk: Int){
+                        article_pk: Int,
+                        likeImg: Button, disImg: Button){
         val mercatus = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
 
         val res = context.getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
@@ -199,6 +202,8 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
                             }
                         }
                     }
+                    getLikes(article_pk, position, likeImg, disImg)
+                    getDislikes(article_pk, position, likeImg, disImg)
                 }
                 else  {
                     Toast.makeText(context, "Show profile failed.", Toast.LENGTH_SHORT)
@@ -292,7 +297,139 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
         })
     }
 
+    private fun getLikes(article_pk: Int, position: Int, likeArticle: Button, dislikeArticle: Button){
+        val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
 
+        val res = context.getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
+        val tokenV = res.getString("token", "Data Not Found!")
+        val user_id = res.getString("user_id", "Data Not Found!")
+
+        mer.getLikes(article_pk, "Token " + tokenV.toString()).enqueue(object :
+            Callback<List<LikerModel>> {
+            override fun onFailure(call: Call<List<LikerModel>>, t: Throwable) {
+                if(t.cause is ConnectException){
+                    Toast.makeText(
+                        context,
+                        "Check your connection!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else{
+                    Toast.makeText(
+                        context,
+                        "Something bad happened!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+            override fun onResponse(call: Call<List<LikerModel>>, response: Response<List<LikerModel>>) {
+                if (response.code() == 200) {
+
+                    val res: List<LikerModel>? = response.body()
+
+                    for(item in res.orEmpty()){
+                        if(user_id!!.toLong() == item.liker){
+                            if(item.choice == 1){
+                                likeArticle.setBackgroundResource(R.drawable.like)
+                            }
+                        }
+                    }
+                }
+                else  {
+                    Toast.makeText(context, "Like list fetch failed.", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+        })
+    }
+
+    private fun getDislikes(article_pk: Int, position: Int, likeArticle: Button, dislikeArticle: Button){
+        val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
+
+        val res = context.getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
+        val tokenV = res.getString("token", "Data Not Found!")
+        val user_id = res.getString("user_id", "Data Not Found!")
+
+        mer.getDislikes(article_pk, "Token " + tokenV.toString()).enqueue(object :
+            Callback<List<LikerModel>> {
+            override fun onFailure(call: Call<List<LikerModel>>, t: Throwable) {
+                if(t.cause is ConnectException){
+                    Toast.makeText(
+                        context,
+                        "Check your connection!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else{
+                    Toast.makeText(
+                        context,
+                        "Something bad happened!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+            override fun onResponse(call: Call<List<LikerModel>>, response: Response<List<LikerModel>>) {
+                if (response.code() == 200) {
+
+                    val res: List<LikerModel>? = response.body()
+
+                    for(item in res.orEmpty()){
+                        if(user_id!!.toLong() == item.liker){
+                            if(item.choice == -1){
+                                dislikeArticle.setBackgroundResource(R.drawable.dislike)
+                            }
+                        }
+                    }
+                }
+                else  {
+                    Toast.makeText(context, "Like list fetch failed.", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+        })
+    }
+
+    private fun dislikeArticle(pk: Int, position: Int){
+        val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
+
+        val res = context.getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
+        val tokenV = res.getString("token", "Data Not Found!")
+
+        mer.disLikeArticle(pk, "Token " + tokenV.toString()).enqueue(object :
+            Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                if(t.cause is ConnectException){
+                    Toast.makeText(
+                        context,
+                        "Check your connection!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else{
+                    Toast.makeText(
+                        context,
+                        "Something bad happened!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if (response.code() == 200) {
+                    Toast.makeText(context, "Successfully disliked!", Toast.LENGTH_SHORT)
+                        .show()
+
+                    if(position < articlesList.size){
+                        notifyItemRemoved(position)
+                        notifyItemRangeChanged(position, itemCount)
+                    }
+                }
+                else  {
+                    Toast.makeText(context, "Dislike article failed.", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+        })
+    }
     private fun makeComments(commentText: String, article_pk: Int){
         val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
 
