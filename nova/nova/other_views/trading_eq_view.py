@@ -1,4 +1,4 @@
-
+from django.db.models import Q
 from rest_framework import permissions
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
@@ -10,7 +10,7 @@ from ..serializers import TradingEquipmentSerializer, ParitySerializer, Predicti
 
 from ..settings import FX_CURRENCY_LIST, DIG_CURRENCY_LIST, AV_EXCLUDE
 
-from datetime import datetime, timedelta
+from django.contrib.postgres.search import SearchQuery, SearchVector, SearchRank, TrigramSimilarity
 
 from ..av import fill_parities
 
@@ -123,6 +123,15 @@ def downvotes_tr_eq(request, pk):
             downvote.delete()
             return Response(status.HTTP_200_OK)
 
+
+@api_view(['POST'])
+@permission_classes((permissions.IsAuthenticated, ))
+def tr_eq_searches(request):
+    search_text = request.data.get('search_text')
+    vector = SearchVector('sym')
+    fts_qs = TradingEquipment.objects.annotate(search = vector).filter(Q(search__icontains=search_text) | Q(search=search_text))
+    serializer = TradingEquipmentSerializer(fts_qs, many = True)
+    return Response(serializer.data, status = status.HTTP_200_OK)
 
 #TEMPORARY ENDPOINTS FOR TESTS
 
