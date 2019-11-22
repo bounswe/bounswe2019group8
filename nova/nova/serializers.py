@@ -3,13 +3,20 @@ from django.contrib.auth.models import Group
 from rest_framework import serializers
 
 from .libs.serializers import NovaSerializer
-from .models import User, Article, TradingEquipment, Comment, Parity
+from .models import User, Article, TradingEquipment, Comment, Parity, TradingEquipmentComment, ArticleComment, \
+    Prediction, LikeDislike, ArticleLikeDislike, CommentLikeDislike
+
 
 class UserBasicSerializer(NovaSerializer):
     class Meta:
         model = User
         fields = ['pk', 'first_name', 'last_name']
 
+
+class UserBasicSerializer(NovaSerializer):
+    class Meta:
+        model = User
+        fields = ['pk', 'first_name', 'last_name']
 
 class UserSerializer(NovaSerializer):
     class Meta:
@@ -61,7 +68,7 @@ class ArticleSerializer(NovaSerializer):
 class TradingEquipmentSerializer(NovaSerializer):
     class Meta:
         model = TradingEquipment
-        fields = ['type', 'name', 'sym', 'pk']
+        fields = ['type', 'name', 'sym', 'pk', 'last_updated']
         create_only_fields = ['type', 'name', 'sym']
 
     def create(self, data):
@@ -70,18 +77,83 @@ class TradingEquipmentSerializer(NovaSerializer):
     def update(self, instance, data):
         return super(TradingEquipmentSerializer, self).update(instance, data)
 
-
 class CommentSerializer(NovaSerializer):
     class Meta:
         model = Comment
         create_only_fields = ['author']
-        fields = ['author', 'content', 'article', 'trading_eq', 'pk']
+        fields = ['author', 'content', 'pk']
+
     def create(self, data):
         return super(CommentSerializer, self).create(data)
 
     def update(self, instance, data):
         return super(CommentSerializer, self).update(instance, data)
 
+class TradingEquipmentCommentSerializer(NovaSerializer):
+    class Meta:
+        model = TradingEquipmentComment
+        fields = ['author', 'content', 'pk', 'tr_eq']
+
+    def create(self,data):
+        return super(TradingEquipmentCommentSerializer, self).create(data)
+
+    def update(self, instance, validated_data):
+        return super(TradingEquipmentCommentSerializer, self).update(instance, validated_data)
+
+class ArticleCommentSerializer(NovaSerializer):
+    class Meta:
+        model = ArticleComment
+        fields = ['author', 'content', 'pk', 'article']
+
+    def create(self,data):
+        return super(ArticleCommentSerializer, self).create(data)
+
+    def update(self, instance, validated_data):
+        return super(ArticleCommentSerializer, self).update(instance, validated_data)
+
+class PredictionSerializer(NovaSerializer):
+    class Meta:
+        model = Prediction
+        fields = ['predictor', 'tr_eq', 'vote']
+
+    def create(self,data):
+        return super(PredictionSerializer, self).create(data)
+
+    def update(self, instance, validated_data):
+        return super(PredictionSerializer, self).update(instance, validated_data)
+
+class LikeDislikeSerializer(NovaSerializer):
+    class Meta:
+        model = LikeDislike
+        fields = ['liker', 'choice']
+
+    def create(self,data):
+        return super(LikeDislikeSerializer, self).create(data)
+
+    def update(self, instance, validated_data):
+        return super(LikeDislikeSerializer, self).update(instance, validated_data)
+
+class ArticleLikeDislikeSerializer(NovaSerializer):
+    class Meta:
+        model = ArticleLikeDislike
+        fields = ['liker', 'choice', 'article']
+
+    def create(self,data):
+        return super(ArticleLikeDislikeSerializer, self).create(data)
+
+    def update(self, instance, validated_data):
+        return super(ArticleLikeDislikeSerializer, self).update(instance, validated_data)
+
+class CommentLikeDislikeSerializer(NovaSerializer):
+    class Meta:
+        model = CommentLikeDislike
+        fields = ['liker', 'choice', 'comment']
+
+    def create(self,data):
+        return super(CommentLikeDislikeSerializer, self).create(data)
+
+    def update(self, instance, validated_data):
+        return super(CommentLikeDislikeSerializer, self).update(instance, validated_data)
 
 class ParitySerializer(NovaSerializer):
     class Meta:

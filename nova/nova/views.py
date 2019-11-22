@@ -165,7 +165,7 @@ def auth_tokens_coll(request):
 
 # kinda creating a user_searches object
 @api_view(['POST'])
-@permission_classes((permissions.IsAuthenticated))
+@permission_classes((permissions.IsAuthenticated, ))
 def user_searches_res(request):
     search_text = request.data.get('search_text')
     vector = SearchVector('first_name') + SearchVector('last_name')
