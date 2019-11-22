@@ -33,16 +33,16 @@ class ModifyActivity : AppCompatActivity() {
         actionBar!!.title = getString(R.string.edit_profile)
         actionBar.setDisplayHomeAsUpEnabled(true)
 
-        getUser(editModifyName, editModifySurname, isTrader, dateModifyTv, editModifyEmail)
+        getUser(isTrader, dateModifyTv, editModifyEmail)
     }
-    private fun updateUser(email: String, name: String, surname: String, date: String){
+    private fun updateUser(email: String, date: String){
         val mercatus = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
         val res = getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
 
         val my_pk = res.getString("user_id", "Data Not Found!")
         val tokenV = res.getString("token", "Data Not Found!")
 
-        val newUser = UpdateUserBody(email, name, surname, date)
+        val newUser = UpdateUserBody(email, date)
         mercatus.updateUser(newUser , my_pk!!.toLong(), "Token " + tokenV.toString()).enqueue(object :
             Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
@@ -78,8 +78,7 @@ class ModifyActivity : AppCompatActivity() {
     /*
     Gets user based on pk value and a token that was coming from login
      */
-    private fun getUser(name: TextInputEditText, surname: TextInputEditText,
-                        isTrader: TextView, date: TextView, email: TextInputEditText){
+    private fun getUser(isTrader: TextView, date: TextView, email: TextInputEditText){
         val mercatus = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
         val res = getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
 
@@ -106,8 +105,6 @@ class ModifyActivity : AppCompatActivity() {
             }
             override fun onResponse(call: Call<UserRes>, response: Response<UserRes>) {
                 if (response.code() == 200) {
-                    name.setText(response.body()?.first_name)
-                    surname.setText(response.body()?.last_name)
                     email.setText(response.body()?.email)
                     date.text = response.body()?.date_of_birth
 
@@ -119,26 +116,20 @@ class ModifyActivity : AppCompatActivity() {
                     pickDate(c)
 
                     btnSave.setOnClickListener {
-                        var nameTxt = editModifyName.text.toString()
-                        var surnameTxt = editModifySurname.text.toString()
                         var emailTxt = editModifyEmail.text.toString()
                         var dateTxt = dateModifyTv.text.toString()
 
-                        if(response.body()?.first_name == nameTxt
-                            && response.body()?.last_name == surnameTxt
-                            && response.body()?.email == emailTxt
+                        if( response.body()?.email == emailTxt
                             && response.body()?.date_of_birth == dateTxt){
                             Toast.makeText(this@ModifyActivity, "Nothing is changed!" , Toast.LENGTH_SHORT)
                                 .show()
                         }
                         else{
-                            nameTxt = editModifyName.text.toString()
-                            surnameTxt = editModifySurname.text.toString()
                             emailTxt = editModifyEmail.text.toString()
                             dateTxt = dateModifyTv.text.toString()
 
-                            if(isValidForm(emailTxt, nameTxt, surnameTxt, dateTxt)){
-                                updateUser(emailTxt, nameTxt, surnameTxt, dateTxt)
+                            if(isValidForm(emailTxt, dateTxt)){
+                                updateUser(emailTxt, dateTxt)
                             }
                         }
                     }
@@ -163,24 +154,10 @@ class ModifyActivity : AppCompatActivity() {
             dpd.show()
         }
     }
-    private fun isValidForm(email: String, name: String, surname: String, date:String):Boolean{
+    private fun isValidForm(email: String, date:String):Boolean{
 
         var isValid = true
 
-        if (name.isEmpty()){
-            layModifyName.isErrorEnabled = true
-            layModifyName.error = "Name cannot be empty!"
-            isValid = false
-        }else{
-            layModifyName.isErrorEnabled = false
-        }
-        if (surname.isEmpty()){
-            layModifySurname.isErrorEnabled = true
-            layModifySurname.error = "Surname cannot be empty!"
-            isValid = false
-        }else{
-            layModifySurname.isErrorEnabled = false
-        }
         if (!email.isValidEmail()){
             layModifyEmail.isErrorEnabled = true
             layModifyEmail.error = "Email address is wrong!"

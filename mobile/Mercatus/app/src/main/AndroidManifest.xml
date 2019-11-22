@@ -45,6 +45,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.ProfileFragment" />
         </activity>
+        <activity android:name=".Fragments.ModifyPasswordActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.ProfileFragment" />
+        </activity>
         <activity android:name=".Fragments.Entrance.TraderUserActivity" />
         <activity android:name=".Fragments.SearchActivity">
             <meta-data
