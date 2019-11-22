@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'nova',
     'corsheaders',
-    'django_filters'
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -150,10 +150,20 @@ REST_FRAMEWORK = {
 AUTH_USER_MODEL = 'nova.User'
 
 EMAIL_USE_TLS = True
-EMAIL_HOST = os.environ.get('MERCATUS_EMAIL_HOST')
-EMAIL_HOST_USER = os.environ.get('MERCATUS_EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.environ.get('MERCATUS_EMAIL_HOST_PASSWORD')
-EMAIL_PORT = os.environ.get('MERCATUS_EMAIL_HOST_PORT')
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'mercatus.bounswe@gmail.com'
+# this app password is configured for the host email
+EMAIL_HOST_PASSWORD = 'fnyycxorasikyxkl'
+EMAIL_PORT = 587
 
-ALPHAVANTAGE_KEYS = ['D5G9T6LX297WEZXA', '3IA7WIBFQ24K5BFU']
-AV_URLS = {'alpha' : 'https://www.alphavantage.co/', 'phy_cur' : 'physical_currency_list', 'dig_cur' : 'digital_currency_list'}
+ALPHAVANTAGE_KEYS = ['D5G9T6LX297WEZXA', '3IA7WIBFQ24K5BFU', 'BFXJTNL6L7ALTXPF', 'BUESYAYPM8LTQZ5M',
+                     'KK1IYE6BI48S5YEG', 'YT3WLJ1EYL0T1GGX', 'I8KLE0V6XO9ZCX7K', 'B3MI5470OG9YIK62',
+                     'N25X0M9V2UL3BJBV', '3ED6BWNGC9YCHN9L', '7JACNWU6TIM3F6D6', 'AAT4EC9XDANMOZYF', 'QQJ1PGSBLS6X115A']
+
+AV_URLS = {'alpha' : 'https://www.alphavantage.co/', 'api' : 'https://www.alphavantage.co/query?function',
+           'phy_cur' : 'physical_currency_list', 'dig_cur' : 'digital_currency_list'}
+
+AV_EXCLUDE = {'TRY_CNY', 'TRY_AUD', 'TRY_MXN', 'CNY_MXN', 'CNY_TRY', 'MXN_TRY', 'BCH_CNY'}
+
+FX_CURRENCY_LIST = {'USD', 'EUR', 'TRY', 'JPY',  'AUD', 'CAD', 'CNY', 'CHF', 'GBP', 'MXN', 'SGD'}
+DIG_CURRENCY_LIST = {'BTC', 'LTC', 'ETH', 'ZEC', 'DASH', 'XRP', 'XMR', 'BCH', 'NEO', 'ADA', 'EOS'}

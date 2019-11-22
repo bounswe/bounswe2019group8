@@ -11,7 +11,7 @@ from rest_framework.response import Response
 from django.contrib.postgres.search import SearchQuery, SearchVector, SearchRank, TrigramSimilarity
 
 from nova.email_token import account_activation_token
-from .models import User, Article
+from .models import User
 from .permissions import IsPostOrIsAuthenticated, is_user_in_group
 from .serializers import UserSerializer, ArticleSerializer
 
@@ -54,7 +54,7 @@ def users_coll(request):
 
         if serializer.is_valid():
             user = serializer.save()
-            current_site = get_current_site(request)
+            current_site = 'mercatus.xyz'
             email_subject = 'Mercatus account activation'
             token = account_activation_token.make_token(user)
             uid = urlsafe_base64_encode(force_bytes(user.pk))
@@ -165,7 +165,7 @@ def auth_tokens_coll(request):
 
 # kinda creating a user_searches object
 @api_view(['POST'])
-@permission_classes((permissions.IsAuthenticated))
+@permission_classes((permissions.IsAuthenticated, ))
 def user_searches_res(request):
     search_text = request.data.get('search_text')
     vector = SearchVector('first_name') + SearchVector('last_name')

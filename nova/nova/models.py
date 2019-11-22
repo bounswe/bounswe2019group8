@@ -48,11 +48,19 @@ class Article(models.Model):
 
 
 class TradingEquipment(models.Model):
-    type = models.CharField(max_length=30)
+    TYPE_CHOICES = (
+        ('forex', 'forex'),
+        ('digital', 'digital'),
+        ('stock', 'stock')
+    )
+
+    type = models.CharField(max_length=30, choices=TYPE_CHOICES, default='forex')
 
     name = models.CharField(max_length=50)
 
     sym = models.CharField(max_length=12, unique=True, blank=True)
+
+    last_updated = models.DateField(null=True, blank=True)
 
     REQUIRED_FIELDS = ['type', 'name', 'sym']
 
@@ -60,17 +68,19 @@ class TradingEquipment(models.Model):
 class Comment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
-    ## article comment, foreignkey -> many to one
-    article = models.ForeignKey('Article' , on_delete=models.CASCADE, null = True)
-
-    ## trading equipment comment
-    trading_eq = models.ForeignKey(TradingEquipment, on_delete=models.CASCADE, null=True)
-
     author = models.ForeignKey('User', on_delete=models.CASCADE)
 
     content = models.CharField(max_length = 300)
 
     REQUIRED_FIELDS = ['created_at', 'author', 'content']
+
+
+class TradingEquipmentComment(Comment):
+    tr_eq = models.ForeignKey(TradingEquipment, on_delete=models.CASCADE)
+
+
+class ArticleComment(Comment):
+    article = models.ForeignKey(Article, on_delete=models.CASCADE)
 
 
 class Parity(models.Model):
@@ -88,23 +98,61 @@ class Parity(models.Model):
 
     INTERVAL_CHOICES = (
         ('intraday', 'intraday'),
+        ('daily', 'daily'),
         ('weekly', 'weekly'),
         ('monthly', 'monthly')
     )
 
-    interval_category = models.CharField(max_length=32, choices=INTERVAL_CHOICES, default='weekly')
+    interval_category = models.CharField(max_length=32, choices=INTERVAL_CHOICES, default='daily')
 
-    observed_at = models.DateTimeField(blank=True)
+    observed_at = models.DateTimeField()
 
     tr_eq = models.ForeignKey(TradingEquipment, on_delete=models.CASCADE, null=True)
 
-    open = models.DecimalField(max_digits=14, decimal_places=8, blank=False)
+    open = models.DecimalField(max_digits=15, decimal_places=8)
 
-    close = models.DecimalField(max_digits=14, decimal_places=8, blank=False)
+    close = models.DecimalField(max_digits=15, decimal_places=8)
 
-    high = models.DecimalField(max_digits=14, decimal_places=8, blank=False)
+    high = models.DecimalField(max_digits=15, decimal_places=8)
 
-    low = models.DecimalField(max_digits=14, decimal_places=8, blank=False)
+    low = models.DecimalField(max_digits=15, decimal_places=8)
+
 
     REQUIRED_FIELDS = ['observed_at', 'interval_category', 'tr_eq', 'open', 'close', 'high', 'low']
 
+
+class Prediction(models.Model):
+    UPVOTE = 1
+    DOWNVOTE = -1
+
+    VOTE_CHOICES = (
+        (UPVOTE, 'will_rise'),
+        (DOWNVOTE, 'will_decline')
+    )
+
+    predictor = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    tr_eq = models.ForeignKey(TradingEquipment, on_delete=models.CASCADE)
+
+    vote = models.SmallIntegerField(choices=VOTE_CHOICES)
+
+
+class LikeDislike(models.Model):
+    LIKE = 1
+    DISLIKE = -1
+
+    LIKE_DISLIKE_CHOICES = (
+        (LIKE, 'like'),
+        (DISLIKE, 'dislike')
+    )
+
+    liker = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    choice = models.SmallIntegerField(choices=LIKE_DISLIKE_CHOICES)
+
+
+class ArticleLikeDislike(LikeDislike):
+    article = models.ForeignKey(Article, on_delete=models.CASCADE)
+
+class CommentLikeDislike(LikeDislike):
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE)

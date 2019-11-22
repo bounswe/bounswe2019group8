@@ -2,10 +2,9 @@ from rest_framework import status
 from rest_framework import permissions
 from rest_framework.decorators import permission_classes, api_view
 
-from nova.serializers import CommentSerializer
+from nova.serializers import CommentSerializer, ArticleCommentSerializer, TradingEquipmentCommentSerializer
 from ..permissions import is_user_in_group
-from ..models import Comment, Article, TradingEquipment
-
+from ..models import Comment, Article, TradingEquipment, ArticleComment, TradingEquipmentComment
 
 from rest_framework.exceptions import PermissionDenied, NotFound
 
@@ -22,15 +21,16 @@ def comment_coll_article(request, pk):
         raise NotFound()
 
     if request.method == 'GET':
-        comments = Comment.objects.filter(article = pk)
-        serializer = CommentSerializer(comments, many = True)
+        comments = ArticleComment.objects.filter(article = pk)
+        serializer = ArticleCommentSerializer(comments, many = True)
         return Response(serializer.data, status = status.HTTP_200_OK)
 
     elif request.method == 'POST':
+
         comment = request.data
         comment['author'] = request.user.pk
         comment['article'] = article.pk
-        serializer = CommentSerializer(data = comment)
+        serializer = ArticleCommentSerializer(data = comment)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -46,15 +46,15 @@ def comment_coll_tr_eq(request, pk):
         raise NotFound()
 
     if request.method == 'GET':
-        comments = Comment.objects.filter(trading_eq = pk)
-        serializer = CommentSerializer(comments, many = True)
+        comments = TradingEquipmentComment.objects.filter(tr_eq = pk)
+        serializer = TradingEquipmentCommentSerializer(comments, many = True)
         return Response(serializer.data, status = status.HTTP_200_OK)
 
     elif request.method == 'POST':
         comment = request.data
         comment['author'] = request.user.pk
-        comment['trading_eq'] = tr_eq.pk
-        serializer = CommentSerializer(data = comment)
+        comment['tr_eq'] = tr_eq.pk
+        serializer = TradingEquipmentCommentSerializer(data = comment)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)

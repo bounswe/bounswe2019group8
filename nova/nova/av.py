@@ -1,23 +1,96 @@
 import requests
 import csv
 
-from rest_framework import status
+from django.utils.timezone import make_aware
+
+from nova.models import TradingEquipment, Parity
+from .settings import AV_URLS, ALPHAVANTAGE_KEYS
+from datetime import datetime, timedelta
 from rest_framework.response import Response
 
-from nova.models import TradingEquipment
-from .settings import AV_URLS, ALPHAVANTAGE_KEYS
+import kronos
 
+def do_request(tr_eq):
 
-# list_type -> phy_cur || dig_cur
-def get_currency_list(list_type):
-    response_decoded = requests.get(AV_URLS['alpha'] + AV_URLS[list_type]).content.decode('utf-8')
-    response_csv = csv.reader(response_decoded.splitlines(), delimiter = ',')
-    response_list = list(response_csv)
-    cur_dict = {}
-    for cur in response_list:
-        cur_dict[cur[0]] = cur[1]
-    return cur_dict
+    currencies = tr_eq.sym.split('_')
+    from_sym = currencies[0]
+    to_sym = currencies[1]
+
+    func = ''
+    return_key = ''
+    from_param = ''
+    to_param = ''
+
+    if(tr_eq.type == 'forex'):
+        func = 'FX_DAILY'
+        return_key = 'Time Series FX (Daily)'
+        from_param = '&from_symbol='
+        to_param = '&to_symbol='
+
+    elif tr_eq.type == 'digital':
+        func = 'DIGITAL_CURRENCY_DAILY'
+        return_key = 'Time Series (Digital Currency Daily)'
+        from_param = '&symbol='
+        to_param = '&market='
+
+    request_str = AV_URLS['api'] + '=' + func + from_param + from_sym + to_param + to_sym + '&apikey='
+    for key in ALPHAVANTAGE_KEYS:
+
+        response_formatted = requests.get((request_str + key)).json()
+        #frequent request
+        if 'Note' in response_formatted:
+            continue
+        # wrong command
+        elif 'Error Message' in response_formatted:
+            print(request_str)
+            print(response_formatted)
+            return
+        else:
+            return response_formatted[return_key]
+    return
+
 
 def fill_parities():
-    # TODO
+    eq_list = TradingEquipment.objects.all()
+    for tr_eq in eq_list:
+        # if recently updated, continue
+        print("TR_EQ_NAME = " + tr_eq.sym)
+        if tr_eq.last_updated == None or (datetime.now().date() - tr_eq.last_updated).days>1:
+            print("NEEDS AND UPDATE")
+            # else clear all parity instances of tr_eq, fetch data, recreate parities
+            Parity.objects.filter(tr_eq = tr_eq).delete()
+            result = do_request(tr_eq)
+            if result != None:
+                print(result)
+                day_count = 0
+                for date, rates in result.items():
+                    if day_count >= 30:
+                        break
+                    day_count += 1
+                    if tr_eq.type == 'forex':
+                        parity_obj = Parity.objects.create(
+                            tr_eq = tr_eq,
+                            observed_at = make_aware(datetime.strptime(date, '%Y-%m-%d')),
+                            open = rates['1. open'],
+                            high = rates['2. high'],
+                            low = rates['3. low'],
+                            close = rates['4. close']
+                        )
+                        parity_obj.save()
+
+                    elif tr_eq.type == 'digital':
+                        currencies = tr_eq.sym.split('_')
+                        fr = currencies[0]
+                        to = currencies[1]
+                        parity_obj = Parity.objects.create(
+                            tr_eq = tr_eq,
+                            observed_at = make_aware(datetime.strptime(date, '%Y-%m-%d')),
+                            open = rates['1a. open (' + to + ')'],
+                            high = rates['2a. high (' + to + ')'],
+                            low = rates['3a. low (' + to + ')'],
+                            close = rates['4a. close (' + to + ')'],
+                        )
+                        parity_obj.save()
+                tr_eq.last_updated = datetime.now()
+                tr_eq.save()
     return
