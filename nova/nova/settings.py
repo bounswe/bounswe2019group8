@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'nova',
     'corsheaders',
     'django_filters',
+    'kronos'
 ]
 
 MIDDLEWARE = [

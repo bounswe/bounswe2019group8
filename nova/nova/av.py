@@ -1,5 +1,6 @@
 from datetime import datetime
 
+import kronos
 import requests
 from django.utils.timezone import make_aware
 
@@ -46,6 +47,7 @@ def do_request(tr_eq):
     return
 
 
+@kronos.register('*/30 * * * *')
 def fill_parities():
     eq_list = TradingEquipment.objects.all()
     for tr_eq in eq_list:
