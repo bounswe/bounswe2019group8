@@ -98,6 +98,22 @@ interface ApiInterface {
         @Header("Authorization") token: String
     ): retrofit2.Call<GetArticleBody>
 
+    // Like an article
+    @Headers("Content-Type:application/json")
+    @GET("articles/{article_id}/likes")
+    fun likeArticle(
+        @Path("article_id") mid: Int,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<ResponseBody>
+
+    // Dislike an article
+    @Headers("Content-Type:application/json")
+    @GET("articles/{article_id}/dislikes")
+    fun disLikeArticle(
+        @Path("article_id") mid: Int,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<ResponseBody>
+
     // Create an article
     @Headers("Content-Type:application/json")
     @POST("articles")

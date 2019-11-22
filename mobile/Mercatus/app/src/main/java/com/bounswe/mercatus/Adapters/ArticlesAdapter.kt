@@ -121,6 +121,7 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
 
         val res = context.getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
         val user_id = res.getString("user_id", "Data Not Found!")
+
         val tokenV = res.getString("token", "Data Not Found!")
 
         mercatus.getUser(pk, "Token " + tokenV.toString()).enqueue(object :
