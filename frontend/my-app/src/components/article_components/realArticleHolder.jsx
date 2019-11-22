@@ -8,11 +8,14 @@ import ArticleHolder from "./articleHolder";
 class RealArticleHolder extends Component {
   state = {
     articles: [],
-    gridOfArticles: []
+    gridOfArticles: [],
+    count: 0
   };
-  componentDidMount() {
-    console.log("real");
-
+  componentWillMount() {
+    let count = this.state.count;
+    count += 1;
+    console.log(count);
+    this.setState({ count: count });
     //const listItems = this.state.gridOfArticles.map(line => <li>{line}</li>);
   }
   render() {

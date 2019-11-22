@@ -89,20 +89,19 @@ class TraderNavbar extends Component {
             </Form>*/}
           </Navbar.Collapse>
         </Navbar>
-
       </div>
     );
   }
   profileClick = () => {
     this.props.history.push("/login");
     this.props.history.push("/profile/" + localStorage.getItem("userId"));
-    
   };
   logoutClick = () => {
     localStorage.setItem("userId", null);
     localStorage.setItem("userToken", null);
     localStorage.setItem("userGroup", null);
     localStorage.setItem("followings", null);
+    localStorage.setItem("articleList", null);
     this.props.history.push("/login");
   };
   componentDidMount() {
@@ -134,6 +133,16 @@ class TraderNavbar extends Component {
         credentials.userGroup = res.data.groups[0];
         this.setState({ credentials: credentials });
       });
+    console.log(token);
+    axios.get("http://8.209.81.242:8000/articles").then(res => {
+      //.setState({ articles: res.data });
+      var articleList = res.data;
+      console.log(articleList);
+      console.log(JSON.stringify(articleList));
+      localStorage.setItem("articleList", JSON.stringify(articleList));
+      //this.setState({ gridOfArticles: articleCardList });
+      console.log(localStorage.getItem("articleList"));
+    });
   }
 }
 
