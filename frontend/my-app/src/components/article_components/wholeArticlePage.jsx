@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import { Jumbotron, Button } from "react-bootstrap";
 import axios from "axios";
+import ArticleMakeComment from "./article_make_comment";
+import "./wholeArticlePage.css";
+import ArticleLikeButton from "./articleLikeButton";
+import ArticleDislikeButton from "./articleDislikeButton";
 
 class WholeArticlePage extends Component {
   state = {
@@ -11,7 +15,7 @@ class WholeArticlePage extends Component {
   };
   render() {
     return (
-      <div>
+      <div className="my-div">
         <Jumbotron>
           <h1>{this.state.articleTitle}</h1>
           <p>{this.state.articleContent}</p>
@@ -19,6 +23,9 @@ class WholeArticlePage extends Component {
             <Button variant="primary">by {this.state.authorName}</Button>
           </p>
         </Jumbotron>
+        <ArticleMakeComment />
+        <ArticleLikeButton />
+        <ArticleDislikeButton />
       </div>
     );
   }

@@ -25,6 +25,8 @@ class HomeFragment : Fragment() {
             val intent = Intent(root.context, SearchActivity::class.java)
             startActivity(intent)
         }
+
+
         return root
     }
 }

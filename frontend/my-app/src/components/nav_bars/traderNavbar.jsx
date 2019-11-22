@@ -4,6 +4,8 @@ import "./traderNavbar.css";
 
 import WriteArticlePage from "../article_components/writeArticlePage";
 import ArticleHolder from "../article_components/articleHolder";
+import WholeArticlePage from "../article_components/wholeArticlePage";
+import ReArticleHolder from "../article_components/re-article-comps/reArticleHolder";
 import {
   Button,
   Form,

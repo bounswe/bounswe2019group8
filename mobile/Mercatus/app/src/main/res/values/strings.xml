@@ -57,6 +57,7 @@
     <string name="open">Open</string>
     <string name="close">Close</string>
     <string name="edit_profile">Edit Profile</string>
+    <string name="save">Save</string>
 
     <string name="title">Title</string>
     <string name="author">Author</string>

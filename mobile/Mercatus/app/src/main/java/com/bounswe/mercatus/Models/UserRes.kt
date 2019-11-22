@@ -14,5 +14,6 @@ data class UserRes(
     val groups: List<Int>,
     val profile_image: String?,
     val followers: List<UserFollower>,
-    val followings: List<UserFollower>
+    val followings: List<UserFollower>,
+    val email_activated : Boolean
 )

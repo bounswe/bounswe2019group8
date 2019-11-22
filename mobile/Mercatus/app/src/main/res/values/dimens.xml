@@ -10,5 +10,6 @@
 
     <dimen name="new_margin">6dp</dimen>
     <dimen name="padding_regular">7dp</dimen>
+    <dimen name="padding_min">3dp</dimen>
     <dimen name="line_spacing">5sp</dimen>
 </resources>
