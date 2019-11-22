@@ -11,7 +11,7 @@ from rest_framework.response import Response
 from django.contrib.postgres.search import SearchQuery, SearchVector, SearchRank, TrigramSimilarity
 
 from nova.email_token import account_activation_token
-from .models import User, Article
+from .models import User
 from .permissions import IsPostOrIsAuthenticated, is_user_in_group
 from .serializers import UserSerializer, ArticleSerializer
 

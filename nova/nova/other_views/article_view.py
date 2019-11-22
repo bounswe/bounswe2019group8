@@ -1,7 +1,7 @@
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
-from ..models import Article
+from ..models import Article, User
 from ..serializers import ArticleSerializer
 from ..permissions import IsGetOrIsAuthenticated, is_user_in_group
 from rest_framework.exceptions import PermissionDenied, NotFound
@@ -59,3 +59,14 @@ def article_res(request, pk):
     #GET SPECIFIC ARTICLE
     elif request.method == 'GET':
         return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes((permissions.IsAuthenticated, ))
+def article_of_users_res(request, pk):
+    try:
+        user = User.objects.get(pk = pk)
+    except User.DoesNotExist:
+        raise NotFound()
+    articles = Article.objects.filter(author = user)
+    serializer = ArticleSerializer(articles, many=True)
+    return Response(serializer.data, status = status.HTTP_200_OK)

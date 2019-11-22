@@ -16,6 +16,8 @@ urlpatterns = [
     path('users/<int:user_pk>/followings/<int:following_pk>', views.user_following_res),
 
     path('users/<int:pk>/followers', views.user_followers_coll),
+
+    path('users/<int:pk>/articles', article_view.article_of_users_res),
  
     path('auth_tokens', views.auth_tokens_coll),
 
