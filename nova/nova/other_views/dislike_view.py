@@ -7,11 +7,12 @@ from rest_framework.response import Response
 from ..models import Article, ArticleLikeDislike, Comment, CommentLikeDislike
 from ..serializers import ArticleLikeDislikeSerializer, CommentLikeDislikeSerializer
 
+
 @api_view(['GET', 'POST', 'DELETE'])
 @permission_classes((permissions.IsAuthenticated,))
 def dislikes_article_coll(request, pk):
     try:
-        article = Article.objects.get(pk = pk)
+        article = Article.objects.get(pk=pk)
     except Article.DoesNotExist:
         raise NotFound()
 
@@ -27,9 +28,9 @@ def dislikes_article_coll(request, pk):
             return Response('You already disliked this.', status.HTTP_400_BAD_REQUEST)
         else:
             article_dislike = ArticleLikeDislike.objects.create(
-                article = article,
-                liker = request.user,
-                choice = -1
+                article=article,
+                liker=request.user,
+                choice=-1
             )
             article_dislike.save()
             return Response(status.HTTP_201_CREATED)
@@ -46,14 +47,14 @@ def dislikes_article_coll(request, pk):
 @permission_classes((permissions.IsAuthenticated,))
 def dislikes_comment_coll(request, pk):
     try:
-        comment = Comment.objects.get(pk = pk)
+        comment = Comment.objects.get(pk=pk)
     except Comment.DoesNotExist:
         raise NotFound()
 
-    dislike = CommentLikeDislike.objects.filter(comment = comment, choice=-1, liker=request.user)
+    dislike = CommentLikeDislike.objects.filter(comment=comment, choice=-1, liker=request.user)
 
     if request.method == 'GET':
-        dislikes = CommentLikeDislike.objects.filter(comment = comment, choice=-1)
+        dislikes = CommentLikeDislike.objects.filter(comment=comment, choice=-1)
         serializer = CommentLikeDislikeSerializer(dislikes, many=True)
         return Response(serializer.data, status.HTTP_200_OK)
 
@@ -62,9 +63,9 @@ def dislikes_comment_coll(request, pk):
             return Response('You already disliked this.', status.HTTP_400_BAD_REQUEST)
         else:
             comment_dislike = CommentLikeDislike.objects.create(
-                comment = comment,
-                liker = request.user,
-                choice = -1
+                comment=comment,
+                liker=request.user,
+                choice=-1
             )
             comment_dislike.save()
             return Response(status.HTTP_201_CREATED)

@@ -3,10 +3,6 @@ from django.urls import path
 from nova.other_views import article_view, trading_eq_view, comment_view, like_view, dislike_view, parity_view
 from . import views
 
-
-
-
-
 urlpatterns = [
     path('users', views.users_coll),
     path('users/<int:pk>', views.user_res),
@@ -18,7 +14,7 @@ urlpatterns = [
     path('users/<int:pk>/followers', views.user_followers_coll),
 
     path('users/<int:pk>/articles', article_view.article_of_users_res),
- 
+
     path('auth_tokens', views.auth_tokens_coll),
 
     path('user_searches', views.user_searches_res),
@@ -55,7 +51,7 @@ urlpatterns = [
 
     path('comments/<int:pk>/likes', like_view.likes_comment_coll),
 
-    path('comments/<int:pk>/dislikes', dislike_view.dislikes_comment_coll) ,
+    path('comments/<int:pk>/dislikes', dislike_view.dislikes_comment_coll),
 
     path('trading_equipments/<int:pk>/parities', parity_view.parities_coll),
 
@@ -63,7 +59,7 @@ urlpatterns = [
 
     path('trading_equipment_searches', trading_eq_view.tr_eq_searches),
 
-    #TEMPORARY ENDPOINTS FOR TESTS
+    # TEMPORARY ENDPOINTS FOR TESTS
 
     path('getall', trading_eq_view.fill),
 

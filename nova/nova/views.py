@@ -1,4 +1,6 @@
 from django.contrib.auth import authenticate
+from django.contrib.postgres.search import SearchVector
+from django.core.mail import EmailMessage
 from django.db.models import Q
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -8,20 +10,11 @@ from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.exceptions import AuthenticationFailed, PermissionDenied, NotFound, ValidationError
 from rest_framework.response import Response
-from django.contrib.postgres.search import SearchQuery, SearchVector, SearchRank, TrigramSimilarity
 
 from nova.email_token import account_activation_token
 from .models import User
 from .permissions import IsPostOrIsAuthenticated, is_user_in_group
-from .serializers import UserSerializer, ArticleSerializer
-
-from django.core.mail import EmailMessage
-from django.contrib.sites.shortcuts import get_current_site
-
-import requests
-
-
-from django_filters import rest_framework as filters
+from .serializers import UserSerializer
 
 
 @api_view(['GET'])
@@ -36,9 +29,9 @@ def activate_account(request, uidb64, token):
         user.email_activated = True
         user.save()
         serializer = UserSerializer(user)
-        return Response(serializer.data, status = status.HTTP_200_OK)
+        return Response(serializer.data, status=status.HTTP_200_OK)
     else:
-        return Response('Activation link is invalid!', status = status.HTTP_400_BAD_REQUEST)
+        return Response('Activation link is invalid!', status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['GET', 'POST'])
@@ -58,9 +51,9 @@ def users_coll(request):
             email_subject = 'Mercatus account activation'
             token = account_activation_token.make_token(user)
             uid = urlsafe_base64_encode(force_bytes(user.pk))
-            message = "http://"+str(current_site.domain) + "/activations/" + uid + "/" + token
+            message = "http://" + current_site + "/activations/" + uid + "/" + token
             send_to = request.data.get('email')
-            email = EmailMessage(email_subject, message, to = [send_to])
+            email = EmailMessage(email_subject, message, to=[send_to])
             email.send()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
@@ -152,6 +145,7 @@ def user_followers_coll(request, pk):
         serializer = UserSerializer(followers, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
 def auth_tokens_coll(request):
@@ -163,17 +157,13 @@ def auth_tokens_coll(request):
     token, created = Token.objects.get_or_create(user=user)
     return Response({'token': token.key, 'user_id': user.pk}, status=status.HTTP_200_OK)
 
+
 # kinda creating a user_searches object
 @api_view(['POST'])
-@permission_classes((permissions.IsAuthenticated, ))
+@permission_classes((permissions.IsAuthenticated,))
 def user_searches_res(request):
     search_text = request.data.get('search_text')
     vector = SearchVector('first_name') + SearchVector('last_name')
-    fts_qs = User.objects.annotate(search = vector).filter(Q(search__icontains=search_text) | Q(search=search_text))
-    serializer = UserSerializer(fts_qs, many = True)
-    return Response(serializer.data, status = status.HTTP_200_OK)
-
-
-
-
-
+    fts_qs = User.objects.annotate(search=vector).filter(Q(search__icontains=search_text) | Q(search=search_text))
+    serializer = UserSerializer(fts_qs, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)

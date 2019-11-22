@@ -1,7 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from rest_framework.serializers import ModelSerializer
-from django.contrib.postgres.fields import ArrayField
+
 
 class User(AbstractUser):
     created_at = models.DateTimeField(auto_now_add=True)
@@ -31,10 +30,11 @@ class User(AbstractUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['created_at', 'date_of_birth', 'groups', 'first_name', 'last_name']
 
+
 class Article(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
-    ## foreign key -> many to one
+    # foreign key -> many to one
     author = models.ForeignKey('User', on_delete=models.CASCADE, default=0)
 
     title = models.CharField(max_length=100)
@@ -43,8 +43,7 @@ class Article(models.Model):
 
     rating = models.FloatField(blank=True, default=0)
 
-    REQUIRED_FIELDS = ['created_at', 'title',  'content']
-
+    REQUIRED_FIELDS = ['created_at', 'title', 'content']
 
 
 class TradingEquipment(models.Model):
@@ -70,7 +69,7 @@ class Comment(models.Model):
 
     author = models.ForeignKey('User', on_delete=models.CASCADE)
 
-    content = models.CharField(max_length = 300)
+    content = models.CharField(max_length=300)
 
     REQUIRED_FIELDS = ['created_at', 'author', 'content']
 
@@ -84,7 +83,6 @@ class ArticleComment(Comment):
 
 
 class Parity(models.Model):
-
     # COMMENTS ARE RELATED TO ALPHAVANTAGE
 
     # for intraday, we can set the time interval for 10mins, which results in 144 entries per day
@@ -116,7 +114,6 @@ class Parity(models.Model):
     high = models.DecimalField(max_digits=15, decimal_places=8)
 
     low = models.DecimalField(max_digits=15, decimal_places=8)
-
 
     REQUIRED_FIELDS = ['observed_at', 'interval_category', 'tr_eq', 'open', 'close', 'high', 'low']
 
@@ -153,6 +150,7 @@ class LikeDislike(models.Model):
 
 class ArticleLikeDislike(LikeDislike):
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
+
 
 class CommentLikeDislike(LikeDislike):
     comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
