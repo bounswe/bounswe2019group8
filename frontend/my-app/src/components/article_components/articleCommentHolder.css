@@ -1,6 +1,7 @@
 .article-comment-container {
-  background-color: #343a40;
+  background-color: white;
   margin-top: 10px;
+  border-radius: 10px;
 }
 .comments-badge {
   font-size: 20px;

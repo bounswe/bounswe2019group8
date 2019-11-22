@@ -1,5 +1,19 @@
-.my-div {
-  background-color: #343a40;
+.first-div {
+  background-color: white;
+  width: 80%;
+  margin-left: 10%;
+  margin-right: 10%;
+  border-radius: 3px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+.second-div {
+  background-color: white;
+  width: 80%;
+  margin-left: 10%;
+  margin-right: 10%;
+  border-radius: 3px;
+  margin-bottom: 10px;
 }
 .by-author-button {
   background-color: rgb(168, 184, 101);
@@ -20,6 +34,7 @@
   margin-left: 5%;
   margin-right: 5%;
   background-color: white;
+  border-color: red;
 }
 .article-header {
   margin-left: 33.3%;
@@ -31,4 +46,12 @@
   background-color: rgb(168, 184, 101);
   border-radius: 3px;
   font-size: 20px;
+}
+.my-jumbotron {
+  background-color: white;
+}
+.third-div {
+  margin-left: 25%;
+  margin-right: 25%;
+  width: 50%;
 }

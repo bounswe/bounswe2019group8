@@ -2,6 +2,10 @@
   margin-left: 5%;
   margin-right: 5%;
   width: 90%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 .submit-comment-btn {
   background-color: rgb(168, 184, 101);

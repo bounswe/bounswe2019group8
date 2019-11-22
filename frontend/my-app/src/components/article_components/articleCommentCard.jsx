@@ -1,8 +1,12 @@
 import React, { Component } from "react";
 import { Card, Button } from "react-bootstrap";
 import "./articleCommentCard.css";
+import axios from "axios";
+
 class ArticleCommentCard extends Component {
-  state = {};
+  state = {
+    authorName: ""
+  };
   render() {
     return (
       <Card className="comment-card">
@@ -15,6 +19,7 @@ class ArticleCommentCard extends Component {
       </Card>
     );
   }
+  componentWillMount() {}
 }
 
 export default ArticleCommentCard;

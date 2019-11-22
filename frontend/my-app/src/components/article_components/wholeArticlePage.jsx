@@ -18,22 +18,28 @@ class WholeArticlePage extends Component {
   };
   render() {
     return (
-      <div className="my-div">
-        <Jumbotron>
-          <h1 className="article-header">{this.state.articleTitle}</h1>
-          <p className="my-par">{this.state.articleContent}</p>
-          <p>
-            <Button
-              href={"/profile/" + this.props.articleAuthorId}
-              variant="primary"
-              className="by-author-button"
-            >
-              by {this.state.authorName}
-            </Button>
-          </p>
-        </Jumbotron>
-        <ArticleMakeComment articlePk={this.state.articlePk} />
-        <ArticleCommentHolder articlePk={this.state.articlePk} />
+      <div>
+        <div className="first-div">
+          <Jumbotron className="my-jumbotron">
+            <h1 className="article-header">{this.state.articleTitle}</h1>
+            <p className="my-par">{this.state.articleContent}</p>
+            <p>
+              <Button
+                href={"/profile/" + this.props.articleAuthorId}
+                variant="primary"
+                className="by-author-button"
+              >
+                by {this.state.authorName}
+              </Button>
+            </p>
+          </Jumbotron>
+        </div>
+        <div className="second-div">
+          <ArticleMakeComment articlePk={this.state.articlePk} />
+        </div>
+        <div className="third-div">
+          <ArticleCommentHolder articlePk={this.state.articlePk} />
+        </div>
       </div>
     );
   }

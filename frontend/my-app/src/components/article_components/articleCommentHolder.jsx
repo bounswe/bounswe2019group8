@@ -46,6 +46,7 @@ class ArticleCommentHolder extends Component {
         this.setState({ comments: commentList });
         console.log(this.state.comments);
       });
+
     console.log(this.props.articlePk);
   }
 }
