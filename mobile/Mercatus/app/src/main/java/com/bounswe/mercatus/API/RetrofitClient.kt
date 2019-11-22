@@ -122,7 +122,7 @@ interface ApiInterface {
         @Header("Authorization") token: String
     ): retrofit2.Call<List<LikerModel>>
 
-    // Get like for article
+    // Get dislike for article
     @Headers("Content-Type:application/json")
     @GET("articles/{article_id}/dislikes")
     fun getDislikes(
@@ -201,6 +201,30 @@ interface ApiInterface {
     @PUT("comments/{comment_id}")
     fun editComment(
         @Body info: CommentEditBody,
+        @Path("comment_id") mid: Int,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<ResponseBody>
+
+    // Like a comment
+    @Headers("Content-Type:application/json")
+    @POST("comments/{comment_id}/likes")
+    fun likeComment(
+        @Path("comment_id") cid: Int,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<ResponseBody>
+
+    // Get like for comments
+    @Headers("Content-Type:application/json")
+    @GET("comments/{comment_id}/likes")
+    fun getLikesComments(
+        @Path("comment_id") mid: Int,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<List<LikerModelComment>>
+
+    // Delete Like a comment
+    @Headers("Content-Type:application/json")
+    @DELETE("comments/{comment_id}/likes")
+    fun deleteLikeComment(
         @Path("comment_id") mid: Int,
         @Header("Authorization") token: String
     ): retrofit2.Call<ResponseBody>
