@@ -9,8 +9,8 @@ class App extends Component {
   render() {
     return(
     <React.Fragment>
-    <Home/>
-   
+      
+      <Route path ="/" component={Home}/>
     </React.Fragment>
     )
   }

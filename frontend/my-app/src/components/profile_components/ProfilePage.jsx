@@ -12,13 +12,7 @@ class ProfilePage extends React.Component {
   }
   }
   componentDidMount(){
-    if(this.props.match.params.id===this.state.id){
-      this.setState({id:this.props.match.params.id})
-      this.render()
-    }
-  }
-  shouldComponentUpdate(){
-    return true;
+ 
   }
   render() {
   
