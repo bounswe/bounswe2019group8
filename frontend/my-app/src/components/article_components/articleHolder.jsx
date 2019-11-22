@@ -27,7 +27,11 @@ class ArticleHolder extends Component {
     return (
       <React.Fragment>
         <div className="container">
-          <Button href="/articlewrite" className="write-article" onClick={this.postArticle}>
+          <Button
+            href="/articlewrite"
+            className="write-article"
+            onClick={this.postArticle}
+          >
             Write an article
           </Button>
           <div className="card-container">{finalList}</div>
@@ -37,7 +41,6 @@ class ArticleHolder extends Component {
   }
   componentDidMount() {
     //this.setState({ count: this.state.count + 1 });
-    console.log("articleHolder");
     //const listItems = this.state.gridOfArticles.map(line => <li>{line}</li>);
   }
 }

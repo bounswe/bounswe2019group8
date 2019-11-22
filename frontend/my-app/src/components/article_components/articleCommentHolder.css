@@ -1,0 +1,14 @@
+.article-comment-container {
+  background-color: #343a40;
+  margin-top: 10px;
+}
+.comments-badge {
+  font-size: 20px;
+  margin-left: 33.3%;
+  margin-right: 33.3%;
+  margin-top: 10px;
+  width: 33.4%;
+  background-color: white;
+}
+.outer-div {
+}

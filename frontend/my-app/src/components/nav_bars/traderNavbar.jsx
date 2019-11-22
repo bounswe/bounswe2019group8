@@ -133,15 +133,9 @@ class TraderNavbar extends Component {
         credentials.userGroup = res.data.groups[0];
         this.setState({ credentials: credentials });
       });
-    console.log(token);
     axios.get("http://8.209.81.242:8000/articles").then(res => {
-      //.setState({ articles: res.data });
       var articleList = res.data;
-      console.log(articleList);
-      console.log(JSON.stringify(articleList));
       localStorage.setItem("articleList", JSON.stringify(articleList));
-      //this.setState({ gridOfArticles: articleCardList });
-      console.log(localStorage.getItem("articleList"));
     });
   }
 }

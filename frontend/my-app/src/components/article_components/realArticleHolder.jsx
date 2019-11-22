@@ -12,16 +12,11 @@ class RealArticleHolder extends Component {
     count: 0
   };
   componentWillMount() {
-    let count = this.state.count;
-    count += 1;
-    console.log(count);
-    this.setState({ count: count });
     //const listItems = this.state.gridOfArticles.map(line => <li>{line}</li>);
   }
   render() {
     return (
       <React.Fragment>
-        {console.log("sa")}
         <ArticleHolder articles={this.state.articles} />
       </React.Fragment>
     );
