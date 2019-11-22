@@ -5,7 +5,6 @@ import BasicNavbar from "../nav_bars/basicNavbar";
 import axios from "axios";
 import MainPage from "../mainPage";
 
-
 class BasicMainPage extends Component {
   state = {
     searchClicked: false,
@@ -16,18 +15,13 @@ class BasicMainPage extends Component {
       firstName: "",
       lastName: "",
       dateOfBirth: "",
-      userGroup:""
-
+      userGroup: ""
     },
-    users: [],
+    users: []
   };
 
   render() {
-  return(
-    <React.Fragment>
-    {this.basicNavbar()}
-    </React.Fragment>
-  )
+    return <React.Fragment>{this.basicNavbar()}</React.Fragment>;
   }
   searchClick = () => {
     this.setState({ searchClicked: !this.state.searchClicked });
@@ -41,38 +35,34 @@ class BasicMainPage extends Component {
   };
   //mounting function for local storage
   componentDidMount() {
-        var url =
-          "http://8.209.81.242:8000/users/" + localStorage.getItem("userId");
-        var credentials1 = { ...this.state.credentials };
-        var id = localStorage.getItem("userId");
-        var token = localStorage.getItem("userToken");
-        credentials1.id = id;
-        credentials1.userToken = token;
-        var userType;
-        axios
-          .get("http://8.209.81.242:8000/users", {
-            headers: { Authorization: `Token ${token}` }
-          })
-          .then(res => {
-            this.setState({ users: res.data });
-          });
-        axios
-          .get(url, { headers: { Authorization: `Token ${token}` } })
-          .then(res => {
-
-            var credentials = { ...this.state.credentials };
-            credentials.userEmail = res.data.email;
-            credentials.firstName = res.data.first_name;
-            credentials.lastName = res.data.last_name;
-            credentials.dateOfBirth = res.data.date_of_birth;
-            credentials.id = id;
-            credentials.userToken = token;
-            credentials.userGroup = res.data.groups[0];
-            this.setState({ credentials: credentials });
-
-
-          });
-
+    var url =
+      "http://8.209.81.242:8000/users/" + localStorage.getItem("userId");
+    var credentials1 = { ...this.state.credentials };
+    var id = localStorage.getItem("userId");
+    var token = localStorage.getItem("userToken");
+    credentials1.id = id;
+    credentials1.userToken = token;
+    var userType;
+    axios
+      .get("http://8.209.81.242:8000/users", {
+        headers: { Authorization: `Token ${token}` }
+      })
+      .then(res => {
+        this.setState({ users: res.data });
+      });
+    axios
+      .get(url, { headers: { Authorization: `Token ${token}` } })
+      .then(res => {
+        var credentials = { ...this.state.credentials };
+        credentials.userEmail = res.data.email;
+        credentials.firstName = res.data.first_name;
+        credentials.lastName = res.data.last_name;
+        credentials.dateOfBirth = res.data.date_of_birth;
+        credentials.id = id;
+        credentials.userToken = token;
+        credentials.userGroup = res.data.groups[0];
+        this.setState({ credentials: credentials });
+      });
   }
 
   logoutClick = () => {
@@ -83,11 +73,11 @@ class BasicMainPage extends Component {
   basicNavbar = () => {
     return (
       <BasicNavbar
-      profileClick={this.profileClick}
-      logoutClick={this.logoutClick}
-      credentials={this.state.credentials}
-      users={this.state.users}
-      searchClick={this.searchClick}
+        profileClick={this.profileClick}
+        logoutClick={this.logoutClick}
+        credentials={this.state.credentials}
+        users={this.state.users}
+        searchClick={this.searchClick}
       />
     );
   };

@@ -36,7 +36,16 @@ interface ApiInterface {
     @Headers("Content-Type: application/json")
     @PUT("users/{user_id}")
     fun updateUser(
-        @Body userBody: MutableMap<String, String>,
+        @Body userBody: UpdateUserBody,
+        @Path("user_id") id: Long,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<ResponseBody>
+
+    // Update user request
+    @Headers("Content-Type: application/json")
+    @PUT("users/{user_id}")
+    fun updatePassword(
+        @Body userBody: UpdatePassword,
         @Path("user_id") id: Long,
         @Header("Authorization") token: String
     ): retrofit2.Call<ResponseBody>
@@ -113,10 +122,44 @@ interface ApiInterface {
         @Path("article_id") mid: Int,
         @Header("Authorization") token: String
     ): retrofit2.Call<ResponseBody>
+
+    // Get all comments
+    @Headers("Content-Type:application/json")
+    @GET("articles/{article_id}/comments")
+    fun getComments(
+        @Path("article_id") mid: Int,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<List<CommentBody>>
+
+    // Make a comment
+    @Headers("Content-Type:application/json")
+    @POST("articles/{article_id}/comments")
+    fun makeComment(
+        @Body info: CreateCommentBody,
+        @Path("article_id") mid: Int,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<ResponseBody>
+
+    // Delete a comment
+    @Headers("Content-Type:application/json")
+    @DELETE("comments/{comment_id}")
+    fun deleteComment(
+        @Path("comment_id") mid: Int,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<ResponseBody>
+
+    // Edit a comment
+    @Headers("Content-Type:application/json")
+    @PUT("comments/{comment_id}")
+    fun editComment(
+        @Body info: CommentEditBody,
+        @Path("comment_id") mid: Int,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<ResponseBody>
 }
 class RetrofitInstance {
     companion object {
-        val BASE_URL: String = "http://8.209.81.242:8000/"
+        private val BASE_URL: String = "http://8.209.81.242:8000/"
 
 
         val interceptor: HttpLoggingInterceptor = HttpLoggingInterceptor().apply {

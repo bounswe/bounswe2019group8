@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.bounswe.mercatus.Fragments.BasicFragment
-import com.bounswe.mercatus.Fragments.TraderFragment
+import com.bounswe.mercatus.Fragments.Entrance.BasicFragment
+import com.bounswe.mercatus.Fragments.Entrance.TraderFragment
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
  * one of the sections/tabs/pages.

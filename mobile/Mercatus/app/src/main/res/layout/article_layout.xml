@@ -95,6 +95,36 @@
                 android:orientation="horizontal"
                 android:background="@color/gray">
             </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/commentSection"
+                android:padding="10dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="6"
+                android:visibility="gone">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layComment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editComment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/comment"
+                        android:inputType="text"/>
+                </com.google.android.material.textfield.TextInputLayout>
+                <ImageView
+                    android:paddingTop="13dp"
+                    android:id="@+id/buttonMakeComment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    app:srcCompat="@drawable/ic_send" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

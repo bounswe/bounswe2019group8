@@ -7,21 +7,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.OvershootInterpolator
-import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import at.blogc.android.views.ExpandableTextView
 import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
-import com.bounswe.mercatus.Fragments.Articles.CreateCommentActivity
 import com.bounswe.mercatus.Fragments.Articles.EditArticleActivity
 import com.bounswe.mercatus.Fragments.Articles.ShowArticleActivity
-import com.bounswe.mercatus.Fragments.ShowProfileActivity
+import com.bounswe.mercatus.Fragments.User.ShowProfileActivity
+import com.bounswe.mercatus.Models.CreateCommentBody
 import com.bounswe.mercatus.Models.GetArticleBody
 import com.bounswe.mercatus.Models.UserRes
 import com.bounswe.mercatus.R
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.article_layout.view.*
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -52,7 +52,7 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
     Each item in RecyclerView is called as viewholder.
      */
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-        val expandableTextView = itemView.findViewById(R.id.article) as ExpandableTextView
+        private val expandableTextView = itemView.findViewById(R.id.article) as ExpandableTextView
 
         var currentArticle : GetArticleBody? = null
         var currentPosition : Int = 0
@@ -79,13 +79,6 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
                 context.startActivity(intent)
             }
 
-            itemView.makeComment.setOnClickListener {
-
-                val intent = Intent(context, CreateCommentActivity::class.java)
-                intent.putExtra("articleID", currentArticle?.pk.toString())
-                context.startActivity(intent)
-            }
-
             itemView.author.setOnClickListener {
 
                 //When click author of an article item, show profile
@@ -105,7 +98,9 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
             itemView.article.text = content
 
             // Write author to items
-            getUser(position, author, itemView.author, itemView.editArticle, itemView.deleteArticle, pk)
+            getUser(position, author, itemView.author, itemView.editArticle, itemView.deleteArticle,
+                itemView.makeComment, itemView.commentSection, itemView.buttonMakeComment,
+                itemView.editComment, itemView.layComment, pk)
 
             this.currentArticle = GetArticleBody(author, title, content,rating, pk)
             this.currentPosition = position
@@ -115,7 +110,13 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
     /*
     Gets user based on pk value and a token that was coming from login
     */
-    private fun getUser(position: Int,pk: Long, name: TextView, editArticle: Button, deleteArticle: Button, article_pk: Int){
+    private fun getUser(position: Int, pk: Long, name: TextView,
+                        editArticle: Button, deleteArticle: Button, makeComment: Button,
+                        commentSection: LinearLayout,
+                        buttonMakeComment: ImageView,
+                        editComment : TextInputEditText,
+                        layComment : TextInputLayout,
+                        article_pk: Int){
         val mercatus = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
 
         val res = context.getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
@@ -168,8 +169,26 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
                             })
 
                         val alert = dialogBuilder.create()
-                        alert.setTitle("Test")
                         alert.show()
+                    }
+
+                    makeComment.setOnClickListener {
+                        if(commentSection.visibility == View.VISIBLE){
+                            commentSection.visibility = View.GONE
+                        }
+                        else{
+                            commentSection.visibility = View.VISIBLE
+                            buttonMakeComment.setOnClickListener {
+                                if(editComment.text.toString().length > 1){
+                                    layComment.isErrorEnabled = false
+                                    makeComments(editComment.text.toString(), article_pk)
+                                }
+                                else{
+                                    layComment.isErrorEnabled = true
+                                    layComment.error = "Comment cannot be empty!"
+                                }
+                            }
+                        }
                     }
                 }
                 else  {
@@ -179,7 +198,6 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
             }
         })
     }
-
     private fun deleteArticle(pk: Int, position: Int){
         val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
 
@@ -209,11 +227,55 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
                     Toast.makeText(context, "Successfully deleted!", Toast.LENGTH_SHORT)
                         .show()
 
-                    articlesList.removeAt(position)
-                    notifyItemRemoved(position)
+                    if(position < articlesList.size){
+                        articlesList.removeAt(position)
+                        notifyItemRemoved(position)
+                        notifyItemRangeChanged(position, itemCount)
+                    }
                 }
                 else  {
-                    Toast.makeText(context, "Show profile failed.", Toast.LENGTH_SHORT)
+                    Toast.makeText(context, "Delete article failed.", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+        })
+    }
+
+    private fun makeComments(commentText: String, article_pk: Int){
+        val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
+
+        val res = context.getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
+        val tokenV = res?.getString("token", "Data Not Found!")
+        val comBody = CreateCommentBody(commentText)
+
+        mer.makeComment(comBody,article_pk,"Token " + tokenV.toString()).enqueue(object :
+            Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                if(t.cause is ConnectException){
+                    Toast.makeText(
+                        context,
+                        "Check your connection!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else{
+                    Toast.makeText(
+                        context,
+                        "Something bad happened!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if (response.code() == 201) {
+                    Toast.makeText(context, "Comment is added!", Toast.LENGTH_SHORT)
+                        .show()
+                    val intent = Intent(context, ShowArticleActivity::class.java)
+                    intent.putExtra("article_header", article_pk.toString())
+                    context.startActivity(intent)
+                }
+                else  {
+                    Toast.makeText(context, "Comment addition is failed.", Toast.LENGTH_SHORT)
                         .show()
                 }
             }

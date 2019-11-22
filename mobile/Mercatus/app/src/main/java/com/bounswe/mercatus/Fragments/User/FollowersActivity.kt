@@ -1,4 +1,4 @@
-package com.bounswe.mercatus.Fragments
+package com.bounswe.mercatus.Fragments.User
 
 import android.content.Context
 import android.os.Bundle
@@ -18,21 +18,25 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.net.ConnectException
 
-class FollowingsActivity : AppCompatActivity() {
+class FollowersActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_followings)
+        setContentView(R.layout.activity_followers)
+
+        val actionBar = supportActionBar
+        actionBar!!.title = getString(R.string.title_activity_followers)
+        actionBar.setDisplayHomeAsUpEnabled(true)
 
         val rv = findViewById<RecyclerView>(R.id.recyclerView1)
-        rv.layoutManager = LinearLayoutManager(this@FollowingsActivity, RecyclerView.VERTICAL, false)
+        rv.layoutManager = LinearLayoutManager(this@FollowersActivity, RecyclerView.VERTICAL, false)
 
         val users = ArrayList<SearchShow>()
 
-        var adapter = CustomAdapter(this@FollowingsActivity, users)
+        var adapter = CustomAdapter(this@FollowersActivity, users)
         rv.adapter = adapter
 
-        val pkval = intent.getStringExtra("FOLLOWINGS")
+        val pkval = intent.getStringExtra("FOLLOWERS")
         getUser(pkval.toLong(), adapter,  users)
     }
     /*
@@ -47,14 +51,14 @@ class FollowingsActivity : AppCompatActivity() {
             override fun onFailure(call: Call<UserRes>, t: Throwable) {
                 if(t.cause is ConnectException){
                     Toast.makeText(
-                        this@FollowingsActivity,
+                        this@FollowersActivity,
                         "Check your connection!",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
                 else{
                     Toast.makeText(
-                        this@FollowingsActivity,
+                        this@FollowersActivity,
                         "Something bad happened!",
                         Toast.LENGTH_SHORT
                     ).show()
@@ -62,7 +66,7 @@ class FollowingsActivity : AppCompatActivity() {
             }
             override fun onResponse(call: Call<UserRes>, response: Response<UserRes>) {
                 if (response.code() == 200) {
-                    val res: List<UserFollower> ?= response.body()?.followings
+                    val res: List<UserFollower> ?= response.body()?.followers
 
                     for(i in res.orEmpty()){
                         users.add(SearchShow(i.first_name, i.last_name, i.pk))
@@ -71,11 +75,15 @@ class FollowingsActivity : AppCompatActivity() {
                     adapter.notifyDataSetChanged()
                 }
                 else  {
-                    Toast.makeText(this@FollowingsActivity, "Show profile failed.", Toast.LENGTH_SHORT)
+                    Toast.makeText(this@FollowersActivity, "Show profile failed.", Toast.LENGTH_SHORT)
                         .show()
                 }
             }
         })
+    }
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
     override fun finish() {
         super.finish()

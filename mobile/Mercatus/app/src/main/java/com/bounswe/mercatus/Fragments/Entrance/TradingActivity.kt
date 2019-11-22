@@ -1,4 +1,4 @@
-package com.bounswe.mercatus.Fragments
+package com.bounswe.mercatus.Fragments.Entrance
 
 import android.graphics.Color
 import android.os.Bundle

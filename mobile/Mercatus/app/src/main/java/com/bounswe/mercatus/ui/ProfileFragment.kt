@@ -13,9 +13,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
-import com.bounswe.mercatus.Fragments.FollowersActivity
-import com.bounswe.mercatus.Fragments.FollowingsActivity
+import com.bounswe.mercatus.Fragments.User.FollowersActivity
+import com.bounswe.mercatus.Fragments.User.FollowingsActivity
 import com.bounswe.mercatus.Fragments.ModifyActivity
+import com.bounswe.mercatus.Fragments.ModifyPasswordActivity
 import com.bounswe.mercatus.Models.UserRes
 import com.bounswe.mercatus.R
 import retrofit2.Call
@@ -27,6 +28,7 @@ import java.net.ConnectException
 class ProfileFragment : Fragment() {
     // initialization
     private lateinit var btnModify: Button
+    private lateinit var btnModifyPassword: Button
     private lateinit var followingAction: LinearLayout
     private lateinit var followerAction: LinearLayout
 
@@ -47,6 +49,7 @@ class ProfileFragment : Fragment() {
 
         // define here
         btnModify = root.findViewById(R.id.btnModify)
+        btnModifyPassword = root.findViewById(R.id.btnModifyPassword)
 
         followingAction = root.findViewById(R.id.followingAction)
         followerAction = root.findViewById(R.id.followerAction)
@@ -60,6 +63,12 @@ class ProfileFragment : Fragment() {
 
         btnModify.setOnClickListener {
             val intent = Intent(activity, ModifyActivity::class.java)
+            activity?.onBackPressed()
+            startActivity(intent)
+        }
+
+        btnModifyPassword.setOnClickListener {
+            val intent = Intent(activity, ModifyPasswordActivity::class.java)
             activity?.onBackPressed()
             startActivity(intent)
         }

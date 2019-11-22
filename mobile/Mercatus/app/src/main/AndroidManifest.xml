@@ -18,24 +18,22 @@
         <activity android:name=".Fragments.Articles.ShowArticleActivity" />
         <activity android:name=".Fragments.Articles.CreateArticleActivity" />
         <activity
-            android:name=".Fragments.TradingActivity"
+            android:name=".Fragments.Entrance.TradingActivity"
             android:label="@string/title_activity_trading"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Fragments.FollowersActivity"
-            android:label="@string/title_activity_followers" />
+            android:name=".Fragments.User.FollowersActivity"/>
         <activity
-            android:name=".Fragments.FollowingsActivity"
-            android:label="@string/title_activity_followings" />
+            android:name=".Fragments.User.FollowingsActivity" />
         <activity
-            android:name=".Fragments.ChooseActivity"
+            android:name=".Fragments.Entrance.ChooseActivity"
             android:label="@string/title_activity_choose"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Fragments.MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Fragments.LoginActivity">
+        <activity android:name=".Fragments.Entrance.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -47,7 +45,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.ProfileFragment" />
         </activity>
-        <activity android:name=".Fragments.TraderUserActivity" />
+        <activity android:name=".Fragments.ModifyPasswordActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.ProfileFragment" />
+        </activity>
+        <activity android:name=".Fragments.Entrance.TraderUserActivity" />
         <activity android:name=".Fragments.SearchActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -58,14 +61,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.ProfileFragment" />
         </activity>
-        <activity android:name=".Fragments.BasicUserActivity" />
+        <activity android:name=".Fragments.Entrance.BasicUserActivity" />
         <activity android:name=".Fragments.GuestActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Fragments.LoginActivity" />
+                android:value=".Fragments.Entrance.LoginActivity" />
         </activity>
         <activity
-            android:name=".Fragments.ShowProfileActivity"
+            android:name=".Fragments.User.ShowProfileActivity"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 

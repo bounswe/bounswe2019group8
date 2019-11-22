@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import "./traderNavbar.css";
+
+import WriteArticlePage from "../article_components/writeArticlePage";
+import ArticleHolder from "../article_components/articleHolder";
+import WholeArticlePage from "../article_components/wholeArticlePage";
+import ReArticleHolder from "../article_components/re-article-comps/reArticleHolder";
 import {
   Button,
   Form,
@@ -9,16 +14,18 @@ import {
   NavDropdown,
   FormControl
 } from "react-bootstrap";
-import {withRouter} from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import axios from "axios";
+import Followings from "../profile_components/followings";
 
 class TraderNavbar extends Component {
-  state = {credentials:{}};
+  state = { credentials: {} };
 
   render() {
-      return (
+    return (
+      <div>
         <Navbar bg="dark" expand="lg">
-          <Navbar.Brand href="#" className="navBarSyles">
+          <Navbar.Brand href="/" className="navBarSyles">
             <img
               src={require("../images/MERCATUS-LOGO72DP.png")}
               height="50"
@@ -34,7 +41,7 @@ class TraderNavbar extends Component {
             <Nav className="mr-auto">
               <Nav.Link href="#">Trading Equipment</Nav.Link>
               <Nav.Link href="#">Events</Nav.Link>
-              <Nav.Link href="#">Articles</Nav.Link>
+              <Nav.Link href="/articles">Articles</Nav.Link>
             </Nav>
             <Form inline>
               <FormControl
@@ -52,10 +59,7 @@ class TraderNavbar extends Component {
               }
               id="basic-nav-dropdown"
             >
-              <NavDropdown.Item
-                href="#"
-                onClick={() => this.profileClick()}
-              >
+              <NavDropdown.Item href="#" onClick={() => this.profileClick()}>
                 Profile
               </NavDropdown.Item>
               <NavDropdown.Item href="#">Settings</NavDropdown.Item>
@@ -85,49 +89,52 @@ class TraderNavbar extends Component {
             </Form>*/}
           </Navbar.Collapse>
         </Navbar>
-      );  
-  }
-profileClick = () =>{
-  this.props.history.push("/profile")
-}
-logoutClick = () => {
-  localStorage.setItem("userId", null);
-  localStorage.setItem("userToken", null);
-  localStorage.setItem("userGroup", null);
-  localStorage.setItem("followings",null);
-  this.props.history.push("/login");
-};
-componentDidMount() {
-  var url =
-  "http://8.209.81.242:8000/users/" + localStorage.getItem("userId");
-var credentials1 = { ...this.state.credentials };
-var id = localStorage.getItem("userId");
-var token = localStorage.getItem("userToken");
-credentials1.id = id;
-credentials1.userToken = token;
-var userType;
-axios
-  .get("http://8.209.81.242:8000/users", {
-    headers: { Authorization: `Token ${token}` }
-  })
-  .then(res => {
-    this.setState({ users: res.data });
-  });
-axios
-  .get(url, { headers: { Authorization: `Token ${token}` } })
-  .then(res => {
 
-    var credentials = { ...this.state.credentials };
-    credentials.userEmail = res.data.email;
-    credentials.firstName = res.data.first_name;
-    credentials.lastName = res.data.last_name;
-    credentials.dateOfBirth = res.data.date_of_birth;
-    credentials.id = id;
-    credentials.userToken = token;
-    credentials.userGroup = res.data.groups[0];
-    this.setState({ credentials: credentials });
-  });   
-}
+      </div>
+    );
+  }
+  profileClick = () => {
+    this.props.history.push("/login");
+    this.props.history.push("/profile/" + localStorage.getItem("userId"));
+    
+  };
+  logoutClick = () => {
+    localStorage.setItem("userId", null);
+    localStorage.setItem("userToken", null);
+    localStorage.setItem("userGroup", null);
+    localStorage.setItem("followings", null);
+    this.props.history.push("/login");
+  };
+  componentDidMount() {
+    var url =
+      "http://8.209.81.242:8000/users/" + localStorage.getItem("userId");
+    var credentials1 = { ...this.state.credentials };
+    var id = localStorage.getItem("userId");
+    var token = localStorage.getItem("userToken");
+    credentials1.id = id;
+    credentials1.userToken = token;
+    var userType;
+    axios
+      .get("http://8.209.81.242:8000/users", {
+        headers: { Authorization: `Token ${token}` }
+      })
+      .then(res => {
+        this.setState({ users: res.data });
+      });
+    axios
+      .get(url, { headers: { Authorization: `Token ${token}` } })
+      .then(res => {
+        var credentials = { ...this.state.credentials };
+        credentials.userEmail = res.data.email;
+        credentials.firstName = res.data.first_name;
+        credentials.lastName = res.data.last_name;
+        credentials.dateOfBirth = res.data.date_of_birth;
+        credentials.id = id;
+        credentials.userToken = token;
+        credentials.userGroup = res.data.groups[0];
+        this.setState({ credentials: credentials });
+      });
+  }
 }
 
 export default withRouter(TraderNavbar);

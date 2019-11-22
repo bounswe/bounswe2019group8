@@ -14,6 +14,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.bounswe.mercatus.Fragments.Entrance.LoginActivity
 import com.bounswe.mercatus.R
 import com.google.android.material.navigation.NavigationView
 

@@ -29,10 +29,11 @@ export default function Login({ loginSuccess, ...props }) {
       })
       .then(response => {
         //console.log(response);
-        if (response.statusText === "OK") {
+      
           localStorage.setItem("userId",response.data.user_id)
           localStorage.setItem("userToken",response.data.token)
-
+          console.log(response.data.user_id)
+          console.log(response.data.token)
           axios.defaults.headers.common['Authorization'] = `Token: ${response.data.token}`;
 
           axios
@@ -54,8 +55,9 @@ export default function Login({ loginSuccess, ...props }) {
               tempList.push(element.pk)
             });
             localStorage.setItem("followings",JSON.stringify(tempList)) 
+            
           });
-        }
+        
       })
       .catch(function(error) {
         alert("Invalid e-mail or password");

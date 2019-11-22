@@ -3,6 +3,7 @@ import { Button, Card, ListGroup } from "react-bootstrap";
 import UpdateCredentials from "./UpdateCredentials";
 import "./ProfileArea.css";
 import axios from "axios";
+import {withRouter} from "react-router-dom";
 class OwnProfileArea extends React.Component {
   constructor() {
     super();
@@ -48,44 +49,7 @@ class OwnProfileArea extends React.Component {
       this.setState({ credentials: credentials });
     });   
   }
-  follow(user) {
-    let id = user.pk;
-    this.state.api
-      .post(
-        `users/${this.state.credentials.id}/followings`,
-        {
-          following_pk: id
-        },
-        {
-          headers: {
-            Authorization: `Token ${this.state.credentials.userToken}`
-          }
-        }
-      )
-      .then(response => {
-        const me = {
-          ...this.state.me,
-          followings: [...this.state.me.followings, user]
-        };
-
-        this.setState({ me: me });
-      });
-  }
-
-  unfollow(id) {
-    this.state.api
-      .delete(`users/${this.state.credentials.id}/followings/${id}`, {
-        headers: { Authorization: `Token ${this.state.credentials.userToken}` }
-      })
-      .then(response => {
-        const me = {
-          ...this.state.me,
-          followings: this.state.me.followings.filter(x => x.pk !== id)
-        };
-
-        this.setState({ me: me });
-      });
-  }
+  
 
   updateMe() {
     this.props.api
@@ -126,6 +90,15 @@ class OwnProfileArea extends React.Component {
         <Card style={{ width: "36rem", align: "center" }}>
           <Card.Img variant="top" src={require("../images/rick.jpg")} />
           <ListGroup className="list-group-flush">
+          <ListGroup.Item>
+            
+                      My Followers
+                      </ListGroup.Item>
+                      <ListGroup.Item action href ="/followings"> 
+                      My Followings
+             
+            </ListGroup.Item>
+        
             <ListGroup.Item>
               {this.state.credentials.firstName +
                 " " +
@@ -134,56 +107,6 @@ class OwnProfileArea extends React.Component {
             <ListGroup.Item>{this.state.credentials.userEmail}</ListGroup.Item>
             <ListGroup.Item>
               {this.state.credentials.dateOfBirth}
-            </ListGroup.Item>
-            <ListGroup.Item>
-              Followers:
-              <ListGroup className="list-group-flush">
-                {this.state.me &&
-                  this.state.me.followers.map((f, i) => (
-                    <div key={f.pk}>
-                      {i + 1} - {`${f.first_name} ${f.last_name}`}
-                    </div>
-                  ))}
-              </ListGroup>
-            </ListGroup.Item>
-            <ListGroup.Item>
-              Followed by me:
-              <ListGroup className="list-group-flush">
-                {this.state.me &&
-                  this.state.me.followings.map((f, i) => (
-                    <div key={f.pk}>
-                      {i + 1} - {`${f.first_name} ${f.last_name}`}
-                      <button
-                        class="myButton"
-                        onClick={() => this.unfollow(f.pk)}
-                      >
-                        Unfollow
-                      </button>
-                    </div>
-                  ))}
-              </ListGroup>
-            </ListGroup.Item>
-            <ListGroup.Item>
-              <ListGroup>
-                Other users you can follow:
-                {this.state.users.map(users1 => (
-                  <ListGroup.Item
-                    action
-                    variant="info"
-                    key={users1.id}
-                    users={users1}
-                  >
-                    {users1.first_name + " " + users1.last_name}
-                    <button
-                      class="myButton"
-                      style={{ margin: "10px" }}
-                      onClick={() => this.follow(users1)}
-                    >
-                      Follow
-                    </button>
-                  </ListGroup.Item>
-                ))}
-              </ListGroup>
             </ListGroup.Item>
           </ListGroup>
           <Card.Body>
@@ -207,7 +130,10 @@ class OwnProfileArea extends React.Component {
   handleUpdateClick = () => {
     this.setState({ updateClicked: !this.state.updateClicked });
   };
+  followingsClick = () =>{
+    this.props.history.push("/followings")
+  }
 }
 
 
-export default OwnProfileArea;
+export default withRouter(OwnProfileArea);

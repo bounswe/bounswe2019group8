@@ -1,6 +1,7 @@
 package com.bounswe.mercatus.Fragments.Articles
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
@@ -83,6 +84,10 @@ class EditArticleActivity : AppCompatActivity() {
                 if (response.code() == 200) {
                     Toast.makeText(this@EditArticleActivity, "Successfully edited!", Toast.LENGTH_SHORT)
                         .show()
+                    val intent = Intent(this@EditArticleActivity, ShowArticleActivity::class.java)
+                    intent.putExtra("article_header", pk.toString())
+                    startActivity(intent)
+                    finish()
                 }
                 else  {
                     Toast.makeText(this@EditArticleActivity, "Show profile failed.", Toast.LENGTH_SHORT)
@@ -129,7 +134,7 @@ class EditArticleActivity : AppCompatActivity() {
                     }
                 }
                 else  {
-                    Toast.makeText(this@EditArticleActivity, "Show profile failed.", Toast.LENGTH_SHORT)
+                    Toast.makeText(this@EditArticleActivity, "Show article failed.", Toast.LENGTH_SHORT)
                         .show()
                 }
             }
