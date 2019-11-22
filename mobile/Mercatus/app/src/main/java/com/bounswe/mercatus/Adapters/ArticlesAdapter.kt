@@ -102,6 +102,14 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
                 itemView.makeComment, itemView.commentSection, itemView.buttonMakeComment,
                 itemView.editComment, itemView.layComment, pk)
 
+            itemView.likeArticle.setOnClickListener {
+                itemView.likeArticle.setBackgroundResource(R.drawable.like)
+                likeArticle(pk, position)
+            }
+            itemView.dislikeArticle.setOnClickListener {
+                itemView.likeArticle.setBackgroundResource(R.drawable.dislike)
+                likeArticle(pk, position)
+            }
             this.currentArticle = GetArticleBody(author, title, content,rating, pk)
             this.currentPosition = position
         }
@@ -241,6 +249,49 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
             }
         })
     }
+
+    private fun likeArticle(pk: Int, position: Int){
+        val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
+
+        val res = context.getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
+        val tokenV = res.getString("token", "Data Not Found!")
+
+        mer.likeArticle(pk, "Token " + tokenV.toString()).enqueue(object :
+            Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                if(t.cause is ConnectException){
+                    Toast.makeText(
+                        context,
+                        "Check your connection!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else{
+                    Toast.makeText(
+                        context,
+                        "Something bad happened!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if (response.code() == 200) {
+                    Toast.makeText(context, "Successfully liked!", Toast.LENGTH_SHORT)
+                        .show()
+
+                    if(position < articlesList.size){
+                        notifyItemRemoved(position)
+                        notifyItemRangeChanged(position, itemCount)
+                    }
+                }
+                else  {
+                    Toast.makeText(context, "Like article failed.", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+        })
+    }
+
 
     private fun makeComments(commentText: String, article_pk: Int){
         val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)

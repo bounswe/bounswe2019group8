@@ -100,7 +100,7 @@ interface ApiInterface {
 
     // Like an article
     @Headers("Content-Type:application/json")
-    @GET("articles/{article_id}/likes")
+    @POST("articles/{article_id}/likes")
     fun likeArticle(
         @Path("article_id") mid: Int,
         @Header("Authorization") token: String
@@ -108,7 +108,7 @@ interface ApiInterface {
 
     // Dislike an article
     @Headers("Content-Type:application/json")
-    @GET("articles/{article_id}/dislikes")
+    @POST("articles/{article_id}/dislikes")
     fun disLikeArticle(
         @Path("article_id") mid: Int,
         @Header("Authorization") token: String
