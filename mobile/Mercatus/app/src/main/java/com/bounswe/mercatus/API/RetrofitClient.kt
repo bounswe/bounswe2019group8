@@ -228,6 +228,30 @@ interface ApiInterface {
         @Path("comment_id") mid: Int,
         @Header("Authorization") token: String
     ): retrofit2.Call<ResponseBody>
+
+    // Dislike a comment
+    @Headers("Content-Type:application/json")
+    @POST("comments/{comment_id}/dislikes")
+    fun dislikeComment(
+        @Path("comment_id") cid: Int,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<ResponseBody>
+
+    // Get dislike for comments
+    @Headers("Content-Type:application/json")
+    @GET("comments/{comment_id}/dislikes")
+    fun getDislikeComments(
+        @Path("comment_id") mid: Int,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<List<LikerModelComment>>
+
+    // Delete Dislike a comment
+    @Headers("Content-Type:application/json")
+    @DELETE("comments/{comment_id}/dislikes")
+    fun deleteDislikeComment(
+        @Path("comment_id") mid: Int,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<ResponseBody>
 }
 class RetrofitInstance {
     companion object {

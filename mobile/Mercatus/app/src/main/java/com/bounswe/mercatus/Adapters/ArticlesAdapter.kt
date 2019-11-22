@@ -279,7 +279,7 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
                         .show()
 
                     if(position < articlesList.size){
-                        notifyItemRemoved(position)
+                        notifyItemChanged(position)
                         notifyItemRangeChanged(position, itemCount)
                         //likeArticle.setBackgroundResource(R.drawable.like)
                     }
@@ -420,9 +420,9 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
             override fun onResponse(call: Call<List<LikerModel>>, response: Response<List<LikerModel>>) {
                 if (response.code() == 200) {
 
-                    val res: List<LikerModel>? = response.body()
+                    val resp: List<LikerModel>? = response.body()
 
-                    for(item in res.orEmpty()){
+                    for(item in resp.orEmpty()){
                         if(user_id!!.toLong() == item.liker){
                             if(item.choice == -1){
                                 dislikeArticle.setBackgroundResource(R.drawable.dislike)
@@ -431,8 +431,8 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
                             }
                         }
                     }
-                    if(res!!.isNotEmpty()){
-                        dislikeArticleText.text = res.size.toString()
+                    if(resp!!.isNotEmpty()){
+                        dislikeArticleText.text = resp.size.toString()
                     }
 
                     dislikeArticle.setOnClickListener {
