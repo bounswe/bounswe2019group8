@@ -13,10 +13,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
-import com.bounswe.mercatus.Fragments.User.FollowersActivity
-import com.bounswe.mercatus.Fragments.User.FollowingsActivity
 import com.bounswe.mercatus.Fragments.ModifyActivity
 import com.bounswe.mercatus.Fragments.ModifyPasswordActivity
+import com.bounswe.mercatus.Fragments.User.FollowersActivity
+import com.bounswe.mercatus.Fragments.User.FollowingsActivity
 import com.bounswe.mercatus.Models.UserRes
 import com.bounswe.mercatus.R
 import retrofit2.Call
@@ -132,7 +132,6 @@ class ProfileFragment : Fragment() {
                         intent.putExtra("FOLLOWINGS", response.body()?.pk.toString())
                         startActivity(intent)
                     }
-
                 }
                 else  {
                     Toast.makeText(activity, "Show profile failed.", Toast.LENGTH_SHORT)

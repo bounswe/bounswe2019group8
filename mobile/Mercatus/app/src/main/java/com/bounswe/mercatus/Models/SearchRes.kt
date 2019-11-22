@@ -10,5 +10,6 @@ data class SearchRes(
     val date_of_birth: String,
     val groups: List<Int>,
     val profile_image: String?,
-    val followers: List<UserFollower>
+    val followers: List<UserFollower>,
+    val email_activated : Boolean
 )

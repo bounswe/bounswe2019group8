@@ -72,6 +72,7 @@
 
             </LinearLayout>
 
+
             <TextView
                 android:id="@+id/showContent"
                 android:layout_width="match_parent"
@@ -81,8 +82,10 @@
                 android:autoLink="web"
                 android:gravity="start"
                 android:lineSpacingExtra="@dimen/line_spacing"
-                android:lines="7"
                 android:minLines="5"
+                android:lines="7"
+                android:maxLines="9"
+                android:scrollbars="vertical"
                 android:text="@string/cre_content"
                 android:textSize="16dip" />
 
