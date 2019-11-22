@@ -102,12 +102,9 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
             getUser(position, author, itemView.author, itemView.editArticle, itemView.deleteArticle,
                 itemView.makeComment, itemView.commentSection, itemView.buttonMakeComment,
                 itemView.editComment, itemView.layComment, pk,
-                itemView.likeArticle, itemView.dislikeArticle)
+                itemView.likeArticle, itemView.dislikeArticle,
+                itemView.likeArticleText, itemView.dislikeArticleText)
 
-            itemView.likeArticle.setOnClickListener {
-                itemView.likeArticle.setBackgroundResource(R.drawable.like)
-                likeArticle(pk, position)
-            }
             itemView.dislikeArticle.setOnClickListener {
                 itemView.dislikeArticle.setBackgroundResource(R.drawable.dislike)
                 dislikeArticle(pk, position)
@@ -127,7 +124,8 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
                         editComment : TextInputEditText,
                         layComment : TextInputLayout,
                         article_pk: Int,
-                        likeImg: Button, disImg: Button){
+                        likeImg: Button, disImg: Button,
+                        likeArticleText: TextView, dislikeArticleText: TextView){
         val mercatus = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
 
         val res = context.getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
@@ -202,8 +200,8 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
                             }
                         }
                     }
-                    getLikes(article_pk, position, likeImg, disImg)
-                    getDislikes(article_pk, position, likeImg, disImg)
+                    getLikes(article_pk, likeArticleText, likeImg, position)
+                    getDislikes(article_pk, dislikeArticleText , disImg)
                 }
                 else  {
                     Toast.makeText(context, "Show profile failed.", Toast.LENGTH_SHORT)
@@ -255,7 +253,7 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
         })
     }
 
-    private fun likeArticle(pk: Int, position: Int){
+    private fun likeArticle(pk: Int, position: Int, likeArticle: Button){
         val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
 
         val res = context.getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
@@ -289,6 +287,9 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
                         notifyItemRangeChanged(position, itemCount)
                     }
                 }
+                else if (response.code() == 400) {
+                    deleteLike(pk, position, likeArticle)
+                }
                 else  {
                     Toast.makeText(context, "Like article failed.", Toast.LENGTH_SHORT)
                         .show()
@@ -297,7 +298,50 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
         })
     }
 
-    private fun getLikes(article_pk: Int, position: Int, likeArticle: Button, dislikeArticle: Button){
+    private fun deleteLike(pk: Int, position: Int, likeArticle: Button){
+        val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
+
+        val res = context.getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
+        val tokenV = res.getString("token", "Data Not Found!")
+
+        mer.deleteLikeArticle(pk, "Token " + tokenV.toString()).enqueue(object :
+            Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                if(t.cause is ConnectException){
+                    Toast.makeText(
+                        context,
+                        "Check your connection!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else{
+                    Toast.makeText(
+                        context,
+                        "Something bad happened!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if (response.code() == 200) {
+                    Toast.makeText(context, "Successfully liked revoked!", Toast.LENGTH_SHORT)
+                        .show()
+
+                    if(position < articlesList.size){
+                        notifyItemChanged(position)
+                        notifyItemRangeChanged(position, itemCount)
+                        likeArticle.setBackgroundResource(R.drawable.like_default)
+                    }
+                }
+                else  {
+                    Toast.makeText(context, "Like article failed.", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+        })
+    }
+
+    private fun getLikes(article_pk: Int, likeArticleText: TextView, likeArticle: Button, position: Int){
         val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
 
         val res = context.getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
@@ -334,6 +378,14 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
                             }
                         }
                     }
+                    if(res!!.isNotEmpty()){
+                        likeArticleText.text = res.size.toString()
+                    }
+
+                    likeArticle.setOnClickListener {
+                        likeArticle.setBackgroundResource(R.drawable.like)
+                        likeArticle(article_pk, position, likeArticle)
+                    }
                 }
                 else  {
                     Toast.makeText(context, "Like list fetch failed.", Toast.LENGTH_SHORT)
@@ -343,7 +395,7 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
         })
     }
 
-    private fun getDislikes(article_pk: Int, position: Int, likeArticle: Button, dislikeArticle: Button){
+    private fun getDislikes(article_pk: Int, dislikeArticleText: TextView, dislikeArticle: Button){
         val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
 
         val res = context.getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
@@ -379,6 +431,9 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
                                 dislikeArticle.setBackgroundResource(R.drawable.dislike)
                             }
                         }
+                    }
+                    if(res!!.isNotEmpty()){
+                        dislikeArticleText.text = res.size.toString()
                     }
                 }
                 else  {
@@ -419,7 +474,7 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
                         .show()
 
                     if(position < articlesList.size){
-                        notifyItemRemoved(position)
+                        notifyItemChanged(position)
                         notifyItemRangeChanged(position, itemCount)
                     }
                 }

@@ -106,6 +106,15 @@ interface ApiInterface {
         @Header("Authorization") token: String
     ): retrofit2.Call<ResponseBody>
 
+    // Delete Like an article
+    @Headers("Content-Type:application/json")
+    @DELETE("articles/{article_id}/likes")
+    fun deleteLikeArticle(
+        @Path("article_id") mid: Int,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<ResponseBody>
+
+
     // Get like for article
     @Headers("Content-Type:application/json")
     @GET("articles/{article_id}/likes")
