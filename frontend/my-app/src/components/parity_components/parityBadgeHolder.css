@@ -1,0 +1,14 @@
+.parity-badge-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 60%;
+  margin-left: 20%;
+  margin-right: 20%;
+  background-color: white;
+  border-radius: 3px;
+  margin-top: 10px;
+}
+.parity-container {
+  display: flex;
+  flex-wrap: wrap;
+}

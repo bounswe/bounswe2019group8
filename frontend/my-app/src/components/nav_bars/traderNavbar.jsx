@@ -136,6 +136,11 @@ class TraderNavbar extends Component {
       var articleList = res.data;
       localStorage.setItem("articleList", JSON.stringify(articleList));
     });
+    axios.get("http://8.209.81.242:8000/trading_equipments").then(res => {
+      var equipmentList = res.data;
+      localStorage.setItem("equipmentList", JSON.stringify(equipmentList));
+      console.log(equipmentList);
+    });
   }
 }
 
