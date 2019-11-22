@@ -114,7 +114,6 @@ interface ApiInterface {
         @Header("Authorization") token: String
     ): retrofit2.Call<ResponseBody>
 
-
     // Get like for article
     @Headers("Content-Type:application/json")
     @GET("articles/{article_id}/likes")
@@ -135,6 +134,14 @@ interface ApiInterface {
     @Headers("Content-Type:application/json")
     @POST("articles/{article_id}/dislikes")
     fun disLikeArticle(
+        @Path("article_id") mid: Int,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<ResponseBody>
+
+    // Delete DisLike an article
+    @Headers("Content-Type:application/json")
+    @DELETE("articles/{article_id}/dislikes")
+    fun deleteDislikeArticle(
         @Path("article_id") mid: Int,
         @Header("Authorization") token: String
     ): retrofit2.Call<ResponseBody>
