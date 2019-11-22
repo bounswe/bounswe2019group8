@@ -54,7 +54,7 @@ def users_coll(request):
 
         if serializer.is_valid():
             user = serializer.save()
-            current_site = get_current_site(request)
+            current_site = 'mercatus.xyz'
             email_subject = 'Mercatus account activation'
             token = account_activation_token.make_token(user)
             uid = urlsafe_base64_encode(force_bytes(user.pk))
