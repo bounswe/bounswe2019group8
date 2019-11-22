@@ -5,13 +5,15 @@ import ArticleMakeComment from "./article_make_comment";
 import "./wholeArticlePage.css";
 import ArticleLikeButton from "./articleLikeButton";
 import ArticleDislikeButton from "./articleDislikeButton";
+import {withRouter} from "react-router-dom";
 
 class WholeArticlePage extends Component {
   state = {
     articleTitle: "",
     articleContent: "",
     authorId: -1,
-    authorName: ""
+    authorName: "",
+    articlePk:""
   };
   render() {
     return (
@@ -31,8 +33,9 @@ class WholeArticlePage extends Component {
   }
   componentDidMount() {
     var token = localStorage.getItem("userToken");
+    this.setState({articlePk:this.props.match.params.id})
     axios
-      .get("http://8.209.81.242:8000/articles/5", {
+      .get("http://8.209.81.242:8000/articles/" + this.props.match.params.id, {
         headers: { Authorization: `Token ${token}` }
       })
       .then(res => {

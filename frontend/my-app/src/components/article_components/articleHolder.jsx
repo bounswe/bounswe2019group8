@@ -27,7 +27,7 @@ class ArticleHolder extends Component {
     return (
       <React.Fragment>
         <div className="container">
-          <Button className="write-article" onClick={this.postArticle}>
+          <Button href="/articlewrite" className="write-article" onClick={this.postArticle}>
             Write an article
           </Button>
           <div className="card-container">{finalList}</div>
