@@ -21,7 +21,7 @@ class GuestNavbar extends Component {
     localStorage.setItem("userType","null")
       return (
         <Navbar bg="dark" expand="lg">
-          <Navbar.Brand href="#" className="navBarSyles">
+          <Navbar.Brand href="/" className="navBarSyles">
           <img
             src={require("../images/MERCATUS-LOGO72DP.png")}
             height="50"
@@ -37,7 +37,7 @@ class GuestNavbar extends Component {
             <Nav className="mr-auto">
                 <Nav.Link href="#">Trading Equipment</Nav.Link>
                 <Nav.Link href="#">Events</Nav.Link>
-                <Nav.Link href="#">Articles</Nav.Link>
+                <Nav.Link href="/articles">Articles</Nav.Link>
             </Nav>
             <button
               id="loginStyles"

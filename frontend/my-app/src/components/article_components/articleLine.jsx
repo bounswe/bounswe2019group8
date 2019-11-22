@@ -8,7 +8,8 @@ class ArticleLine extends Component {
     return (
       <div>
         <ul className="articleLine">
-          {this.props.articles.map(article => (
+          {this.props.articles.map(function(article) {
+            return(
             <li>
               <ArticleCard
                 articleContent={article.content}
@@ -17,8 +18,8 @@ class ArticleLine extends Component {
                 articlePk={article.pk}
                 articleRate={article.rating}
               />
-            </li>
-          ))}
+            </li>)
+  })}
         </ul>
       </div>
     );

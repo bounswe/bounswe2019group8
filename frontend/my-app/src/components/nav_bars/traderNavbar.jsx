@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import "./traderNavbar.css";
-import ParityPage from "../parity_components/parity_page";
+
 import WriteArticlePage from "../article_components/writeArticlePage";
 import ArticleHolder from "../article_components/articleHolder";
 import WholeArticlePage from "../article_components/wholeArticlePage";
@@ -16,6 +16,7 @@ import {
 } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
+import Followings from "../profile_components/followings";
 
 class TraderNavbar extends Component {
   state = { credentials: {} };
@@ -24,7 +25,7 @@ class TraderNavbar extends Component {
     return (
       <div>
         <Navbar bg="dark" expand="lg">
-          <Navbar.Brand href="#" className="navBarSyles">
+          <Navbar.Brand href="/" className="navBarSyles">
             <img
               src={require("../images/MERCATUS-LOGO72DP.png")}
               height="50"
@@ -40,7 +41,7 @@ class TraderNavbar extends Component {
             <Nav className="mr-auto">
               <Nav.Link href="#">Trading Equipment</Nav.Link>
               <Nav.Link href="#">Events</Nav.Link>
-              <Nav.Link href="#">Articles</Nav.Link>
+              <Nav.Link href="/articles">Articles</Nav.Link>
             </Nav>
             <Form inline>
               <FormControl
@@ -88,12 +89,14 @@ class TraderNavbar extends Component {
             </Form>*/}
           </Navbar.Collapse>
         </Navbar>
-        <ArticleHolder />
+
       </div>
     );
   }
   profileClick = () => {
-    this.props.history.push("/profile");
+    this.props.history.push("/login");
+    this.props.history.push("/profile/" + localStorage.getItem("userId"));
+    
   };
   logoutClick = () => {
     localStorage.setItem("userId", null);

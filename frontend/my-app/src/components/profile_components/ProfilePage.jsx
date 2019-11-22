@@ -5,17 +5,17 @@ import {withRouter} from "react-router-dom";
 
 class ProfilePage extends React.Component {
   constructor(props){
-    super(props);
+    
+  super(props);
   this.state={
     id:this.props.match.params.id
   }
   }
-componentDidMount(){
-
-};
+  componentDidMount(){
+ 
+  }
   render() {
-    var checknull = null
-    checknull = localStorage.getItem("userId")
+  
     if(localStorage.getItem("userId")==="null"){
       return (
         <div>
@@ -46,4 +46,4 @@ componentDidMount(){
   }
 }
 
-export default ProfilePage;
+export default withRouter(ProfilePage);

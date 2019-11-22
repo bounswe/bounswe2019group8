@@ -30,6 +30,7 @@ class ArticleHolder extends Component {
     }
     return (
       <React.Fragment>
+
         <div className="container">
           <Button className="write-article" onClick={this.postArticle}>
             Write an article
@@ -59,6 +60,7 @@ class ArticleHolder extends Component {
       });
     //const listItems = this.state.gridOfArticles.map(line => <li>{line}</li>);
   }
+
 }
 
 export default ArticleHolder;
