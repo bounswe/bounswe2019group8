@@ -27,6 +27,7 @@ Finally, setup and initialize the database by running:
 python manage.py makemigrations nova
 python manage.py migrate
 python manage.py loaddata nova/fixtures/*.json
+python manage.py installtasks
 ``` 
 
 ## Running the Server
