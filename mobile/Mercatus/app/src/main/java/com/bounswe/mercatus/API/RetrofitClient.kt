@@ -41,6 +41,15 @@ interface ApiInterface {
         @Header("Authorization") token: String
     ): retrofit2.Call<ResponseBody>
 
+    // Update user request
+    @Headers("Content-Type: application/json")
+    @PUT("users/{user_id}")
+    fun updatePassword(
+        @Body userBody: UpdatePassword,
+        @Path("user_id") id: Long,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<ResponseBody>
+
     // Get users request
     @Headers("Content-Type: application/json")
     @GET("users")
