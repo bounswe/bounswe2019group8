@@ -90,11 +90,15 @@
                 android:orientation="horizontal">
 
             </LinearLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layContent"
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="start"
+                android:lineSpacingExtra="@dimen/line_spacing"
+                android:text="@string/comments"
+                android:textSize="16dip" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
