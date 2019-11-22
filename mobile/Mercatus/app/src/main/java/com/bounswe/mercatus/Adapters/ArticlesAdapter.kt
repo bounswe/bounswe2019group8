@@ -18,6 +18,7 @@ import com.bounswe.mercatus.Fragments.Articles.ShowArticleActivity
 import com.bounswe.mercatus.Fragments.User.ShowProfileActivity
 import com.bounswe.mercatus.Models.CreateCommentBody
 import com.bounswe.mercatus.Models.GetArticleBody
+import com.bounswe.mercatus.Models.LikerModel
 import com.bounswe.mercatus.Models.UserRes
 import com.bounswe.mercatus.R
 import com.google.android.material.textfield.TextInputEditText
@@ -100,7 +101,9 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
             // Write author to items
             getUser(position, author, itemView.author, itemView.editArticle, itemView.deleteArticle,
                 itemView.makeComment, itemView.commentSection, itemView.buttonMakeComment,
-                itemView.editComment, itemView.layComment, pk)
+                itemView.editComment, itemView.layComment, pk,
+                itemView.likeArticle, itemView.dislikeArticle,
+                itemView.likeArticleText, itemView.dislikeArticleText)
 
             this.currentArticle = GetArticleBody(author, title, content,rating, pk)
             this.currentPosition = position
@@ -116,11 +119,14 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
                         buttonMakeComment: ImageView,
                         editComment : TextInputEditText,
                         layComment : TextInputLayout,
-                        article_pk: Int){
+                        article_pk: Int,
+                        likeImg: Button, disImg: Button,
+                        likeArticleText: TextView, dislikeArticleText: TextView){
         val mercatus = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
 
         val res = context.getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
         val user_id = res.getString("user_id", "Data Not Found!")
+
         val tokenV = res.getString("token", "Data Not Found!")
 
         mercatus.getUser(pk, "Token " + tokenV.toString()).enqueue(object :
@@ -190,6 +196,8 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
                             }
                         }
                     }
+                    getLikes(article_pk, likeArticleText, likeImg, position)
+                    getDislikes(article_pk, dislikeArticleText , disImg, position, likeImg)
                 }
                 else  {
                     Toast.makeText(context, "Show profile failed.", Toast.LENGTH_SHORT)
@@ -235,6 +243,293 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
                 }
                 else  {
                     Toast.makeText(context, "Delete article failed.", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+        })
+    }
+
+    private fun likeArticle(pk: Int, position: Int, likeArticle: Button){
+        val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
+
+        val res = context.getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
+        val tokenV = res.getString("token", "Data Not Found!")
+
+        mer.likeArticle(pk, "Token " + tokenV.toString()).enqueue(object :
+            Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                if(t.cause is ConnectException){
+                    Toast.makeText(
+                        context,
+                        "Check your connection!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else{
+                    Toast.makeText(
+                        context,
+                        "Something bad happened!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if (response.code() == 200) {
+                    Toast.makeText(context, "Successfully liked!", Toast.LENGTH_SHORT)
+                        .show()
+
+                    if(position < articlesList.size){
+                        notifyItemChanged(position)
+                        notifyItemRangeChanged(position, itemCount)
+                        //likeArticle.setBackgroundResource(R.drawable.like)
+                    }
+                }
+                else if (response.code() == 400) {
+                    deleteLike(pk, position, likeArticle)
+                }
+                else  {
+                    Toast.makeText(context, "Like article failed.", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+        })
+    }
+
+    private fun deleteLike(pk: Int, position: Int, likeArticle: Button){
+        val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
+
+        val res = context.getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
+        val tokenV = res.getString("token", "Data Not Found!")
+
+        mer.deleteLikeArticle(pk, "Token " + tokenV.toString()).enqueue(object :
+            Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                if(t.cause is ConnectException){
+                    Toast.makeText(
+                        context,
+                        "Check your connection!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else{
+                    Toast.makeText(
+                        context,
+                        "Something bad happened!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if (response.code() == 200) {
+                    Toast.makeText(context, "Successfully liked revoked!", Toast.LENGTH_SHORT)
+                        .show()
+
+                    if(position < articlesList.size){
+                        notifyItemChanged(position)
+                        notifyItemRangeChanged(position, itemCount)
+                        likeArticle.setBackgroundResource(R.drawable.like_default)
+                    }
+                }
+                else  {
+                    Toast.makeText(context, "Like article failed.", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+        })
+    }
+
+    private fun getLikes(article_pk: Int, likeArticleText: TextView, likeArticle: Button, position: Int){
+        val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
+
+        val res = context.getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
+        val tokenV = res.getString("token", "Data Not Found!")
+        val user_id = res.getString("user_id", "Data Not Found!")
+
+        mer.getLikes(article_pk, "Token " + tokenV.toString()).enqueue(object :
+            Callback<List<LikerModel>> {
+            override fun onFailure(call: Call<List<LikerModel>>, t: Throwable) {
+                if(t.cause is ConnectException){
+                    Toast.makeText(
+                        context,
+                        "Check your connection!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else{
+                    Toast.makeText(
+                        context,
+                        "Something bad happened!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+            override fun onResponse(call: Call<List<LikerModel>>, response: Response<List<LikerModel>>) {
+                if (response.code() == 200) {
+
+                    val res: List<LikerModel>? = response.body()
+
+                    for(item in res.orEmpty()){
+                        if(user_id!!.toLong() == item.liker){
+                            if(item.choice == 1){
+                                likeArticle.setBackgroundResource(R.drawable.like)
+                            }
+                        }
+                    }
+                    if(res!!.isNotEmpty()){
+                        likeArticleText.text = res.size.toString()
+                    }
+
+                    likeArticle.setOnClickListener {
+                        likeArticle(article_pk, position, likeArticle)
+                    }
+                }
+                else  {
+                    Toast.makeText(context, "Like list fetch failed.", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+        })
+    }
+
+    private fun getDislikes(article_pk: Int, dislikeArticleText: TextView,
+                            dislikeArticle: Button, position: Int, likeButton: Button){
+        val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
+
+        val res = context.getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
+        val tokenV = res.getString("token", "Data Not Found!")
+        val user_id = res.getString("user_id", "Data Not Found!")
+
+        mer.getDislikes(article_pk, "Token " + tokenV.toString()).enqueue(object :
+            Callback<List<LikerModel>> {
+            override fun onFailure(call: Call<List<LikerModel>>, t: Throwable) {
+                if(t.cause is ConnectException){
+                    Toast.makeText(
+                        context,
+                        "Check your connection!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else{
+                    Toast.makeText(
+                        context,
+                        "Something bad happened!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+            override fun onResponse(call: Call<List<LikerModel>>, response: Response<List<LikerModel>>) {
+                if (response.code() == 200) {
+
+                    val resp: List<LikerModel>? = response.body()
+
+                    for(item in resp.orEmpty()){
+                        if(user_id!!.toLong() == item.liker){
+                            if(item.choice == -1){
+                                dislikeArticle.setBackgroundResource(R.drawable.dislike)
+                                //likeButton.isClickable = false
+                                //likeButton.isEnabled = false
+                            }
+                        }
+                    }
+                    if(resp!!.isNotEmpty()){
+                        dislikeArticleText.text = resp.size.toString()
+                    }
+
+                    dislikeArticle.setOnClickListener {
+                        //dislikeArticle.setBackgroundResource(R.drawable.dislike)
+                        dislikeArticle(article_pk, position, dislikeArticle)
+                    }
+                }
+                else  {
+                    Toast.makeText(context, "Like list fetch failed.", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+        })
+    }
+
+    private fun dislikeArticle(pk: Int, position: Int, dislikeArticle: Button){
+        val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
+
+        val res = context.getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
+        val tokenV = res.getString("token", "Data Not Found!")
+
+        mer.disLikeArticle(pk, "Token " + tokenV.toString()).enqueue(object :
+            Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                if(t.cause is ConnectException){
+                    Toast.makeText(
+                        context,
+                        "Check your connection!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else{
+                    Toast.makeText(
+                        context,
+                        "Something bad happened!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if (response.code() == 200) {
+                    Toast.makeText(context, "Successfully disliked!", Toast.LENGTH_SHORT)
+                        .show()
+
+                    if(position < articlesList.size){
+                        notifyItemChanged(position)
+                        notifyItemRangeChanged(position, itemCount)
+                    }
+                }
+                else if (response.code() == 400) {
+                    deleteDislike(pk, position, dislikeArticle)
+                }
+                else  {
+                    Toast.makeText(context, "Dislike article failed.", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+        })
+    }
+
+    private fun deleteDislike(pk: Int, position: Int, dislikeArticle: Button){
+        val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
+
+        val res = context.getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
+        val tokenV = res.getString("token", "Data Not Found!")
+
+        mer.deleteDislikeArticle(pk, "Token " + tokenV.toString()).enqueue(object :
+            Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                if(t.cause is ConnectException){
+                    Toast.makeText(
+                        context,
+                        "Check your connection!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else{
+                    Toast.makeText(
+                        context,
+                        "Something bad happened!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if (response.code() == 200) {
+                    Toast.makeText(context, "Successfully dislike revoked!", Toast.LENGTH_SHORT)
+                        .show()
+
+                    if(position < articlesList.size){
+                        notifyItemChanged(position)
+                        notifyItemRangeChanged(position, itemCount)
+                        dislikeArticle.setBackgroundResource(R.drawable.dis_default)
+                    }
+                }
+                else  {
+                    Toast.makeText(context, "Dislike article failed.", Toast.LENGTH_SHORT)
                         .show()
                 }
             }

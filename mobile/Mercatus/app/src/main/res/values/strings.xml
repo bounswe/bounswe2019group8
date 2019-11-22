@@ -65,8 +65,12 @@
     <string name="cre_content">Content:</string>
     <string name="write_article">What do you think?</string>
     <string name="comment">Comment</string>
+    <string name="comments">Comments:</string>
     <string name="create_article">Create Article</string>
     <string name="create_comment">Create Comment</string>
     <string name="article">Article</string>
     <string name="edit_article">Edit Article</string>
+
+    <string name="like">Like</string>
+    <string name="dislike">Dislike</string>
 </resources>
