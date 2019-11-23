@@ -1,4 +1,4 @@
-package com.bounswe.mercatus.Fragments.Articles
+package com.bounswe.mercatus.Fragments.TradingEqps
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

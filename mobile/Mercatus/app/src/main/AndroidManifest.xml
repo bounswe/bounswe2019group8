@@ -17,7 +17,7 @@
 
         </activity>
         <activity android:name=".Fragments.Articles.EditArticleActivity" />
-        <activity android:name=".Fragments.Articles.SearchEquipmentsActivity" />
+        <activity android:name=".Fragments.TradingEqps.SearchEquipmentsActivity" />
         <activity android:name=".Fragments.Articles.ShowArticleActivity" />
         <activity android:name=".Fragments.Articles.CreateArticleActivity" />
         <activity
@@ -41,12 +41,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Fragments.ModifyActivity">
+        <activity android:name=".Fragments.User.ModifyActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.ProfileFragment" />
         </activity>
-        <activity android:name=".Fragments.ModifyPasswordActivity">
+        <activity android:name=".Fragments.User.ModifyPasswordActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.ProfileFragment" />

@@ -34,13 +34,13 @@ class ShowForexActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_forex_show)
 
-        val actionBar = supportActionBar
-        actionBar!!.title = getString(R.string.forex)
-        actionBar.setDisplayHomeAsUpEnabled(true)
-
-
         val forexID = intent.getStringExtra("forex_id")
         val forexName = intent.getStringExtra("forex_name")
+
+        val actionBar = supportActionBar
+        actionBar!!.title = forexName
+        actionBar.setDisplayHomeAsUpEnabled(true)
+
 
         getUpVotes(forexID!!.toInt())
         getDownVotes(forexID!!.toInt())

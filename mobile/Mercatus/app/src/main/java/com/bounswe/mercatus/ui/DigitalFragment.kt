@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
 import com.bounswe.mercatus.Adapters.DigitalAdapter
-import com.bounswe.mercatus.Fragments.Articles.SearchEquipmentsActivity
+import com.bounswe.mercatus.Fragments.TradingEqps.SearchEquipmentsActivity
 import com.bounswe.mercatus.Models.ForexDataModel
 import com.bounswe.mercatus.Models.ForexShowBody
 import com.bounswe.mercatus.R

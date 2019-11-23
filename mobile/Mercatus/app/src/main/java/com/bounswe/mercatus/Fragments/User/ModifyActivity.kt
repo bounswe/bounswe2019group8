@@ -1,4 +1,4 @@
-package com.bounswe.mercatus.Fragments
+package com.bounswe.mercatus.Fragments.User
 
 import android.app.DatePickerDialog
 import android.content.Context
