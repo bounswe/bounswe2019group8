@@ -8,7 +8,7 @@ class TradingEqCommentCard extends Component {
      }
     render() { 
         return ( 
-            <div className="hey-div">
+            <div className="my-hey-div">
             <Card className="comment-card">
                 <Card.Body>
           <Card.Text>{this.props.commentContent}</Card.Text>

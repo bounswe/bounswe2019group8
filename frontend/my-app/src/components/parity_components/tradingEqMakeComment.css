@@ -1,0 +1,35 @@
+.my-form {
+    margin-left: 33.3%;
+    margin-right: 33.3%;
+    width: 90%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  .submit-comment-btn {
+    background-color: rgb(168, 184, 101);
+    margin-left: 33.3%;
+    margin-right: 33.3%;
+    width: 33.4%;
+    border-color: rgb(168, 184, 101);
+  }
+  .submit-comment-btn:hover {
+    background-color: rgb(168, 200, 101);
+    margin-left: 33.3%;
+    margin-right: 33.3%;
+    width: 100%;
+    border-color: rgb(168, 200, 101);
+  }
+  .comment-badge {
+    background-color: rgb(168, 184, 101);
+    font-size: 20px;
+    color: white;
+  }
+  .submit-comment-btn {
+    background-color: rgb(168, 184, 101);
+    
+    margin-right: 33.3%;
+    width: 100%;
+  }
+  

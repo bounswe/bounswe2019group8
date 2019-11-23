@@ -1,8 +1,7 @@
 .comment-card {
     width: 100%;
-    
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
   }
   .hey-div{
