@@ -1,10 +1,7 @@
 import { Line } from "react-chartjs-2";
 import React, { Component } from "react";
 import { Badge } from "react-bootstrap";
-
-
-
-
+import "./graph.css";
 
 class Graph extends Component {
   //displayName = "LineExample";
@@ -17,7 +14,7 @@ class Graph extends Component {
       labels: this.props.labels,
       datasets: [
         {
-          label: "USD/EUR",
+          label: this.props.name,
           fill: false, //works
           width: "10",
           height: "5",
@@ -43,9 +40,10 @@ class Graph extends Component {
     };
     return (
       <div className="col-md-6">
-        <Badge>USD/EUR</Badge>
+        <Badge className="graph-badge">{this.props.name}</Badge>
         <Line data={data} height={150} />
-        {console.log(this.props.labels)}
+        
+  
       </div>
     );
   }
