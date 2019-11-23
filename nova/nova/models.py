@@ -157,14 +157,16 @@ class CommentLikeDislike(LikeDislike):
 
 
 class Event(models.Model):
+    id = models.CharField(max_length=1000, primary_key=True)
+
     date = models.DateField()
-    time = models.CharField(max_length=10)
+    time = models.CharField(max_length=10, blank=True)
 
-    name = models.CharField(max_length=1000)
+    name = models.CharField(max_length=1000, blank=True)
 
-    country = models.CharField(max_length=100)
+    country = models.CharField(max_length=100, blank=True)
 
     importance = models.PositiveSmallIntegerField(choices=((1, 1), (2, 2), (3, 3)))
 
-    predicted = models.CharField(max_length=100)
-    value = models.CharField(max_length=100)
+    predicted = models.CharField(max_length=100, blank=True)
+    value = models.CharField(max_length=100, blank=True)
