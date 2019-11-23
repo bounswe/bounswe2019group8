@@ -7,6 +7,8 @@ import "./wholeArticlePage.css";
 import ArticleLikeButton from "./articleLikeButton";
 import ArticleDislikeButton from "./articleDislikeButton";
 import { withRouter } from "react-router-dom";
+import ArticleLike from "./articleLike";
+import ArticleDislike from "./articleDislike";
 
 class WholeArticlePage extends Component {
   state = {
@@ -14,7 +16,9 @@ class WholeArticlePage extends Component {
     articleContent: "",
     authorId: -1,
     authorName: "",
-    articlePk: ""
+    articlePk: "",
+    articleRanking :0,
+    likeState :0
   };
   render() {
     return (
@@ -30,12 +34,16 @@ class WholeArticlePage extends Component {
                 className="by-author-button"
               >
                 by {this.state.authorName}
+              
               </Button>
+              <ArticleLike makeLike={this.makeLike} makeNeutral={this.makeNeutral} likeState={this.state.likeState} articlePk = {this.state.articlePk}/>
+              <ArticleDislike makeDisslike={this.makeDisslike} makeNeutral={this.makeNeutral} likeState={this.state.likeState} articlePk = {this.state.articlePk}/>
+              <h2> Rating: {this.state.articleRanking} </h2>  
             </p>
           </Jumbotron>
         </div>
         <div className="second-div">
-          <ArticleMakeComment articlePk={this.state.articlePk} />
+          <ArticleMakeComment refresh={this.refreshPage} articlePk={this.state.articlePk} />
         </div>
         <div className="third-div">
           <ArticleCommentHolder articlePk={this.state.articlePk} />
@@ -54,6 +62,7 @@ class WholeArticlePage extends Component {
         this.setState({ articleTitle: res.data.title });
         this.setState({ articleContent: res.data.content });
         this.setState({ authorId: res.data.author });
+        this.setState({articleRanking: res.data.rating})
         axios
           .get("http://8.209.81.242:8000/users/" + res.data.author, {
             headers: { Authorization: `Token ${token}` }
@@ -65,27 +74,17 @@ class WholeArticlePage extends Component {
           });
       });
   }
-  componentDidMount() {
-    var token = localStorage.getItem("userToken");
-    this.setState({ articlePk: this.props.match.params.id });
-    axios
-      .get("http://8.209.81.242:8000/articles/" + this.props.match.params.id, {
-        headers: { Authorization: `Token ${token}` }
-      })
-      .then(res => {
-        this.setState({ articleTitle: res.data.title });
-        this.setState({ articleContent: res.data.content });
-        this.setState({ authorId: res.data.author });
-        axios
-          .get("http://8.209.81.242:8000/users/" + res.data.author, {
-            headers: { Authorization: `Token ${token}` }
-          })
-          .then(result => {
-            this.setState({
-              authorName: result.data.first_name + " " + result.data.last_name
-            });
-          });
-      });
+  refreshPage =() =>{
+    window.location.reload();
+  }
+  makeLike = () =>{
+    this.setState({likeState:1})
+  }
+  makeDisslike = () =>{
+    this.setState({likeState:2})
+  }
+  makeNeutral = () =>{
+    this.setState({likeState:0})
   }
 }
 

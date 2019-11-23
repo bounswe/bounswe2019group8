@@ -2,10 +2,12 @@ import React, { Component } from "react";
 import { Card, Button } from "react-bootstrap";
 import "./articleCommentCard.css";
 import axios from "axios";
-
+import CommentLike from "../joint_components/commentLike"
+import CommentDislike from "../joint_components/commentDislike"
 class ArticleCommentCard extends Component {
   state = {
-    authorName: ""
+    authorName: "",
+    likeState:0
   };
   render() {
     return (
@@ -15,6 +17,8 @@ class ArticleCommentCard extends Component {
           <Button href={"/profile/" + this.props.articleAuthorId}>
             by {this.state.authorName}
           </Button>
+          <CommentLike makeLike={this.makeLike} makeNeutral={this.makeNeutral} likeState={this.state.likeState} commentPk = {this.props.commentPk}/>
+          <CommentDislike makeDisslike={this.makeDisslike} makeNeutral={this.makeNeutral} likeState={this.state.likeState} commentPk = {this.props.commentPk}/>
         </Card.Body>
       </Card>
     );
@@ -30,6 +34,15 @@ class ArticleCommentCard extends Component {
         var authorName = res.data.first_name + " " + res.data.last_name;
       this.setState({authorName: authorName});
     });
+  }
+  makeLike = () =>{
+    this.setState({likeState:1})
+  }
+  makeDisslike = () =>{
+    this.setState({likeState:2})
+  }
+  makeNeutral = () =>{
+    this.setState({likeState:0})
   }
 }
 
