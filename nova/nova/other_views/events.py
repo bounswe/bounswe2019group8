@@ -24,6 +24,7 @@ from ..libs.parse_event_data import parse_event_data
 def events_coll(request, date):
     if request.method == 'GET':
         events = Event.objects.filter(date=date)
+
         serializer = EventSerializer(events, many=True)
 
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -44,7 +45,16 @@ def events_coll(request, date):
         }
         response = requests.request('POST', url, headers=headers, data=payload, allow_redirects=False)
 
-        data = json.loads(response.text)["data"]
+        events = parse_event_data(json.loads(response.text)["data"], date)
 
-        parse_event_data(data, date)
-        return Response(parse_event_data(data, date), status=status.HTTP_200_OK)
+        count = 0
+        for event in events:
+            if len(event["importance"]) == 0:
+                continue
+
+            serializer = EventSerializer(data=event)
+            if serializer.is_valid():
+                count += 1
+                serializer.save()
+
+        return Response({"new": count, "total": len(events)}, status=status.HTTP_200_OK)
