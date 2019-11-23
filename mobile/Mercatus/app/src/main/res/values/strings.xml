@@ -80,4 +80,6 @@
     <string name="low">Low</string>
 
     <string name="digital">Digital</string>
+    <string name="increase">Increase</string>
+    <string name="decrease">Decrease</string>
 </resources>

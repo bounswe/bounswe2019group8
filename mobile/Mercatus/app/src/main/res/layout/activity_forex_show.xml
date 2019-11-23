@@ -38,11 +38,65 @@
                 android:layout_height="match_parent" />
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:gravity="center"
+            android:weightSum="4">
+            <Button
+                android:id="@+id/increaseForex"
+                android:textColor="@color/colorAccent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/increase"
+                android:layout_weight="2"/>
+            <Button
+                android:id="@+id/decreaseForex"
+                android:textColor="@color/red"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/decrease"
+                android:layout_weight="2"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:gravity="center"
+            android:weightSum="4">
+            <TextView
+                android:id="@+id/upVoteText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:lineSpacingExtra="@dimen/line_spacing"
+                android:text="0 Votes"
+                android:textAlignment="center"
+                android:textSize="16dip" />
+            <TextView
+                android:id="@+id/downVoteText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:lineSpacingExtra="@dimen/line_spacing"
+                android:text="0 Votes"
+                android:textAlignment="center"
+                android:textSize="16dip" />
+        </LinearLayout>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
+            android:layout_marginStart="10dp"
             android:gravity="start"
             android:lineSpacingExtra="@dimen/line_spacing"
             android:text="@string/comments"
