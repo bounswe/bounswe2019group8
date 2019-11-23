@@ -83,7 +83,10 @@ class ShowForexActivity : AppCompatActivity() {
         }
 
         increaseForex.setOnClickListener {
-            makeUpVote(forexID)
+            makeUpVote(forexID!!.toInt())
+        }
+        decreaseForex.setOnClickListener {
+            makeDownVote(forexID!!.toInt())
         }
         getForexParity(forexID!!.toInt(), forexName!!)
         getComments(forexID!!.toInt(), commentsList, adapter)
@@ -250,11 +253,47 @@ class ShowForexActivity : AppCompatActivity() {
             }
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if (response.code() == 201) {
-                    Toast.makeText(this@ShowForexActivity, "Comment is added!", Toast.LENGTH_SHORT)
+                    Toast.makeText(this@ShowForexActivity, "Vote is added!", Toast.LENGTH_SHORT)
                         .show()
                 }
                 else  {
-                    Toast.makeText(this@ShowForexActivity, "Comment addition is failed.", Toast.LENGTH_SHORT)
+                    Toast.makeText(this@ShowForexActivity, "Vote addition is failed.", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+        })
+    }
+    private fun makeDownVote(forexID: Int){
+        val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
+
+        val res = getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
+        val tokenV = res?.getString("token", "Data Not Found!")
+
+        mer.makePredictionDown(forexID,"Token " + tokenV.toString()).enqueue(object :
+            Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                if(t.cause is ConnectException){
+                    Toast.makeText(
+                        this@ShowForexActivity,
+                        "Check your connection!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else{
+                    Toast.makeText(
+                        this@ShowForexActivity,
+                        "Something bad happened!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if (response.code() == 201) {
+                    Toast.makeText(this@ShowForexActivity, "Vote is added!", Toast.LENGTH_SHORT)
+                        .show()
+                }
+                else  {
+                    Toast.makeText(this@ShowForexActivity, "Vote addition is failed.", Toast.LENGTH_SHORT)
                         .show()
                 }
             }
