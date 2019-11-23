@@ -24,7 +24,6 @@ def parse_event_data(data, date):
     for match in re.finditer(r"<tr\s*id=\"eventRowId_(.*?)\".*?>.*?</tr>", data):
         row = match.group(0)
 
-        print(row)
         events.append({
             "id": match.group(1),
             "country": search_captured(r"title=\"(.*?)\"\s+class=\"ceFlags", row),
