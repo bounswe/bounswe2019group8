@@ -12,6 +12,7 @@ import Followings from "./components/profile_components/followings";
 import SearchResults from "./components/profile_components/searchResults";
 import ParityBadgeHolder from "./components/parity_components/parityBadgeHolder";
 import WriteArticlePageSummoner from "./components/article_components/writeArticlePageSummoner";
+import TradingEquipmentsPage from "./components/parity_components/tradingEquipmentsPage";
 
 class Home extends Component {
   state = {};
@@ -66,6 +67,7 @@ class Home extends Component {
             component={SearchResults}
           />
           <Route path="/articlewrite" component={WriteArticlePageSummoner} />
+          <Route path="/treq" component={TradingEquipmentsPage}/>
         </Switch>
         
       </React.Fragment>
