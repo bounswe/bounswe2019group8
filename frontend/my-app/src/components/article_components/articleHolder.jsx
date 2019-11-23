@@ -25,7 +25,7 @@ class ArticleHolder extends Component {
           >
             Write an article
           </Button>
-          <div className="card-container">{this.state.finalList}</div>
+          <div className="article-card-container">{this.state.finalList}</div>
         </div>
       </React.Fragment>
     );

@@ -16,7 +16,7 @@ class OthersArticles extends Component {
     return (
       <React.Fragment>
         <div className="container">
-          <div className="card-container">{this.state.finalList}</div>
+          <div className="article-card-container">{this.state.finalList}</div>
         </div>
       </React.Fragment>
     );

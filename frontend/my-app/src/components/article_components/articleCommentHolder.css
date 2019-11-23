@@ -11,5 +11,13 @@
   width: 33.4%;
   background-color: white;
 }
+.article-comment-card{
+  margin-left: 33.3%;
+  margin-right: 33.3%;
+  width: 33.4%;
+}
 .outer-div {
+}
+.my-outer-div{
+  width:60%;
 }

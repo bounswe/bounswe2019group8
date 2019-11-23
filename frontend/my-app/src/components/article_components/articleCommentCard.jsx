@@ -13,13 +13,24 @@ class ArticleCommentCard extends Component {
         <Card.Body>
           <Card.Text>{this.props.commentContent}</Card.Text>
           <Button href={"/profile/" + this.props.articleAuthorId}>
-            by {this.props.articleAuthorId}
+            by {this.state.authorName}
           </Button>
         </Card.Body>
       </Card>
     );
   }
-  componentWillMount() {}
+  componentWillMount() {
+    var token = localStorage.getItem("userToken");
+    var id = this.props.articleAuthorId;
+        axios
+    .get("http://8.209.81.242:8000/users/" + id, {
+      headers: { Authorization: `Token ${token}` }
+    })
+    .then(res => {
+        var authorName = res.data.first_name + " " + res.data.last_name;
+      this.setState({authorName: authorName});
+    });
+  }
 }
 
 export default ArticleCommentCard;

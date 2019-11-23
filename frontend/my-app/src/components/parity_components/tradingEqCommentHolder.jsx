@@ -19,10 +19,12 @@ class TradingEqCommentHolder extends Component {
           );
         }
         return (
-            <React.Fragment className="my-holder">
-                <MakeComment/>
+            <div className="my-holder">
+              <div >
+                <MakeComment pk={this.props.pk}/>
              {finalList}
-            </React.Fragment>
+             </div>
+            </div>
          );
     }
     componentWillMount() {

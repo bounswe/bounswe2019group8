@@ -32,7 +32,7 @@
   flex-direction: column;
   max-width: 80%;
 }
-.card-container {
+.article-card-container {
   display: flex;
   flex-wrap: wrap;
 }
