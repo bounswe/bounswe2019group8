@@ -276,6 +276,41 @@ interface ApiInterface {
     fun getDigital(
         @Header("Authorization") token: String
     ): retrofit2.Call<List<ForexDataModel>>
+
+    // Get comments for trading equipments
+    @Headers("Content-Type:application/json")
+    @GET("trading_equipments/{eqp_id}/comments")
+    fun getEqpComments(
+        @Path("eqp_id") fid: Int,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<List<CommentShowTradingBody>>
+
+    // Make a comment
+    @Headers("Content-Type:application/json")
+    @POST("trading_equipments/{eqp_id}/comments")
+    fun makeEqpComment(
+        @Body info: CreateCommentBody,
+        @Path("eqp_id") mid: Int,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<ResponseBody>
+
+    // Delete a comment
+    @Headers("Content-Type:application/json")
+    @DELETE("comments/{comment_id}")
+    fun deleteEqpComment(
+        @Path("comment_id") mid: Int,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<ResponseBody>
+
+    // Edit a comment
+    @Headers("Content-Type:application/json")
+    @PUT("comments/{comment_id}")
+    fun editEqpComment(
+        @Body info: CommentEditBody,
+        @Path("comment_id") mid: Int,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<ResponseBody>
+
 }
 class RetrofitInstance {
     companion object {

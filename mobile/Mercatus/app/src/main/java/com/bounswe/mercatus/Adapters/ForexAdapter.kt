@@ -11,7 +11,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
-import com.bounswe.mercatus.Fragments.TradingEqps.ForexShowActivity
+import com.bounswe.mercatus.Fragments.TradingEqps.ShowForexActivity
 import com.bounswe.mercatus.Models.ForexParityModel
 import com.bounswe.mercatus.Models.ForexShowBody
 import com.bounswe.mercatus.R
@@ -45,7 +45,7 @@ class ForexAdapter(val context : Context, val forexList: ArrayList<ForexShowBody
         init {
             itemView.forexLayout.setOnClickListener {
                 //When click forex of an article item, show forex in detail
-                val intent = Intent(context, ForexShowActivity::class.java)
+                val intent = Intent(context, ShowForexActivity::class.java)
                 intent.putExtra("forex_id", currentForexShowBody?.pk.toString())
                 intent.putExtra("forex_name", currentForexShowBody?.name.toString())
                 context.startActivity(intent)

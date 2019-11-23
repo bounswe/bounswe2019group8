@@ -70,8 +70,8 @@ class ForexFragment : Fragment() {
                     for(i in respo.orEmpty()){
                         forexItems.add(ForexShowBody(i.name, i.sym, i.pk))
                     }
-
-                    var adapter = ForexAdapter(root.context, forexItems)
+                    forexItems!!.sortedWith(compareBy(ForexShowBody::name))
+                    val adapter = ForexAdapter(root.context, forexItems)
                     rv.adapter = adapter
                     adapter.notifyDataSetChanged()
                 }
