@@ -1,6 +1,7 @@
 package com.bounswe.mercatus.ui
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,9 +13,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
 import com.bounswe.mercatus.Adapters.ForexAdapter
+import com.bounswe.mercatus.Fragments.Articles.SearchEquipmentsActivity
 import com.bounswe.mercatus.Models.ForexDataModel
 import com.bounswe.mercatus.Models.ForexShowBody
 import com.bounswe.mercatus.R
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -22,6 +25,7 @@ import java.net.ConnectException
 
 class ForexFragment : Fragment() {
     private lateinit var rv: RecyclerView
+    private lateinit var fab: FloatingActionButton
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,9 +35,16 @@ class ForexFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_forex, container, false)
 
         rv = root.findViewById(R.id.recyclerViewForex)
-
         rv.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
+
+        fab  = root.findViewById(R.id.searchTradingEqp)
+        fab.setOnClickListener { view ->
+            val intent = Intent(root.context, SearchEquipmentsActivity::class.java)
+            startActivity(intent)
+        }
+
         getForexItems(root)
+
         return root
     }
 
@@ -70,8 +81,8 @@ class ForexFragment : Fragment() {
                     for(i in respo.orEmpty()){
                         forexItems.add(ForexShowBody(i.name, i.sym, i.pk))
                     }
-                    forexItems.sortedWith(compareBy(ForexShowBody::name))
                     val adapter = ForexAdapter(root.context, forexItems)
+
                     rv.adapter = adapter
                     adapter.notifyDataSetChanged()
                 }

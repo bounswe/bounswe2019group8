@@ -42,7 +42,8 @@ class ShowForexActivity : AppCompatActivity() {
         val forexID = intent.getStringExtra("forex_id")
         val forexName = intent.getStringExtra("forex_name")
 
-
+        getUpVotes(forexID!!.toInt())
+        getDownVotes(forexID!!.toInt())
 
         val rv = findViewById<RecyclerView>(R.id.recyclerViewForex)
         rv.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
@@ -52,8 +53,6 @@ class ShowForexActivity : AppCompatActivity() {
         var adapter = CommentTradingAdapter(this@ShowForexActivity, commentsList)
         rv.adapter = adapter
 
-        getUpVotes(forexID!!.toInt(), adapter)
-        getDownVotes(forexID!!.toInt(), adapter)
 
         fabForex.setOnClickListener {
             val dialogBuilder = AlertDialog.Builder(this)
@@ -260,6 +259,7 @@ class ShowForexActivity : AppCompatActivity() {
                 if (response.code() == 200) {
                     Toast.makeText(this@ShowForexActivity, "Vote is added!", Toast.LENGTH_SHORT)
                         .show()
+                    recreate()
                 }
                 else if(response.code() == 400){
                     Toast.makeText(this@ShowForexActivity, "You have already voted for this equipment", Toast.LENGTH_SHORT)
@@ -300,6 +300,7 @@ class ShowForexActivity : AppCompatActivity() {
                 if (response.code() == 200) {
                     Toast.makeText(this@ShowForexActivity, "Vote is added!", Toast.LENGTH_SHORT)
                         .show()
+                    recreate()
                 }
                 else if(response.code() == 400){
                     Toast.makeText(this@ShowForexActivity, "You have already voted for this equipment", Toast.LENGTH_SHORT)
@@ -313,7 +314,7 @@ class ShowForexActivity : AppCompatActivity() {
         })
     }
 
-    private fun getUpVotes(eqp_id: Int, adapter: CommentTradingAdapter){
+    private fun getUpVotes(eqp_id: Int){
         val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
 
         val res = getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
@@ -344,7 +345,6 @@ class ShowForexActivity : AppCompatActivity() {
                         val upRes = resUp.size.toString() + " Votes"
                         upVoteText.text = upRes
                     }
-                    adapter.notifyDataSetChanged()
                 }
                 else  {
                     Toast.makeText(this@ShowForexActivity, "Get votes failed.", Toast.LENGTH_SHORT)
@@ -353,7 +353,7 @@ class ShowForexActivity : AppCompatActivity() {
             }
         })
     }
-    private fun getDownVotes(eqp_id: Int, adapter: CommentTradingAdapter){
+    private fun getDownVotes(eqp_id: Int){
         val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
 
         val res = getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
@@ -384,7 +384,6 @@ class ShowForexActivity : AppCompatActivity() {
                         val downRes = resDown.size.toString() + " Votes"
                         downVoteText.text = downRes
                     }
-                    adapter.notifyDataSetChanged()
                 }
                 else  {
                     Toast.makeText(this@ShowForexActivity, "Get votes failed.", Toast.LENGTH_SHORT)

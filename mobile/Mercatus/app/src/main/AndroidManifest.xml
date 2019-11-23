@@ -17,7 +17,7 @@
 
         </activity>
         <activity android:name=".Fragments.Articles.EditArticleActivity" />
-        <activity android:name=".Fragments.Articles.CreateCommentActivity" />
+        <activity android:name=".Fragments.Articles.SearchEquipmentsActivity" />
         <activity android:name=".Fragments.Articles.ShowArticleActivity" />
         <activity android:name=".Fragments.Articles.CreateArticleActivity" />
         <activity
