@@ -30,6 +30,12 @@
         tools:layout="@layout/fragment_forex" />
 
     <fragment
+        android:id="@+id/nav_digital"
+        android:name="com.bounswe.mercatus.ui.DigitalFragment"
+        android:label="@string/digital"
+        tools:layout="@layout/fragment_digital" />
+
+    <fragment
         android:id="@+id/nav_profile"
         android:name="com.bounswe.mercatus.ui.ProfileFragment"
         android:label="@string/menu_profile"

@@ -24,6 +24,10 @@
                 android:id="@+id/nav_forex"
                 android:icon="@drawable/ic_monetization_on_black_24dp"
                 android:title="@string/forex" />
+            <item
+                android:id="@+id/nav_digital"
+                android:icon="@drawable/ic_public_black_24dp"
+                android:title="@string/digital" />
         </menu>
     </item>
 
