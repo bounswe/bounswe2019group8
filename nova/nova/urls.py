@@ -1,6 +1,7 @@
 from django.urls import path
 
-from nova.other_views import article_view, trading_eq_view, comment_view, like_view, dislike_view, parity_view
+from nova.other_views import article_view, trading_eq_view, comment_view, like_view, dislike_view, parity_view, \
+    events as events_views
 from . import views
 
 urlpatterns = [
@@ -58,6 +59,9 @@ urlpatterns = [
     path('trading_equipments/<sym>/parities', parity_view.parities_sym_coll),
 
     path('trading_equipment_searches', trading_eq_view.tr_eq_searches),
+
+    # Events
+    path('events/<date>', events_views.events_coll),
 
     # TEMPORARY ENDPOINTS FOR TESTS
 
