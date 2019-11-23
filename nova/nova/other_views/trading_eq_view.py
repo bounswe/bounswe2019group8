@@ -7,7 +7,7 @@ from rest_framework.exceptions import NotFound
 from rest_framework.response import Response
 
 from ..av import fill_parities
-from ..models import TradingEquipment, Parity, Prediction
+from ..models import TradingEquipment, Parity, Prediction, CurrentPrice
 from ..serializers import TradingEquipmentSerializer, ParitySerializer, PredictionSerializer
 from ..settings import FX_CURRENCY_LIST, DIG_CURRENCY_LIST, AV_EXCLUDE
 
@@ -142,6 +142,9 @@ def tr_eq_searches(request):
 
 @api_view(['GET'])
 def init_eqs(request):
+    TradingEquipment.objects.all().delete()
+    Parity.objects.all().delete()
+    CurrentPrice.objects.all().delete()
     for from_cur in FX_CURRENCY_LIST:
         for to_cur in FX_CURRENCY_LIST:
             if from_cur != to_cur:
@@ -186,6 +189,6 @@ def cnt(request):
     tr_eqs = TradingEquipment.objects.all()
     count = 0
     for eq in tr_eqs:
-        if eq.last_updated is None:
+        if eq.last_updated_daily is None or eq.last_updated_current is None:
             count += 1
     return Response(count, status.HTTP_200_OK)

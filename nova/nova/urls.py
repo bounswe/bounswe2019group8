@@ -57,6 +57,10 @@ urlpatterns = [
 
     path('trading_equipments/<sym>/parities', parity_view.parities_sym_coll),
 
+    path('trading_equipments/<int:pk>/current_prices', parity_view.current_price_coll),
+
+    path('trading_equipments/<sym>/current_prices', parity_view.current_price_sym_coll),
+
     path('trading_equipment_searches', trading_eq_view.tr_eq_searches),
 
     # TEMPORARY ENDPOINTS FOR TESTS

@@ -4,8 +4,8 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.exceptions import NotFound
 from rest_framework.response import Response
 
-from ..models import TradingEquipment, Parity
-from ..serializers import ParitySerializer
+from ..models import TradingEquipment, Parity, CurrentPrice
+from ..serializers import ParitySerializer, CurrentPriceSerializer
 
 
 @api_view(['GET'])
@@ -31,4 +31,28 @@ def parities_sym_coll(request, sym):
 
     parities = Parity.objects.filter(tr_eq=tr_eq)
     serializer = ParitySerializer(parities, many=True)
+    return Response(serializer.data, status.HTTP_200_OK)
+
+@api_view(['GET'])
+@permission_classes((permissions.IsAuthenticated, ))
+def current_price_coll(request, pk):
+    try:
+        tr_eq = TradingEquipment.objects.get(pk=pk)
+    except TradingEquipment.DoesNotExist:
+        raise NotFound()
+
+    current_prices = CurrentPrice.objects.filter(tr_eq=tr_eq)
+    serializer = CurrentPriceSerializer(current_prices, many=True)
+    return Response(serializer.data, status.HTTP_200_OK)
+
+@api_view(['GET'])
+@permission_classes((permissions.IsAuthenticated, ))
+def current_price_sym_coll(request, sym):
+    try:
+        tr_eq = TradingEquipment.objects.get(sym=sym)
+    except TradingEquipment.DoesNotExist:
+        raise NotFound()
+
+    current_prices = CurrentPrice.objects.filter(tr_eq=tr_eq)
+    serializer = CurrentPriceSerializer(current_prices, many=True)
     return Response(serializer.data, status.HTTP_200_OK)
