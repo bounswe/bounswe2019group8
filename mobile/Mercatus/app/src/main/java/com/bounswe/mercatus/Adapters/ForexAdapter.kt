@@ -1,6 +1,7 @@
 package com.bounswe.mercatus.Adapters
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
+import com.bounswe.mercatus.Fragments.TradingEqps.ShowForexActivity
 import com.bounswe.mercatus.Models.ForexParityModel
 import com.bounswe.mercatus.Models.ForexShowBody
 import com.bounswe.mercatus.R
@@ -42,7 +44,11 @@ class ForexAdapter(val context : Context, val forexList: ArrayList<ForexShowBody
         var currentPosition : Int = 0
         init {
             itemView.forexLayout.setOnClickListener {
-
+                //When click forex of an article item, show forex in detail
+                val intent = Intent(context, ShowForexActivity::class.java)
+                intent.putExtra("forex_id", currentForexShowBody?.pk.toString())
+                intent.putExtra("forex_name", currentForexShowBody?.name.toString())
+                context.startActivity(intent)
             }
         }
 
@@ -92,7 +98,6 @@ class ForexAdapter(val context : Context, val forexList: ArrayList<ForexShowBody
                             situationForex.setImageResource(R.drawable.ic_decrease)
                         }
                     }
-
                 }
                 else  {
                     Toast.makeText(context, "Show forex failed.", Toast.LENGTH_SHORT)

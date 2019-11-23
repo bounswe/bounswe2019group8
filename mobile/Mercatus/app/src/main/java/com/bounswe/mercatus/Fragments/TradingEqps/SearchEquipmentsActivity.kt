@@ -1,18 +1,20 @@
-package com.bounswe.mercatus.Fragments.Articles
+package com.bounswe.mercatus.Fragments.TradingEqps
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.bounswe.mercatus.R
 
-class CreateCommentActivity : AppCompatActivity() {
+class SearchEquipmentsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_create_comment)
+        setContentView(R.layout.activity_search_equipments)
         // Create go back button on toolbar
         val actionBar = supportActionBar
-        actionBar!!.title = getString(R.string.create_comment)
+        actionBar!!.title = getString(R.string.search_title)
         actionBar.setDisplayHomeAsUpEnabled(true)
+
+        //TODO Implement search for trading equipments
     }
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()

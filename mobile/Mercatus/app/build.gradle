@@ -52,7 +52,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.0.0'
     implementation 'androidx.navigation:navigation-ui-ktx:2.0.0'
 
-    implementation 'ir.farshid_roohi:linegraph:0.1.1'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     implementation 'at.blogc:expandabletextview:1.0.5'
 
     testImplementation 'junit:junit:4.12'

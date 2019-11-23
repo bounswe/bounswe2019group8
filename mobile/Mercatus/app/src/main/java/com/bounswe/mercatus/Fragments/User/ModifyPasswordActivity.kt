@@ -1,28 +1,19 @@
-package com.bounswe.mercatus.Fragments
+package com.bounswe.mercatus.Fragments.User
 
-import android.app.DatePickerDialog
 import android.content.Context
 import android.os.Bundle
-import android.util.Patterns
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
 import com.bounswe.mercatus.Models.UpdatePassword
-import com.bounswe.mercatus.Models.UpdateUserBody
-import com.bounswe.mercatus.Models.UserRes
 import com.bounswe.mercatus.R
-import com.google.android.material.textfield.TextInputEditText
-import kotlinx.android.synthetic.main.activity_modify.isTrader
-import kotlinx.android.synthetic.main.activity_trader_user.*
 import kotlinx.android.synthetic.main.change_password.*
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.net.ConnectException
-import java.util.*
 
 
 class ModifyPasswordActivity : AppCompatActivity() {

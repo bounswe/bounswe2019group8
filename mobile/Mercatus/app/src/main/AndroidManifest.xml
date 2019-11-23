@@ -13,18 +13,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Fragments.Articles.EditArticleActivity"></activity>
-        <activity android:name=".Fragments.Articles.CreateCommentActivity" />
+        <activity android:name=".Fragments.TradingEqps.ShowForexActivity">
+
+        </activity>
+        <activity android:name=".Fragments.Articles.EditArticleActivity" />
+        <activity android:name=".Fragments.TradingEqps.SearchEquipmentsActivity" />
         <activity android:name=".Fragments.Articles.ShowArticleActivity" />
         <activity android:name=".Fragments.Articles.CreateArticleActivity" />
         <activity
-            android:name=".Fragments.Entrance.TradingActivity"
+            android:name=".Fragments.TradingActivity"
             android:label="@string/title_activity_trading"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".Fragments.User.FollowersActivity"/>
-        <activity
-            android:name=".Fragments.User.FollowingsActivity" />
+        <activity android:name=".Fragments.User.FollowersActivity" />
+        <activity android:name=".Fragments.User.FollowingsActivity" />
         <activity
             android:name=".Fragments.Entrance.ChooseActivity"
             android:label="@string/title_activity_choose"
@@ -40,24 +41,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Fragments.ModifyActivity">
+        <activity android:name=".Fragments.User.ModifyActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.ProfileFragment" />
         </activity>
-        <activity android:name=".Fragments.ModifyPasswordActivity">
+        <activity android:name=".Fragments.User.ModifyPasswordActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.ProfileFragment" />
         </activity>
         <activity android:name=".Fragments.Entrance.TraderUserActivity" />
-
         <activity android:name=".Fragments.SearchActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Fragments.SearchActivity" />
         </activity>
-
         <activity android:name=".ui.ProfileFragment">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

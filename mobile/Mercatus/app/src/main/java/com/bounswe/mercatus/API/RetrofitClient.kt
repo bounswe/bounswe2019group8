@@ -276,6 +276,72 @@ interface ApiInterface {
     fun getDigital(
         @Header("Authorization") token: String
     ): retrofit2.Call<List<ForexDataModel>>
+
+    // Get comments for trading equipments
+    @Headers("Content-Type:application/json")
+    @GET("trading_equipments/{eqp_id}/comments")
+    fun getEqpComments(
+        @Path("eqp_id") fid: Int,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<List<CommentShowTradingBody>>
+
+    // Make trading equipment comment
+    @Headers("Content-Type:application/json")
+    @POST("trading_equipments/{eqp_id}/comments")
+    fun makeEqpComment(
+        @Body info: CreateCommentBody,
+        @Path("eqp_id") mid: Int,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<ResponseBody>
+
+    // Delete trading equipment comment
+    @Headers("Content-Type:application/json")
+    @DELETE("comments/{comment_id}")
+    fun deleteEqpComment(
+        @Path("comment_id") mid: Int,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<ResponseBody>
+
+    // Edit trading equipment comment
+    @Headers("Content-Type:application/json")
+    @PUT("comments/{comment_id}")
+    fun editEqpComment(
+        @Body info: CommentEditBody,
+        @Path("comment_id") mid: Int,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<ResponseBody>
+
+    // Make up prediction
+    @Headers("Content-Type:application/json")
+    @POST("trading_equipments/{eqp_id}/predictions/upvotes")
+    fun makePredictionUp(
+        @Path("eqp_id") mid: Int,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<ResponseBody>
+
+    // Make down prediction
+    @Headers("Content-Type:application/json")
+    @POST("trading_equipments/{eqp_id}/predictions/downvotes")
+    fun makePredictionDown(
+        @Path("eqp_id") mid: Int,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<ResponseBody>
+
+    // Get up prediction list for trading equipments
+    @Headers("Content-Type:application/json")
+    @GET("trading_equipments/{eqp_id}/predictions/upvotes")
+    fun getUpVotes(
+        @Path("eqp_id") fid: Int,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<List<PredictionModel>>
+
+    // Get down prediction list for trading equipments
+    @Headers("Content-Type:application/json")
+    @GET("trading_equipments/{eqp_id}/predictions/downvotes")
+    fun getDownVotes(
+        @Path("eqp_id") fid: Int,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<List<PredictionModel>>
 }
 class RetrofitInstance {
     companion object {

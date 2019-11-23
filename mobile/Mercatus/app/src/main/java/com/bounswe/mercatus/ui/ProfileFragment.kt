@@ -13,8 +13,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
-import com.bounswe.mercatus.Fragments.ModifyActivity
-import com.bounswe.mercatus.Fragments.ModifyPasswordActivity
+import com.bounswe.mercatus.Fragments.User.ModifyActivity
+import com.bounswe.mercatus.Fragments.User.ModifyPasswordActivity
 import com.bounswe.mercatus.Fragments.User.FollowersActivity
 import com.bounswe.mercatus.Fragments.User.FollowingsActivity
 import com.bounswe.mercatus.Models.UserRes
