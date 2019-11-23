@@ -269,6 +269,13 @@ interface ApiInterface {
         @Path("forex_id") fid: Int,
         @Header("Authorization") token: String
     ): retrofit2.Call<List<ForexParityModel>>
+
+    // Get digital items
+    @Headers("Content-Type:application/json")
+    @GET("trading_equipments/digital")
+    fun getDigital(
+        @Header("Authorization") token: String
+    ): retrofit2.Call<List<ForexDataModel>>
 }
 class RetrofitInstance {
     companion object {
