@@ -7,17 +7,10 @@
     padding-top: 10px;
     padding-bottom: 10px;
   }
-  .submit-comment-btn {
-    background-color: rgb(168, 184, 101);
-    margin-left: 33.3%;
-    margin-right: 33.3%;
-    width: 33.4%;
-    border-color: rgb(168, 184, 101);
-  }
+
   .submit-comment-btn:hover {
     background-color: rgb(168, 200, 101);
-    margin-left: 33.3%;
-    margin-right: 33.3%;
+    margin-left: -1px;
     width: 100%;
     border-color: rgb(168, 200, 101);
   }
@@ -28,8 +21,7 @@
   }
   .submit-comment-btn {
     background-color: rgb(168, 184, 101);
-    
-    margin-right: 33.3%;
+    margin-left: -1px;
     width: 100%;
   }
   

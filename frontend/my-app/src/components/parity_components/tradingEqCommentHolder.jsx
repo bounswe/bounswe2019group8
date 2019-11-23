@@ -21,7 +21,7 @@ class TradingEqCommentHolder extends Component {
         return (
             <div className="my-holder">
               <div >
-                <MakeComment/>
+                <MakeComment pk={this.props.pk}/>
              {finalList}
              </div>
             </div>

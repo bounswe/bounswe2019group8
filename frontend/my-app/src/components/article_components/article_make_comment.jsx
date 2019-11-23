@@ -48,7 +48,7 @@ class ArticleMakeComment extends Component {
   render() {
     return (
       <div>
-        <div className="my-form">
+        <div className="my-article-form">
           <form onSubmit={this.handleSubmit}>
             <FormGroup controlId="title" size="large">
               <FormLabel>

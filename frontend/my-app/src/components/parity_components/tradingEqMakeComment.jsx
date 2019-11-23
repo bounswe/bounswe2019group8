@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from "axios";
 import {
     FormGroup,
     FormControl,
@@ -8,7 +9,40 @@ import {
   } from "react-bootstrap";
   import "./tradingEqMakeComment.css";
 class TradingEqMakeComment extends Component {
-    state = {  }
+    constructor() {
+        super();
+        this.state = {
+          comment: ""
+        };
+      }
+      changeHandler = event => {
+        this.setState({
+          comment: event.target.value
+        });
+      };
+      handleSubmit = event => {
+        event.preventDefault();
+    
+        var token = localStorage.getItem("userToken");
+        var data = {
+          content: this.state.comment
+        };
+        axios
+          .post(
+            "http://8.209.81.242:8000/trading_equipments/" +
+              this.props.pk +
+              "/comments",
+            data,
+            {
+              headers: { Authorization: `Token ${token}` }
+            }
+          )
+          .then(function(response) {});
+          //this.props.history.push("/followers" ); 
+          //this.props.history.push("/articles/" + this.props.articlePk);
+        
+          //this.props.history.push("/articles/" + this.props.articlePk);
+      };
     render() { 
         return ( 
             <div>
