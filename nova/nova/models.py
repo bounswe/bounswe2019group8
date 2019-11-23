@@ -39,7 +39,7 @@ class Article(models.Model):
 
     title = models.CharField(max_length=100)
 
-    content = models.CharField(max_length=3000)
+    content = models.TextField()
 
     rating = models.FloatField(blank=True, default=0)
 
@@ -69,7 +69,7 @@ class Comment(models.Model):
 
     author = models.ForeignKey('User', on_delete=models.CASCADE)
 
-    content = models.CharField(max_length=300)
+    content = models.TextField()
 
     REQUIRED_FIELDS = ['created_at', 'author', 'content']
 
