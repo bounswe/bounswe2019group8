@@ -154,3 +154,17 @@ class ArticleLikeDislike(LikeDislike):
 
 class CommentLikeDislike(LikeDislike):
     comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
+
+
+class Event(models.Model):
+    date = models.DateField()
+    time = models.CharField(max_length=10)
+
+    name = models.CharField(max_length=1000)
+
+    country = models.CharField(max_length=100)
+
+    importance = models.PositiveSmallIntegerField(choices=((1, 1), (2, 2), (3, 3)))
+
+    predicted = models.CharField(max_length=100)
+    value = models.CharField(max_length=100)
