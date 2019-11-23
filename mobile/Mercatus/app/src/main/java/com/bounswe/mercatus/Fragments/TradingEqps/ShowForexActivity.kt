@@ -14,6 +14,7 @@ import com.bounswe.mercatus.Adapters.CommentTradingAdapter
 import com.bounswe.mercatus.Models.CommentShowTradingBody
 import com.bounswe.mercatus.Models.CreateCommentBody
 import com.bounswe.mercatus.Models.ForexParityModel
+import com.bounswe.mercatus.Models.PredictionModel
 import com.bounswe.mercatus.R
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.data.Entry
@@ -41,6 +42,8 @@ class ShowForexActivity : AppCompatActivity() {
         val forexID = intent.getStringExtra("forex_id")
         val forexName = intent.getStringExtra("forex_name")
 
+
+
         val rv = findViewById<RecyclerView>(R.id.recyclerViewForex)
         rv.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 
@@ -49,6 +52,8 @@ class ShowForexActivity : AppCompatActivity() {
         var adapter = CommentTradingAdapter(this@ShowForexActivity, commentsList)
         rv.adapter = adapter
 
+        getUpVotes(forexID!!.toInt(), adapter)
+        getDownVotes(forexID!!.toInt(), adapter)
 
         fabForex.setOnClickListener {
             val dialogBuilder = AlertDialog.Builder(this)
@@ -252,8 +257,12 @@ class ShowForexActivity : AppCompatActivity() {
                 }
             }
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                if (response.code() == 201) {
+                if (response.code() == 200) {
                     Toast.makeText(this@ShowForexActivity, "Vote is added!", Toast.LENGTH_SHORT)
+                        .show()
+                }
+                else if(response.code() == 400){
+                    Toast.makeText(this@ShowForexActivity, "You have already voted for this equipment", Toast.LENGTH_SHORT)
                         .show()
                 }
                 else  {
@@ -288,12 +297,97 @@ class ShowForexActivity : AppCompatActivity() {
                 }
             }
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                if (response.code() == 201) {
+                if (response.code() == 200) {
                     Toast.makeText(this@ShowForexActivity, "Vote is added!", Toast.LENGTH_SHORT)
+                        .show()
+                }
+                else if(response.code() == 400){
+                    Toast.makeText(this@ShowForexActivity, "You have already voted for this equipment", Toast.LENGTH_SHORT)
                         .show()
                 }
                 else  {
                     Toast.makeText(this@ShowForexActivity, "Vote addition is failed.", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+        })
+    }
+
+    private fun getUpVotes(eqp_id: Int, adapter: CommentTradingAdapter){
+        val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
+
+        val res = getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
+        val tokenV = res?.getString("token", "Data Not Found!")
+
+        mer.getUpVotes(eqp_id,"Token " + tokenV.toString()).enqueue(object :
+            Callback<List<PredictionModel>> {
+            override fun onFailure(call: Call<List<PredictionModel>>, t: Throwable) {
+                if(t.cause is ConnectException){
+                    Toast.makeText(
+                        this@ShowForexActivity,
+                        "Check your connection!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else{
+                    Toast.makeText(
+                        this@ShowForexActivity,
+                        t.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+            override fun onResponse(call: Call<List<PredictionModel>>, response: Response<List<PredictionModel>>) {
+                if (response.code() == 200) {
+                    val resUp: List<PredictionModel>? = response.body()
+                    if(resUp!!.isNotEmpty()){
+                        val upRes = resUp.size.toString() + " Votes"
+                        upVoteText.text = upRes
+                    }
+                    adapter.notifyDataSetChanged()
+                }
+                else  {
+                    Toast.makeText(this@ShowForexActivity, "Get votes failed.", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+        })
+    }
+    private fun getDownVotes(eqp_id: Int, adapter: CommentTradingAdapter){
+        val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
+
+        val res = getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
+        val tokenV = res?.getString("token", "Data Not Found!")
+
+        mer.getDownVotes(eqp_id,"Token " + tokenV.toString()).enqueue(object :
+            Callback<List<PredictionModel>> {
+            override fun onFailure(call: Call<List<PredictionModel>>, t: Throwable) {
+                if(t.cause is ConnectException){
+                    Toast.makeText(
+                        this@ShowForexActivity,
+                        "Check your connection!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else{
+                    Toast.makeText(
+                        this@ShowForexActivity,
+                        t.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+            override fun onResponse(call: Call<List<PredictionModel>>, response: Response<List<PredictionModel>>) {
+                if (response.code() == 200) {
+                    val resDown: List<PredictionModel>? = response.body()
+                    if(resDown!!.isNotEmpty()){
+                        val downRes = resDown.size.toString() + " Votes"
+                        downVoteText.text = downRes
+                    }
+                    adapter.notifyDataSetChanged()
+                }
+                else  {
+                    Toast.makeText(this@ShowForexActivity, "Get votes failed.", Toast.LENGTH_SHORT)
                         .show()
                 }
             }
