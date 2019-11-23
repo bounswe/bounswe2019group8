@@ -174,4 +174,4 @@ class EventSerializer(NovaSerializer):
     class Meta:
         model = Event
 
-        create_only_fields = ['date', 'time', 'name', 'country', 'currency', 'importance', 'value']
+        fields = create_only_fields = ['id', 'date', 'time', 'name', 'country', 'importance', 'value']
