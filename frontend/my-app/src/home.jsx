@@ -13,7 +13,11 @@ import SearchResults from "./components/profile_components/searchResults";
 import ParityBadgeHolder from "./components/parity_components/parityBadgeHolder";
 import WriteArticlePageSummoner from "./components/article_components/writeArticlePageSummoner";
 import TradingEquipmentsPage from "./components/parity_components/tradingEquipmentsPage";
+import Followers from "./components/profile_components/followers";
+import OthersArticles from "./components/profile_components/othersArticles";
+
 import GraphPage from "./components/parity_components/graphPage";
+
 class Home extends Component {
   state = {};
   putParities(){
@@ -40,16 +44,23 @@ class Home extends Component {
           />
           <Route
             exact
+            path="/profile/:id/articles"
+            exact
+            key={Math.random() * 973}
+            component={OthersArticles}
+          />
+          <Route
+            exact
             path="/articles"
             exact
-            key={Math.random() * 100}
+            key={Math.random() * 8123}
             component={ArticleHolder}
           />
           <Route
             exact
             path="/articles/:id"
             exact
-            key={Math.random() * 10}
+            key={Math.random() * 1001231}
             component={WholeArticlePage}
           />
           <Route
@@ -58,6 +69,13 @@ class Home extends Component {
             exact
             key={Math.random() * 1000}
             component={Followings}
+          />
+           <Route
+            exact
+            path="/followers"
+            exact
+            key={Math.random() * 88}
+            component={Followers}
           />
           <Route
             exact

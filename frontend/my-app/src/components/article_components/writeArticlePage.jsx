@@ -39,7 +39,9 @@ export default function WriteArticlePage(submitClicked, ...props) {
       })
       .then(function(response) {
         console.log(response);
+        window.location.reload();
       });
+     
   }
   return (
     <div className="field-container">
@@ -74,6 +76,7 @@ export default function WriteArticlePage(submitClicked, ...props) {
           size="large"
           isLoading={isLoading}
           disabled={!validateForm()}
+          
         >
           Submit Article
         </Button>

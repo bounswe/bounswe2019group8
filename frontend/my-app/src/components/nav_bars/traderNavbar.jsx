@@ -18,8 +18,12 @@ import axios from "axios";
 import Followings from "../profile_components/followings";
 
 class TraderNavbar extends Component {
-  state = { credentials: {} };
-
+  state = { credentials: {} , searchText:""};
+  changeHandler = event => {
+    this.setState({
+     searchText: event.target.value
+    });
+  };
   render() {
     return (
       <div>
@@ -45,10 +49,12 @@ class TraderNavbar extends Component {
             <Form inline>
               <FormControl
                 type="text"
+                value = {this.state.searchText}
                 placeholder="Search"
                 className="mr-sm-2"
+                onChange={this.changeHandler}
               />
-              <Button variant="outline-success">Search</Button>
+              <Button href={"/search/"+this.state.searchText} variant="outline-success">Search</Button>
             </Form>
             <NavDropdown
               title={
@@ -60,6 +66,9 @@ class TraderNavbar extends Component {
             >
               <NavDropdown.Item href="#" onClick={() => this.profileClick()}>
                 Profile
+              </NavDropdown.Item>
+              <NavDropdown.Item href="#" onClick={() => this.articleClick()}>
+                Articles
               </NavDropdown.Item>
               <NavDropdown.Item href="#">Settings</NavDropdown.Item>
               <NavDropdown.Item href="#">Portfolio</NavDropdown.Item>
@@ -95,6 +104,10 @@ class TraderNavbar extends Component {
     this.props.history.push("/login");
     this.props.history.push("/profile/" + localStorage.getItem("userId"));
   };
+  articleClick = () =>{
+    this.props.history.push("/login");
+    this.props.history.push("/profile/" + localStorage.getItem("userId")+"/articles");
+  }
   logoutClick = () => {
     localStorage.setItem("userId", null);
     localStorage.setItem("userToken", null);
@@ -133,10 +146,7 @@ class TraderNavbar extends Component {
         credentials.userGroup = res.data.groups[0];
         this.setState({ credentials: credentials });
       });
-    axios.get("http://8.209.81.242:8000/articles").then(res => {
-      var articleList = res.data;
-      localStorage.setItem("articleList", JSON.stringify(articleList));
-    });
+  
     axios.get("http://8.209.81.242:8000/trading_equipments").then(res => {
       var equipmentList = res.data;
       localStorage.setItem("equipmentList", JSON.stringify(equipmentList));

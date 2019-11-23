@@ -3,6 +3,7 @@ import { Badge } from "react-bootstrap";
 import axios from "axios";
 import ArticleCommentCard from "./articleCommentCard";
 import "./articleCommentHolder.css";
+import {withRouter} from "react-router-dom"
 class ArticleCommentHolder extends Component {
   state = {
     comments: []
@@ -10,6 +11,7 @@ class ArticleCommentHolder extends Component {
   render() {
     let articleList = this.state.comments;
     let finalList = [];
+    this.componentWillMount();
     for (var i = 0; i < articleList.length; i++) {
       finalList.push(
         <ArticleCommentCard
@@ -51,4 +53,4 @@ class ArticleCommentHolder extends Component {
   }
 }
 
-export default ArticleCommentHolder;
+export default withRouter(ArticleCommentHolder);
