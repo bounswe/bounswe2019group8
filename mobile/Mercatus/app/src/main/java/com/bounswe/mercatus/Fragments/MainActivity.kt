@@ -41,6 +41,7 @@ class MainActivity : AppCompatActivity(){
                 R.id.nav_home,
                 R.id.nav_articles,
                 R.id.nav_events,
+                R.id.nav_forex,
                 R.id.nav_profile,
                 R.id.nav_profit
             ), drawerLayout

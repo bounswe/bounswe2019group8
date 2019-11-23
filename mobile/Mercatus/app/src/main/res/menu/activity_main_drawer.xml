@@ -18,6 +18,15 @@
             android:title="@string/menu_events" />
     </group>
 
+    <item android:title="@string/trading">
+        <menu>
+            <item
+                android:id="@+id/nav_forex"
+                android:icon="@drawable/ic_monetization_on_black_24dp"
+                android:title="@string/forex" />
+        </menu>
+    </item>
+
     <item android:title="@string/user">
         <menu>
             <item
