@@ -41,6 +41,7 @@ export default function Login({ loginSuccess, ...props }) {
             headers: { Authorization: `Token ${response.data.token}` }
           })
           .then(res => {
+            
             localStorage.setItem("userGroup", res.data.groups[0])
             loginSuccess();
           });
