@@ -82,4 +82,8 @@ class ForexFragment : Fragment() {
             }
         })
     }
+    override fun onStart() {
+        getForexItems(super.getView()!!)
+        super.onStart()
+    }
 }
