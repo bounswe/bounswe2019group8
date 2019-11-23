@@ -40,7 +40,9 @@ class ArticleMakeComment extends Component {
         }
       )
       .then(function(response) {});
-      this.props.history.push("/articles" ); 
+      this.props.history.push("/followers" ); 
+      this.props.history.push("/articles/" + this.props.articlePk);
+    
       this.props.history.push("/articles/" + this.props.articlePk);
   };
   render() {

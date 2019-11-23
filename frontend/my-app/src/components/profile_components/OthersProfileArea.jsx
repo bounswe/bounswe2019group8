@@ -64,7 +64,11 @@ class OthersProfileArea extends React.Component {
           <Card.Img variant="top" src={require("../images/rick.jpg")} />
           <ListGroup className="list-group-flush">
             <ListGroup.Item>
-            <FollowButton userId={this.props.userId}/>
+            <FollowButton userId={this.props.userId}/></ListGroup.Item>
+            <ListGroup.Item action href ={"/profile/" + this.props.userId +"/articles"}>
+            
+                      Articles
+                      
             </ListGroup.Item>
             <ListGroup.Item>
               {this.state.credentials.firstName +

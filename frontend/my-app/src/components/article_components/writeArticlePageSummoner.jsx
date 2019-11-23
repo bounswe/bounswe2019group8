@@ -2,20 +2,20 @@ import React, { Component } from 'react';
 import WriteArticlePage from "./writeArticlePage";
 import {withRouter} from "react-router-dom";
 
-class WriteArticleSummoner extends Component {
+class WriteArticlePageSummoner extends Component {
     state = {  }
 
 
-    render() { 
+render() { 
         return ( 
             <React.Fragment>
-                <WriteArticlePage  />
+                <WriteArticlePage submitClicked={this.submitClicked} />
             </React.Fragment>
          );
     }
-    submitClicked = () => {
-        
-    }
+submitClicked =() => {
+        this.props.history.push("/articles")
+}
 }
  
-export default withRouter(WriteArticleSummoner);
+export default withRouter(WriteArticlePageSummoner);

@@ -17,7 +17,7 @@ class SearchResults extends Component {
       .post(
         "user_searches",
         {
-          following_pk: this.props.match.params.search
+          search_text: this.props.match.params.search
         },
         {
           headers: {
@@ -31,7 +31,7 @@ class SearchResults extends Component {
             tempList.push(element)
           });
          this.setState({followings:tempList})
-        this.setState({isFollowed:true});
+     
         
        });
   }
