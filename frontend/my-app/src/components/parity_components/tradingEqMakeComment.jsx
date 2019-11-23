@@ -40,7 +40,7 @@ class TradingEqMakeComment extends Component {
           .then(function(response) {});
           //this.props.history.push("/followers" ); 
           //this.props.history.push("/articles/" + this.props.articlePk);
-        
+          this.props.refresh()
           //this.props.history.push("/articles/" + this.props.articlePk);
       };
     render() { 

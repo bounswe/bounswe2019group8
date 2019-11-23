@@ -18,7 +18,7 @@ class UnfollowButton extends Component {
             this.setState({isFollowed:true})
         }
       });
-      console.log("sikik")
+    
   }
   initializeFollowing = () =>{
    

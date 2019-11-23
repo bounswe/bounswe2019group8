@@ -21,7 +21,7 @@ class TradingEqCommentHolder extends Component {
         return (
             <div className="my-holder">
               <div >
-                <MakeComment pk={this.props.pk}/>
+                <MakeComment refresh={this.refreshPage} pk={this.props.pk}/>
              {finalList}
              </div>
             </div>
@@ -45,6 +45,9 @@ class TradingEqCommentHolder extends Component {
             this.setState({ comments: commentList });
             console.log(this.state.comments);
           });
+      }
+      refreshPage =() =>{
+        window.location.reload();
       }
 }
  

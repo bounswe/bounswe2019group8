@@ -11,7 +11,6 @@ class ArticleCommentHolder extends Component {
   render() {
     let articleList = this.state.comments;
     let finalList = [];
-    this.componentWillMount();
     for (var i = 0; i < articleList.length; i++) {
       finalList.push(
         <ArticleCommentCard
