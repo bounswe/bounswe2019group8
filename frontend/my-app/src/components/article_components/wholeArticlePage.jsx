@@ -25,7 +25,7 @@ class WholeArticlePage extends Component {
             <p className="my-par">{this.state.articleContent}</p>
             <p>
               <Button
-                href={"/profile/" + this.props.articleAuthorId}
+                href={"/profile/" + this.state.authorId}
                 variant="primary"
                 className="by-author-button"
               >

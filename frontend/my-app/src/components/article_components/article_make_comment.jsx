@@ -8,6 +8,7 @@ import {
 } from "react-bootstrap";
 import "./article_make_comment.css";
 import axios from "axios";
+import {withRouter} from "react-router-dom";
 class ArticleMakeComment extends Component {
   constructor() {
     super();
@@ -39,6 +40,8 @@ class ArticleMakeComment extends Component {
         }
       )
       .then(function(response) {});
+      this.props.history.push("/articles" ); 
+      this.props.history.push("/articles/" + this.props.articlePk);
   };
   render() {
     return (
@@ -57,6 +60,7 @@ class ArticleMakeComment extends Component {
               />
             </FormGroup>
             <Button
+            
               className="submit-comment-btn"
               block
               type="submit"
@@ -71,4 +75,4 @@ class ArticleMakeComment extends Component {
   }
 }
 
-export default ArticleMakeComment;
+export default withRouter(ArticleMakeComment);

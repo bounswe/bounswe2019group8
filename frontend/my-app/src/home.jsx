@@ -11,6 +11,7 @@ import WriteArticlePage from "./components/article_components/writeArticlePage";
 import Followings from "./components/profile_components/followings";
 import SearchResults from "./components/profile_components/searchResults";
 import ParityBadgeHolder from "./components/parity_components/parityBadgeHolder";
+import WriteArticlePageSummoner from "./components/article_components/writeArticlePageSummoner";
 
 class Home extends Component {
   state = {};
@@ -64,9 +65,9 @@ class Home extends Component {
             key={Math.random() * 99}
             component={SearchResults}
           />
-          <Route path="/articlewrite" component={WriteArticlePage} />
+          <Route path="/articlewrite" component={WriteArticlePageSummoner} />
         </Switch>
-        {this.putParities()}
+        
       </React.Fragment>
     );
   }
