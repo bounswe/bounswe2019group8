@@ -17,10 +17,15 @@ class ArticleCard extends Component {
         <Card.Body>
           <Card.Title>{this.props.articleTitle}</Card.Title>
           <Card.Text>{this.state.articleContent}</Card.Text>
-          <Button className="btn-primary user-name">
+          <Button
+            href={"/profile/" + this.props.articleAuthorId}
+            className="btn-primary user-name"
+          >
             by {this.state.articleAuthorId}
           </Button>
-          <Button variant="primary">Read the article</Button>
+          <Button href={"/articles/" + this.props.articlePk} variant="primary">
+            Read the article
+          </Button>
         </Card.Body>
       </Card>
     );
@@ -46,7 +51,6 @@ class ArticleCard extends Component {
         headers: { Authorization: `Token ${token}` }
       })
       .then(res => {
-        console.log(res);
         this.setState({
           articleAuthorId: res.data.first_name + " " + res.data.last_name
         });

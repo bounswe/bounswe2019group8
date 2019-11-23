@@ -5,7 +5,6 @@ import "./traderNavbar.css";
 import WriteArticlePage from "../article_components/writeArticlePage";
 import ArticleHolder from "../article_components/articleHolder";
 import WholeArticlePage from "../article_components/wholeArticlePage";
-import ReArticleHolder from "../article_components/re-article-comps/reArticleHolder";
 import {
   Button,
   Form,
@@ -39,7 +38,7 @@ class TraderNavbar extends Component {
           />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
-              <Nav.Link href="#">Trading Equipment</Nav.Link>
+              <Nav.Link href="/treq">Trading Equipment</Nav.Link>
               <Nav.Link href="#">Events</Nav.Link>
               <Nav.Link href="/articles">Articles</Nav.Link>
             </Nav>
@@ -89,20 +88,20 @@ class TraderNavbar extends Component {
             </Form>*/}
           </Navbar.Collapse>
         </Navbar>
-
       </div>
     );
   }
   profileClick = () => {
     this.props.history.push("/login");
     this.props.history.push("/profile/" + localStorage.getItem("userId"));
-    
   };
   logoutClick = () => {
     localStorage.setItem("userId", null);
     localStorage.setItem("userToken", null);
     localStorage.setItem("userGroup", null);
     localStorage.setItem("followings", null);
+    localStorage.setItem("articleList", null);
+    localStorage.setItem("equipmentList", null);
     this.props.history.push("/login");
   };
   componentDidMount() {
@@ -134,6 +133,14 @@ class TraderNavbar extends Component {
         credentials.userGroup = res.data.groups[0];
         this.setState({ credentials: credentials });
       });
+    axios.get("http://8.209.81.242:8000/articles").then(res => {
+      var articleList = res.data;
+      localStorage.setItem("articleList", JSON.stringify(articleList));
+    });
+    axios.get("http://8.209.81.242:8000/trading_equipments").then(res => {
+      var equipmentList = res.data;
+      localStorage.setItem("equipmentList", JSON.stringify(equipmentList));
+    });
   }
 }
 

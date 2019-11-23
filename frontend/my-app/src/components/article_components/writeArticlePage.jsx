@@ -12,7 +12,7 @@ import "./writeArticlePage.css";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
 
-export default function WriteArticlePage() {
+export default function WriteArticlePage(submitClicked, ...props) {
   const [isLoading, setIsLoading] = useState(false);
   const [fields, handleFieldChange] = useFormFields({
     title: "",

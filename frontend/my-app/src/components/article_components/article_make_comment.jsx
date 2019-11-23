@@ -1,6 +1,14 @@
 import React, { Component } from "react";
-import { Button, Badge } from "react-bootstrap";
+import {
+  FormGroup,
+  FormControl,
+  FormLabel,
+  Button,
+  Badge
+} from "react-bootstrap";
 import "./article_make_comment.css";
+import axios from "axios";
+import {withRouter} from "react-router-dom";
 class ArticleMakeComment extends Component {
   constructor() {
     super();
@@ -11,46 +19,60 @@ class ArticleMakeComment extends Component {
 
   changeHandler = event => {
     this.setState({
-      email: event.target.value
+      comment: event.target.value
     });
   };
   handleSubmit = event => {
-    /* event.preventDefault();
+    event.preventDefault();
 
-    setIsLoading(true);
     var token = localStorage.getItem("userToken");
-    console.log(token);
     var data = {
-      title: fields.title,
-      content: fields.content
+      content: this.state.comment
     };
     axios
-      .post("http://8.209.81.242:8000/articles", data, {
-        headers: { Authorization: `Token ${token}` }
-      })
-      .then(function(response) {
-        console.log(response);
-      });*/
+      .post(
+        "http://8.209.81.242:8000/articles/" +
+          this.props.articlePk +
+          "/comments",
+        data,
+        {
+          headers: { Authorization: `Token ${token}` }
+        }
+      )
+      .then(function(response) {});
+      this.props.history.push("/articles" ); 
+      this.props.history.push("/articles/" + this.props.articlePk);
   };
   render() {
     return (
       <div>
-        <div>
-          <Badge>Leave a comment</Badge>
+        <div className="my-form">
+          <form onSubmit={this.handleSubmit}>
+            <FormGroup controlId="title" size="large">
+              <FormLabel>
+                <Badge className="comment-badge">Leave a comment:</Badge>
+              </FormLabel>
+              <FormControl
+                autoFocus
+                type="comment"
+                value={this.state.comment}
+                onChange={this.changeHandler}
+              />
+            </FormGroup>
+            <Button
+            
+              className="submit-comment-btn"
+              block
+              type="submit"
+              size="large"
+            >
+              Submit Comment
+            </Button>
+          </form>
         </div>
-        <form className="my-form">
-          <input
-            className="my-form"
-            type="comment"
-            name="comment"
-            value={this.state.email}
-            onChange={this.changeHandler}
-          />
-        </form>
-        <Button type="submit">Helloo</Button>
       </div>
     );
   }
 }
 
-export default ArticleMakeComment;
+export default withRouter(ArticleMakeComment);
