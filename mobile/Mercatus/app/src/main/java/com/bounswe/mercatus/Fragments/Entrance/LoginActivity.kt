@@ -130,7 +130,11 @@ class LoginActivity : AppCompatActivity() {
 
                     finish()
 
-                } else {
+                }
+                else if(response.code() == 401){
+                    Toast.makeText(this@LoginActivity, "Password and mail does not match!", Toast.LENGTH_SHORT).show()
+                }
+                else {
                     Toast.makeText(this@LoginActivity, "Login failed!", Toast.LENGTH_SHORT).show()
                 }
             }
