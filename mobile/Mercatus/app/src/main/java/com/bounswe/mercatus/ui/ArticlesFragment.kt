@@ -36,7 +36,7 @@ class ArticlesFragment : Fragment() {
 
         rv.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
 
-        fab  = root.findViewById(R.id.fab)
+        fab  = root.findViewById(R.id.fabArticles)
         fab.setOnClickListener { view ->
             val intent = Intent(root.context, CreateArticleActivity::class.java)
             startActivity(intent)

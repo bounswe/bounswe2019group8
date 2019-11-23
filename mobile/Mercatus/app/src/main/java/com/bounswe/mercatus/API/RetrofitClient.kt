@@ -252,6 +252,30 @@ interface ApiInterface {
         @Path("comment_id") mid: Int,
         @Header("Authorization") token: String
     ): retrofit2.Call<ResponseBody>
+
+
+    ////// Trading Equipments Section
+    // Get forex items
+    @Headers("Content-Type:application/json")
+    @GET("trading_equipments/forex")
+    fun getForex(
+        @Header("Authorization") token: String
+    ): retrofit2.Call<List<ForexDataModel>>
+
+    // Get forex items parity value
+    @Headers("Content-Type:application/json")
+    @GET("trading_equipments/{forex_id}/parities")
+    fun getForexParity(
+        @Path("forex_id") fid: Int,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<List<ForexParityModel>>
+
+    // Get digital items
+    @Headers("Content-Type:application/json")
+    @GET("trading_equipments/digital")
+    fun getDigital(
+        @Header("Authorization") token: String
+    ): retrofit2.Call<List<ForexDataModel>>
 }
 class RetrofitInstance {
     companion object {

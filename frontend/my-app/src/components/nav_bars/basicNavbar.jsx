@@ -16,8 +16,13 @@ import { withRouter } from "react-router-dom";
 import axios from "axios";
 
 class TraderNavbar extends Component {
-  state = { credentials: {} };
+  state = { credentials: {} , searchText:""};
 
+  changeHandler = event => {
+    this.setState({
+     searchText: event.target.value
+    });
+  };
   render() {
     return (
       <div>
@@ -43,10 +48,12 @@ class TraderNavbar extends Component {
             <Form inline>
               <FormControl
                 type="text"
+                value = {this.state.searchText}
                 placeholder="Search"
                 className="mr-sm-2"
+                onChange={this.changeHandler}
               />
-              <Button variant="outline-success">Search</Button>
+              <Button href={"/search/"+this.state.searchText} variant="outline-success">Search</Button>
             </Form>
             <NavDropdown
               title={

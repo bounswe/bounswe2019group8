@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <LinearLayout
+        android:id="@+id/forexLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="15">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="9">
+            <LinearLayout
+                android:id="@+id/forexSection"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="20">
+
+                <ImageView
+                    android:id="@+id/situationForex"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingStart="6dp"
+                    android:paddingEnd="6dp"
+                    android:paddingTop="3dp"
+                    app:srcCompat="@drawable/ic_increase" />
+
+                <TextView
+                    android:layout_weight="19"
+                    android:id="@+id/forexSymbol"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/padding_min"
+                    android:text="@string/forex"
+                    android:textAppearance="@android:style/TextAppearance.Material.Subhead"
+                    android:textStyle="bold" />
+            </LinearLayout>
+            <LinearLayout
+                android:paddingTop="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/forexSection">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/forexName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:lineSpacingExtra="@dimen/line_spacing"
+                        android:text="@string/forex"
+                        android:paddingBottom="4dp"
+                        android:paddingStart="37dp"
+                        android:paddingEnd="@dimen/new_margin"/>
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_weight="6">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingStart="13dp"
+                android:paddingEnd="13dp">
+
+                <TextView
+                    android:id="@+id/highVal"
+                    android:textAlignment="center"
+                    android:layout_weight="2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@android:style/TextAppearance.Material.Medium"
+                    android:text="0"/>
+                <TextView
+                    android:id="@+id/lowVal"
+                    android:textAlignment="center"
+                    android:layout_weight="2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@android:style/TextAppearance.Material.Medium"
+                    android:text="0"/>
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_below="@+id/forexLayout"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:orientation="horizontal"
+        android:background="@color/gray">
+    </LinearLayout>
+</RelativeLayout>

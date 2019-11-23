@@ -90,14 +90,15 @@ class OwnProfileArea extends React.Component {
         <Card style={{ width: "36rem", align: "center" }}>
           <Card.Img variant="top" src={require("../images/rick.jpg")} />
           <ListGroup className="list-group-flush">
-          <ListGroup.Item>
+          <ListGroup.Item action href ="/followers">
             
                       My Followers
                       </ListGroup.Item>
-                      <ListGroup.Item action href ="/followings"> 
+          <ListGroup.Item action href ="/followings"> 
                       My Followings
              
             </ListGroup.Item>
+            
         
             <ListGroup.Item>
               {this.state.credentials.firstName +

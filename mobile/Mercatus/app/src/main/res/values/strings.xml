@@ -73,4 +73,11 @@
 
     <string name="like">Like</string>
     <string name="dislike">Dislike</string>
+
+    <string name="trading">Trading</string>
+    <string name="forex">Forex</string>
+    <string name="high">High</string>
+    <string name="low">Low</string>
+
+    <string name="digital">Digital</string>
 </resources>

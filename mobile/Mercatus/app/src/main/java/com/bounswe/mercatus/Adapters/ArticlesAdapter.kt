@@ -249,7 +249,7 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
         })
     }
 
-    private fun likeArticle(pk: Int, position: Int, likeArticle: Button){
+    private fun likeArticle(pk: Int, position: Int, likeArticle: Button, size: Int, likeArticleText: TextView){
         val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
 
         val res = context.getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
@@ -286,6 +286,7 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
                 }
                 else if (response.code() == 400) {
                     deleteLike(pk, position, likeArticle)
+                    likeArticleText.text = (size-1).toString()
                 }
                 else  {
                     Toast.makeText(context, "Like article failed.", Toast.LENGTH_SHORT)
@@ -380,7 +381,7 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
                     }
 
                     likeArticle.setOnClickListener {
-                        likeArticle(article_pk, position, likeArticle)
+                        likeArticle(article_pk, position, likeArticle, res.size, likeArticleText)
                     }
                 }
                 else  {
@@ -437,7 +438,7 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
 
                     dislikeArticle.setOnClickListener {
                         //dislikeArticle.setBackgroundResource(R.drawable.dislike)
-                        dislikeArticle(article_pk, position, dislikeArticle)
+                        dislikeArticle(article_pk, position, dislikeArticle, resp.size, dislikeArticleText)
                     }
                 }
                 else  {
@@ -448,7 +449,7 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
         })
     }
 
-    private fun dislikeArticle(pk: Int, position: Int, dislikeArticle: Button){
+    private fun dislikeArticle(pk: Int, position: Int, dislikeArticle: Button, listSize: Int, dislikeArticleText: TextView){
         val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
 
         val res = context.getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
@@ -484,6 +485,7 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
                 }
                 else if (response.code() == 400) {
                     deleteDislike(pk, position, dislikeArticle)
+                    dislikeArticleText.text = (listSize-1).toString()
                 }
                 else  {
                     Toast.makeText(context, "Dislike article failed.", Toast.LENGTH_SHORT)

@@ -4,7 +4,7 @@ from rest_framework import serializers
 
 from .libs.serializers import NovaSerializer
 from .models import User, Article, TradingEquipment, Comment, Parity, TradingEquipmentComment, ArticleComment, \
-    Prediction, LikeDislike, ArticleLikeDislike, CommentLikeDislike, CurrentPrice
+    Prediction, LikeDislike, ArticleLikeDislike, CommentLikeDislike, Event
 
 
 class UserBasicSerializer(NovaSerializer):
@@ -179,3 +179,9 @@ class CurrentPriceSerializer(NovaSerializer):
 
     def update(self, instance, validated_data):
         return super(CurrentPriceSerializer, self).update(instance, validated_data)
+
+class EventSerializer(NovaSerializer):
+    class Meta:
+        model = Event
+
+        fields = create_only_fields = ['id', 'date', 'time', 'name', 'country', 'importance', 'value']

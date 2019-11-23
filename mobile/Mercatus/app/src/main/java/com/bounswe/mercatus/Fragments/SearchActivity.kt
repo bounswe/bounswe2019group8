@@ -32,6 +32,10 @@ class SearchActivity : AppCompatActivity() {
         val inflater = menuInflater
         inflater.inflate(R.menu.main_menu,menu)
 
+        val actionBar = supportActionBar
+        actionBar!!.title = getString(R.string.search_title)
+        actionBar.setDisplayHomeAsUpEnabled(true)
+
         val rv = findViewById<RecyclerView>(R.id.recyclerView1)
         rv.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 
@@ -104,7 +108,10 @@ class SearchActivity : AppCompatActivity() {
         })
         return super.onCreateOptionsMenu(menu)
     }
-
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
     override fun finish() {
         super.finish()
         overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right)

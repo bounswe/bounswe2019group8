@@ -5,6 +5,11 @@ def is_user_in_group(user, group_name):
     return bool(user and user.groups.filter(name=group_name).exists())
 
 
+class Public(permissions.BasePermission):
+    def has_permission(self, request, view):
+        return True
+
+
 class IsPostOrIsAuthenticated(permissions.BasePermission):
     def has_permission(self, request, view):
         if request.method == 'POST':

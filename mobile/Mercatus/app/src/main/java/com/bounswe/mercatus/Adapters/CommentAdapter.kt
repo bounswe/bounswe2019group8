@@ -272,7 +272,7 @@ class CommentAdapter(val context : Context, val commentList: ArrayList<CommentSh
     }
 
 
-    private fun likeComment(pk: Int, position: Int, makeLike: TextView){
+    private fun likeComment(pk: Int, position: Int, makeLike: TextView, size: Int, likeResult: TextView){
         val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
 
         val res = context.getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
@@ -309,6 +309,7 @@ class CommentAdapter(val context : Context, val commentList: ArrayList<CommentSh
                 }
                 else if (response.code() == 400) {
                     deleteLike(pk, position, makeLike)
+                    likeResult.text = (size-1).toString()
                 }
                 else  {
                     Toast.makeText(context, "Like comment failed.2", Toast.LENGTH_SHORT)
@@ -400,7 +401,7 @@ class CommentAdapter(val context : Context, val commentList: ArrayList<CommentSh
                         likeResult.text = res.size.toString()
                     }
                     makeLike.setOnClickListener {
-                        likeComment(comment_id, position, makeLike)
+                        likeComment(comment_id, position, makeLike, res.size, likeResult)
                     }
                 }
                 else  {
@@ -414,7 +415,7 @@ class CommentAdapter(val context : Context, val commentList: ArrayList<CommentSh
 
     /////// Dislike comments
 
-    private fun dislikeComment(pk: Int, position: Int, makeDislike: TextView){
+    private fun dislikeComment(pk: Int, position: Int, makeDislike: TextView, listSize: Int, dislikeResult: TextView){
         val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
 
         val res = context.getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
@@ -451,6 +452,7 @@ class CommentAdapter(val context : Context, val commentList: ArrayList<CommentSh
                 }
                 else if (response.code() == 400) {
                     deleteDislike(pk, position, makeDislike)
+                    dislikeResult.text = (listSize-1).toString()
                 }
                 else  {
                     Toast.makeText(context, "Dislike comment failed.", Toast.LENGTH_SHORT)
@@ -542,7 +544,7 @@ class CommentAdapter(val context : Context, val commentList: ArrayList<CommentSh
                         dislikeResult.text = resp.size.toString()
                     }
                     makeDislike.setOnClickListener {
-                        dislikeComment(comment_id, position, makeDislike)
+                        dislikeComment(comment_id, position, makeDislike, resp.size, dislikeResult)
                     }
                 }
                 else  {
