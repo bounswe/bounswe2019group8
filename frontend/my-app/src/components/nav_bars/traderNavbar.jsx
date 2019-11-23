@@ -101,6 +101,7 @@ class TraderNavbar extends Component {
     localStorage.setItem("userGroup", null);
     localStorage.setItem("followings", null);
     localStorage.setItem("articleList", null);
+    localStorage.setItem("equipmentList", null);
     this.props.history.push("/login");
   };
   componentDidMount() {
@@ -139,7 +140,6 @@ class TraderNavbar extends Component {
     axios.get("http://8.209.81.242:8000/trading_equipments").then(res => {
       var equipmentList = res.data;
       localStorage.setItem("equipmentList", JSON.stringify(equipmentList));
-      console.log(equipmentList);
     });
   }
 }

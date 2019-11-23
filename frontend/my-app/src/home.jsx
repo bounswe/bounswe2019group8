@@ -14,12 +14,18 @@ import ParityBadgeHolder from "./components/parity_components/parityBadgeHolder"
 
 class Home extends Component {
   state = {};
-
+  putParities(){
+    if(localStorage.getItem("equipmentList") !== null){
+      return <ParityBadgeHolder/>
+    }
+    else{
+      return <div/>
+    }
+  }
   render() {
     return (
       <React.Fragment>
         <MainNavbar />
-        <ParityBadgeHolder />
         <Switch>
           <Route exact path="/login" component={LoginRouter} />
           <Route exact path="/signup" component={SignupRouter} />
@@ -60,6 +66,7 @@ class Home extends Component {
           />
           <Route path="/articlewrite" component={WriteArticlePage} />
         </Switch>
+        {this.putParities()}
       </React.Fragment>
     );
   }
