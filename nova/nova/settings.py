@@ -40,8 +40,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'nova',
     'corsheaders',
-    'django_filters',
-    'kronos'
+    'django_filters'
 ]
 
 MIDDLEWARE = [
@@ -98,7 +97,6 @@ DATABASES = {
         }
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators

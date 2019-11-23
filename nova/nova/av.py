@@ -1,6 +1,5 @@
 from datetime import datetime
 
-import kronos
 import requests
 from django.utils.timezone import make_aware, get_default_timezone
 
@@ -44,6 +43,7 @@ def do_request_daily(tr_eq):
             return response_formatted[return_key]
     return
 
+
 def do_request_current(tr_eq):
     currencies = tr_eq.sym.split('_')
     from_sym = currencies[0]
@@ -68,7 +68,6 @@ def do_request_current(tr_eq):
     return
 
 
-@kronos.register('*/30 * * * *')
 def fill_parities():
     eq_list = TradingEquipment.objects.all()
     for tr_eq in eq_list:
@@ -105,7 +104,6 @@ def fill_parities():
         if tr_eq.last_updated_daily is not None:
             total_seconds = (now - tr_eq.last_updated_daily).total_seconds()
             hours = total_seconds // 3600
-
 
         # if recently updated, continue
         if tr_eq.last_updated_daily is None or hours > 24:
