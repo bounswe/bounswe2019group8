@@ -59,7 +59,9 @@ class TradingEquipment(models.Model):
 
     sym = models.CharField(max_length=12, unique=True, blank=True)
 
-    last_updated = models.DateField(null=True, blank=True)
+    last_updated_daily = models.DateTimeField(null=True, blank=True)
+
+    last_updated_current = models.DateTimeField(null=True, blank=True)
 
     REQUIRED_FIELDS = ['type', 'name', 'sym']
 
@@ -95,6 +97,7 @@ class Parity(models.Model):
     # Once a month, we can update these 36 months data
 
     INTERVAL_CHOICES = (
+
         ('intraday', 'intraday'),
         ('daily', 'daily'),
         ('weekly', 'weekly'),
@@ -117,6 +120,16 @@ class Parity(models.Model):
 
     REQUIRED_FIELDS = ['observed_at', 'interval_category', 'tr_eq', 'open', 'close', 'high', 'low']
 
+class CurrentPrice(models.Model):
+    observed_at = models.DateTimeField()
+
+    tr_eq = models.ForeignKey(TradingEquipment, on_delete=models.CASCADE, null=True)
+
+    exchange_rate = models.DecimalField(max_digits=15, decimal_places=8)
+
+    bid_price = models.DecimalField(max_digits=15, decimal_places=8)
+
+    ask_price = models.DecimalField(max_digits=15, decimal_places=8)
 
 class Prediction(models.Model):
     UPVOTE = 1

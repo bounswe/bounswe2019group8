@@ -99,6 +99,7 @@ DATABASES = {
     }
 }
 
+
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 
@@ -157,14 +158,16 @@ EMAIL_HOST_USER = 'mercatus.bounswe@gmail.com'
 EMAIL_HOST_PASSWORD = 'fnyycxorasikyxkl'
 EMAIL_PORT = 587
 
-ALPHAVANTAGE_KEYS = ['D5G9T6LX297WEZXA', '3IA7WIBFQ24K5BFU', 'BFXJTNL6L7ALTXPF', 'BUESYAYPM8LTQZ5M',
+ALPHAVANTAGE_KEYS = ['QZQCYEL31RPUPJOR', 'E0SOC3U8P5FOU8UB', 'CWEM01JWXJIDKX8Q', '4W7D04POAPQBNF7T',
+                     '97LZVT2HISVPQ4I8', 'LSKLJ3TNMU80DC70', 'TV8RYYNXJ5HCXB73', '87XUVGCMPJRWIKZ9', 'ROZ4FSD96A0UA3VY',
+                     'D5G9T6LX297WEZXA', '3IA7WIBFQ24K5BFU', 'BFXJTNL6L7ALTXPF', 'BUESYAYPM8LTQZ5M',
                      'KK1IYE6BI48S5YEG', 'YT3WLJ1EYL0T1GGX', 'I8KLE0V6XO9ZCX7K', 'B3MI5470OG9YIK62',
                      'N25X0M9V2UL3BJBV', '3ED6BWNGC9YCHN9L', '7JACNWU6TIM3F6D6', 'AAT4EC9XDANMOZYF', 'QQJ1PGSBLS6X115A']
 
 AV_URLS = {'alpha': 'https://www.alphavantage.co/', 'api': 'https://www.alphavantage.co/query?function',
            'phy_cur': 'physical_currency_list', 'dig_cur': 'digital_currency_list'}
 
-AV_EXCLUDE = {'TRY_CNY', 'TRY_AUD', 'TRY_MXN', 'CNY_MXN', 'CNY_TRY', 'MXN_TRY', 'BCH_CNY'}
+AV_EXCLUDE = {'TRY_CNY', 'TRY_AUD', 'TRY_MXN', 'CNY_MXN', 'CNY_TRY', 'MXN_TRY', 'BCH_CNY', 'BCH_MXN', 'MXN_CNY'}
 
 FX_CURRENCY_LIST = {'USD', 'EUR', 'TRY', 'JPY', 'AUD', 'CAD', 'CNY', 'CHF', 'GBP', 'MXN', 'SGD'}
-DIG_CURRENCY_LIST = {'BTC', 'LTC', 'ETH', 'ZEC', 'DASH', 'XRP', 'XMR', 'BCH', 'NEO', 'ADA', 'EOS'}
+DIG_CURRENCY_LIST = {'BTC', 'LTC', 'ETH', 'ZEC', 'DASH', 'XRP', 'XMR', 'NEO', 'EOS'}

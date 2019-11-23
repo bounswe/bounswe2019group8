@@ -2,13 +2,13 @@ from datetime import datetime
 
 import kronos
 import requests
-from django.utils.timezone import make_aware
+from django.utils.timezone import make_aware, get_default_timezone
 
-from nova.models import TradingEquipment, Parity
+from nova.models import TradingEquipment, Parity, CurrentPrice
 from .settings import AV_URLS, ALPHAVANTAGE_KEYS
 
 
-def do_request(tr_eq):
+def do_request_daily(tr_eq):
     currencies = tr_eq.sym.split('_')
     from_sym = currencies[0]
     to_sym = currencies[1]
@@ -39,11 +39,32 @@ def do_request(tr_eq):
             continue
         # wrong command
         elif 'Error Message' in response_formatted:
-            print(request_str)
-            print(response_formatted)
             return
         else:
             return response_formatted[return_key]
+    return
+
+def do_request_current(tr_eq):
+    currencies = tr_eq.sym.split('_')
+    from_sym = currencies[0]
+    to_sym = currencies[1]
+
+    func = 'CURRENCY_EXCHANGE_RATE'
+    from_param = '&from_currency='
+    to_param = '&to_currency='
+
+    request_str = AV_URLS['api'] + '=' + func + from_param + from_sym + to_param + to_sym + '&apikey='
+    for key in ALPHAVANTAGE_KEYS:
+
+        response_formatted = requests.get((request_str + key)).json()
+        # frequent request
+        if 'Note' in response_formatted:
+            continue
+        # wrong command
+        elif 'Error Message' in response_formatted:
+            return
+        else:
+            return response_formatted['Realtime Currency Exchange Rate']
     return
 
 
@@ -51,15 +72,47 @@ def do_request(tr_eq):
 def fill_parities():
     eq_list = TradingEquipment.objects.all()
     for tr_eq in eq_list:
-        # if recently updated, continue
-        print("TR_EQ_NAME = " + tr_eq.sym)
-        if tr_eq.last_updated is None or (datetime.now().date() - tr_eq.last_updated).days > 1:
-            print("NEEDS AND UPDATE")
-            # else clear all parity instances of tr_eq, fetch data, recreate parities
-            Parity.objects.filter(tr_eq=tr_eq).delete()
-            result = do_request(tr_eq)
+        now = make_aware(datetime.now(), get_default_timezone())
+
+        # CURRENT PRICE PROCESSING
+
+        minutes = 0.0
+
+        if tr_eq.last_updated_current is not None:
+            total_seconds = (now - tr_eq.last_updated_current).total_seconds()
+            minutes = (total_seconds % 3600) // 60
+
+        if tr_eq.last_updated_current is None or minutes > 60:
+
+            CurrentPrice.objects.filter(tr_eq=tr_eq).delete()
+            result = do_request_current(tr_eq)
             if result is not None:
-                print(result)
+                current_price_obj = CurrentPrice.objects.create(
+                    tr_eq=tr_eq,
+                    observed_at=now,
+                    exchange_rate=result['5. Exchange Rate'],
+                    bid_price=result['8. Bid Price'],
+                    ask_price=result['9. Ask Price']
+                )
+                current_price_obj.save()
+                tr_eq.last_updated_current = now
+                tr_eq.save()
+
+        # DAILY PRICES PROCESSING
+
+        hours = 0.0
+
+        if tr_eq.last_updated_daily is not None:
+            total_seconds = (now - tr_eq.last_updated_daily).total_seconds()
+            hours = total_seconds // 3600
+
+
+        # if recently updated, continue
+        if tr_eq.last_updated_daily is None or hours > 24:
+            # else clear all parity instances of tr_eq, fetch data, recreate parities
+            Parity.objects.filter(tr_eq=tr_eq, interval_category='daily').delete()
+            result = do_request_daily(tr_eq)
+            if result is not None:
                 day_count = 0
                 for date, rates in result.items():
                     if day_count >= 30:
@@ -88,6 +141,6 @@ def fill_parities():
                             close=rates['4a. close (' + to + ')'],
                         )
                         parity_obj.save()
-                tr_eq.last_updated = datetime.now()
+                tr_eq.last_updated_daily = now
                 tr_eq.save()
     return
