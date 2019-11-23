@@ -10,12 +10,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="10">
+        android:weightSum="15">
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="7">
+            android:layout_weight="9">
             <LinearLayout
                 android:id="@+id/forexSection"
                 android:orientation="horizontal"
@@ -73,15 +73,14 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_gravity="center"
-            android:layout_weight="3">
+            android:layout_weight="6">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingStart="24dp"
-                android:paddingEnd="24dp"
-                android:weightSum="4">
+                android:paddingEnd="24dp">
 
                 <TextView
                     android:id="@+id/high"
@@ -89,7 +88,7 @@
                     android:layout_weight="2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@android:style/TextAppearance.Material.Large"
+                    android:textAppearance="@android:style/TextAppearance.Material.Medium"
                     android:text="0"/>
                 <TextView
                     android:id="@+id/low"
@@ -97,7 +96,7 @@
                     android:layout_weight="2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@android:style/TextAppearance.Material.Large"
+                    android:textAppearance="@android:style/TextAppearance.Material.Medium"
                     android:text="0"/>
 
             </LinearLayout>
@@ -107,7 +106,7 @@
     <LinearLayout
         android:layout_below="@+id/forexLayout"
         android:layout_width="match_parent"
-        android:layout_height="3dp"
+        android:layout_height="1dp"
         android:orientation="horizontal"
         android:background="@color/gray">
     </LinearLayout>

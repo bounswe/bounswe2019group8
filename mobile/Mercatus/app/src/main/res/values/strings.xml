@@ -76,4 +76,6 @@
 
     <string name="trading">Trading</string>
     <string name="forex">Forex</string>
+    <string name="high">High</string>
+    <string name="low">Low</string>
 </resources>
