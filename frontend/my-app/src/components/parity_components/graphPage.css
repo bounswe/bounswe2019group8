@@ -1,0 +1,17 @@
+.my-parity-container{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    margin-right: 10%;
+    margin-left: 10%;
+    width: 80%;
+    margin-top: 10px;
+}
+.vl {
+    border-left: 6px solid rgb(224, 236, 224);
+    height: 1vw;
+  }
+  .my-div{
+    display: flex;
+    flex-wrap: wrap;
+}

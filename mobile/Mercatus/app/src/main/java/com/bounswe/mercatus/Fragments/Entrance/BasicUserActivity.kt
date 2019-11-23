@@ -10,7 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
-import com.bounswe.mercatus.Fragments.SearchActivity
+import com.bounswe.mercatus.Fragments.MainActivity
 import com.bounswe.mercatus.Models.SignInBody
 import com.bounswe.mercatus.Models.SignInRes
 import com.bounswe.mercatus.Models.UserBody
@@ -72,7 +72,7 @@ class BasicUserActivity : AppCompatActivity() {
 
                     Toast.makeText(this@BasicUserActivity, "Login success!.", Toast.LENGTH_SHORT).show()
 
-                    val intent = Intent(this@BasicUserActivity, SearchActivity::class.java)
+                    val intent = Intent(this@BasicUserActivity, MainActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(
                         R.anim.slide_in_right,

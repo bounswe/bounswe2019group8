@@ -14,6 +14,7 @@ conda install pillow
 conda install psycopg2
 conda install -c conda-forge django-cors-headers
 conda install requests
+pip install django-kronos
 ```
 
 Then, create a PostgreSQL database named `mercatus`. Supply the DB credentials to the project by running:
@@ -26,6 +27,7 @@ Finally, setup and initialize the database by running:
 python manage.py makemigrations nova
 python manage.py migrate
 python manage.py loaddata nova/fixtures/*.json
+python manage.py installtasks
 ``` 
 
 ## Running the Server

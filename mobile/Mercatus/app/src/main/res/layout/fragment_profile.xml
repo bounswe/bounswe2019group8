@@ -170,9 +170,19 @@
         android:id="@+id/btnModify"
         android:textColor="#fff"
         android:background="@drawable/button_style"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="15dp"
+        android:width="170dp"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/edit_profile"/>
+    <Button
+        android:id="@+id/btnModifyPassword"
+        android:textColor="#fff"
+        android:background="@drawable/button_style"
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Change Password"/>
 </LinearLayout>

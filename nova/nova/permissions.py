@@ -35,7 +35,3 @@ class IsTraderUser(permissions.BasePermission):
 class IsAdminUser(permissions.BasePermission):
     def has_permission(self, request, view):
         return is_user_in_group(request.user, "admin")
-
-
-
-

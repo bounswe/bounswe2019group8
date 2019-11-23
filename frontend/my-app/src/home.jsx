@@ -16,6 +16,8 @@ import TradingEquipmentsPage from "./components/parity_components/tradingEquipme
 import Followers from "./components/profile_components/followers";
 import OthersArticles from "./components/profile_components/othersArticles";
 
+import GraphPage from "./components/parity_components/graphPage";
+
 class Home extends Component {
   state = {};
   putParities(){
@@ -82,8 +84,9 @@ class Home extends Component {
             key={Math.random() * 99}
             component={SearchResults}
           />
-          <Route path="/articlewrite" component={WriteArticlePageSummoner} />
-          <Route path="/treq" component={TradingEquipmentsPage}/>
+          <Route exact path="/articlewrite" component={WriteArticlePageSummoner} />
+          <Route exact path="/treq" component={TradingEquipmentsPage}/>
+          <Route exact path="/treq/:pk" component={GraphPage}/>
         </Switch>
         
       </React.Fragment>

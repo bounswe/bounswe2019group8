@@ -1,15 +1,16 @@
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.response import Response
-from rest_framework import status
-from ..models import Article
-from ..serializers import ArticleSerializer
-from ..permissions import IsGetOrIsAuthenticated, is_user_in_group
-from rest_framework.exceptions import PermissionDenied, NotFound
 from rest_framework import permissions
+from rest_framework import status
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.exceptions import PermissionDenied, NotFound
+from rest_framework.response import Response
+
+from ..models import Article, User
+from ..permissions import IsGetOrIsAuthenticated, is_user_in_group
+from ..serializers import ArticleSerializer
 
 
 @api_view(['GET', 'POST'])
-@permission_classes((IsGetOrIsAuthenticated, ))
+@permission_classes((IsGetOrIsAuthenticated,))
 def article_coll(request):
     # GET ALL ARTICLES
     if request.method == 'GET':
@@ -28,10 +29,10 @@ def article_coll(request):
 
 
 @api_view(['PUT', 'DELETE', 'GET'])
-@permission_classes((permissions.IsAuthenticated, ))
+@permission_classes((permissions.IsAuthenticated,))
 def article_res(request, pk):
     try:
-        article = Article.objects.get(pk = pk)
+        article = Article.objects.get(pk=pk)
     except Article.DoesNotExist:
         raise NotFound()
 
@@ -48,7 +49,7 @@ def article_res(request, pk):
         serializer.save()
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    #DELETE ARTICLE
+    # DELETE ARTICLE
     elif request.method == 'DELETE':
         if not is_user_in_group(request.user, "admin") and request.user.pk != author_pk:
             raise PermissionDenied()
@@ -56,6 +57,18 @@ def article_res(request, pk):
         article.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-    #GET SPECIFIC ARTICLE
+    # GET SPECIFIC ARTICLE
     elif request.method == 'GET':
         return Response(serializer.data)
+
+
+@api_view(['GET'])
+@permission_classes((permissions.IsAuthenticated,))
+def article_of_users_res(request, pk):
+    try:
+        user = User.objects.get(pk=pk)
+    except User.DoesNotExist:
+        raise NotFound()
+    articles = Article.objects.filter(author=user)
+    serializer = ArticleSerializer(articles, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)

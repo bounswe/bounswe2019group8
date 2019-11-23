@@ -44,62 +44,7 @@
         android:orientation="vertical"
         android:layout_gravity="center"
         android:layout_marginTop="30dp">
-        <LinearLayout
-            android:orientation="horizontal"
-            android:paddingLeft="25dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:layout_marginTop="20dp"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:src="@drawable/ic_assignment"/>
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layModifyName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editModifyName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:textStyle="bold"
-                    android:hint="@string/name"
-                    android:paddingLeft="20dp"
-                    android:imeOptions="actionNext"
-                    android:inputType="textPersonName" />
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:paddingLeft="25dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:layout_marginTop="20dp"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:src="@drawable/ic_assignment"/>
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layModifySurname"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editModifySurname"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:textStyle="bold"
-                    android:hint="@string/surname"
-                    android:paddingLeft="20dp"
-                    android:imeOptions="actionNext"
-                    android:inputType="textPersonName" />
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"
             android:paddingLeft="25dp"
@@ -175,4 +120,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/save"/>
+
+
+
 </LinearLayout>

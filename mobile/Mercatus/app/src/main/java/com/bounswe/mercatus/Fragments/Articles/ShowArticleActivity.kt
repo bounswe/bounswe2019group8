@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -37,6 +38,7 @@ class ShowArticleActivity : AppCompatActivity() {
 
         val title = findViewById<TextView>(R.id.showTitle)
         val content = findViewById<TextView>(R.id.showContent)
+        content.movementMethod = ScrollingMovementMethod.getInstance()
         val author = findViewById<TextView>(R.id.showAuthor)
         val articleID = intent.getStringExtra("article_header")
 

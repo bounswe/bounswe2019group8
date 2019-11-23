@@ -41,6 +41,15 @@ interface ApiInterface {
         @Header("Authorization") token: String
     ): retrofit2.Call<ResponseBody>
 
+    // Update user request
+    @Headers("Content-Type: application/json")
+    @PUT("users/{user_id}")
+    fun updatePassword(
+        @Body userBody: UpdatePassword,
+        @Path("user_id") id: Long,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<ResponseBody>
+
     // Get users request
     @Headers("Content-Type: application/json")
     @GET("users")
@@ -88,6 +97,54 @@ interface ApiInterface {
         @Path("article_id") mid: Int,
         @Header("Authorization") token: String
     ): retrofit2.Call<GetArticleBody>
+
+    // Like an article
+    @Headers("Content-Type:application/json")
+    @POST("articles/{article_id}/likes")
+    fun likeArticle(
+        @Path("article_id") mid: Int,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<ResponseBody>
+
+    // Delete Like an article
+    @Headers("Content-Type:application/json")
+    @DELETE("articles/{article_id}/likes")
+    fun deleteLikeArticle(
+        @Path("article_id") mid: Int,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<ResponseBody>
+
+    // Get like for article
+    @Headers("Content-Type:application/json")
+    @GET("articles/{article_id}/likes")
+    fun getLikes(
+        @Path("article_id") mid: Int,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<List<LikerModel>>
+
+    // Get dislike for article
+    @Headers("Content-Type:application/json")
+    @GET("articles/{article_id}/dislikes")
+    fun getDislikes(
+        @Path("article_id") mid: Int,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<List<LikerModel>>
+
+    // Dislike an article
+    @Headers("Content-Type:application/json")
+    @POST("articles/{article_id}/dislikes")
+    fun disLikeArticle(
+        @Path("article_id") mid: Int,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<ResponseBody>
+
+    // Delete DisLike an article
+    @Headers("Content-Type:application/json")
+    @DELETE("articles/{article_id}/dislikes")
+    fun deleteDislikeArticle(
+        @Path("article_id") mid: Int,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<ResponseBody>
 
     // Create an article
     @Headers("Content-Type:application/json")
@@ -147,6 +204,78 @@ interface ApiInterface {
         @Path("comment_id") mid: Int,
         @Header("Authorization") token: String
     ): retrofit2.Call<ResponseBody>
+
+    // Like a comment
+    @Headers("Content-Type:application/json")
+    @POST("comments/{comment_id}/likes")
+    fun likeComment(
+        @Path("comment_id") cid: Int,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<ResponseBody>
+
+    // Get like for comments
+    @Headers("Content-Type:application/json")
+    @GET("comments/{comment_id}/likes")
+    fun getLikesComments(
+        @Path("comment_id") mid: Int,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<List<LikerModelComment>>
+
+    // Delete Like a comment
+    @Headers("Content-Type:application/json")
+    @DELETE("comments/{comment_id}/likes")
+    fun deleteLikeComment(
+        @Path("comment_id") mid: Int,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<ResponseBody>
+
+    // Dislike a comment
+    @Headers("Content-Type:application/json")
+    @POST("comments/{comment_id}/dislikes")
+    fun dislikeComment(
+        @Path("comment_id") cid: Int,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<ResponseBody>
+
+    // Get dislike for comments
+    @Headers("Content-Type:application/json")
+    @GET("comments/{comment_id}/dislikes")
+    fun getDislikeComments(
+        @Path("comment_id") mid: Int,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<List<LikerModelComment>>
+
+    // Delete Dislike a comment
+    @Headers("Content-Type:application/json")
+    @DELETE("comments/{comment_id}/dislikes")
+    fun deleteDislikeComment(
+        @Path("comment_id") mid: Int,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<ResponseBody>
+
+
+    ////// Trading Equipments Section
+    // Get forex items
+    @Headers("Content-Type:application/json")
+    @GET("trading_equipments/forex")
+    fun getForex(
+        @Header("Authorization") token: String
+    ): retrofit2.Call<List<ForexDataModel>>
+
+    // Get forex items parity value
+    @Headers("Content-Type:application/json")
+    @GET("trading_equipments/{forex_id}/parities")
+    fun getForexParity(
+        @Path("forex_id") fid: Int,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<List<ForexParityModel>>
+
+    // Get digital items
+    @Headers("Content-Type:application/json")
+    @GET("trading_equipments/digital")
+    fun getDigital(
+        @Header("Authorization") token: String
+    ): retrofit2.Call<List<ForexDataModel>>
 }
 class RetrofitInstance {
     companion object {
