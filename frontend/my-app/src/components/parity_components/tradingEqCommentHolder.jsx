@@ -13,6 +13,7 @@ class TradingEqCommentHolder extends Component {
         for (var i = 0; i < commentList.length; i++) {
           finalList.push(
             <CommentCard
+              commentPk = {commentList[i].pk}
               commentContent={commentList[i].content}
               articleAuthorId={commentList[i].author}
             />

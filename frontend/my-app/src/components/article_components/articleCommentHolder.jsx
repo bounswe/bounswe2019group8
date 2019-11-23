@@ -14,7 +14,7 @@ class ArticleCommentHolder extends Component {
     for (var i = 0; i < articleList.length; i++) {
       finalList.push(
         <ArticleCommentCard
-        
+          commentPk = {articleList[i].pk}        
           commentContent={articleList[i].content}
           articleAuthorId={articleList[i].author}
         />

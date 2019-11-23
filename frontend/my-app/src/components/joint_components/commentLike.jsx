@@ -4,18 +4,16 @@ import "../profile_components/ProfileArea.css";
 import axios from "axios";
 import { Button, Card, ListGroup } from "react-bootstrap";
 
-class ArticleLike extends Component {
+class CommentLike extends Component {
   state = {
     api: axios.create({
     baseURL: "http://8.209.81.242:8000/"
   }),
-    isLiked : false,
-    alreadyDissed:false
     };
  componentWillMount(){
    
     axios
-    .get("http://8.209.81.242:8000/articles/"+this.props.articlePk+"/likes", {
+    .get("http://8.209.81.242:8000/comments/"+this.props.commentPk+"/likes", {
       headers: { Authorization: `Token ${localStorage.getItem("userToken")}` }
     })
     .then(res => {
@@ -37,14 +35,14 @@ class ArticleLike extends Component {
       var token = localStorage.getItem("userToken");
       console.log(token)
       axios
-      .post("http://8.209.81.242:8000/articles/"+this.props.articlePk+"/likes",{},
+      .post("http://8.209.81.242:8000/comments/"+this.props.commentPk+"/likes",{},
       {
         headers: { Authorization: `Token ${token}` }
       }
       )
       .then(response => {
         axios
-        .get("http://8.209.81.242:8000/articles/"+this.props.articlePk+"/likes", {
+        .get("http://8.209.81.242:8000/comments/"+this.props.commentPk+"/likes", {
           headers: { Authorization: `Token ${localStorage.getItem("userToken")}` }
         })
         .then(res => {
@@ -62,12 +60,12 @@ class ArticleLike extends Component {
   unlike=()=> {
 
     this.state.api
-      .delete("articles/"+this.props.articlePk+"/likes", {
+      .delete("comments/"+this.props.commentPk+"/likes", {
         headers: { Authorization: `Token ${localStorage.getItem("userToken")}` }
       })
       .then(response => {
         axios
-        .get("http://8.209.81.242:8000/articles/"+this.props.articlePk+"/likes", {
+        .get("http://8.209.81.242:8000/comments/"+this.props.commentPk+"/likes", {
           headers: { Authorization: `Token ${localStorage.getItem("userToken")}` }
         })
         .then(res => {
@@ -122,4 +120,4 @@ class ArticleLike extends Component {
   
   }
 }
-export default ArticleLike;
+export default CommentLike;

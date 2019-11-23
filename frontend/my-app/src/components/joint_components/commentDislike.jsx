@@ -4,77 +4,73 @@ import "../profile_components/ProfileArea.css";
 import axios from "axios";
 import { Button, Card, ListGroup } from "react-bootstrap";
 
-class ArticleLike extends Component {
+class CommentDislike extends Component {
   state = {
     api: axios.create({
     baseURL: "http://8.209.81.242:8000/"
   }),
-    isLiked : false,
-    alreadyDissed:false
     };
  componentWillMount(){
-   
+    var tempList=[]
     axios
-    .get("http://8.209.81.242:8000/articles/"+this.props.articlePk+"/likes", {
+    .get("http://8.209.81.242:8000/comments/"+this.props.commentPk+"/dislikes", {
       headers: { Authorization: `Token ${localStorage.getItem("userToken")}` }
     })
     .then(res => {
       res.data.forEach((element)=>{
+       
         if (element.liker.toString() === localStorage.getItem("userId")){
-            this.props.makeLike();
+            this.props.makeDisslike();
         }
-        
       });
-      
     });
- 
+  
   
   }
   
-    like =()=> {
+    dislike =()=> {
       var tempList=[]
       console.log(localStorage.getItem("userToken"))
       var token = localStorage.getItem("userToken");
       console.log(token)
       axios
-      .post("http://8.209.81.242:8000/articles/"+this.props.articlePk+"/likes",{},
+      .post("http://8.209.81.242:8000/comments/"+this.props.commentPk+"/dislikes",{},
       {
         headers: { Authorization: `Token ${token}` }
       }
       )
       .then(response => {
         axios
-        .get("http://8.209.81.242:8000/articles/"+this.props.articlePk+"/likes", {
+        .get("http://8.209.81.242:8000/comments/"+this.props.commentPk+"/dislikes", {
           headers: { Authorization: `Token ${localStorage.getItem("userToken")}` }
         })
         .then(res => {
           res.data.forEach((element)=>{
             if (element.liker.toString() === localStorage.getItem("userId")){
-                this.props.makeLike();
+                this.props.makeDisslike();
             }
           });
-          
         });
        
         
        });
   }
-  unlike=()=> {
-
+  undislike=()=> {
     this.state.api
-      .delete("articles/"+this.props.articlePk+"/likes", {
+      .delete("comments/"+this.props.commentPk+"/dislikes", {
         headers: { Authorization: `Token ${localStorage.getItem("userToken")}` }
       })
       .then(response => {
         axios
-        .get("http://8.209.81.242:8000/articles/"+this.props.articlePk+"/likes", {
+        .get("http://8.209.81.242:8000/comments/"+this.props.commentPk+"/dislikes", {
           headers: { Authorization: `Token ${localStorage.getItem("userToken")}` }
         })
         .then(res => {
-          var count = 0
+          var count = 0;
             res.data.forEach((element)=>{
             if (element.liker.toString() === localStorage.getItem("userId")){
-               count = count +1
+                count = count +1
+                
             }
           });
           if(count ===0){
@@ -86,16 +82,16 @@ class ArticleLike extends Component {
   }
   render() {
     
-        if(this.props.likeState===1){
+        if(this.props.likeState===2){
             return(
                 <React.Fragment>
                 <button
                           id="loginStyles"
                           class="myButton"
-                          onClick={() => this.unlike()}
+                          onClick={() => this.undislike()}
                           //variant="outline-success"
                         >
-                          Unlike
+                          UnDislike
                         </button>
                 </React.Fragment>
                 )
@@ -106,10 +102,10 @@ class ArticleLike extends Component {
             <button
                       id="loginStyles"
                       class="myButton"
-                      onClick={() => this.like()}
+                      onClick={() => this.dislike()}
                       //variant="outline-success"
                     >
-                      Like
+                      Dislike
             </button>
             </React.Fragment>)
             
@@ -118,8 +114,8 @@ class ArticleLike extends Component {
     else{
         return(<React.Fragment></React.Fragment>)
     }
-   
+
   
   }
 }
-export default ArticleLike;
+export default CommentDislike;

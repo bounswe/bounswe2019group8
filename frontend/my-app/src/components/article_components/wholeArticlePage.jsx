@@ -8,6 +8,7 @@ import ArticleLikeButton from "./articleLikeButton";
 import ArticleDislikeButton from "./articleDislikeButton";
 import { withRouter } from "react-router-dom";
 import ArticleLike from "./articleLike";
+import ArticleDislike from "./articleDislike";
 
 class WholeArticlePage extends Component {
   state = {
@@ -16,7 +17,8 @@ class WholeArticlePage extends Component {
     authorId: -1,
     authorName: "",
     articlePk: "",
-    articleRanking :0
+    articleRanking :0,
+    likeState :0
   };
   render() {
     return (
@@ -34,7 +36,8 @@ class WholeArticlePage extends Component {
                 by {this.state.authorName}
               
               </Button>
-              <ArticleLike articlePk = {this.state.articlePk}/>
+              <ArticleLike makeLike={this.makeLike} makeNeutral={this.makeNeutral} likeState={this.state.likeState} articlePk = {this.state.articlePk}/>
+              <ArticleDislike makeDisslike={this.makeDisslike} makeNeutral={this.makeNeutral} likeState={this.state.likeState} articlePk = {this.state.articlePk}/>
               <h2> Rating: {this.state.articleRanking} </h2>  
             </p>
           </Jumbotron>
@@ -73,6 +76,15 @@ class WholeArticlePage extends Component {
   }
   refreshPage =() =>{
     window.location.reload();
+  }
+  makeLike = () =>{
+    this.setState({likeState:1})
+  }
+  makeDisslike = () =>{
+    this.setState({likeState:2})
+  }
+  makeNeutral = () =>{
+    this.setState({likeState:0})
   }
 }
 
