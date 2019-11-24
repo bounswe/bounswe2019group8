@@ -49,7 +49,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorBlack"
                     android:textAppearance="@android:style/TextAppearance.Material.Medium"
-                    android:text="@string/high"/>
+                    android:text="@string/ask"/>
                 <TextView
                     android:id="@+id/low"
                     android:textAlignment="center"
@@ -58,7 +58,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorBlack"
                     android:textAppearance="@android:style/TextAppearance.Material.Medium"
-                    android:text="@string/low"/>
+                    android:text="@string/bid"/>
             </LinearLayout>
 
             <LinearLayout

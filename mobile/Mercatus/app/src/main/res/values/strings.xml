@@ -78,6 +78,9 @@
     <string name="forex">Forex</string>
     <string name="high">High</string>
     <string name="low">Low</string>
+    <string name="ask">Ask</string>
+    <string name="bid">Bid</string>
+
 
     <string name="digital">Digital</string>
     <string name="increase">Increase</string>

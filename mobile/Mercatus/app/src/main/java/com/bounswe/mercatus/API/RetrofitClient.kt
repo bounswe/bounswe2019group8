@@ -272,11 +272,11 @@ interface ApiInterface {
 
     // Get forex items prices
     @Headers("Content-Type:application/json")
-    @GET("trading_equipments/{forex_id}/parities")
+    @GET("trading_equipments/{forex_id}/current_prices")
     fun getForexPrices(
         @Path("forex_id") fid: Int,
         @Header("Authorization") token: String
-    ): retrofit2.Call<List<ForexParityModel>>
+    ): retrofit2.Call<List<PriceModel>>
 
     // Get digital items
     @Headers("Content-Type:application/json")
