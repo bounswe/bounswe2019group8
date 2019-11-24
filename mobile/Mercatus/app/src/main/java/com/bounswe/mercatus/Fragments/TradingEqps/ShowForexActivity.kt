@@ -2,6 +2,7 @@ package com.bounswe.mercatus.Fragments.TradingEqps
 
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
 import com.bounswe.mercatus.Adapters.CommentTradingAdapter
+import com.bounswe.mercatus.Adapters.CustomMarker
 import com.bounswe.mercatus.Models.CommentShowTradingBody
 import com.bounswe.mercatus.Models.CreateCommentBody
 import com.bounswe.mercatus.Models.ForexParityModel
@@ -53,7 +55,13 @@ class ShowForexActivity : AppCompatActivity() {
         var adapter = CommentTradingAdapter(this@ShowForexActivity, commentsList)
         rv.adapter = adapter
 
-
+        zoomIn.setOnClickListener {
+            val intent = Intent(this@ShowForexActivity, ZoomEqpActivity::class.java)
+            intent.putExtra("forex_id", forexID)
+            intent.putExtra("forex_name", forexName)
+            startActivity(intent)
+            finish()
+        }
         fabForex.setOnClickListener {
             val dialogBuilder = AlertDialog.Builder(this)
                 .setTitle("Comment")
@@ -134,6 +142,10 @@ class ShowForexActivity : AppCompatActivity() {
                         //vl.color = R.color.red
                         //vl.circleHoleColor = R.color.gray
                         vl.setDrawValues(false)
+                        vl.setDrawFilled(true)
+                        vl.lineWidth = 3f
+                        vl.fillColor = R.color.gray
+                        vl.fillAlpha = R.color.red
                         lineChart.xAxis.labelRotationAngle = 0f
                         lineChart.data = LineData(vl)
                         lineChart.axisRight.isEnabled = false
@@ -142,6 +154,9 @@ class ShowForexActivity : AppCompatActivity() {
                         lineChart.description.text = "Days"
                         lineChart.setNoDataText("No forex yet!")
                         lineChart.setPinchZoom(true)
+                        val markerView = CustomMarker(this@ShowForexActivity, R.layout.marker_view)
+                        lineChart.marker = markerView
+
                         lineChart.animateX(1800, Easing.EaseInExpo)
                         //lineChart.animateXY(3600,3600, Easing.EaseInOutBounce, Easing.EaseInExpo)
                     }

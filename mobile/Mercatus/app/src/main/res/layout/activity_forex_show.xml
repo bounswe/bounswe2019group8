@@ -52,14 +52,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/increase"
-                android:layout_weight="2"/>
+                android:layout_weight="1"/>
             <Button
                 android:id="@+id/decreaseForex"
                 android:textColor="@color/red"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/decrease"
-                android:layout_weight="2"/>
+                android:layout_weight="1"/>
+
+            <ImageView
+                android:id="@+id/zoomIn"
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@color/llBlue"
+                app:srcCompat="@drawable/ic_zoom_in" />
         </LinearLayout>
 
         <LinearLayout
@@ -70,7 +79,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:gravity="center"
-            android:weightSum="4">
+            android:weightSum="7">
             <TextView
                 android:id="@+id/upVoteText"
                 android:layout_width="match_parent"
@@ -87,6 +96,13 @@
                 android:layout_weight="2"
                 android:lineSpacingExtra="@dimen/line_spacing"
                 android:text="0 Votes"
+                android:textAlignment="center"
+                android:textSize="16dip" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:lineSpacingExtra="@dimen/line_spacing"
                 android:textAlignment="center"
                 android:textSize="16dip" />
         </LinearLayout>
