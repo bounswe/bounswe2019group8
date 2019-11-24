@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.bounswe.mercatus.R
 import com.github.mikephil.charting.charts.PieChart
@@ -30,8 +31,8 @@ class ProfitFragment : Fragment() {
         val dataSet = PieDataSet(yVals, "")
         dataSet.valueTextSize=0f
         val colors = ArrayList<Int>()
-        colors.add(R.color.red)
-        colors.add(R.color.colorWhite)
+        colors.add(ContextCompat.getColor(root.context, R.color.purpleDark))
+        colors.add(ContextCompat.getColor(root.context, R.color.blueDark))
 
         dataSet.colors = colors
         val data = PieData(dataSet)

@@ -8,10 +8,15 @@
     <color name="startBlue">#09c6df</color>
     <color name="endBlue">#0bcce6</color>
     <color name="red">#b8122b</color>
+    <color name="green">#43B14B</color>
 
     <color name="gray">#96a69e</color>
     <color name="lightBlue">#7bbefa</color>
     <color name="llBlue">#cde6fd</color>
+
+    <color name="purpleDark">#673AB7</color>
+    <color name="blueDark">#1565C0</color>
+    <color name="orangeLight">#FFCA28</color>
 
     <color name="colorWhite">#ffffff</color>
     <color name="colorBlack">#000000</color>
