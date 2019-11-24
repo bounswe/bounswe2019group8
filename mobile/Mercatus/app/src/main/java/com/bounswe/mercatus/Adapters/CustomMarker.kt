@@ -11,8 +11,8 @@ class CustomMarker(context: Context, layoutResource: Int):  MarkerView(context, 
     override fun refreshContent(entry: Entry?, highlight: Highlight?) {
         val value = entry?.y?.toDouble() ?: 0.0
         var resText = ""
-        if(value.toString().length > 7){
-            resText = "Val: " + value.toString().substring(0,6)
+        if(value.toString().length > 8){
+            resText = "Val: " + value.toString().substring(0,7)
         }
         else{
             resText = "Val: " + value.toString()
