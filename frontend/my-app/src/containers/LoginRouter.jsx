@@ -18,7 +18,28 @@ class LoginRouter extends Component {
     
   }
   loginSuccess = () =>{
-    this.props.history.push("/profile/"+localStorage.getItem("userId"));
+    var id = localStorage.getItem("userId");
+    var token = localStorage.getItem("userToken");
+    axios
+    .get("http://8.209.81.242:8000/users/" + id, {
+      headers: { Authorization: `Token ${token}` }
+    })
+    .then(res => {
+        var authorName = res.data.first_name + " " + res.data.last_name;
+      this.setState({authorName: authorName});
+      if(res.data.email_activated === false){
+        localStorage.setItem("userToken", null);
+        localStorage.setItem("equipmentList", null);
+        localStorage.setItem("userId", null);
+        localStorage.setItem("followings", null);
+        localStorage.setItem("userGroup", null);
+        this.props.history.push("/verif_fail/");
+      }
+      else{
+        this.props.history.push("/profile/"+localStorage.getItem("userId"));
+      }
+    });
+    
   }
 }
 export default withRouter(LoginRouter);
