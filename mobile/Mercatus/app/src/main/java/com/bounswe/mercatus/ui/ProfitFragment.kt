@@ -27,7 +27,7 @@ class ProfitFragment : Fragment() {
         yVals.add(PieEntry(45f, "Income"))
         yVals.add(PieEntry(55f, "Loss"))
 
-        val dataSet = PieDataSet(yVals, "Profit")
+        val dataSet = PieDataSet(yVals, "")
         dataSet.valueTextSize=0f
         val colors = ArrayList<Int>()
         colors.add(R.color.red)
