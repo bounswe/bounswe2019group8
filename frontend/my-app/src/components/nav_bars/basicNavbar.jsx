@@ -84,7 +84,7 @@ class TraderNavbar extends Component {
               src={require("../images/rick.jpg")}
               size="sm"
               alt="10x10"
-              width="80"
+              width="60"
               height="55"
             />
             {/* <Form inline>
