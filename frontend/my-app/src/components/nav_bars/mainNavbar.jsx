@@ -9,13 +9,13 @@ class MainNavbar extends Component {
   state = {};
 
   render() {
-    if(localStorage.getItem("userGroup")==="1"){
+    if(localStorage.getItem("userGroup")==="0"){
       return(
       <React.Fragment>
         <BasicNavbar/>
       </React.Fragment>)
     }
-    else if(localStorage.getItem("userGroup")==="2"){
+    else if(localStorage.getItem("userGroup")==="1"){
       return(
         <React.Fragment>
           <TraderNavbar/>

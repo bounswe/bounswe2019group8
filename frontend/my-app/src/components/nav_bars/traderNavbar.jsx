@@ -46,7 +46,7 @@ class TraderNavbar extends Component {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
               <Nav.Link href="/treq">Trading Equipment</Nav.Link>
-              <Nav.Link href="/events">Events</Nav.Link>
+              <Nav.Link href="#">Events</Nav.Link>
               <Nav.Link href="/articles">Articles</Nav.Link>
             </Nav>
             <Form inline>
@@ -129,7 +129,6 @@ class TraderNavbar extends Component {
     localStorage.setItem("followings", null);
     localStorage.setItem("articleList", null);
     localStorage.setItem("equipmentList", null);
-    localStorage.setItem("threeDaysEventsList", null);
     this.props.history.push("/login");
   };
   componentDidMount() {
@@ -140,31 +139,7 @@ class TraderNavbar extends Component {
     var token = localStorage.getItem("userToken");
     credentials1.id = id;
     credentials1.userToken = token;
-    var threeDaysEventsList = [];
-
-    //we get the dates of 3 days to request upcoming events
-    var today = new Date();
-    var tomorrow = new Date(today);
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    var thirdDay = new Date(tomorrow);
-    thirdDay.setDate(thirdDay.getDate() + 1);
-
-    var todaydd = String(today.getDate()).padStart(2, '0');
-    var todaymm = String(today.getMonth() + 1).padStart(2, '0');
-    var todayyyyy = today.getFullYear();
-
-    var tomorrowdd = String(tomorrow.getDate()).padStart(2, '0');
-    var tomorrowmm = String(tomorrow.getMonth() + 1).padStart(2, '0');
-    var tomorrowyyyy = tomorrow.getFullYear();
-
-    var thirdDaydd = String(thirdDay.getDate()).padStart(2, '0');
-    var thirdDaymm = String(thirdDay.getMonth() + 1).padStart(2, '0');
-    var thirdDayyyyy = thirdDay.getFullYear();
-
-    today = todayyyyy + "-" + todaymm + "-" + todaydd;
-    tomorrow = tomorrowyyyy + "-" + tomorrowmm + "-" + tomorrowdd;
-    thirdDay = thirdDayyyyy + "-" + thirdDaymm + "-" + thirdDaydd;
-
+    var userType;
     axios
       .get("http://8.209.81.242:8000/users", {
         headers: { Authorization: `Token ${token}` }
@@ -191,67 +166,12 @@ class TraderNavbar extends Component {
       localStorage.setItem("equipmentList", JSON.stringify(equipmentList));
     });
     axios
-    .get("http://8.209.81.242:8000/articles").then(res => {
-      var articleList2 = res.data;
-      localStorage.setItem("articleList", JSON.stringify(articleList2));
-    }
-    );
-    axios
-    .get("http://8.209.81.242:8000/events/" + today).then(res => {
-      var eventsList = res.data;
-      console.log(eventsList.length);
-      if(eventsList.length === 0){
-        axios
-        .post("http://8.209.81.242:8000/events/" + today).then(res => {
-        });
-        axios
-        .get("http://8.209.81.242:8000/events/" + today).then(res => {
-          eventsList = res.data;
-          threeDaysEventsList = eventsList;
-        }
-        );
+      .get("http://8.209.81.242:8000/articles").then(res => {
+        var articleList2 = res.data;
+        localStorage.setItem("articleList", JSON.stringify(articleList2));
       }
-      threeDaysEventsList = eventsList;
-    }
-    );
-    axios
-    .get("http://8.209.81.242:8000/events/" + tomorrow).then(res => {
-      var eventsList = res.data;
-      if(eventsList.length === 0){
-        axios
-        .post("http://8.209.81.242:8000/events/" + tomorrow).then(res => {
-        });
-        axios
-        .get("http://8.209.81.242:8000/events/" + tomorrow).then(res => {
-          eventsList = res.data;
-          threeDaysEventsList = threeDaysEventsList.concat(eventsList);
-        }
-        );
-      }
-      threeDaysEventsList = threeDaysEventsList.concat(eventsList);
-      console.log(threeDaysEventsList);
-      console.log(eventsList);
-    }
-    );
-    axios
-    .get("http://8.209.81.242:8000/events/" + thirdDay).then(res => {
-      var eventsList = res.data;
-      if(eventsList.length === 0){
-        axios
-        .post("http://8.209.81.242:8000/events/" + thirdDay).then(res => {
-        });
-        axios
-        .get("http://8.209.81.242:8000/events/" + thirdDay).then(res => {
-          eventsList = res.data;
-          threeDaysEventsList = threeDaysEventsList.concat(eventsList);
-          localStorage.setItem("threeDaysEventsList", JSON.stringify(threeDaysEventsList));
-        }
-        );
-      }
-      threeDaysEventsList = threeDaysEventsList.concat(eventsList);
-      localStorage.setItem("threeDaysEventsList", JSON.stringify(threeDaysEventsList));
-    }
-    );
+
+      );
   }
 }
 
