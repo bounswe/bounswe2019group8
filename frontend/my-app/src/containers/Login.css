@@ -1,12 +1,19 @@
 @media all and (min-width: 480px) {
   .Login {
-    padding: 60px 0;
-    background-color: rgb(70, 82, 78);
-  }
+    padding: 40px;
+    max-width: 360px;
+    margin: 0 auto;
+    margin-top: 48px;
+    transition: box-shadow .3s;
+    background-color: whitesmoke;
+    text-shadow: 1px 0px;
 
+  }
+  .Login:hover {
+    box-shadow: 0 0 30px rgba(33,33,33,.2); 
+
+  }
   .Login form {
     margin: 0 auto;
-    max-width: 320px;
-    color: white;
   }
 }
