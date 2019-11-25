@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
 import com.bounswe.mercatus.Adapters.ForexAdapter
+import com.bounswe.mercatus.Fragments.SearchForexActivity
 import com.bounswe.mercatus.Fragments.TradingEqps.SearchEquipmentsActivity
 import com.bounswe.mercatus.Models.ForexDataModel
 import com.bounswe.mercatus.Models.ForexShowBody
@@ -37,14 +38,13 @@ class ForexFragment : Fragment() {
         rv = root.findViewById(R.id.recyclerViewForex)
         rv.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
 
-        fab  = root.findViewById(R.id.searchTradingEqp)
-        fab.setOnClickListener { view ->
-            val intent = Intent(root.context, SearchEquipmentsActivity::class.java)
-            startActivity(intent)
-        }
-
         getForexItems(root)
 
+        fab  = root.findViewById(R.id.fabForex)
+        fab.setOnClickListener { view ->
+            val intent = Intent(root.context, SearchForexActivity::class.java)
+            startActivity(intent)
+        }
         return root
     }
 
