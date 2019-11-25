@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
+import { FormGroup, FormControl, FormLabel, Button, Form, Col, Row, Nav, Tabs, Tab } from "react-bootstrap";
+
 import LoaderButton from "./LoaderButton";
 import { useFormFields } from "../libs/hooksLib";
 import "./Signup.css";
@@ -65,7 +66,7 @@ export default function Signup({ api, signUpSuccess, ...props }) {
         userLongFunc(res.data.results[0].geometry.location.lng);
         console.log("userLat: " + userLat);
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
       });
     console.log("again: " + userLat);
@@ -106,10 +107,10 @@ export default function Signup({ api, signUpSuccess, ...props }) {
         password: fields.password,
         groups: [1]
       })
-      .then(function(response) {
+      .then(function (response) {
         alert("sign-up successful");
       })
-      .catch(function(error) {
+      .catch(function (error) {
         alert("Try Again");
         console.log(error);
       });
@@ -134,10 +135,10 @@ export default function Signup({ api, signUpSuccess, ...props }) {
         long: userLong,
         groups: [1]
       })
-      .then(function(response) {
+      .then(function (response) {
         alert("sign-up successful");
       })
-      .catch(function(error) {
+      .catch(function (error) {
         alert("Try Again");
         console.log(error);
       });
@@ -146,91 +147,19 @@ export default function Signup({ api, signUpSuccess, ...props }) {
   }
 
   function renderForm() {
-    if (!trader) {
-      return (
-        <React.Fragment>
-          <h1>Basic User SignUp</h1>
-          <p>If you are a trader, check:</p>
-          <CheckBox handleCheckTrader={handleCheckTrader}></CheckBox>
-          <form onSubmit={handleBasicSubmit}>
-            <FormGroup controlId="email" size="large">
-              <FormLabel>Email</FormLabel>
-              <FormControl
-                autoFocus
-                type="email"
-                value={fields.email}
-                onChange={handleFieldChange}
-              />
-            </FormGroup>
-            <FormGroup controlId="firstName" size="large">
-              <FormLabel>First Name</FormLabel>
-              <FormControl
-                type="firstName"
-                value={fields.firstName}
-                onChange={handleFieldChange}
-              />
-            </FormGroup>
-            <FormGroup controlId="lastName" size="large">
-              <FormLabel>Last Name</FormLabel>
-              <FormControl
-                type="lastName"
-                value={fields.lastName}
-                onChange={handleFieldChange}
-              />
-            </FormGroup>
-            <FormGroup controlId="dateOfBirth" size="large">
-              <FormLabel>Date Of Birth</FormLabel>
-              <FormControl
-                type="dateOfBirth"
-                value={fields.dateOfBirth}
-                onChange={handleFieldChange}
-              />
-            </FormGroup>
-            <FormGroup controlId="password" size="large">
-              <FormLabel>Password</FormLabel>
-              <FormControl
-                type="password"
-                value={fields.password}
-                onChange={handleFieldChange}
-              />
-            </FormGroup>
-            <FormGroup controlId="confirmPassword" size="large">
-              <FormLabel>Confirm Password</FormLabel>
-              <FormControl
-                type="password"
-                onChange={handleFieldChange}
-                value={fields.confirmPassword}
-              />
-            </FormGroup>
-
-            <LoaderButton
-              block
-              type="submit"
-              size="large"
-              isLoading={isLoading}
-              disabled={!validateForm()}
-            >
-              Signup
-            </LoaderButton>
-          </form>
-        </React.Fragment>
-      );
-    } else {
-      return (
-        <React.Fragment>
-          <h1>Trader User SignUp</h1>
-          <p>If you want to sign up as a basic user, uncheck:</p>
-          <CheckBox handleCheckTrader={handleCheckTrader}></CheckBox>
-          <form onSubmit={handleTraderSubmit}>
-            <FormGroup controlId="email" size="large">
-              <FormLabel>Email</FormLabel>
-              <FormControl
-                autoFocus
-                type="email"
-                value={traderFields.email}
-                onChange={handleTraderFieldChange}
-              />
-            </FormGroup>
+    let constFields =
+      <div >
+        <FormGroup controlId="email" size="large">
+          <FormLabel>Email</FormLabel>
+          <FormControl
+            autoFocus
+            type="email"
+            value={traderFields.email}
+            onChange={handleTraderFieldChange}
+          />
+        </FormGroup>
+        <Form.Row>
+          <Col>
             <FormGroup controlId="firstName" size="large">
               <FormLabel>First Name</FormLabel>
               <FormControl
@@ -239,6 +168,8 @@ export default function Signup({ api, signUpSuccess, ...props }) {
                 onChange={handleTraderFieldChange}
               />
             </FormGroup>
+          </Col>
+          <Col>
             <FormGroup controlId="lastName" size="large">
               <FormLabel>Last Name</FormLabel>
               <FormControl
@@ -247,61 +178,106 @@ export default function Signup({ api, signUpSuccess, ...props }) {
                 onChange={handleTraderFieldChange}
               />
             </FormGroup>
-            <FormGroup controlId="dateOfBirth" size="large">
-              <FormLabel>Date Of Birth</FormLabel>
-              <FormControl
-                type="dateOfBirth"
-                value={traderFields.dateOfBirth}
-                onChange={handleTraderFieldChange}
-              />
-            </FormGroup>
-            <FormGroup controlId="password" size="large">
-              <FormLabel>Password</FormLabel>
-              <FormControl
-                type="password"
-                value={traderFields.password}
-                onChange={handleTraderFieldChange}
-              />
-            </FormGroup>
-            <FormGroup controlId="confirmPassword" size="large">
-              <FormLabel>Confirm Password</FormLabel>
-              <FormControl
-                type="password"
-                onChange={handleTraderFieldChange}
-                value={traderFields.confirmPassword}
-              />
-            </FormGroup>
+          </Col>
+        </Form.Row>
+        <FormGroup controlId="dateOfBirth" size="large">
+          <FormLabel>Date Of Birth</FormLabel>
+          <FormControl
+            type="dateOfBirth"
+            value={traderFields.dateOfBirth}
+            onChange={handleTraderFieldChange}
+          />
+        </FormGroup>
+        <FormGroup controlId="password" size="large">
+          <FormLabel>Password</FormLabel>
+          <FormControl
+            type="password"
+            value={traderFields.password}
+            onChange={handleTraderFieldChange}
+          />
+        </FormGroup>
+        <FormGroup controlId="confirmPassword" size="large">
+          <FormLabel>Confirm Password</FormLabel>
+          <FormControl
+            type="password"
+            onChange={handleTraderFieldChange}
+            value={traderFields.confirmPassword}
+          />
+        </FormGroup>
+      </div>
+    let traderOnlyFields =
+      <div>
+        <FormGroup controlId="address" size="large">
+          <FormLabel>Address</FormLabel>
+          <FormControl
+            type="address"
+            onChange={handleTraderFieldChange}
+            value={traderFields.address}
+          />
+        </FormGroup>
+        <FormGroup controlId="iban" size="large">
+          <FormLabel>IBAN</FormLabel>
+          <FormControl
+            type="iban"
+            onChange={handleTraderFieldChange}
+            value={traderFields.iban}
+          />
+        </FormGroup>
+      </div>
 
-            <FormGroup controlId="address" size="large">
-              <FormLabel>Address</FormLabel>
-              <FormControl
-                type="address"
-                onChange={handleTraderFieldChange}
-                value={traderFields.address}
-              />
-            </FormGroup>
-            <FormGroup controlId="iban" size="large">
-              <FormLabel>IBAN</FormLabel>
-              <FormControl
-                type="iban"
-                onChange={handleTraderFieldChange}
-                value={traderFields.iban}
-              />
-            </FormGroup>
-            <LoaderButton
-              block
-              type="submit"
-              size="large"
-              isLoading={isLoading}
-              disabled={!validateTraderForm()}
-            >
-              Signup
-            </LoaderButton>
-          </form>
-        </React.Fragment>
-      );
-    }
+    return (
+      <div style={{ marginTop: 12 }}>
+
+        <div className='formWrapper'>
+
+          <div style={{ backgroundColor: 'whitesmoke', padding: 30, borderWidth: 1, borderStyle: 'solid', borderColor: 'grey' }}>
+            <Tabs defaultActiveKey="basic" style={{ justifyContent: 'center' }}>
+              <Tab eventKey="basic" onEnter={handleCheckTrader} title="Basic Register">
+                <h1>Basic User</h1>
+                <form onSubmit={handleBasicSubmit}>
+                  {constFields}
+                  <LoaderButton
+                    block
+                    style={{ marginTop: 30, width:200 }}
+                    type="submit"
+                    size="sm"
+                    variant='outline-primary'
+                    isLoading={isLoading}
+                    disabled={!validateForm()}>
+                    Sign Up
+                </LoaderButton>
+                </form>
+              </Tab>
+              <Tab eventKey="trader" onEnter={handleCheckTrader} title="Trader Register" >
+                <h1>Trader</h1>
+                <form onSubmit={handleTraderSubmit}>
+
+                  {constFields}
+                  {traderOnlyFields}
+
+                  <LoaderButton
+                    block
+                    style={{ marginTop: 30, width:200 }}
+                    type="submit"
+                    size="sm"
+                    variant='outline-primary'
+                    isLoading={isLoading}
+                    disabled={!validateTraderForm()}
+                  >
+                    Sign Up
+                </LoaderButton>
+                </form>
+              </Tab>
+            </Tabs>
+
+
+          </div>
+        </div>
+      </div>
+    );
+
+
   }
-
-  return <div className="Signup">{renderForm()}</div>;
+  let form = renderForm()
+  return <div>{form}</div>;
 }
