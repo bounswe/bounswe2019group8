@@ -30,3 +30,6 @@
   color: black;
   display: flex;
 }
+.list-group-item.my-follow:hover{
+  background-color: rgb(204, 170, 170);
+}

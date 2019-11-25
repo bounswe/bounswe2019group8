@@ -5,6 +5,7 @@ import axios from "axios";
 import { Button, Card, ListGroup } from "react-bootstrap";
 import {FaHeart} from "react-icons/fa";
 
+
 class FollowButton extends Component {
   state = {
     api: axios.create({
@@ -83,7 +84,6 @@ class FollowButton extends Component {
     else{
        return( 
        <React.Fragment>
-      
         <FaHeart style={{ marginRight: 10,  color: "#A4A4A4" , fontSize: "50px" }} onClick={() => this.follow()} />
         </React.Fragment>)
         
