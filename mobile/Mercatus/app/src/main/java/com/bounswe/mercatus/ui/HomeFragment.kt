@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
 import com.bounswe.mercatus.Adapters.ArticlesAdapter
-import com.bounswe.mercatus.Adapters.HomeAdapter
+import com.bounswe.mercatus.Adapters.ForexAdapter
 import com.bounswe.mercatus.Fragments.SearchActivity
 import com.bounswe.mercatus.Models.ForexDataModel
 import com.bounswe.mercatus.Models.ForexShowBody
@@ -27,7 +27,8 @@ import java.net.ConnectException
 
 class HomeFragment : Fragment() {
     private lateinit var fab: FloatingActionButton
-    private lateinit var rv: RecyclerView
+    private lateinit var rv1: RecyclerView
+    private lateinit var rv2: RecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,49 +37,32 @@ class HomeFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_home, container, false)
 
-        rv = root.findViewById(R.id.recyclerViewHome)
-        rv.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
+        rv1 = root.findViewById(R.id.recyclerViewHomeForex)
+        rv1.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
 
-        val listViewType = mutableListOf(
-            HomeAdapter.FOREX_HEADER,
-            HomeAdapter.ITEM_FOREX,
-            HomeAdapter.ITEM_FOREX,
-            HomeAdapter.ITEM_FOREX,
-            HomeAdapter.ITEM_FOREX,
-            HomeAdapter.ITEM_FOREX,
-            HomeAdapter.ITEM_FOREX,
-            HomeAdapter.ITEM_FOREX,
-            HomeAdapter.ITEM_FOREX,
-            HomeAdapter.ITEM_FOREX,
-            HomeAdapter.ITEM_FOREX,
-            HomeAdapter.ARTICLE_HEADER,
-            HomeAdapter.ITEM_ARTICLE,
-            HomeAdapter.ITEM_ARTICLE,
-            HomeAdapter.ITEM_ARTICLE
-        )
+        rv2 = root.findViewById(R.id.recyclerViewHomeArticles)
+        rv2.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
 
         fab  = root.findViewById(R.id.fab)
         fab.setOnClickListener { view ->
             val intent = Intent(root.context, SearchActivity::class.java)
             startActivity(intent)
         }
-        val forexItems = ArrayList<ForexShowBody>()
-        val articles = ArrayList<GetArticleBody>()
-        getForexItems(root, forexItems)
-        getArticles(root, articles)
 
-        var adapter = HomeAdapter(root.context, listViewType, forexItems, articles)
-        rv.adapter = adapter
+
+        getForexItems(root)
+        getArticles(root)
 
         return root
     }
 
-    private fun getForexItems(root: View, forexItems: ArrayList<ForexShowBody>){
+    private fun getForexItems(root: View){
         val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
 
         val res = activity?.getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
         val tokenV = res?.getString("token", "Data Not Found!")
 
+        val forexItems = ArrayList<ForexShowBody>()
 
         mer.getForex("Token " + tokenV.toString()).enqueue(object :
             Callback<List<ForexDataModel>> {
@@ -112,6 +96,8 @@ class HomeFragment : Fragment() {
                             forexItems.add(ForexShowBody(i.name, i.sym, i.pk))
                         }
                     }
+                    var adapter = ForexAdapter(root.context, forexItems)
+                    rv1.adapter = adapter
                 }
                 else  {
                     Toast.makeText(activity, "Get equipments failed.", Toast.LENGTH_SHORT)
@@ -121,11 +107,13 @@ class HomeFragment : Fragment() {
         })
     }
 
-    private fun getArticles(root: View, articles: ArrayList<GetArticleBody>){
+    private fun getArticles(root: View){
         val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
 
         val res = activity?.getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
         val tokenV = res?.getString("token", "Data Not Found!")
+
+        val articles = ArrayList<GetArticleBody>()
 
         mer.getArticles("Token " + tokenV.toString()).enqueue(object :
             Callback<List<GetArticleBody>> {
@@ -159,10 +147,8 @@ class HomeFragment : Fragment() {
                             articles.add(GetArticleBody(i.author, i.title, i.content, i.rating, i.pk))
                         }
                     }
-
-                    var adapter = ArticlesAdapter(root.context, articles)
-                    rv.adapter = adapter
-                    adapter.notifyDataSetChanged()
+                    var adapter2 = ArticlesAdapter(root.context, articles)
+                    rv2.adapter = adapter2
                 }
                 else  {
                     Toast.makeText(activity, "Get articles failed.", Toast.LENGTH_SHORT)
