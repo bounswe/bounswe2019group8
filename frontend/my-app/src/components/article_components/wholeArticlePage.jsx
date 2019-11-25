@@ -22,7 +22,9 @@ class WholeArticlePage extends Component {
     likeState :0,
     rating:0
   };
+  
   render() {
+
     return (
       <div>
         <div className="first-div">
@@ -39,9 +41,6 @@ class WholeArticlePage extends Component {
                 by {this.state.authorName}
              
               </Button>
-              
-                
-              
               <ArticleLike incRating={this.incRating} decRating={this.decRating} makeLike={this.makeLike} makeNeutral={this.makeNeutral} likeState={this.state.likeState} articlePk = {this.state.articlePk}/>
               <ArticleDislike incRating={this.incRating} decRating={this.decRating} makeDisslike={this.makeDisslike} makeNeutral={this.makeNeutral} likeState={this.state.likeState} articlePk = {this.state.articlePk}/>
         
@@ -53,10 +52,13 @@ class WholeArticlePage extends Component {
         </div>
         <div className="third-div">
           <ArticleCommentHolder articlePk={this.state.articlePk} />
+
         </div>
-      </div>
-    );
-  }
+      );
+   
+    }
+    
+  
   componentWillMount() {
     var token = localStorage.getItem("userToken");
     this.setState({ articlePk: this.props.match.params.id });

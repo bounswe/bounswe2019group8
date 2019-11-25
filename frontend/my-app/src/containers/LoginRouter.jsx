@@ -25,8 +25,6 @@ class LoginRouter extends Component {
       headers: { Authorization: `Token ${token}` }
     })
     .then(res => {
-        var authorName = res.data.first_name + " " + res.data.last_name;
-      this.setState({authorName: authorName});
       if(res.data.email_activated === false){
         localStorage.setItem("userToken", null);
         localStorage.setItem("equipmentList", null);
