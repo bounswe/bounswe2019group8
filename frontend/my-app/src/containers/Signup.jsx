@@ -164,7 +164,7 @@ export default function Signup({ api, signUpSuccess, ...props }) {
         <FormGroup controlId="dateOfBirth" size="large">
           <FormLabel>Date Of Birth</FormLabel>
           <FormControl
-            type="dateOfBirth"
+            type="date"
             value={traderFields.dateOfBirth}
             onChange={handleTraderFieldChange}
           />
