@@ -1,0 +1,32 @@
+.name-badge{
+    width: 12vw;
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 7vw;
+}
+.date-badge{
+    width: 12vw;
+    margin-left: 6vw;
+    display: flex;
+    flex-wrap: wrap;
+}
+.time-badge{
+    margin-left: -2vw;
+    width: 10vw;
+    display: flex;
+    flex-wrap: wrap;
+}
+.country-badge{
+    width: 20vw;
+    display: flex;
+    flex-wrap: wrap;
+}
+.importance-badge{
+    width: 15vw;
+    display: flex;
+    flex-wrap: wrap;
+}
+.menu-div{
+    display: flex;
+    flex-direction: row;
+}
