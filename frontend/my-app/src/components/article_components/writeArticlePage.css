@@ -1,8 +1,20 @@
 .field-container {
-  background-color: white;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  background-color: whitesmoke;
+  padding:16px;
+  margin:auto;
+  margin-top:30px;
+  width:50%;
+  text-shadow: 0.4px 0px;
+  min-height: 550px;
 }
+
+.field-container:hover {
+  
+  box-shadow: 0 0 30px rgba(33,33,33,.2); 
+
+}
+
+
 .form-control {
   border-color: black;
 }

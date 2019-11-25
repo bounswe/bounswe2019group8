@@ -49,23 +49,27 @@ class ArticleMakeComment extends Component {
           <form onSubmit={this.handleSubmit}>
             <FormGroup controlId="title" size="large">
               <FormLabel>
-                <Badge className="comment-badge">Leave a comment:</Badge>
+                <Badge id="comment-badge">Leave a comment:</Badge>
               </FormLabel>
               <FormControl
+                style={{minHeight:100}}
                 autoFocus
-                type="comment"
+                type="content"
+                as="textarea"
+                rows="4"
+                cols="80"
                 value={this.state.comment}
                 onChange={this.changeHandler}
               />
             </FormGroup>
             <Button
-            
-              className="submit-comment-btn"
+              style={{backgroundColor: 'rgb(208, 217, 223)'}}
+              id="submit-comment-btn"
               block
               type="submit"
-              size="large"
+              size="sm"
             >
-              Submit Comment
+              Submit
             </Button>
           </form>
         </div>

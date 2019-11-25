@@ -1,12 +1,4 @@
-.my-article-form {
-  margin-left: 33.3%;
-  margin-right: 33.3%;
-  width: 33.4%;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
+
 .submit-comment-btn {
   background-color: rgb(168, 184, 101);
   margin-left: 33.3%;
@@ -21,14 +13,14 @@
   width: 33.4%;
   border-color: rgb(168, 200, 101);
 }
-.comment-badge {
-  background-color: rgb(168, 184, 101);
+#comment-badge {
+  background-color: rgb(208, 217, 223);
   font-size: 20px;
-  color: white;
+  color: rgb(9, 19, 75);
 }
-.submit-comment-btn {
-  background-color: rgb(168, 184, 101);
-  margin-left: 33.3%;
-  margin-right: 33.3%;
-  width: 33.4%;
+#submit-comment-btn {
+  background-color: white;
+  color: black;
+  width:140px;
+  border-radius:8px;
 }

@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { Card, Button } from "react-bootstrap";
 import "./articleCard.css";
 import axios from "axios";
-
+import LoaderButton from '../../containers/LoaderButton'
+import {FaFeatherAlt, FaRegNewspaper} from "react-icons/fa";
 class ArticleCard extends Component {
   state = {
     articleTitle: "",
@@ -13,18 +14,17 @@ class ArticleCard extends Component {
   };
   render() {
     return (
-      <Card>
+      <Card style={{ fontWeight: 'lighter' }}>
         <Card.Body>
+
           <Card.Title>{this.props.articleTitle}</Card.Title>
-          <Card.Text>{this.state.articleContent}</Card.Text>
-          <Button
-            href={"/profile/" + this.props.articleAuthorId}
-            className="btn-primary user-name"
-          >
-            by {this.state.articleAuthorId}
+          <Button style={{fontWeight:'bolder', fontSize:11, height:30, width:'auto', marginBottom:16}} id='writtenBy' href={"/profile/" + this.props.articleAuthorId} variant="primary">
+            <FaFeatherAlt style={{marginRight:4}}></FaFeatherAlt>by {this.state.articleAuthorId}
           </Button>
-          <Button href={"/articles/" + this.props.articlePk} variant="primary">
-            Read the article
+          <Card.Text id='cardContent' style={{  padding: 10 }}>{this.state.articleContent}</Card.Text>
+
+          <Button id='articleCardButton' href={"/articles/" + this.props.articlePk} block variant="outline-primary">
+            <FaRegNewspaper style={{marginRight:4}}></FaRegNewspaper>Read the article
           </Button>
         </Card.Body>
       </Card>
