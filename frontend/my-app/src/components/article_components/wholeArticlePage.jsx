@@ -38,7 +38,7 @@ class WholeArticlePage extends Component {
               </Button>
               <ArticleLike makeLike={this.makeLike} makeNeutral={this.makeNeutral} likeState={this.state.likeState} articlePk = {this.state.articlePk}/>
               <ArticleDislike makeDisslike={this.makeDisslike} makeNeutral={this.makeNeutral} likeState={this.state.likeState} articlePk = {this.state.articlePk}/>
-              <h2> Rating: {this.state.articleRanking} </h2>  
+        
             </p>
           </Jumbotron>
         </div>
@@ -62,7 +62,7 @@ class WholeArticlePage extends Component {
         this.setState({ articleTitle: res.data.title });
         this.setState({ articleContent: res.data.content });
         this.setState({ authorId: res.data.author });
-        this.setState({articleRanking: res.data.rating})
+        this.setState({ articleRanking: res.data.rating})
         axios
           .get("http://8.209.81.242:8000/users/" + res.data.author, {
             headers: { Authorization: `Token ${token}` }
