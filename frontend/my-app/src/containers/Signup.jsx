@@ -132,7 +132,7 @@ export default function Signup({ api, signUpSuccess, ...props }) {
         iban: traderFields.iban,
         lat: userLat,
         long: userLong,
-        groups: [1]
+        groups: [2]
       })
       .then(function(response) {
         alert("sign-up successful");

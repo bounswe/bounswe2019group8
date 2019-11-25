@@ -41,8 +41,8 @@ class TraderNavbar extends Component {
           />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
-              <Nav.Link href="#">Trading Equipment</Nav.Link>
-              <Nav.Link href="#">Events</Nav.Link>
+              <Nav.Link href="/treq">Trading Equipment</Nav.Link>
+              <Nav.Link href="/events">Events</Nav.Link>
               <Nav.Link href="/articles">Articles</Nav.Link>
             </Nav>
             <Form inline>

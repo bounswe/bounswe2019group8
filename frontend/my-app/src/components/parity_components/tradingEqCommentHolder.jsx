@@ -19,6 +19,7 @@ class TradingEqCommentHolder extends Component {
               articleAuthorId={commentList[i].author}
             />
           );
+          finalList = finalList.reverse();
         }
         return (
             <div className="my-holder">
