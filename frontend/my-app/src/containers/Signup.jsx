@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FormGroup, FormControl, FormLabel, Button, Form, Col, Row, Nav, Tabs, Tab } from "react-bootstrap";
+import LocationPicker from 'react-location-picker';
 
 import LoaderButton from "./LoaderButton";
 import { useFormFields } from "../libs/hooksLib";
