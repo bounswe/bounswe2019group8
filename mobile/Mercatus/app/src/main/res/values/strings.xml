@@ -57,6 +57,7 @@
     <string name="open">Open</string>
     <string name="close">Close</string>
     <string name="edit_profile">Edit Profile</string>
+    <string name="change_password">Change Password</string>
     <string name="save">Save</string>
 
     <string name="title">Title</string>
@@ -70,6 +71,7 @@
     <string name="create_comment">Create Comment</string>
     <string name="article">Article</string>
     <string name="edit_article">Edit Article</string>
+    <string name="articles">Articles</string>
 
     <string name="like">Like</string>
     <string name="dislike">Dislike</string>
@@ -83,6 +85,7 @@
 
 
     <string name="digital">Digital</string>
+    <string name="equipment">Equipment</string>
     <string name="increase">Increase</string>
     <string name="decrease">Decrease</string>
 </resources>
