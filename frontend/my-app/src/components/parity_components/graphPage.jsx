@@ -6,7 +6,7 @@ import TradingEqCommentHolder from "./tradingEqCommentHolder";
 
 class GraphPage extends Component { 
         state={
-            pk:this.props.match.params.pk,
+            pk:this.props.pk,
             currentValue: 0,
             parityName: "",
             labels: [],

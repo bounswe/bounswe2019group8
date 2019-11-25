@@ -97,9 +97,7 @@ class OwnProfileArea extends React.Component {
             </ListGroup.Item>
           </ListGroup>
           <Card.Body>
-            <Card.Link href="#"></Card.Link>
-            <Card.Link href="#"></Card.Link>
-            <Card.Link href="#">
+           
               <Button
                 style={myCredentials}
                 variant="outline-danger"
@@ -108,7 +106,7 @@ class OwnProfileArea extends React.Component {
               >
                 Update Info
               </Button>
-            </Card.Link>
+          
           </Card.Body>
         </Card>
       );
