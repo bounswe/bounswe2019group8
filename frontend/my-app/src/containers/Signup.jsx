@@ -35,6 +35,10 @@ export default function Signup({ api, signUpSuccess, ...props }) {
   var [userLong, userLongFunc] = useState(0);
   var [didComponentMount, didIt] = useState(false);
 
+  function errorText(error) {
+    return Object.entries(error.response.data).join("\n");
+  }
+
   function validateForm() {
     return (
       fields.firstName.length > 0 &&
@@ -87,7 +91,7 @@ export default function Signup({ api, signUpSuccess, ...props }) {
         alert("sign-up successful");
       })
       .catch(function (error) {
-        alert("Try Again");
+        alert(errorText(error));
         console.log(error);
       });
 
@@ -115,7 +119,7 @@ export default function Signup({ api, signUpSuccess, ...props }) {
         alert("sign-up successful");
       })
       .catch(function (error) {
-        alert("Try Again");
+        alert(errorText(error));
         console.log(error);
       });
 
