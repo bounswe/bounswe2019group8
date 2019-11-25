@@ -1,0 +1,14 @@
+.events-holder-body{
+    margin-left: 10%;
+    margin-right: 10%;
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+}
+.event-listgroup-item{
+    width: 100%;
+}
+.event-list-item{
+    display: flex;
+    flex-direction: column;
+}

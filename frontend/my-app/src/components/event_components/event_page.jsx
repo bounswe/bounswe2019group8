@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
+import EventsHolder from "./eventsHolder";
 class EventsPage extends Component {
     state = {  }
     render() { 
         return (  
-            <div>Eveeents</div>
+            <div>
+                <EventsHolder/>
+            </div>
         );
     }
 }
