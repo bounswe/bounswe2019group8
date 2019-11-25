@@ -22,14 +22,12 @@ class ArticleLike extends Component {
     })
     .then(res => {
       res.data.forEach((element)=>{
+        this.props.incRating()
         if (element.liker.toString() === localStorage.getItem("userId")){
             this.props.makeLike();
         }
-        
       });
-      
     });
- 
   
   }
   
@@ -43,22 +41,9 @@ class ArticleLike extends Component {
         headers: { Authorization: `Token ${localStorage.getItem("userToken")}` }
       })
       .then(response => {
-        axios
-        .get("http://8.209.81.242:8000/articles/"+this.props.articlePk+"/dislikes", {
-          headers: { Authorization: `Token ${localStorage.getItem("userToken")}` }
-        })
-        .then(res => {
-          var count = 0;
-            res.data.forEach((element)=>{
-            if (element.liker.toString() === localStorage.getItem("userId")){
-                count = count +1
-                
-            }
-          });
-          if(count ===0){
-            this.props.makeNeutral();
-          }
-        });
+        if(response.data === 200){
+          this.props.incRating()
+        }
       });
       axios
       .post("http://8.209.81.242:8000/articles/"+this.props.articlePk+"/likes",{},
@@ -77,14 +62,11 @@ class ArticleLike extends Component {
                 this.props.makeLike();
             }
           });
-          
         });
-       
-        
+        this.props.incRating()
        });
   }
   unlike=()=> {
-
     this.state.api
       .delete("articles/"+this.props.articlePk+"/likes", {
         headers: { Authorization: `Token ${localStorage.getItem("userToken")}` }
@@ -104,6 +86,7 @@ class ArticleLike extends Component {
           if(count ===0){
             this.props.makeNeutral();
           }
+          this.props.decRating()
         });
       });
      
