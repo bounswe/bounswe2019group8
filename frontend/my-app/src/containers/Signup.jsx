@@ -44,32 +44,7 @@ export default function Signup({ api, signUpSuccess, ...props }) {
     );
   }
   function componentDidMount() {
-    //didIt(true);
-    var userAddress = traderFields.address;
-    var userAddressForGoogle = userAddress.replace(/ /g, "+");
-    //var userLat;
-    //var userLng;
-    axios
-      .get("https://maps.googleapis.com/maps/api/geocode/json", {
-        params: {
-          address: userAddress,
-          key: "AIzaSyDuZfKf8HkUVrF0LlxT8bqFUdrIqbXtrHk"
-        }
-      })
-      .then(res => {
-        //console.log(res);
-        console.log("lat is: " + res.data.results[0].geometry.location.lat);
-        //console.log("lng is: " + res.data.results[0].geometry.location.lng);
-        //userLat = res.data.results[0].geometry.location.lat;
-        //userLng = res.data.results[0].geometry.location.lng;
-        userLatFunc(res.data.results[0].geometry.location.lat);
-        userLongFunc(res.data.results[0].geometry.location.lng);
-        console.log("userLat: " + userLat);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-    console.log("again: " + userLat);
+
   }
   function validateTraderForm() {
     // console.log("state: " + didComponentMount);
@@ -146,6 +121,11 @@ export default function Signup({ api, signUpSuccess, ...props }) {
     setIsLoading(false);
   }
 
+  function handleLocationChange({ position, address }) {
+    userLongFunc(position.lng);
+    userLatFunc(position.lat)
+  }
+
   function renderForm() {
     let constFields =
       <div >
@@ -209,10 +189,11 @@ export default function Signup({ api, signUpSuccess, ...props }) {
       <div>
         <FormGroup controlId="address" size="large">
           <FormLabel>Address</FormLabel>
-          <FormControl
-            type="address"
-            onChange={handleTraderFieldChange}
-            value={traderFields.address}
+          <LocationPicker
+            containerElement={ <div style={ {height: '100%'} } /> }
+            mapElement={ <div style={ {height: '400px'} } /> }
+            defaultPosition={{lat: 41.02, lng: 28.97}}
+            onChange={handleLocationChange}
           />
         </FormGroup>
         <FormGroup controlId="iban" size="large">
