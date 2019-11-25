@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FormGroup, FormControl, FormLabel, Button, Form, Col, Row, Nav, Tabs, Tab } from "react-bootstrap";
+import LocationPicker from 'react-location-picker';
 
 import LoaderButton from "./LoaderButton";
 import { useFormFields } from "../libs/hooksLib";
@@ -33,6 +34,10 @@ export default function Signup({ api, signUpSuccess, ...props }) {
   var [userLat, userLatFunc] = useState(0);
   var [userLong, userLongFunc] = useState(0);
   var [didComponentMount, didIt] = useState(false);
+
+  function errorText(error) {
+    return Object.entries(error.response.data).join("\n");
+  }
 
   function validateForm() {
     return (
@@ -86,7 +91,7 @@ export default function Signup({ api, signUpSuccess, ...props }) {
         alert("sign-up successful");
       })
       .catch(function (error) {
-        alert("Try Again");
+        alert(errorText(error));
         console.log(error);
       });
 
@@ -114,7 +119,7 @@ export default function Signup({ api, signUpSuccess, ...props }) {
         alert("sign-up successful");
       })
       .catch(function (error) {
-        alert("Try Again");
+        alert(errorText(error));
         console.log(error);
       });
 
@@ -163,7 +168,7 @@ export default function Signup({ api, signUpSuccess, ...props }) {
         <FormGroup controlId="dateOfBirth" size="large">
           <FormLabel>Date Of Birth</FormLabel>
           <FormControl
-            type="dateOfBirth"
+            type="date"
             value={traderFields.dateOfBirth}
             onChange={handleTraderFieldChange}
           />
