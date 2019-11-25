@@ -3,6 +3,7 @@ package com.bounswe.mercatus.Adapters
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,7 @@ import com.bounswe.mercatus.API.RetrofitInstance
 import com.bounswe.mercatus.Fragments.User.ShowProfileActivity
 import com.bounswe.mercatus.Models.CommentEditBody
 import com.bounswe.mercatus.Models.CommentShowTradingBody
+import com.bounswe.mercatus.Models.LikerModelComment
 import com.bounswe.mercatus.Models.UserRes
 import com.bounswe.mercatus.R
 import com.google.android.material.textfield.TextInputEditText
@@ -56,15 +58,12 @@ class CommentTradingAdapter(val context : Context, val commentList: ArrayList<Co
             itemView.authorName.text = author_id.toString()
             itemView.commentText.text = comment
 
-            itemView.likeResult.visibility = View.GONE
-            itemView.makeLike.visibility = View.GONE
-            itemView.dislikeResult.visibility = View.GONE
-            itemView.makeDislike.visibility = View.GONE
-
             getUser(position, comment_id, author_id, itemView.authorName,
                 itemView.editCommentValue,itemView.deleteComment,
                 itemView.commentSection, itemView.layComment, itemView.editCommentText,
-                itemView.buttonEditComment)
+                itemView.buttonEditComment,
+                itemView.makeLike, itemView.likeResult,
+                itemView.makeDislike, itemView.dislikeResult)
             this.currentSearchShow = CommentShowTradingBody(author_id, comment, eqp_id, comment_id)
             this.currentPosition = position
         }
@@ -81,7 +80,11 @@ class CommentTradingAdapter(val context : Context, val commentList: ArrayList<Co
                         commentSection: LinearLayout,
                         layComment: TextInputLayout,
                         editCommentText : TextInputEditText,
-                        buttonEditComment: ImageView){
+                        buttonEditComment: ImageView,
+                        makeLike: TextView,
+                        likeResult: TextView,
+                        makeDislike: TextView,
+                        dislikeResult: TextView){
         val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
 
         val res = context.getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
@@ -166,6 +169,9 @@ class CommentTradingAdapter(val context : Context, val commentList: ArrayList<Co
                             }
                         }
                     }
+
+                    getLikes(comment_id, likeResult, makeLike, position)
+                    getDislikes(comment_id, dislikeResult, makeDislike, position)
                 }
                 else  {
                     Toast.makeText(context, "Show profile failed.", Toast.LENGTH_SHORT)
@@ -257,6 +263,289 @@ class CommentTradingAdapter(val context : Context, val commentList: ArrayList<Co
                 }
                 else  {
                     Toast.makeText(context, "Edit failed.", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+        })
+    }
+
+    private fun likeComment(pk: Int, position: Int, makeLike: TextView, size: Int, likeResult: TextView){
+        val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
+
+        val res = context.getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
+        val tokenV = res.getString("token", "Data Not Found!")
+
+        mer.likeComment(pk, "Token " + tokenV.toString()).enqueue(object :
+            Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                if(t.cause is ConnectException){
+                    Toast.makeText(
+                        context,
+                        "Check your connection!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else{
+                    Toast.makeText(
+                        context,
+                        "Something bad happened!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if (response.code() == 200) {
+                    Toast.makeText(context, "Successfully liked!", Toast.LENGTH_SHORT)
+                        .show()
+
+                    if(position < commentList.size){
+                        notifyItemChanged(position)
+                        notifyItemRangeChanged(position, itemCount)
+                        //makeLike.setTypeface(makeLike.typeface, Typeface.BOLD)
+                    }
+                }
+                else if (response.code() == 400) {
+                    deleteLike(pk, position, makeLike)
+                    likeResult.text = (size-1).toString()
+                }
+                else  {
+                    Toast.makeText(context, "Like comment failed.2", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+        })
+    }
+    private fun deleteLike(pk: Int, position: Int, makeLike: TextView){
+        val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
+
+        val res = context.getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
+        val tokenV = res.getString("token", "Data Not Found!")
+
+        mer.deleteLikeComment(pk, "Token " + tokenV.toString()).enqueue(object :
+            Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                if(t.cause is ConnectException){
+                    Toast.makeText(
+                        context,
+                        "Check your connection!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else{
+                    Toast.makeText(
+                        context,
+                        "Something bad happened!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if (response.code() == 200) {
+                    Toast.makeText(context, "Successfully liked revoked!", Toast.LENGTH_SHORT)
+                        .show()
+
+                    if(position < commentList.size){
+                        notifyItemChanged(position)
+                        notifyItemRangeChanged(position, itemCount)
+                        makeLike.setTypeface(makeLike.typeface, Typeface.NORMAL)
+                    }
+                }
+                else  {
+                    Toast.makeText(context, "Like comment failed.1", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+        })
+    }
+    private fun getLikes(comment_id: Int, likeResult: TextView, makeLike: TextView, position: Int){
+        val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
+
+        val res = context.getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
+        val tokenV = res.getString("token", "Data Not Found!")
+        val user_id = res.getString("user_id", "Data Not Found!")
+
+        mer.getLikesComments(comment_id, "Token " + tokenV.toString()).enqueue(object :
+            Callback<List<LikerModelComment>> {
+            override fun onFailure(call: Call<List<LikerModelComment>>, t: Throwable) {
+                if(t.cause is ConnectException){
+                    Toast.makeText(
+                        context,
+                        "Check your connection!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else{
+                    Toast.makeText(
+                        context,
+                        "Something bad happened!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+            override fun onResponse(call: Call<List<LikerModelComment>>, response: Response<List<LikerModelComment>>) {
+                if (response.code() == 200) {
+
+                    val res: List<LikerModelComment>? = response.body()
+
+                    for(item in res.orEmpty()){
+                        if(user_id!!.toLong() == item.liker){
+                            if(item.choice == 1){
+                                makeLike.setTypeface(makeLike.typeface, Typeface.BOLD)
+                            }
+                        }
+                    }
+                    if(res!!.isNotEmpty()){
+                        likeResult.text = res.size.toString()
+                    }
+                    makeLike.setOnClickListener {
+                        likeComment(comment_id, position, makeLike, res.size, likeResult)
+                    }
+                }
+                else  {
+                    Toast.makeText(context, "Like list fetch failed.", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+        })
+    }
+
+
+    /////// Dislike comments
+
+    private fun dislikeComment(pk: Int, position: Int, makeDislike: TextView, listSize: Int, dislikeResult: TextView){
+        val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
+
+        val res = context.getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
+        val tokenV = res.getString("token", "Data Not Found!")
+
+        mer.dislikeComment(pk, "Token " + tokenV.toString()).enqueue(object :
+            Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                if(t.cause is ConnectException){
+                    Toast.makeText(
+                        context,
+                        "Check your connection!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else{
+                    Toast.makeText(
+                        context,
+                        "Something bad happened!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if (response.code() == 200) {
+                    Toast.makeText(context, "Successfully disliked!", Toast.LENGTH_SHORT)
+                        .show()
+
+                    if(position < commentList.size){
+                        notifyItemChanged(position)
+                        notifyItemRangeChanged(position, itemCount)
+                        //makeLike.setTypeface(makeLike.typeface, Typeface.BOLD)
+                    }
+                }
+                else if (response.code() == 400) {
+                    deleteDislike(pk, position, makeDislike)
+                    dislikeResult.text = (listSize-1).toString()
+                }
+                else  {
+                    Toast.makeText(context, "Dislike comment failed.", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+        })
+    }
+    private fun deleteDislike(pk: Int, position: Int, makeDislike: TextView){
+        val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
+
+        val res = context.getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
+        val tokenV = res.getString("token", "Data Not Found!")
+
+        mer.deleteDislikeComment(pk, "Token " + tokenV.toString()).enqueue(object :
+            Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                if(t.cause is ConnectException){
+                    Toast.makeText(
+                        context,
+                        "Check your connection!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else{
+                    Toast.makeText(
+                        context,
+                        "Something bad happened!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if (response.code() == 200) {
+                    Toast.makeText(context, "Successfully disliked revoked!", Toast.LENGTH_SHORT)
+                        .show()
+
+                    if(position < commentList.size){
+                        notifyItemChanged(position)
+                        notifyItemRangeChanged(position, itemCount)
+                        makeDislike.setTypeface(makeDislike.typeface, Typeface.NORMAL)
+                    }
+                }
+                else  {
+                    Toast.makeText(context, "Dislike comment failed.1", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+        })
+    }
+    private fun getDislikes(comment_id: Int, dislikeResult: TextView, makeDislike: TextView, position: Int){
+        val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
+
+        val res = context.getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
+        val tokenV = res.getString("token", "Data Not Found!")
+        val user_id = res.getString("user_id", "Data Not Found!")
+
+        mer.getDislikeComments(comment_id, "Token " + tokenV.toString()).enqueue(object :
+            Callback<List<LikerModelComment>> {
+            override fun onFailure(call: Call<List<LikerModelComment>>, t: Throwable) {
+                if(t.cause is ConnectException){
+                    Toast.makeText(
+                        context,
+                        "Check your connection!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else{
+                    Toast.makeText(
+                        context,
+                        "Something bad happened!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+            override fun onResponse(call: Call<List<LikerModelComment>>, response: Response<List<LikerModelComment>>) {
+                if (response.code() == 200) {
+
+                    val resp: List<LikerModelComment>? = response.body()
+
+                    for(item in resp.orEmpty()){
+                        if(user_id!!.toLong() == item.liker){
+                            if(item.choice == -1){
+                                makeDislike.setTypeface(makeDislike.typeface, Typeface.BOLD)
+                            }
+                        }
+                    }
+                    if(resp!!.isNotEmpty()){
+                        dislikeResult.text = resp.size.toString()
+                    }
+                    makeDislike.setOnClickListener {
+                        dislikeComment(comment_id, position, makeDislike, resp.size, dislikeResult)
+                    }
+                }
+                else  {
+                    Toast.makeText(context, "Dislike list fetch failed.", Toast.LENGTH_SHORT)
                         .show()
                 }
             }

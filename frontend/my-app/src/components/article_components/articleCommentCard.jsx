@@ -7,7 +7,8 @@ import CommentDislike from "../joint_components/commentDislike"
 class ArticleCommentCard extends Component {
   state = {
     authorName: "",
-    likeState:0
+    likeState:0,
+    rating:0
   };
   render() {
     return (
@@ -17,8 +18,8 @@ class ArticleCommentCard extends Component {
           <Button href={"/profile/" + this.props.articleAuthorId}>
             by {this.state.authorName}
           </Button>
-          <CommentLike makeLike={this.makeLike} makeNeutral={this.makeNeutral} likeState={this.state.likeState} commentPk = {this.props.commentPk}/>
-          <CommentDislike makeDisslike={this.makeDisslike} makeNeutral={this.makeNeutral} likeState={this.state.likeState} commentPk = {this.props.commentPk}/>
+          <CommentLike incRating={this.incRating} decRating={this.decRating} makeLike={this.makeLike} makeNeutral={this.makeNeutral} likeState={this.state.likeState} commentPk = {this.props.commentPk}/>
+          <CommentDislike incRating={this.incRating} decRating={this.decRating} makeDisslike={this.makeDisslike} makeNeutral={this.makeNeutral} likeState={this.state.likeState} commentPk = {this.props.commentPk}/>
         </Card.Body>
       </Card>
     );
@@ -34,6 +35,7 @@ class ArticleCommentCard extends Component {
         var authorName = res.data.first_name + " " + res.data.last_name;
       this.setState({authorName: authorName});
     });
+    
   }
   makeLike = () =>{
     this.setState({likeState:1})
@@ -43,6 +45,14 @@ class ArticleCommentCard extends Component {
   }
   makeNeutral = () =>{
     this.setState({likeState:0})
+  }
+  incRating =()=>{
+    var newRating = this.state.rating +1;
+    this.setState({rating:newRating})
+  }
+  decRating =()=>{
+    var newRating = this.state.rating -1;
+    this.setState({rating:newRating})
   }
 }
 

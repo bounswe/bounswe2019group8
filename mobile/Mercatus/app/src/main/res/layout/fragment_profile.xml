@@ -171,18 +171,20 @@
         android:textColor="#fff"
         android:background="@drawable/button_style"
         android:layout_marginTop="15dp"
-        android:width="170dp"
+        android:width="150dp"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/edit_profile"/>
+        android:text="@string/edit_profile"
+        android:textSize="12dp"/>
     <Button
         android:id="@+id/btnModifyPassword"
         android:textColor="#fff"
         android:background="@drawable/button_style"
         android:layout_marginTop="15dp"
         android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="Change Password"/>
+        android:text="@string/change_password"
+        android:textSize="12dp"/>
 </LinearLayout>

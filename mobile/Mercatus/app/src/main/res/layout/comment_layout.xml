@@ -12,6 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/padding_min"
+        android:paddingStart="@dimen/new_margin"
+        android:paddingEnd="@dimen/new_margin"
         android:text="@string/author"
         android:textAppearance="@android:style/TextAppearance.Material.Subhead"
         android:textStyle="bold" />
@@ -26,13 +28,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:orientation="horizontal"
-                android:background="@color/gray">
-            </LinearLayout>
 
             <at.blogc.android.views.ExpandableTextView
                 android:id="@+id/commentText"

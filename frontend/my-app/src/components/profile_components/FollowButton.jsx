@@ -3,7 +3,8 @@ import {Route} from "react-router-dom";
 import "./ProfileArea.css";
 import axios from "axios";
 import { Button, Card, ListGroup } from "react-bootstrap";
-import "./followButton.css";
+import {FaHeart} from "react-icons/fa";
+
 
 class FollowButton extends Component {
   state = {
@@ -76,28 +77,14 @@ class FollowButton extends Component {
     if(this.state.isFollowed){
         return(
             <React.Fragment>
-            <button
-                      id="loginStyles"
-                      className="follow-button"
-                      onClick={() => this.unfollow()}
-                      //variant="outline-success"
-                    >
-                      Unfollow
-                    </button>
+              <FaHeart style={{ marginRight: 10,  color: "#E1094A" , fontSize: "50px" }} onClick={() => this.unfollow()} />
             </React.Fragment>
             )
     }
     else{
        return( 
        <React.Fragment>
-        <button
-                  id="loginStyles"
-                  className="follow-button"
-                  onClick={() => this.follow()}
-                  //variant="outline-success"
-                >
-                  Follow
-        </button>
+        <FaHeart style={{ marginRight: 10,  color: "#A4A4A4" , fontSize: "50px" }} onClick={() => this.follow()} />
         </React.Fragment>)
         
     }

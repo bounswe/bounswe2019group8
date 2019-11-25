@@ -5,6 +5,9 @@ import "./traderNavbar.css";
 import WriteArticlePage from "../article_components/writeArticlePage";
 import ArticleHolder from "../article_components/articleHolder";
 import WholeArticlePage from "../article_components/wholeArticlePage";
+import { FaSignOutAlt, FaListAlt, FaUserCircle, FaSearchDollar } from "react-icons/fa";
+import { MdSettings, MdChromeReaderMode } from "react-icons/md";
+
 import {
   Button,
   Form,
@@ -18,16 +21,16 @@ import axios from "axios";
 import Followings from "../profile_components/followings";
 
 class TraderNavbar extends Component {
-  state = { credentials: {} , searchText:""};
+  state = { credentials: {}, searchText: "" };
   changeHandler = event => {
     this.setState({
-     searchText: event.target.value
+      searchText: event.target.value
     });
   };
   render() {
     return (
       <div>
-        <Navbar bg="dark" expand="lg">
+        <Navbar bg="dark" expand="lg" >
           <Navbar.Brand href="/" className="navBarSyles">
             <img
               src={require("../images/MERCATUS-LOGO72DP.png")}
@@ -49,46 +52,57 @@ class TraderNavbar extends Component {
             <Form inline>
               <FormControl
                 type="text"
-                value = {this.state.searchText}
-                placeholder="Search"
+                value={this.state.searchText}
+                placeholder="..."
                 className="mr-sm-2"
+                id = 'searchBar'
                 onChange={this.changeHandler}
               />
-              <Button href={"/search/"+this.state.searchText} variant="outline-success">Search</Button>
+              <Button id='searchButton' href={"/search/" + this.state.searchText} variant="outline-success">
+                Search
+                <FaSearchDollar style={{marginLeft: 6}}></FaSearchDollar>
+
+              </Button>
             </Form>
             <NavDropdown
+
               title={
                 this.state.credentials.firstName +
                 " " +
-                this.state.credentials.lastName
+                this.state.credentials.lastName + "  "
               }
               id="basic-nav-dropdown"
             >
               <NavDropdown.Item href="#" onClick={() => this.profileClick()}>
+                <FaUserCircle style={{marginRight:10 }}></FaUserCircle>
                 Profile
               </NavDropdown.Item>
               <NavDropdown.Item href="#" onClick={() => this.articleClick()}>
+                <MdChromeReaderMode style={{marginRight: 10}}></MdChromeReaderMode>
                 Articles
               </NavDropdown.Item>
-              <NavDropdown.Item href="#">Settings</NavDropdown.Item>
-              <NavDropdown.Item href="#">Portfolio</NavDropdown.Item>
+              <NavDropdown.Item href="#">
+                <MdSettings style={{marginRight: 10}}></MdSettings>
+                Settings
+              </NavDropdown.Item>
+              <NavDropdown.Item href="#">
+                <FaListAlt style={{marginRight: 10}}></FaListAlt>
+                Portfolio
+              </NavDropdown.Item>
 
               <NavDropdown.Divider />
-              <Button
-                id="loginStyles"
-                onClick={() => this.logoutClick()}
-                variant="outline-danger"
-                size="sm"
-              >
+              <NavDropdown.Item onClick={() => this.logoutClick()}>
+                <FaSignOutAlt style={{ marginRight: 10 }} />
                 Logout
-              </Button>
+              </NavDropdown.Item>
+
             </NavDropdown>
             <img
-              className="rounded-circle"
+              className="rounded-circle profileImage"
               src={require("../images/rick.jpg")}
               size="sm"
               alt="10x10"
-              width="80"
+              width="60"
               height="55"
             />
             {/* <Form inline>
@@ -104,9 +118,9 @@ class TraderNavbar extends Component {
     this.props.history.push("/login");
     this.props.history.push("/profile/" + localStorage.getItem("userId"));
   };
-  articleClick = () =>{
+  articleClick = () => {
     this.props.history.push("/login");
-    this.props.history.push("/profile/" + localStorage.getItem("userId")+"/articles");
+    this.props.history.push("/profile/" + localStorage.getItem("userId") + "/articles");
   }
   logoutClick = () => {
     localStorage.setItem("userId", null);
@@ -171,7 +185,7 @@ class TraderNavbar extends Component {
         credentials.userGroup = res.data.groups[0];
         this.setState({ credentials: credentials });
       });
-  
+
     axios.get("http://8.209.81.242:8000/trading_equipments").then(res => {
       var equipmentList = res.data;
       localStorage.setItem("equipmentList", JSON.stringify(equipmentList));

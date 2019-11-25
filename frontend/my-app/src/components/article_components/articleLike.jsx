@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import {Route} from "react-router-dom";
 import "../profile_components/ProfileArea.css";
 import axios from "axios";
-import { Button, Card, ListGroup } from "react-bootstrap";
+import { Button, Card, ListGroup,Glyphicon } from "react-bootstrap";
+import {FaThumbsUp} from "react-icons/fa"
+
 
 class ArticleLike extends Component {
   state = {
@@ -20,14 +22,12 @@ class ArticleLike extends Component {
     })
     .then(res => {
       res.data.forEach((element)=>{
+        this.props.incRating()
         if (element.liker.toString() === localStorage.getItem("userId")){
             this.props.makeLike();
         }
-        
       });
-      
     });
- 
   
   }
   
@@ -36,6 +36,15 @@ class ArticleLike extends Component {
       console.log(localStorage.getItem("userToken"))
       var token = localStorage.getItem("userToken");
       console.log(token)
+      this.state.api
+      .delete("articles/"+this.props.articlePk+"/dislikes", {
+        headers: { Authorization: `Token ${localStorage.getItem("userToken")}` }
+      })
+      .then(response => {
+        if(response.data === 200){
+          this.props.incRating()
+        }
+      });
       axios
       .post("http://8.209.81.242:8000/articles/"+this.props.articlePk+"/likes",{},
       {
@@ -53,14 +62,11 @@ class ArticleLike extends Component {
                 this.props.makeLike();
             }
           });
-          
         });
-       
-        
+        this.props.incRating()
        });
   }
   unlike=()=> {
-
     this.state.api
       .delete("articles/"+this.props.articlePk+"/likes", {
         headers: { Authorization: `Token ${localStorage.getItem("userToken")}` }
@@ -80,6 +86,7 @@ class ArticleLike extends Component {
           if(count ===0){
             this.props.makeNeutral();
           }
+          this.props.decRating()
         });
       });
      
@@ -89,35 +96,21 @@ class ArticleLike extends Component {
         if(this.props.likeState===1){
             return(
                 <React.Fragment>
-                <button
-                          id="loginStyles"
-                          class="myButton"
-                          onClick={() => this.unlike()}
-                          //variant="outline-success"
-                        >
-                          Unlike
-                        </button>
+               <FaThumbsUp style={{ marginRight: 10,  color: "#3C3C3C" , fontSize: "50px" }} onClick={() => this.unlike()} />
                 </React.Fragment>
                 )
         }
-        else if(this.props.likeState===0){
+        else {
            return( 
            <React.Fragment>
-            <button
-                      id="loginStyles"
-                      class="myButton"
-                      onClick={() => this.like()}
-                      //variant="outline-success"
-                    >
-                      Like
-            </button>
+           
+                     <FaThumbsUp style={{ marginRight: 10,  color: "#A4A4A4" , fontSize: "50px" }} onClick={() => this.like()} />
+            
             </React.Fragment>)
             
         }
     
-    else{
-        return(<React.Fragment></React.Fragment>)
-    }
+  
    
   
   }

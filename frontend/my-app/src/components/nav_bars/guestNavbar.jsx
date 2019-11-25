@@ -40,23 +40,23 @@ class GuestNavbar extends Component {
             <Nav.Link href="">Events</Nav.Link>
             <Nav.Link href="">Articles</Nav.Link>
           </Nav>
-          <button
+          <Button
             id="loginStyles"
             class="myButton"
             onClick={() => this.signUpClick()}
-            //variant="outline-success"
+            variant="outline-success"
           >
-            SignUp
-          </button>
+            Sign Up
+          </Button>
 
-          <button
+          <Button
             id="loginStyles"
             class="myButton"
             onClick={() => this.loginClick()}
-            //variant="outline-success"
+            variant="outline-success"
           >
             Login
-          </button>
+          </Button>
           {/* <Form inline>
             <FormControl type="text" placeholder="Search" className="mr-sm-2" />
             <Button variant="outline-success">Search</Button>
