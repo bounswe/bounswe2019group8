@@ -3,6 +3,7 @@ import {Route} from "react-router-dom";
 import "./ProfileArea.css";
 import axios from "axios";
 import { Button, Card, ListGroup } from "react-bootstrap";
+import "./followButton.css";
 
 class FollowButton extends Component {
   state = {
@@ -77,7 +78,7 @@ class FollowButton extends Component {
             <React.Fragment>
             <button
                       id="loginStyles"
-                      class="myButton"
+                      className="follow-button"
                       onClick={() => this.unfollow()}
                       //variant="outline-success"
                     >
@@ -91,7 +92,7 @@ class FollowButton extends Component {
        <React.Fragment>
         <button
                   id="loginStyles"
-                  class="myButton"
+                  className="follow-button"
                   onClick={() => this.follow()}
                   //variant="outline-success"
                 >

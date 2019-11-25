@@ -26,16 +26,34 @@ export default function UpdateCredentials({ ...props }) {
 
       setIsLoading(true);
 
-      var url = "http://8.209.81.242:8000/users/" + this.props.credentials.id;
-
-      axios.put(url,
+      var url = "http://8.209.81.242:8000/users/" + localStorage.getItem("userId");
+      var userEmail = "";
+      var userPassword = "";
+      var userDateOfBirth = "";
+      axios.get(url, { headers: { Authorization: `Token ${localStorage.getItem("userToken")}` } })
+      .then(function(response){
+        console.log(response.data);
+        if(fields.email === ""){
+          userEmail = response.data.email;
+        }
+        else{
+         userEmail = fields.email;
+        }
+        if(fields.dateOfBirth === ""){
+          userEmail = response.data.date_of_birth;
+        }else{
+          userDateOfBirth = fields.dateOfBirth;
+        }
+      });
+      console.log(userEmail);
+      if(fields.password!==""){
+       
+        axios.put(url,
           {
-              first_name: fields.firstName,
-              last_name: fields.lastName,
-              email: fields.email,
-              date_of_birth: fields.dateOfBirth,
+              email: userEmail,
+              date_of_birth: userDateOfBirth,
               password: fields.password
-          }, { headers: { Authorization: `Token ${this.props.credentials.token}` } })
+          }, { headers: { Authorization: `Token ${localStorage.getItem("userToken")}` } })
           .then(function(response) {
               alert("update successful");
           })
@@ -43,6 +61,21 @@ export default function UpdateCredentials({ ...props }) {
               alert("failed update");
               console.log(error);
           });
+      }else{
+        axios.put(url,
+          {
+            date_of_birth: userDateOfBirth,
+              email: userEmail
+          }, { headers: { Authorization: `Token ${localStorage.getItem("userToken")}` } })
+          .then(function(response) {
+              alert("update successful");
+          })
+          .catch(function(error) {
+              alert("failed update");
+              console.log(error);
+          });
+      }
+     
     setIsLoading(false);
   }
 
@@ -81,24 +114,6 @@ export default function UpdateCredentials({ ...props }) {
   function renderForm() {
     return (
       <form onSubmit={handleSubmit}>
-          <FormGroup controlId="firstName" bsSize="large">
-              <FormLabel>First Name</FormLabel>
-              <FormControl
-                  autoFocus
-                  type="firstName"
-                  value={fields.firstName}
-                  onChange={handleFieldChange}
-              />
-          </FormGroup>
-          <FormGroup controlId="lastName" bsSize="large">
-              <FormLabel>Last Name</FormLabel>
-              <FormControl
-                  autoFocus
-                  type="lastName"
-                  value={fields.lastName}
-                  onChange={handleFieldChange}
-              />
-          </FormGroup>
         <FormGroup controlId="email" bsSize="large">
           <FormLabel>Email</FormLabel>
           <FormControl

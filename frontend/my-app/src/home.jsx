@@ -19,6 +19,7 @@ import VerificationFailPage from "./components/verificationFailPage";
 import DoVerify from "./components/doVerify";
 import EventsPage from "./components/event_components/event_page";
 import GraphPage from "./components/parity_components/graphPage";
+import UpdatePage from "./components/profile_components/updatePage";
 
 class Home extends Component {
   state = {};
@@ -92,6 +93,7 @@ class Home extends Component {
           <Route exact path="/treq/:pk" component={GraphPage}/>
           <Route exact path="/verif_fail" component={VerificationFailPage}/>
           <Route exact path="/activations/:restOfUrl/:rest" component={DoVerify}/>
+          <Route exact path="/upd_cred" component={UpdatePage}/>
         </Switch>
         
       </React.Fragment>
