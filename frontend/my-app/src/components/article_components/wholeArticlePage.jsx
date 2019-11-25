@@ -9,6 +9,7 @@ import ArticleDislikeButton from "./articleDislikeButton";
 import { withRouter } from "react-router-dom";
 import ArticleLike from "./articleLike";
 import ArticleDislike from "./articleDislike";
+import {FaHeart} from "react-icons/fa";
 
 class WholeArticlePage extends Component {
   state = {
@@ -18,38 +19,40 @@ class WholeArticlePage extends Component {
     authorName: "",
     articlePk: "",
     articleRanking :0,
-    likeState :0
+    likeState :0,
+    rating:0
   };
   
   render() {
 
-      return (
-        <div>
-          <div className="first-div">
-            <Jumbotron className="my-jumbotron">
-              <h1 className="article-header">{this.state.articleTitle}</h1>
-              <p className="my-par">{this.state.articleContent}</p>
-              <p>
-                <Button
-                  href={"/profile/" + this.state.authorId}
-                  variant="primary"
-                  className="by-author-button"
-                >
-                  by {this.state.authorName}
-                
-                </Button>
-                <ArticleLike makeLike={this.makeLike} makeNeutral={this.makeNeutral} likeState={this.state.likeState} articlePk = {this.state.articlePk}/>
-                <ArticleDislike makeDisslike={this.makeDisslike} makeNeutral={this.makeNeutral} likeState={this.state.likeState} articlePk = {this.state.articlePk}/>
-                <h2> Rating: {this.state.articleRanking} </h2>  
-              </p>
-            </Jumbotron>
-          </div>
-          <div className="second-div">
-            <ArticleMakeComment refresh={this.refreshPage} articlePk={this.state.articlePk} />
-          </div>
-          <div className="third-div">
-            <ArticleCommentHolder articlePk={this.state.articlePk} />
-          </div>
+    return (
+      <div>
+        <div className="first-div">
+        
+          <Jumbotron className="my-jumbotron">
+            <h1 className="article-header">{this.state.articleTitle}</h1>
+            <p className="my-par">{this.state.articleContent}</p>
+            <p>
+              <Button
+                href={"/profile/" + this.state.authorId}
+                variant="primary"
+                className="by-author-button"
+              >
+                by {this.state.authorName}
+             
+              </Button>
+              <ArticleLike incRating={this.incRating} decRating={this.decRating} makeLike={this.makeLike} makeNeutral={this.makeNeutral} likeState={this.state.likeState} articlePk = {this.state.articlePk}/>
+              <ArticleDislike incRating={this.incRating} decRating={this.decRating} makeDisslike={this.makeDisslike} makeNeutral={this.makeNeutral} likeState={this.state.likeState} articlePk = {this.state.articlePk}/>
+        
+            </p>
+          </Jumbotron>
+        </div>
+        <div className="second-div">
+          <ArticleMakeComment refresh={this.refreshPage} articlePk={this.state.articlePk} />
+        </div>
+        <div className="third-div">
+          <ArticleCommentHolder articlePk={this.state.articlePk} />
+
         </div>
       );
    
@@ -67,7 +70,7 @@ class WholeArticlePage extends Component {
         this.setState({ articleTitle: res.data.title });
         this.setState({ articleContent: res.data.content });
         this.setState({ authorId: res.data.author });
-        this.setState({articleRanking: res.data.rating})
+        this.setState({ articleRanking: res.data.rating})
         axios
           .get("http://8.209.81.242:8000/users/" + res.data.author, {
             headers: { Authorization: `Token ${token}` }
@@ -90,6 +93,14 @@ class WholeArticlePage extends Component {
   }
   makeNeutral = () =>{
     this.setState({likeState:0})
+  }
+  incRating =()=>{
+    var newRating = this.state.rating +1;
+    this.setState({rating:newRating})
+  }
+  decRating =()=>{
+    var newRating = this.state.rating -1;
+    this.setState({rating:newRating})
   }
 }
 
