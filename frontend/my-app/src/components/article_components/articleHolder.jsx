@@ -12,23 +12,20 @@ class ArticleHolder extends Component {
     count: 0
   };
   render() {
-   
-    
- 
-    return (
-      <React.Fragment>
-        <div className="container">
-          <Button
-            href="/articlewrite"
-            className="write-article"
-            onClick={this.postArticle}
-          >
-            Write an article
-          </Button>
-          <div className="article-card-container">{this.state.finalList}</div>
-        </div>
-      </React.Fragment>
-    );
+      return (
+        <React.Fragment>
+          <div className="container">
+            <Button
+              href="/articlewrite"
+              className="write-article"
+              onClick={this.postArticle}
+            >
+              Write an article
+            </Button>
+            <div className="article-card-container">{this.state.finalList}</div>
+          </div>
+        </React.Fragment>
+      );
   }
    componentWillMount () {
     axios

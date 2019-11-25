@@ -20,37 +20,42 @@ class WholeArticlePage extends Component {
     articleRanking :0,
     likeState :0
   };
+  
   render() {
-    return (
-      <div>
-        <div className="first-div">
-          <Jumbotron className="my-jumbotron">
-            <h1 className="article-header">{this.state.articleTitle}</h1>
-            <p className="my-par">{this.state.articleContent}</p>
-            <p>
-              <Button
-                href={"/profile/" + this.state.authorId}
-                variant="primary"
-                className="by-author-button"
-              >
-                by {this.state.authorName}
-              
-              </Button>
-              <ArticleLike makeLike={this.makeLike} makeNeutral={this.makeNeutral} likeState={this.state.likeState} articlePk = {this.state.articlePk}/>
-              <ArticleDislike makeDisslike={this.makeDisslike} makeNeutral={this.makeNeutral} likeState={this.state.likeState} articlePk = {this.state.articlePk}/>
-              <h2> Rating: {this.state.articleRanking} </h2>  
-            </p>
-          </Jumbotron>
+
+      return (
+        <div>
+          <div className="first-div">
+            <Jumbotron className="my-jumbotron">
+              <h1 className="article-header">{this.state.articleTitle}</h1>
+              <p className="my-par">{this.state.articleContent}</p>
+              <p>
+                <Button
+                  href={"/profile/" + this.state.authorId}
+                  variant="primary"
+                  className="by-author-button"
+                >
+                  by {this.state.authorName}
+                
+                </Button>
+                <ArticleLike makeLike={this.makeLike} makeNeutral={this.makeNeutral} likeState={this.state.likeState} articlePk = {this.state.articlePk}/>
+                <ArticleDislike makeDisslike={this.makeDisslike} makeNeutral={this.makeNeutral} likeState={this.state.likeState} articlePk = {this.state.articlePk}/>
+                <h2> Rating: {this.state.articleRanking} </h2>  
+              </p>
+            </Jumbotron>
+          </div>
+          <div className="second-div">
+            <ArticleMakeComment refresh={this.refreshPage} articlePk={this.state.articlePk} />
+          </div>
+          <div className="third-div">
+            <ArticleCommentHolder articlePk={this.state.articlePk} />
+          </div>
         </div>
-        <div className="second-div">
-          <ArticleMakeComment refresh={this.refreshPage} articlePk={this.state.articlePk} />
-        </div>
-        <div className="third-div">
-          <ArticleCommentHolder articlePk={this.state.articlePk} />
-        </div>
-      </div>
-    );
-  }
+      );
+   
+    }
+    
+  
   componentWillMount() {
     var token = localStorage.getItem("userToken");
     this.setState({ articlePk: this.props.match.params.id });
