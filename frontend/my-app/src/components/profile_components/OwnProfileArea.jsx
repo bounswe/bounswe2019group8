@@ -69,36 +69,22 @@ class OwnProfileArea extends React.Component {
     const myCredentials = {
       margin: 10
     };
-    if (this.state.updateClicked === true) {
       return (
-        <Card style={{ width: "36rem", align: "center" }}>
-          <Card.Body>
-            <UpdateCredentials
-              credentials={this.props.credentials}
-              api={this.props.api}
-              style={myCredentials}
-              variant="outline-danger"
-              size="sm"
-            >
-              Update Info
-            </UpdateCredentials>
-          </Card.Body>
-        </Card>
-      );
-    } else {
-      return (
-        <Card style={{ width: "36rem", align: "center" }}>
+        <Card >
           <Card.Img variant="top" src={require("../images/rick.jpg")} />
           <ListGroup className="list-group-flush">
-          <ListGroup.Item action href ="/followers">
+          <ListGroup.Item action href ="/followers" className="my-follow">
             
                       My Followers
                       </ListGroup.Item>
-          <ListGroup.Item action href ="/followings"> 
+          <ListGroup.Item action href ="/followings" className="my-follow"> 
                       My Followings
              
             </ListGroup.Item>
+            <ListGroup.Item action href ={"/profile/" + localStorage.getItem("userId") +"/articles"} className="my-follow">
             
+                      Articles            
+            </ListGroup.Item>
         
             <ListGroup.Item>
               {this.state.credentials.firstName +
@@ -116,7 +102,7 @@ class OwnProfileArea extends React.Component {
                 style={myCredentials}
                 variant="outline-danger"
                 size="sm"
-                onClick={this.handleUpdateClick}
+                href="/upd_cred"
               >
                 Update Info
               </Button>
@@ -124,7 +110,6 @@ class OwnProfileArea extends React.Component {
           </Card.Body>
         </Card>
       );
-    }
   }
   handleUpdateClick = () => {
     this.setState({ updateClicked: !this.state.updateClicked });

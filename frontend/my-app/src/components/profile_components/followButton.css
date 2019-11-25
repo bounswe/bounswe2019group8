@@ -1,0 +1,15 @@
+.follow-button{
+    background-color: rgb(133, 110, 146);
+    border-radius: 3px;
+    font-size:20px;
+    padding-left: 5vw;
+    padding-right: 5vw;
+    color: rgb(51, 47, 47);
+}
+.follow-button:hover{
+    background-color: rgb(170, 131, 192);
+    border-radius: 3px;
+    font-size:20px;
+    padding-left: 5vw;
+    padding-right: 5vw;
+}

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FormGroup, FormControl, FormLabel, Button, Form, Col, Row, Nav, Tabs, Tab } from "react-bootstrap";
+import LocationPicker from 'react-location-picker';
 
 import LoaderButton from "./LoaderButton";
 import { useFormFields } from "../libs/hooksLib";
@@ -34,6 +35,10 @@ export default function Signup({ api, signUpSuccess, ...props }) {
   var [userLong, userLongFunc] = useState(0);
   var [didComponentMount, didIt] = useState(false);
 
+  function errorText(error) {
+    return Object.entries(error.response.data).join("\n");
+  }
+
   function validateForm() {
     return (
       fields.firstName.length > 0 &&
@@ -44,32 +49,7 @@ export default function Signup({ api, signUpSuccess, ...props }) {
     );
   }
   function componentDidMount() {
-    //didIt(true);
-    var userAddress = traderFields.address;
-    var userAddressForGoogle = userAddress.replace(/ /g, "+");
-    //var userLat;
-    //var userLng;
-    axios
-      .get("https://maps.googleapis.com/maps/api/geocode/json", {
-        params: {
-          address: userAddress,
-          key: "AIzaSyDuZfKf8HkUVrF0LlxT8bqFUdrIqbXtrHk"
-        }
-      })
-      .then(res => {
-        //console.log(res);
-        console.log("lat is: " + res.data.results[0].geometry.location.lat);
-        //console.log("lng is: " + res.data.results[0].geometry.location.lng);
-        //userLat = res.data.results[0].geometry.location.lat;
-        //userLng = res.data.results[0].geometry.location.lng;
-        userLatFunc(res.data.results[0].geometry.location.lat);
-        userLongFunc(res.data.results[0].geometry.location.lng);
-        console.log("userLat: " + userLat);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-    console.log("again: " + userLat);
+
   }
   function validateTraderForm() {
     // console.log("state: " + didComponentMount);
@@ -111,7 +91,7 @@ export default function Signup({ api, signUpSuccess, ...props }) {
         alert("sign-up successful");
       })
       .catch(function (error) {
-        alert("Try Again");
+        alert(errorText(error));
         console.log(error);
       });
 
@@ -133,17 +113,22 @@ export default function Signup({ api, signUpSuccess, ...props }) {
         iban: traderFields.iban,
         lat: userLat,
         long: userLong,
-        groups: [1]
+        groups: [2]
       })
       .then(function (response) {
         alert("sign-up successful");
       })
       .catch(function (error) {
-        alert("Try Again");
+        alert(errorText(error));
         console.log(error);
       });
 
     setIsLoading(false);
+  }
+
+  function handleLocationChange({ position, address }) {
+    userLongFunc(position.lng);
+    userLatFunc(position.lat)
   }
 
   function renderForm() {
@@ -183,7 +168,7 @@ export default function Signup({ api, signUpSuccess, ...props }) {
         <FormGroup controlId="dateOfBirth" size="large">
           <FormLabel>Date Of Birth</FormLabel>
           <FormControl
-            type="dateOfBirth"
+            type="date"
             value={traderFields.dateOfBirth}
             onChange={handleTraderFieldChange}
           />
@@ -209,10 +194,11 @@ export default function Signup({ api, signUpSuccess, ...props }) {
       <div>
         <FormGroup controlId="address" size="large">
           <FormLabel>Address</FormLabel>
-          <FormControl
-            type="address"
-            onChange={handleTraderFieldChange}
-            value={traderFields.address}
+          <LocationPicker
+            containerElement={ <div style={ {height: '100%'} } /> }
+            mapElement={ <div style={ {height: '400px'} } /> }
+            defaultPosition={{lat: 41.02, lng: 28.97}}
+            onChange={handleLocationChange}
           />
         </FormGroup>
         <FormGroup controlId="iban" size="large">

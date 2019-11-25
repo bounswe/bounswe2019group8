@@ -1,34 +1,20 @@
 .first-div {
   background-color: white;
-  width: 80%;
-  margin-left: 10%;
-  margin-right: 10%;
-  border-radius: 3px;
-  margin-bottom: 10px;
-  margin-top: 10px;
+
+  padding:20px;
 }
 .second-div {
   background-color: white;
-  width: 80%;
-  margin-left: 10%;
-  margin-right: 10%;
-  border-radius: 3px;
-  margin-bottom: 10px;
+
 }
+
+
 .by-author-button {
   background-color: rgb(168, 184, 101);
-  margin-left: 33.3%;
-  margin-right: 33.3%;
   width: 33.4%;
   border-color: rgb(168, 184, 101);
 }
-.by-author-button:hover {
-  background-color: rgb(168, 200, 101);
-  margin-left: 33.3%;
-  margin-right: 33.3%;
-  width: 33.4%;
-  border-color: rgb(168, 200, 101);
-}
+
 .my-par {
   width: 90%;
   margin-left: 5%;
@@ -37,21 +23,69 @@
   border-color: red;
 }
 .article-header {
-  margin-left: 33.3%;
-  margin-right: 23.3%;
-  padding: 2%;
-  width: 33.4%;
-  color: white;
-  border-color: rgb(168, 184, 101);
-  background-color: rgb(168, 184, 101);
-  border-radius: 3px;
+  border-bottom: 1.4px dotted black;
+  padding:10px;
   font-size: 20px;
+  margin-bottom:20px;
+  transition: 0.5s;
+}
+
+
+.article-header:hover {
+  font-size:22px;
 }
 .my-jumbotron {
   background-color: white;
+  transition: 0.4s;
+
 }
 .third-div {
-  margin-left: 25%;
-  margin-right: 25%;
+
   width: 50%;
+}
+
+#writtenBy {
+  color:white;
+  font-weight: lighter;
+  background-color:purple;
+  border:2px solid purple;
+  border-radius:0px;
+  font-size:11px;
+  width:auto;
+  margin-right: 6px;
+
+}
+
+#writtenBy:hover {
+  color:whitesmoke;
+}
+
+#rating {
+  color:white;
+  font-weight: lighter;
+  background-color:rgb(55, 131, 118);
+  border-radius:0px;
+  font-size:11px;
+  width:auto;
+}
+
+#articleContainer {
+  border: 1px solid black;
+  transition: 0.2s;
+}
+
+#articleContainer:hover {
+  box-shadow: 0 0 30px rgba(33,33,33,.2); 
+  border: 1.1px solid black;
+
+}
+
+#commentContainer {
+  background-color:white;
+  border: 1px solid black;
+  transition: 0.2s;
+}
+
+#makeCommentContainer {
+  background: none;
 }

@@ -8,6 +8,7 @@ class DoVerify extends Component {
         verified: false
      }
     render() { 
+        console.log(this.state.verified);
         if(this.state.verified === false){
             return ( 
                 <div>
@@ -21,17 +22,21 @@ class DoVerify extends Component {
         }
         else{
             this.props.history.push("/");
+            return(
+                <h1>hello</h1>
+            )
         }
     }
     componentWillMount(){
         this.setState({ restOfUrl: this.props.match.params.restOfUrl });
         axios
-        .get("http://8.209.81.242:8000/activations/" + this.props.match.params.restOfUrl)
+        .get("http://8.209.81.242:8000/activations/" + this.props.match.params.restOfUrl + "/" + this.props.match.params.rest)
         .then(res => {
-            if(res.status==="200"){
+            if(res.status===200){
                 this.setState({verified: true});
             }
         });
+        
     }
 }
  

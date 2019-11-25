@@ -14,6 +14,7 @@ class ArticleCommentHolder extends Component {
     for (var i = 0; i < articleList.length; i++) {
       finalList.push(
         <ArticleCommentCard
+          style={{width:'70%'}}
           commentPk = {articleList[i].pk}        
           commentContent={articleList[i].content}
           articleAuthorId={articleList[i].author}
@@ -22,7 +23,7 @@ class ArticleCommentHolder extends Component {
     }
     return (
       <React.Fragment>
-        <div className="outer-div">
+        <div className="outer-div" >
           <div className="article-comment-container">
             <Badge className="comments-badge">Comments:</Badge>
             <div className="my-outer-div">{finalList}</div>
