@@ -11,6 +11,7 @@ import "../../containers/Login.css";
 import "./writeArticlePage.css";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
+import LoaderButton from "../../containers/LoaderButton";
 
 export default function WriteArticlePage(submitClicked, ...props) {
   const [isLoading, setIsLoading] = useState(false);
@@ -37,11 +38,11 @@ export default function WriteArticlePage(submitClicked, ...props) {
       .post("http://8.209.81.242:8000/articles", data, {
         headers: { Authorization: `Token ${token}` }
       })
-      .then(function(response) {
+      .then(function (response) {
         console.log(response);
         window.location.reload();
       });
-     
+
   }
   return (
     <div className="field-container">
@@ -66,20 +67,21 @@ export default function WriteArticlePage(submitClicked, ...props) {
             value={fields.content}
             onChange={handleFieldChange}
             as="textarea"
-            rows="3"
+            rows="12"
           />
         </FormGroup>
-        <Button
-          className="for-post"
+
+        <LoaderButton
           block
+          style={{ marginTop: 30, width: 200}}
           type="submit"
-          size="large"
+          size="sm"
+          variant='outline-primary'
           isLoading={isLoading}
           disabled={!validateForm()}
-          
         >
-          Submit Article
-        </Button>
+          Send Article
+          </LoaderButton>
       </form>
     </div>
   );

@@ -16,7 +16,7 @@ class RealArticleHolder extends Component {
   }
   render() {
     return (
-      <React.Fragment>
+      <React.Fragment >
         <ArticleHolder articles={this.state.articles} />
       </React.Fragment>
     );

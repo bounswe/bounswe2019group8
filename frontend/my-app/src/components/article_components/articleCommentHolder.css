@@ -1,23 +1,8 @@
 .article-comment-container {
-  background-color: white;
-  margin-top: 10px;
-  border-radius: 10px;
+  width:94%;
 }
-.comments-badge {
-  font-size: 20px;
-  margin-left: 33.3%;
-  margin-right: 33.3%;
-  margin-top: 10px;
-  width: 33.4%;
-  background-color: white;
-}
-.article-comment-card{
-  margin-left: 33.3%;
-  margin-right: 33.3%;
-  width: 33.4%;
-}
-.outer-div {
-}
+
 .my-outer-div{
-  width:60%;
+  width:100%;
+  
 }
