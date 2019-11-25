@@ -3,6 +3,7 @@ import axios from "axios";
 import CommentCard from "./tradingEqCommentCard";
 import "./tradingEqCommentHolder.css";
 import MakeComment from "./tradingEqMakeComment";
+import { Button, Badge } from "react-bootstrap";
 class TradingEqCommentHolder extends Component {
     state = { 
         comments: []
@@ -22,6 +23,7 @@ class TradingEqCommentHolder extends Component {
         return (
             <div className="my-holder">
               <div >
+            <Badge className="current-value-badge">Current Value: {this.props.currentValue}</Badge>
                 <MakeComment refresh={this.refreshPage} pk={this.props.pk}/>
              {finalList}
              </div>

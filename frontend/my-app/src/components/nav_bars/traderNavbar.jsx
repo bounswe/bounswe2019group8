@@ -43,7 +43,7 @@ class TraderNavbar extends Component {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
               <Nav.Link href="/treq">Trading Equipment</Nav.Link>
-              <Nav.Link href="#">Events</Nav.Link>
+              <Nav.Link href="/events">Events</Nav.Link>
               <Nav.Link href="/articles">Articles</Nav.Link>
             </Nav>
             <Form inline>
@@ -156,7 +156,13 @@ class TraderNavbar extends Component {
       var articleList2 = res.data;
       localStorage.setItem("articleList", JSON.stringify(articleList2));
     }
-    
+    );
+    axios
+    .get("http://8.209.81.242:8000/events").then(res => {
+      var eventsList = res.data;
+      //localStorage.setItem("articleList", JSON.stringify(articleList2));
+      console.log("eventsList");
+    }
     );
   }
 }
