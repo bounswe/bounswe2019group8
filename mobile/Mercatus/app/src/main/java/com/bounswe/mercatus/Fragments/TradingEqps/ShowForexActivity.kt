@@ -94,12 +94,6 @@ class ShowForexActivity : AppCompatActivity() {
             dialogBuilder.show()
         }
 
-        increaseForex.setOnClickListener {
-            makeUpVote(forexID!!.toInt())
-        }
-        decreaseForex.setOnClickListener {
-            makeDownVote(forexID!!.toInt())
-        }
         getForexParity(forexID!!.toInt(), forexName!!)
         getComments(forexID!!.toInt(), commentsList, adapter)
     }
@@ -274,7 +268,7 @@ class ShowForexActivity : AppCompatActivity() {
                 if (response.code() == 200) {
                     Toast.makeText(this@ShowForexActivity, "Vote is added!", Toast.LENGTH_SHORT)
                         .show()
-                    recreate()
+                    //recreate()
                 }
                 else if(response.code() == 400){
                     Toast.makeText(this@ShowForexActivity, "You have already voted for this equipment", Toast.LENGTH_SHORT)
@@ -315,7 +309,7 @@ class ShowForexActivity : AppCompatActivity() {
                 if (response.code() == 200) {
                     Toast.makeText(this@ShowForexActivity, "Vote is added!", Toast.LENGTH_SHORT)
                         .show()
-                    recreate()
+                    //recreate()
                 }
                 else if(response.code() == 400){
                     Toast.makeText(this@ShowForexActivity, "You have already voted for this equipment", Toast.LENGTH_SHORT)
@@ -360,6 +354,12 @@ class ShowForexActivity : AppCompatActivity() {
                         val upRes = resUp.size.toString() + " Votes"
                         upVoteText.text = upRes
                     }
+
+                    increaseForex.setOnClickListener {
+                        val upRes = (resUp.size +1).toString() + " Votes"
+                        upVoteText.text = upRes
+                        makeUpVote(eqp_id)
+                    }
                 }
                 else  {
                     Toast.makeText(this@ShowForexActivity, "Get votes failed.", Toast.LENGTH_SHORT)
@@ -398,6 +398,12 @@ class ShowForexActivity : AppCompatActivity() {
                     if(resDown!!.isNotEmpty()){
                         val downRes = resDown.size.toString() + " Votes"
                         downVoteText.text = downRes
+                    }
+
+                    decreaseForex.setOnClickListener {
+                        val downRes = (resDown.size +1).toString() + " Votes"
+                        downVoteText.text = downRes
+                        makeDownVote(eqp_id)
                     }
                 }
                 else  {
