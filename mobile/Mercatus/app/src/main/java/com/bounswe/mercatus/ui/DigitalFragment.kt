@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
 import com.bounswe.mercatus.Adapters.DigitalAdapter
+import com.bounswe.mercatus.Fragments.SearchDigitalActivity
 import com.bounswe.mercatus.Fragments.TradingEqps.SearchEquipmentsActivity
 import com.bounswe.mercatus.Models.ForexDataModel
 import com.bounswe.mercatus.Models.ForexShowBody
@@ -38,10 +39,12 @@ class DigitalFragment : Fragment() {
 
         rv.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
         getDigitalItems(root)
-        fab  = root.findViewById(R.id.searchTradingEqp)
+
+        fab  = root.findViewById(R.id.fabDigital)
         fab.setOnClickListener { view ->
-            val intent = Intent(root.context, SearchEquipmentsActivity::class.java)
+            val intent = Intent(root.context, SearchDigitalActivity::class.java)
             startActivity(intent)
+
         }
 
         return root
