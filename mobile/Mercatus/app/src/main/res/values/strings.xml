@@ -92,4 +92,7 @@
     <string name="create_event">create_event</string>
     <string name="date">date</string>
     <string name="time">time</string>
+
+    <string name="date_large">Date: </string>
+    <string name="time_large">Time: </string>
 </resources>
