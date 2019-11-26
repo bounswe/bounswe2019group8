@@ -55,7 +55,7 @@ class EventsFragment : Fragment() {
 
 
 
-        mer.getEvents("2019-11-25","Token " + tokenV.toString()).enqueue(object :
+        mer.getEvents("2019-11-26","Token " + tokenV.toString()).enqueue(object :
             Callback<List<GetEventBody>> {
             override fun onFailure(call: Call<List<GetEventBody>>, t: Throwable) {
                 if(t.cause is ConnectException){

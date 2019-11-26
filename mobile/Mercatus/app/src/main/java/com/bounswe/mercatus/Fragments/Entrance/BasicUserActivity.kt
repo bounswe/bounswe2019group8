@@ -79,7 +79,11 @@ class BasicUserActivity : AppCompatActivity() {
                         R.anim.slide_out_left
                     )
 
-                } else {
+                }
+                else if(response.code() == 200){
+                    Toast.makeText(this@BasicUserActivity, "User with this email already exists.", Toast.LENGTH_SHORT).show()
+                }
+                else {
                     Toast.makeText(this@BasicUserActivity, "Login failed!", Toast.LENGTH_SHORT).show()
                 }
             }

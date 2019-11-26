@@ -12,7 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
 import com.bounswe.mercatus.Adapters.DigitalAdapter
-import com.bounswe.mercatus.Models.*
+import com.bounswe.mercatus.Models.ForexDataModel
+import com.bounswe.mercatus.Models.ForexShowBody
 import com.bounswe.mercatus.R
 import retrofit2.Call
 import retrofit2.Callback
@@ -55,75 +56,66 @@ class SearchDigitalActivity : AppCompatActivity() {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
 
 
-            override fun onQueryTextSubmit(query: String?): Boolean {
+        override fun onQueryTextSubmit(query: String?): Boolean {
 
-                digitalItems.clear()
-                searchView.clearFocus()
-                searchView.setQuery("", false)
-                searchItem.collapseActionView()
+            digitalItems.clear()
+            searchView.clearFocus()
+            searchView.setQuery("", false)
+            searchItem.collapseActionView()
 
-                val res = getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
-                val tokenV = res?.getString("token", "Data Not Found!")
+            val res = getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
+            val tokenV = res?.getString("token", "Data Not Found!")
 
-                if(!query.isNullOrBlank()){
+            if(!query.isNullOrBlank()){
 
-
-                    mer.getDigital("Token " + tokenV.toString()).enqueue(object :
-                        Callback<List<ForexDataModel>> {
-                        override fun onFailure(call: Call<List<ForexDataModel>>, t: Throwable) {
-                            if(t.cause is ConnectException){
-                                Toast.makeText(
-                                    this@SearchDigitalActivity,
-                                    "Check your connection!",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
-                            else{
-                                Toast.makeText(
-                                    this@SearchDigitalActivity,
-                                    "Something bad happened!",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
+                mer.getDigital("Token " + tokenV.toString()).enqueue(object :
+                    Callback<List<ForexDataModel>> {
+                    override fun onFailure(call: Call<List<ForexDataModel>>, t: Throwable) {
+                        if(t.cause is ConnectException){
+                            Toast.makeText(
+                                this@SearchDigitalActivity,
+                                "Check your connection!",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
-
-                        override fun onResponse(call: Call<List<ForexDataModel>>, response: Response<List<ForexDataModel>>) {
-                            if (response.code() == 200) {
-
-
-                                val res: List<ForexDataModel>? = response.body()
-
-                                for(i in res.orEmpty()){
-                                    if (i.name.contains(query, false)) {
-                                        digitalItems.add(ForexShowBody(i.name, i.sym, i.pk))
-                                    }
-                                }
-                                if(digitalItems.isEmpty()){
-                                    Toast.makeText( this@SearchDigitalActivity,"No Trading Equipment Found!", Toast.LENGTH_SHORT).show()
-                                }
-                                adapter.notifyDataSetChanged()
-                                //val users: List<UserRes>? = response.body()
-                                //Toast.makeText(this@SearchActivity, users?.get(0)?.first_name , Toast.LENGTH_SHORT).show()
-                            } else {
-                                Toast.makeText( this@SearchDigitalActivity, "Search failed.", Toast.LENGTH_SHORT).show()
-                            }
+                        else{
+                            Toast.makeText(
+                                this@SearchDigitalActivity,
+                                "Something bad happened!",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
+                    }
+
+                    override fun onResponse(call: Call<List<ForexDataModel>>, response: Response<List<ForexDataModel>>) {
+                        if (response.code() == 200) {
 
 
-                    })
+                            val res: List<ForexDataModel>? = response.body()
 
-
-                }
-
-
-                return true
+                            for(i in res.orEmpty()){
+                                if (i.name.contains(query, true)) {
+                                    digitalItems.add(ForexShowBody(i.name, i.sym, i.pk))
+                                }
+                            }
+                            if(digitalItems.isEmpty()){
+                                Toast.makeText( this@SearchDigitalActivity,"No Trading Equipment Found!", Toast.LENGTH_SHORT).show()
+                            }
+                            adapter.notifyDataSetChanged()
+                            //val users: List<UserRes>? = response.body()
+                            //Toast.makeText(this@SearchActivity, users?.get(0)?.first_name , Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText( this@SearchDigitalActivity, "Search failed.", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                })
             }
+            return true
+        }
 
-            override fun onQueryTextChange(newText: String?): Boolean {
-                return false
-            }
-
-
+        override fun onQueryTextChange(newText: String?): Boolean {
+            return false
+        }
         })
         return super.onCreateOptionsMenu(menu)
     }

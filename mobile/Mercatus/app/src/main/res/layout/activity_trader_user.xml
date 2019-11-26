@@ -138,7 +138,7 @@
                             android:layout_height="wrap_content"
                             android:hint="@string/iban_number"
                             android:imeOptions="actionNext"
-                            android:inputType="number" />
+                            android:inputType="text" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout

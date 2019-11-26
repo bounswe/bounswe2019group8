@@ -80,7 +80,11 @@ class TraderUserActivity : AppCompatActivity() {
                         R.anim.slide_out_left
                     )
 
-                } else {
+                }
+                else if(response.code() == 200){
+                    Toast.makeText(this@TraderUserActivity, "User with this email already exists.", Toast.LENGTH_SHORT).show()
+                }
+                else {
                     Toast.makeText(this@TraderUserActivity, "Login failed!", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -120,11 +124,25 @@ class TraderUserActivity : AppCompatActivity() {
         }else{
             layPassword.isErrorEnabled = false
         }
-        if (iban.length > 24 || iban.length < 24){
+        if (iban.length < 22){
             layIban.isErrorEnabled = true
             layIban.error = "Iban is not valid!"
             isValid = false
-        }else{
+        }
+        else if (!iban[0].isLetter() || !iban[1].isLetter()){
+            layIban.isErrorEnabled = true
+            layIban.error = "Iban is not valid!"
+            isValid = false
+        }
+        else{
+            for(item in iban){
+                if(!item.isDigit()){
+                    layIban.isErrorEnabled = true
+                    layIban.error = "Iban is not valid!"
+                    isValid = false
+                    break
+                }
+            }
             layIban.isErrorEnabled = false
         }
         if (id.length > 11 || id.length < 11){

@@ -13,15 +13,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Fragments.Entrance.VerificationActivity"></activity>
         <activity android:name=".Fragments.Entrance.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".Fragments.TradingEqps.ZoomEqpActivity"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape" />
         <activity android:name=".Fragments.TradingEqps.ShowForexActivity" />
         <activity android:name=".Fragments.Articles.EditArticleActivity" />
         <activity android:name=".Fragments.TradingEqps.SearchEquipmentsActivity" />
@@ -29,7 +31,6 @@
         <activity android:name=".Fragments.Articles.CreateArticleActivity" />
         <activity android:name=".Fragments.Articles.CreateEventActivity" />
         <activity android:name=".Fragments.Articles.ShowEventActivity" />
-
         <activity
             android:name=".Fragments.TradingActivity"
             android:label="@string/title_activity_trading"
@@ -44,8 +45,7 @@
             android:name=".Fragments.MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Fragments.Entrance.LoginActivity">
-        </activity>
+        <activity android:name=".Fragments.Entrance.LoginActivity"></activity>
         <activity android:name=".Fragments.User.ModifyActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
