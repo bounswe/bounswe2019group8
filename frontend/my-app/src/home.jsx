@@ -103,7 +103,7 @@ class Home extends Component {
           <Route exact path="/activations/:restOfUrl/:rest" component={DoVerify}/>
           <Route exact path="/upd_cred" component={UpdatePage}/>
         </Switch>
-        {(this.props.location.pathname.length <= 1) && <ArticleHolder2/>}
+        {(this.props.location.pathname.length <= 1) && (localStorage.getItem("userToken")) &&  <ArticleHolder2/>}
 
       </React.Fragment>
     );

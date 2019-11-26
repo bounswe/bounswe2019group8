@@ -36,6 +36,8 @@ class ArticleHolder extends Component {
     );
   }
   componentWillMount() {
+
+
     axios
       .get("http://8.209.81.242:8000/articles").then(res => {
         var articleList2 = res.data;
@@ -44,7 +46,10 @@ class ArticleHolder extends Component {
 
         let finalList = [];
 
-        for (var i = 0; i < 5; i++) {
+        if (!articleList)
+          return;
+
+        for (var i = 0; i < Math.min(articleList.length, 5); i++) {
           finalList.push(
             <ArticleCard
               articleContent={articleList[i].content}
