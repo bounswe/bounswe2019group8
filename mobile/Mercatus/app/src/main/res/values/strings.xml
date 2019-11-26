@@ -14,7 +14,7 @@
     <string name="basic_user">Basic User</string>
     <string name="trader_user">Trader</string>
     <string name="id_number">ID Number</string>
-    <string name="iban_number">TR Iban Number</string>
+    <string name="iban_number">Global Iban Number</string>
     <string name="basic">Basic</string>
     <string name="trader">Trader</string>
     <string name="free">Free</string>
