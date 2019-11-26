@@ -95,6 +95,7 @@
     </FrameLayout>
     <Button
         android:id="@+id/buttonGuest"
+        android:visibility="gone"
         android:layout_width="150dp"
         android:layout_height="40dp"
         android:layout_gravity="center"
