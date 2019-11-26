@@ -41,9 +41,8 @@ class Graph extends Component {
     return (
       <div className="col-md-6">
         <Badge className="graph-badge">{this.props.name}</Badge>
+        <Badge className="graph-badge">Current Value :{this.props.currentValue}</Badge>
         <Line data={data} height={150} />
-        
-  
       </div>
     );
   }
