@@ -11,9 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
-import com.bounswe.mercatus.Adapters.CustomAdapter
 import com.bounswe.mercatus.Adapters.ForexAdapter
-import com.bounswe.mercatus.Models.*
+import com.bounswe.mercatus.Models.ForexDataModel
+import com.bounswe.mercatus.Models.ForexShowBody
 import com.bounswe.mercatus.R
 import retrofit2.Call
 import retrofit2.Callback
@@ -98,7 +98,7 @@ class SearchForexActivity : AppCompatActivity() {
                                 val res: List<ForexDataModel>? = response.body()
 
                                 for(i in res.orEmpty()){
-                                    if (i.name.contains(query, false)) {
+                                    if (i.name.contains(query, true)) {
                                         forexItems.add(ForexShowBody(i.name, i.sym, i.pk))
                                     }
                                 }
