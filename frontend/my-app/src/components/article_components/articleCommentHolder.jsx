@@ -20,6 +20,7 @@ class ArticleCommentHolder extends Component {
           articleAuthorId={articleList[i].author}
         />
       );
+      finalList=finalList.reverse();
     }
     return (
       <React.Fragment>

@@ -105,11 +105,11 @@ export default function Signup({ api, signUpSuccess, ...props }) {
     componentDidMount();
     axios
       .post("/users", {
-        email: traderFields.email,
-        first_name: traderFields.firstName,
-        last_name: traderFields.lastName,
-        date_of_birth: traderFields.dateOfBirth,
-        password: traderFields.password,
+        email: fields.email,
+        first_name: fields.firstName,
+        last_name: fields.lastName,
+        date_of_birth: fields.dateOfBirth,
+        password: fields.password,
         iban: traderFields.iban,
         lat: userLat,
         long: userLong,
@@ -139,8 +139,8 @@ export default function Signup({ api, signUpSuccess, ...props }) {
           <FormControl
             autoFocus
             type="email"
-            value={traderFields.email}
-            onChange={handleTraderFieldChange}
+            value={fields.email}
+            onChange={handleFieldChange}
           />
         </FormGroup>
         <Form.Row>
@@ -149,8 +149,8 @@ export default function Signup({ api, signUpSuccess, ...props }) {
               <FormLabel>First Name</FormLabel>
               <FormControl
                 type="firstName"
-                value={traderFields.firstName}
-                onChange={handleTraderFieldChange}
+                value={fields.firstName}
+                onChange={handleFieldChange}
               />
             </FormGroup>
           </Col>
@@ -159,8 +159,8 @@ export default function Signup({ api, signUpSuccess, ...props }) {
               <FormLabel>Last Name</FormLabel>
               <FormControl
                 type="lastName"
-                value={traderFields.lastName}
-                onChange={handleTraderFieldChange}
+                value={fields.lastName}
+                onChange={handleFieldChange}
               />
             </FormGroup>
           </Col>
@@ -169,24 +169,24 @@ export default function Signup({ api, signUpSuccess, ...props }) {
           <FormLabel>Date Of Birth</FormLabel>
           <FormControl
             type="date"
-            value={traderFields.dateOfBirth}
-            onChange={handleTraderFieldChange}
+            value={fields.dateOfBirth}
+            onChange={handleFieldChange}
           />
         </FormGroup>
         <FormGroup controlId="password" size="large">
           <FormLabel>Password</FormLabel>
           <FormControl
             type="password"
-            value={traderFields.password}
-            onChange={handleTraderFieldChange}
+            value={fields.password}
+            onChange={handleFieldChange}
           />
         </FormGroup>
         <FormGroup controlId="confirmPassword" size="large">
           <FormLabel>Confirm Password</FormLabel>
           <FormControl
             type="password"
-            onChange={handleTraderFieldChange}
-            value={traderFields.confirmPassword}
+            onChange={handleFieldChange}
+            value={fields.confirmPassword}
           />
         </FormGroup>
       </div>
