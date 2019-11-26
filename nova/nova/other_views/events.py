@@ -1,22 +1,14 @@
-from django.contrib.auth import authenticate
-from django.contrib.postgres.search import SearchVector
-from django.core.mail import EmailMessage
-from django.db.models import Q
-from django.utils.encoding import force_bytes
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from rest_framework import permissions
+import json
+
+import requests
 from rest_framework import status
-from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.exceptions import AuthenticationFailed, PermissionDenied, NotFound, ValidationError
 from rest_framework.response import Response
 
 from nova.permissions import Public
+from ..libs.parse_event_data import parse_event_data
 from ..models import Event
 from ..serializers import EventSerializer
-import requests
-import json
-from ..libs.parse_event_data import parse_event_data
 
 
 @api_view(['GET', 'POST'])

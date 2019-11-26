@@ -120,6 +120,7 @@ class Parity(models.Model):
 
     REQUIRED_FIELDS = ['observed_at', 'interval_category', 'tr_eq', 'open', 'close', 'high', 'low']
 
+
 class CurrentPrice(models.Model):
     observed_at = models.DateTimeField()
 
@@ -130,6 +131,7 @@ class CurrentPrice(models.Model):
     bid_price = models.DecimalField(max_digits=15, decimal_places=8)
 
     ask_price = models.DecimalField(max_digits=15, decimal_places=8)
+
 
 class Prediction(models.Model):
     UPVOTE = 1

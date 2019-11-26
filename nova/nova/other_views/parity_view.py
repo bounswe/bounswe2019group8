@@ -33,8 +33,9 @@ def parities_sym_coll(request, sym):
     serializer = ParitySerializer(parities, many=True)
     return Response(serializer.data, status.HTTP_200_OK)
 
+
 @api_view(['GET'])
-@permission_classes((permissions.IsAuthenticated, ))
+@permission_classes((permissions.IsAuthenticated,))
 def current_price_coll(request, pk):
     try:
         tr_eq = TradingEquipment.objects.get(pk=pk)
@@ -45,8 +46,9 @@ def current_price_coll(request, pk):
     serializer = CurrentPriceSerializer(current_prices, many=True)
     return Response(serializer.data, status.HTTP_200_OK)
 
+
 @api_view(['GET'])
-@permission_classes((permissions.IsAuthenticated, ))
+@permission_classes((permissions.IsAuthenticated,))
 def current_price_sym_coll(request, sym):
     try:
         tr_eq = TradingEquipment.objects.get(sym=sym)
