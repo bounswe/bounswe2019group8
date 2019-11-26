@@ -24,12 +24,10 @@ def parse_event_data(data, date):
     for match in re.finditer(r"<tr\s*id=\"eventRowId_(.*?)\".*?>.*?</tr>", data):
         row = match.group(0)
 
-        event_datetime = search_captured(r"data-event-datetime=\"(.*?)\"", row).split(" ")
-
         events.append({
-            "id": f"{match.group(1)}_{date}",
-            "country": search_captured(r"\"ceFlags (.*?)\"", row),
-            "time": event_datetime[1][0:5] if len(event_datetime) > 1 else "",
+            "id": match.group(1),
+            "country": search_captured(r"title=\"(.*?)\"\s+class=\"ceFlags", row),
+            "time": search_captured(r"js-time\"\s*>(.*?)</td>", row),
             "value": clear_value(search_captured(r"id=\"eventActual_\d+\">(.*?)</td>", row)),
             "predicted": clear_value(search_captured(r"id=\"eventForecast_\d+\">(.*?)</td>", row)),
             "name": search_captured(r"data-name\s*=\"(.*?)\"", row),
