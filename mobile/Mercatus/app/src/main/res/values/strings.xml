@@ -88,8 +88,4 @@
     <string name="equipment">Equipment</string>
     <string name="increase">Increase</string>
     <string name="decrease">Decrease</string>
-
-    <string name="create_event">create_event</string>
-    <string name="date">date</string>
-    <string name="time">time</string>
 </resources>

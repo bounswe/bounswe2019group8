@@ -27,9 +27,6 @@
         <activity android:name=".Fragments.TradingEqps.SearchEquipmentsActivity" />
         <activity android:name=".Fragments.Articles.ShowArticleActivity" />
         <activity android:name=".Fragments.Articles.CreateArticleActivity" />
-        <activity android:name=".Fragments.Articles.CreateEventActivity" />
-        <activity android:name=".Fragments.Articles.ShowEventActivity" />
-
         <activity
             android:name=".Fragments.TradingActivity"
             android:label="@string/title_activity_trading"
@@ -61,16 +58,6 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Fragments.SearchActivity" />
-        </activity>
-        <activity android:name=".Fragments.SearchDigitalActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Fragments.SearchDigitalActivity" />
-        </activity>
-        <activity android:name=".Fragments.SearchForexActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Fragments.SearchForexActivity" />
         </activity>
         <activity android:name=".ui.ProfileFragment">
             <meta-data

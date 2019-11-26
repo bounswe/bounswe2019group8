@@ -350,30 +350,6 @@ interface ApiInterface {
         @Path("eqp_id") fid: Int,
         @Header("Authorization") token: String
     ): retrofit2.Call<List<PredictionModel>>
-
-    ////// Trading Equipments Section
-    // Get forex items
-    @Headers("Content-Type:application/json")
-    @GET("trading_equipments/forex")
-    fun getForexSearch(
-        @Header("Authorization") token: String
-    ): retrofit2.Call<List<ForexDataModel>>
-
-    // Get all events
-    @Headers("Content-Type:application/json")
-    @GET("events/{events_date}")
-    fun getEvents(
-        @Path("events_date") date: String,
-        @Header("Authorization") token: String
-    ): retrofit2.Call<List<GetEventBody>>
-
-    // Create an event
-    @Headers("Content-Type:application/json")
-    @POST("events/{events_date}")
-    fun createEvent(
-        @Body info: CreateEventBody,
-        @Header("Authorization") token: String
-    ): retrofit2.Call<GetEventBody>
 }
 class RetrofitInstance {
     companion object {

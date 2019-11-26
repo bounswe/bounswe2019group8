@@ -81,9 +81,8 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabDigital"
+        android:id="@+id/searchTradingEqp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
@@ -91,5 +90,4 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_search" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
