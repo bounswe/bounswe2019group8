@@ -3,6 +3,12 @@ import Graph from "./graph";
 import axios from "axios";
 import "./graphPage.css"
 import TradingEqCommentHolder from "./tradingEqCommentHolder";
+import ArticleCommentHolder2 from '../article_components/articleCommentHolder2';
+import ParityMakeComment from '../article_components/parity_make_comment';
+import "../article_components/wholeArticlePage.css";
+import { FaHeart } from "react-icons/fa";
+import { MdBookmarkBorder } from "react-icons/md";
+import { Jumbotron, Badge, Button } from "react-bootstrap";
 
 class GraphPage extends Component { 
         state={
@@ -10,18 +16,29 @@ class GraphPage extends Component {
             currentValue: 0,
             parityName: "",
             labels: [],
-            data: [] 
+            data: [],
+            boo:"" 
           }
 
     render() { 
         return ( 
-            <div className="my-parity-container">
-              <div className="my-div">
-                <Graph data={this.state.data} labels={this.state.labels} name={this.state.parityName}/>
-                <div class="vl"></div>
-                <TradingEqCommentHolder currentValue={this.state.currentValue}  pk={this.state.pk}/>
+          <div style={{ width: '90%', margin: 'auto', paddingLeft: 100, paddingRight: 100, paddingTop: 30 }}>
+          <div  style={{ width: '120%',height: "120%", marginLeft: -100  }} >
+            <Graph data={this.state.data} labels={this.state.labels} name={this.state.parityName} currentValue={this.state.currentValue}/>
+          </div>
+          <div id="commentContainer" style={{ width: '860px',height: "480px", marginLeft:-90, marginTop: -450,  backgroundColor: 'rgb(237, 245, 255)'}}>
+          </div>
+
+          <div style={{ width: '45%', float: 'right',marginTop: -480 }}>
+            <div id='commentContainer' style={{ backgroundColor: 'rgb(208, 217, 223)', overflow: 'scroll', maxHeight: 480, marginBottom: 16 }}>
+              <ArticleCommentHolder2 articlePk={this.state.pk} />
             </div>
+            <div id='makeCommentContainer' style={{ float:'left' }} >
+              <ParityMakeComment doubleTap={this.props.doubleTap}  articlePk={this.state.pk} />
             </div>
+          </div>
+        </div>
+           
          );
         }
     componentWillMount(){
@@ -60,6 +77,9 @@ class GraphPage extends Component {
               this.setState({parityName: res.data.name});
             });
             
+    }
+    refreshPage = () =>{
+      setTimeout(function(){ this.state.boo = 'foo'; this.forceUpdate() }.bind(this), 10000);
     }
 }
  

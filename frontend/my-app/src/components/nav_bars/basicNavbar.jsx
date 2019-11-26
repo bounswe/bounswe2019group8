@@ -1,9 +1,13 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import "./traderNavbar.css";
-import ParityPage from "../parity_components/parity_page";
+
 import WriteArticlePage from "../article_components/writeArticlePage";
 import ArticleHolder from "../article_components/articleHolder";
+import WholeArticlePage from "../article_components/wholeArticlePage";
+import { FaSignOutAlt, FaListAlt, FaUserCircle, FaSearchDollar } from "react-icons/fa";
+import { MdSettings, MdChromeReaderMode } from "react-icons/md";
+
 import {
   Button,
   Form,
@@ -14,19 +18,19 @@ import {
 } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
+import Followings from "../profile_components/followings";
 
-class TraderNavbar extends Component {
-  state = { credentials: {} , searchText:""};
-
+class BasicNavbar extends Component {
+  state = { credentials: {}, searchText: "" };
   changeHandler = event => {
     this.setState({
-     searchText: event.target.value
+      searchText: event.target.value
     });
   };
   render() {
     return (
       <div>
-        <Navbar bg="dark" expand="lg">
+        <Navbar bg="dark" expand="lg" >
           <Navbar.Brand href="/" className="navBarSyles">
             <img
               src={require("../images/MERCATUS-LOGO72DP.png")}
@@ -48,39 +52,53 @@ class TraderNavbar extends Component {
             <Form inline>
               <FormControl
                 type="text"
-                value = {this.state.searchText}
-                placeholder="Search"
+                value={this.state.searchText}
+                placeholder="..."
                 className="mr-sm-2"
+                id = 'searchBar'
                 onChange={this.changeHandler}
               />
-              <Button href={"/search/"+this.state.searchText} variant="outline-success">Search</Button>
+              <Button id='searchButton' href={"/search/" + this.state.searchText} variant="outline-success">
+                Search
+                <FaSearchDollar style={{marginLeft: 6}}></FaSearchDollar>
+
+              </Button>
             </Form>
             <NavDropdown
+
               title={
                 this.state.credentials.firstName +
                 " " +
-                this.state.credentials.lastName
+                this.state.credentials.lastName + "  "
               }
               id="basic-nav-dropdown"
             >
               <NavDropdown.Item href="#" onClick={() => this.profileClick()}>
+                <FaUserCircle style={{marginRight:10 }}></FaUserCircle>
                 Profile
               </NavDropdown.Item>
-              <NavDropdown.Item href="#">Settings</NavDropdown.Item>
-              <NavDropdown.Item href="#">Portfolio</NavDropdown.Item>
+              <NavDropdown.Item href="#" onClick={() => this.articleClick()}>
+                <MdChromeReaderMode style={{marginRight: 10}}></MdChromeReaderMode>
+                Articles
+              </NavDropdown.Item>
+              <NavDropdown.Item href="#">
+                <MdSettings style={{marginRight: 10}}></MdSettings>
+                Settings
+              </NavDropdown.Item>
+              <NavDropdown.Item href="#">
+                <FaListAlt style={{marginRight: 10}}></FaListAlt>
+                Portfolio
+              </NavDropdown.Item>
 
               <NavDropdown.Divider />
-              <Button
-                id="loginStyles"
-                onClick={() => this.logoutClick()}
-                variant="outline-danger"
-                size="sm"
-              >
+              <NavDropdown.Item onClick={() => this.logoutClick()}>
+                <FaSignOutAlt style={{ marginRight: 10 }} />
                 Logout
-              </Button>
+              </NavDropdown.Item>
+
             </NavDropdown>
             <img
-              className="rounded-circle"
+              className="rounded-circle profileImage"
               src={require("../images/rick.jpg")}
               size="sm"
               alt="10x10"
@@ -99,13 +117,19 @@ class TraderNavbar extends Component {
   profileClick = () => {
     this.props.history.push("/login");
     this.props.history.push("/profile/" + localStorage.getItem("userId"));
-    
   };
+  articleClick = () => {
+    this.props.history.push("/login");
+    this.props.history.push("/profile/" + localStorage.getItem("userId") + "/articles");
+  }
   logoutClick = () => {
     localStorage.setItem("userId", null);
     localStorage.setItem("userToken", null);
     localStorage.setItem("userGroup", null);
     localStorage.setItem("followings", null);
+    localStorage.setItem("articleList", null);
+    localStorage.setItem("equipmentList", null);
+    localStorage.setItem("threeDaysEventsList", null);
     this.props.history.push("/login");
   };
   componentDidMount() {
@@ -116,7 +140,31 @@ class TraderNavbar extends Component {
     var token = localStorage.getItem("userToken");
     credentials1.id = id;
     credentials1.userToken = token;
-    var userType;
+    var threeDaysEventsList = [];
+
+    //we get the dates of 3 days to request upcoming events
+    var today = new Date();
+    var tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    var thirdDay = new Date(tomorrow);
+    thirdDay.setDate(thirdDay.getDate() + 1);
+
+    var todaydd = String(today.getDate()).padStart(2, '0');
+    var todaymm = String(today.getMonth() + 1).padStart(2, '0');
+    var todayyyyy = today.getFullYear();
+
+    var tomorrowdd = String(tomorrow.getDate()).padStart(2, '0');
+    var tomorrowmm = String(tomorrow.getMonth() + 1).padStart(2, '0');
+    var tomorrowyyyy = tomorrow.getFullYear();
+
+    var thirdDaydd = String(thirdDay.getDate()).padStart(2, '0');
+    var thirdDaymm = String(thirdDay.getMonth() + 1).padStart(2, '0');
+    var thirdDayyyyy = thirdDay.getFullYear();
+
+    today = todayyyyy + "-" + todaymm + "-" + todaydd;
+    tomorrow = tomorrowyyyy + "-" + tomorrowmm + "-" + tomorrowdd;
+    thirdDay = thirdDayyyyy + "-" + thirdDaymm + "-" + thirdDaydd;
+
     axios
       .get("http://8.209.81.242:8000/users", {
         headers: { Authorization: `Token ${token}` }
@@ -137,7 +185,74 @@ class TraderNavbar extends Component {
         credentials.userGroup = res.data.groups[0];
         this.setState({ credentials: credentials });
       });
+
+    axios.get("http://8.209.81.242:8000/trading_equipments").then(res => {
+      var equipmentList = res.data;
+      localStorage.setItem("equipmentList", JSON.stringify(equipmentList));
+    });
+    axios
+    .get("http://8.209.81.242:8000/articles").then(res => {
+      var articleList2 = res.data;
+      localStorage.setItem("articleList", JSON.stringify(articleList2));
+    }
+    );
+    axios
+    .get("http://8.209.81.242:8000/events/" + today).then(res => {
+      var eventsList = res.data;
+      console.log(eventsList.length);
+      if(eventsList.length === 0){
+        axios
+        .post("http://8.209.81.242:8000/events/" + today).then(res => {
+        });
+        axios
+        .get("http://8.209.81.242:8000/events/" + today).then(res => {
+          eventsList = res.data;
+          threeDaysEventsList = eventsList;
+        }
+        );
+      }
+      threeDaysEventsList = eventsList;
+    }
+    );
+    axios
+    .get("http://8.209.81.242:8000/events/" + tomorrow).then(res => {
+      var eventsList = res.data;
+      if(eventsList.length === 0){
+        axios
+        .post("http://8.209.81.242:8000/events/" + tomorrow).then(res => {
+        });
+        axios
+        .get("http://8.209.81.242:8000/events/" + tomorrow).then(res => {
+          eventsList = res.data;
+          threeDaysEventsList = threeDaysEventsList.concat(eventsList);
+        }
+        );
+      }
+      threeDaysEventsList = threeDaysEventsList.concat(eventsList);
+      console.log(threeDaysEventsList);
+      console.log(eventsList);
+    }
+    );
+    axios
+    .get("http://8.209.81.242:8000/events/" + thirdDay).then(res => {
+      var eventsList = res.data;
+      if(eventsList.length === 0){
+        axios
+        .post("http://8.209.81.242:8000/events/" + thirdDay).then(res => {
+        });
+        axios
+        .get("http://8.209.81.242:8000/events/" + thirdDay).then(res => {
+          eventsList = res.data;
+          threeDaysEventsList = threeDaysEventsList.concat(eventsList);
+          localStorage.setItem("threeDaysEventsList", JSON.stringify(threeDaysEventsList));
+        }
+        );
+      }
+      threeDaysEventsList = threeDaysEventsList.concat(eventsList);
+      localStorage.setItem("threeDaysEventsList", JSON.stringify(threeDaysEventsList));
+    }
+    );
   }
 }
 
-export default withRouter(TraderNavbar);
+export default withRouter(BasicNavbar);

@@ -100,7 +100,7 @@ class NewParitiesPage extends Component {
         </Navbar>
         {this.renderedGraph}
       </div>
-      <GraphPage pk = {this.state.parityPk}/>
+      <GraphPage doubleTap={this.handleSearchClick} pk = {this.state.parityPk}/>
         </React.Fragment>
       );
     }else{
@@ -162,14 +162,14 @@ class NewParitiesPage extends Component {
     var newParity = firstParity2
   this.setState({secondParity:newParity})
   }
-  handleSearchClick = () =>{
+  handleSearchClick = (e) =>{
     console.log("basildim")
     var count = 0;
     this.state.parityJson.forEach((element)=>{
         if (element.name === this.state.firstParity + "_" + this.state.secondParity){
             this.setState({parityPk:element.pk})
             this.setState({parityGet:false})
-            this.handeSearchFollow()              
+            window.setTimeout(this.handeSearchFollow, 30)                    
         }
       });
         if (count === 0){

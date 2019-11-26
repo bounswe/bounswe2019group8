@@ -2,9 +2,9 @@
     display: flex;
     flex-direction: column;
     background-color: white;
-    margin-right: 10%;
-    margin-left: 10%;
-    width: 80%;
+    margin-right: 100px;
+    margin-left: 0;
+    width: 100%;
     margin-top: 10px;
 }
 .vl {
@@ -13,5 +13,5 @@
   }
   .my-div{
     display: flex;
-    flex-wrap: wrap;
+    
 }
