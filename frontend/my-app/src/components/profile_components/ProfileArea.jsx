@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Card, ListGroup } from "react-bootstrap";
+import { Button, Card, ListGroup, Row, Col } from "react-bootstrap";
 import UpdateCredentials from "./UpdateCredentials";
 import "./ProfileArea.css";
 import axios from "axios";
@@ -118,8 +118,11 @@ class ProfileArea extends React.Component {
         </Card>
       );
     } else {
+      console.log("hiii");
       return (
-        <Card style={{ width: "36rem", align: "center" }}>
+        <Row>
+        <Col xs={6}>
+        <Card>
           <Card.Img variant="top" src={require("../images/rick.jpg")} />
           <ListGroup className="list-group-flush" style={{backgroundColor: "#FFF"}}>
             <ListGroup.Item>
@@ -197,6 +200,8 @@ class ProfileArea extends React.Component {
             </Card.Link>
           </Card.Body>
         </Card>
+        </Col>
+        </Row>
       );
     }
   }

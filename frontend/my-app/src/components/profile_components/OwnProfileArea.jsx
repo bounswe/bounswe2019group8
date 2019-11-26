@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Card, ListGroup } from "react-bootstrap";
+import { Button, Card, ListGroup, Row, Col } from "react-bootstrap";
 import UpdateCredentials from "./UpdateCredentials";
 import "./ProfileArea.css";
 import axios from "axios";
@@ -47,9 +47,9 @@ class OwnProfileArea extends React.Component {
       credentials.userToken = token;
       credentials.userGroup = res.data.groups[0];
       this.setState({ credentials: credentials });
-    });   
+    });
   }
-  
+
 
   updateMe() {
     this.props.api
@@ -70,22 +70,24 @@ class OwnProfileArea extends React.Component {
       margin: 10
     };
       return (
-        <Card >
+        <Row>
+        <Col xs={{offset:4, span:4}}>
+        <Card  style={{backgroundColor: "#FFF", width:"100%"}}>
           <Card.Img variant="top" src={require("../images/rick.jpg")} />
           <ListGroup className="list-group-flush">
           <ListGroup.Item action href ="/followers" className="my-follow">
-            
+
                       My Followers
                       </ListGroup.Item>
-          <ListGroup.Item action href ="/followings" className="my-follow"> 
+          <ListGroup.Item action href ="/followings" className="my-follow">
                       My Followings
-             
+
             </ListGroup.Item>
             <ListGroup.Item action href ={"/profile/" + localStorage.getItem("userId") +"/articles"} className="my-follow">
-            
-                      Articles            
+
+                      Articles
             </ListGroup.Item>
-        
+
             <ListGroup.Item>
               {this.state.credentials.firstName +
                 " " +
@@ -97,7 +99,7 @@ class OwnProfileArea extends React.Component {
             </ListGroup.Item>
           </ListGroup>
           <Card.Body>
-           
+
               <Button
                 style={myCredentials}
                 variant="outline-danger"
@@ -106,9 +108,12 @@ class OwnProfileArea extends React.Component {
               >
                 Update Info
               </Button>
-          
+
           </Card.Body>
         </Card>
+        </Col>
+        </Row>
+
       );
   }
   handleUpdateClick = () => {
