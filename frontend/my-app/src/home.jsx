@@ -19,6 +19,7 @@ import VerificationFailPage from "./components/verificationFailPage";
 import DoVerify from "./components/doVerify";
 import EventsPage from "./components/event_components/event_page";
 import GraphPage from "./components/parity_components/graphPage";
+import ArticleHolder2 from "./components/article_components/articleHolder2";
 
 import NewParitiesPage from "./components/parity_components/newParitiesPage";
 
@@ -36,9 +37,12 @@ class Home extends Component {
     }
   }
   render() {
+    console.log(this.props);
+
     return (
       <React.Fragment>
         <MainNavbar />
+
         <Switch>
           <Route exact path="/login" component={LoginRouter} />
           <Route exact path="/signup" component={SignupRouter} />
@@ -99,7 +103,8 @@ class Home extends Component {
           <Route exact path="/activations/:restOfUrl/:rest" component={DoVerify}/>
           <Route exact path="/upd_cred" component={UpdatePage}/>
         </Switch>
-        
+        {(this.props.location.pathname.length <= 1) && <ArticleHolder2/>}
+
       </React.Fragment>
     );
   }
