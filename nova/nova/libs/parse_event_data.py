@@ -25,8 +25,8 @@ def parse_event_data(data, date):
         row = match.group(0)
 
         events.append({
-            "id": match.group(1),
             "time": search_captured(r"js-time\"\s*>(.*?)</td>", row),
+            "id": f"{match.group(1)}_{date}",
             "country": search_captured(r"\"ceFlags (.*?)\"", row),
             "value": clear_value(search_captured(r"id=\"eventActual_\d+\">(.*?)</td>", row)),
             "predicted": clear_value(search_captured(r"id=\"eventForecast_\d+\">(.*?)</td>", row)),
