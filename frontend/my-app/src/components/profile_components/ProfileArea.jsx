@@ -43,7 +43,7 @@ class ProfileArea extends React.Component {
       credentials.id = id;
       credentials.userGroup = res.data.groups[0];
       this.setState({ credentials: credentials });
-    });   
+    });
   }
   follow(user) {
     let id = user.pk;
@@ -121,7 +121,7 @@ class ProfileArea extends React.Component {
       return (
         <Card style={{ width: "36rem", align: "center" }}>
           <Card.Img variant="top" src={require("../images/rick.jpg")} />
-          <ListGroup className="list-group-flush">
+          <ListGroup className="list-group-flush" style={{backgroundColor: "#FFF"}}>
             <ListGroup.Item>
               {this.state.credentials.firstName +
                 " " +
