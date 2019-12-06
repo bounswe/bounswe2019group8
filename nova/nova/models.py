@@ -25,6 +25,8 @@ class User(AbstractUser):
 
     following_tr_eqs = models.ManyToManyField('TradingEquipment', 'followers')
 
+    following_articles = models.ManyToManyField('Article', 'followers')
+
     email_activated = models.BooleanField(blank=True, default=False)
 
     USERNAME_FIELD = 'email'
@@ -185,3 +187,39 @@ class Event(models.Model):
 
     predicted = models.CharField(max_length=100, blank=True)
     value = models.CharField(max_length=100, blank=True)
+
+
+class Asset(models.Model):
+
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    currency = models.CharField(max_length=10)
+
+    amount = models.IntegerField(default = 0)
+
+class Notification(models.Model):
+
+    to = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    message = models.TextField()
+
+    date = models.DateTimeField(auto_now_add=True)
+
+class Order(models.Model):
+    ABOVE = 1
+    BELOW = -1
+
+    ORDER_CHOICES = (
+        (ABOVE, 'ABOVE'),
+        (BELOW, 'BELOW')
+    )
+
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    max_volume = models.FloatField()
+
+    trigger = models.FloatField()
+
+    choice = models.SmallIntegerField(choices=ORDER_CHOICES)
+
+    tr_eq = models.ForeignKey(TradingEquipment, on_delete=models.CASCADE)
