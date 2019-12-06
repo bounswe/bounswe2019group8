@@ -4,7 +4,7 @@ from rest_framework import serializers
 
 from .libs.serializers import NovaSerializer
 from .models import User, Article, TradingEquipment, Comment, Parity, TradingEquipmentComment, ArticleComment, \
-    Prediction, LikeDislike, ArticleLikeDislike, CommentLikeDislike, Event, CurrentPrice
+    Prediction, LikeDislike, ArticleLikeDislike, CommentLikeDislike, Event, CurrentPrice, Asset, Notification, Order
 
 
 class UserBasicSerializer(NovaSerializer):
@@ -187,3 +187,36 @@ class EventSerializer(NovaSerializer):
         model = Event
 
         fields = create_only_fields = ['id', 'date', 'time', 'name', 'country', 'importance', 'value']
+
+class AssetSerializer(NovaSerializer):
+    class Meta:
+        model = Asset
+        fields = ['owner', 'currency', 'amount']
+
+    def create(self, validated_data):
+        return super(AssetSerializer, self).create(validated_data)
+
+    def update(self, instance, validated_data):
+        return super(AssetSerializer, self).update(instance, validated_data)
+
+class NotificationSerializer(NovaSerializer):
+    class Meta:
+        model = Notification
+        fields = ['to', 'message', 'date']
+
+    def create(self, validated_data):
+        return super(NotificationSerializer, self).create(validated_data)
+
+    def update(self, instance, validated_data):
+        return super(NotificationSerializer, self).update(instance, validated_data)
+
+def OrderSerializer(NovaSerializer):
+    class Meta:
+        model = Order
+        fields = ['owner', 'max_volume', 'trigger', 'choice', 'tr_eq']
+
+    def create(self, validated_data):
+        return super(OrderSerializer, self).create(validated_data)
+
+    def update(self, instance, validated_data):
+        return super(OrderSerializer, self).update(instance, validated_data)
