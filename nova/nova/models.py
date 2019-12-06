@@ -188,12 +188,14 @@ class Event(models.Model):
     predicted = models.CharField(max_length=100, blank=True)
     value = models.CharField(max_length=100, blank=True)
 
+class Currency(models.Model):
+    sym = models.CharField(max_length=10)
 
 class Asset(models.Model):
 
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
-    currency = models.CharField(max_length=10)
+    currency = models.ForeignKey(Currency, on_delete=models.CASCADE)
 
     amount = models.IntegerField(default = 0)
 
@@ -206,8 +208,16 @@ class Notification(models.Model):
     date = models.DateTimeField(auto_now_add=True)
 
 class Order(models.Model):
+    BUY = 1
+    SELL = -1
+
     ABOVE = 1
     BELOW = -1
+
+    TYPE_CHOICES = (
+        (BUY, 'BUY'),
+        (SELL, 'SELL')
+    )
 
     ORDER_CHOICES = (
         (ABOVE, 'ABOVE'),
@@ -219,6 +229,8 @@ class Order(models.Model):
     max_volume = models.FloatField()
 
     trigger = models.FloatField()
+
+    type = models.SmallIntegerField(choices=TYPE_CHOICES, default=1)
 
     choice = models.SmallIntegerField(choices=ORDER_CHOICES)
 
