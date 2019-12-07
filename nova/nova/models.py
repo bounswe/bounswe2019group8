@@ -188,24 +188,26 @@ class Event(models.Model):
     predicted = models.CharField(max_length=100, blank=True)
     value = models.CharField(max_length=100, blank=True)
 
+
 class Currency(models.Model):
     sym = models.CharField(max_length=10)
 
-class Asset(models.Model):
 
+class Asset(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
     currency = models.ForeignKey(Currency, on_delete=models.CASCADE)
 
-    amount = models.IntegerField(default = 0)
+    amount = models.IntegerField(default=0)
+
 
 class Notification(models.Model):
-
     to = models.ForeignKey(User, on_delete=models.CASCADE)
 
     message = models.TextField()
 
     date = models.DateTimeField(auto_now_add=True)
+
 
 class Order(models.Model):
     BUY = 1
