@@ -1,6 +1,6 @@
 [
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "name": "Direxion Daily S&P Oil & Gas Exp. & Prod.",
       "sym": "GUSH",
@@ -8,7 +8,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "name": "Direxion Daily Natural Gas Related",
       "sym": "GASL",
@@ -16,7 +16,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "name": "Invesco QQQ Trust",
       "sym": "QQQ",
@@ -24,7 +24,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "name": "Direxion Daily Junior Gold Miners Index",
       "sym": "JDST",
@@ -32,18 +32,18 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
-      "name": "UGAZ",
-      "sym": "Credit Suisse AG",
+      "sym": "UGAZ",
+      "name": "Credit Suisse AG",
       "type": "etf"
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
-      "name": "SPY",
-      "sym": "SPDR S&P 500",
+      "sym": "SPY",
+      "name": "SPDR S&P 500",
       "type": "etf"
     }
   }

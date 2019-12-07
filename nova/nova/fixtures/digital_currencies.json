@@ -1,6 +1,6 @@
 [
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "name": "Bitcoin",
       "sym": "BTC_USD",
@@ -8,7 +8,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "name": "Litecoin",
       "sym": "LTC_USD",
@@ -16,7 +16,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "name": "Ethereum",
       "sym": "ETH",
@@ -24,7 +24,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "name": "Zcash",
       "sym": "ZEC",
@@ -32,7 +32,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "name": "Dash",
       "sym": "DASH",
@@ -40,7 +40,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "name": "Ripple",
       "sym": "XRP",
@@ -48,7 +48,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "name": "Monero",
       "sym": "XMR",
@@ -56,7 +56,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "name": "Neo",
       "sym": "NEO",
@@ -64,7 +64,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "name": "EOSIO",
       "sym": "EOS",

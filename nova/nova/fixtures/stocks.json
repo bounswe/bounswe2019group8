@@ -1,6 +1,6 @@
 [
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "AAPL",
       "name": "APPLE INC.",
@@ -8,7 +8,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "MSFT",
       "name": "MICROSOFT CORP",
@@ -16,7 +16,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "AMZN",
       "name": "AMAZON.COM INC",
@@ -24,7 +24,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "FB",
       "name": "FACEBOOK INC",
@@ -32,7 +32,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "GOOG",
       "name": "ALPHABET CL C CAP",
@@ -40,7 +40,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "GOOGL",
       "name": "ALPHABET CL A CMN",
@@ -48,7 +48,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "INTC",
       "name": "INTEL CORP",
@@ -56,7 +56,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "CMCSA",
       "name": "COMCAST CORP A",
@@ -64,7 +64,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "CSCO",
       "name": "CISCO SYSTEMS INC",
@@ -72,7 +72,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "PEP",
       "name": "PEPSICO INC",
@@ -80,7 +80,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "ADBE",
       "name": "ADOBE INC.",
@@ -88,7 +88,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "AMGN",
       "name": "AMGEN",
@@ -96,7 +96,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "COST",
       "name": "COSTCO WHOLESALE",
@@ -104,7 +104,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "NFLX",
       "name": "NETFLIX, INC.",
@@ -112,7 +112,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "PYPL",
       "name": "PAYPAL HOLDINGS",
@@ -120,7 +120,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "NVDA",
       "name": "NVIDIA CORPORATION",
@@ -128,7 +128,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "AVGO",
       "name": "BROADCOM INC.",
@@ -136,7 +136,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "TXN",
       "name": "TEXAS INSTRUMENTS",
@@ -144,7 +144,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "CHTR",
       "name": "CHARTER COMMUNICATIO",
@@ -152,7 +152,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "QCOM",
       "name": "QUALCOMM INC",
@@ -160,7 +160,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "SBUX",
       "name": "STARBUCKS CORP",
@@ -168,7 +168,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "BKNG",
       "name": "BOOKING HOLDINGS INC",
@@ -176,7 +176,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "GILD",
       "name": "GILEAD SCIENCES, INC",
@@ -184,7 +184,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "CELG",
       "name": "CELGENE CORP",
@@ -192,7 +192,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "MDLZ",
       "name": "MONDELEZ INTL CMN A",
@@ -200,7 +200,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "FISV",
       "name": "FISERV, INC.",
@@ -208,7 +208,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "ADP",
       "name": "AUTOMATIC DATA PROCS",
@@ -216,7 +216,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "TMUS",
       "name": "T-MOBILE US CMN",
@@ -224,7 +224,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "INTU",
       "name": "INTUIT INC",
@@ -232,7 +232,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "ISRG",
       "name": "INTUITIVE SURG, INC.",
@@ -240,7 +240,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "CSX",
       "name": "C S X CP",
@@ -248,7 +248,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "TSLA",
       "name": "TESLA, INC.",
@@ -256,7 +256,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "BIIB",
       "name": "BIOGEN INC CMN",
@@ -264,7 +264,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "MU",
       "name": "MICRON TECHNOLOGY",
@@ -272,7 +272,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "WBA",
       "name": "WALGREENS BTS ALN CM",
@@ -280,7 +280,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "VRTX",
       "name": "VERTEX PHARMACEUTIC",
@@ -288,7 +288,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "AMAT",
       "name": "APPLIED MATERIALS",
@@ -296,7 +296,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "ILMN",
       "name": "ILLUMINA, INC.",
@@ -304,7 +304,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "ATVI",
       "name": "ACTIVISION BLIZZARD",
@@ -312,7 +312,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "MAR",
       "name": "MARRIOTT INT CL A CM",
@@ -320,7 +320,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "ROST",
       "name": "ROSS STORES, INC.",
@@ -328,7 +328,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "ADI",
       "name": "ANALOG DEVICES CMN",
@@ -336,7 +336,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "LRCX",
       "name": "LAM RESEARCH CORP",
@@ -344,7 +344,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "KHC",
       "name": "KRAFT HEINZ CO CMN",
@@ -352,7 +352,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "NXPI",
       "name": "NXP SEMICONDUCTORS",
@@ -360,7 +360,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "AMD",
       "name": "ADV MICRO DEVICES",
@@ -368,7 +368,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "CTSH",
       "name": "COGNIZANT TECH SOL",
@@ -376,7 +376,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "REGN",
       "name": "REGENERON PHARMACEUT",
@@ -384,7 +384,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "ORLY",
       "name": "O'REILLY AUTOMOTIVE",
@@ -392,7 +392,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "ADSK",
       "name": "AUTODESK INC",
@@ -400,7 +400,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "XEL",
       "name": "XCEL ENERGY CMN",
@@ -408,7 +408,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "MNST",
       "name": "MONSTER BEVERAGE CP",
@@ -416,7 +416,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "SIRI",
       "name": "SIRIUS XM HOLDINGS I",
@@ -424,7 +424,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "PAYX",
       "name": "PAYCHEX, INC.",
@@ -432,7 +432,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "EBAY",
       "name": "EBAY INC.",
@@ -440,7 +440,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "BIDU",
       "name": "BAIDU, INC.",
@@ -448,7 +448,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "JD",
       "name": "JD.COM, INC. ADS",
@@ -456,7 +456,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "EA",
       "name": "ELECTRONIC ARTS INC",
@@ -464,7 +464,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "CTAS",
       "name": "CINTAS CORP",
@@ -472,7 +472,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "KLAC",
       "name": "KLA CP CMN STK",
@@ -480,7 +480,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "WDAY",
       "name": "WORKDAY, INC.",
@@ -488,7 +488,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "PCAR",
       "name": "PACCAR INC.",
@@ -496,7 +496,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "DLTR",
       "name": "DOLLAR TREE INC",
@@ -504,7 +504,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "LULU",
       "name": "LULULEMON ATHLETICA",
@@ -512,7 +512,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "ALXN",
       "name": "ALEXION PHARM INC",
@@ -520,7 +520,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "WLTW",
       "name": "WILLIS TOWERS WTS CM",
@@ -528,7 +528,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "MELI",
       "name": "MERCADOLIBRE, INC.",
@@ -536,7 +536,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "IDXX",
       "name": "IDEXX LABORATORIES",
@@ -544,7 +544,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "VRSK",
       "name": "VERISK ANALYTICS INC",
@@ -552,7 +552,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "UAL",
       "name": "UNITED AIRLNS HLD CM",
@@ -560,7 +560,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "XLNX",
       "name": "XILINX, INC.",
@@ -568,7 +568,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "MCHP",
       "name": "MICROCHIP TECHNOLOGY",
@@ -576,7 +576,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "VRSN",
       "name": "VERISIGN, INC.",
@@ -584,7 +584,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "CERN",
       "name": "CERNER CORP",
@@ -592,7 +592,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "FAST",
       "name": "FASTENAL CO",
@@ -600,7 +600,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "NTES",
       "name": "NETEASE INC ADS",
@@ -608,7 +608,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "ALGN",
       "name": "ALIGN TECHNOLOGY I",
@@ -616,7 +616,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "SNPS",
       "name": "SYNOPSYS, INC.",
@@ -624,7 +624,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "ASML",
       "name": "ASML HLDG NY REG",
@@ -632,7 +632,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "EXPE",
       "name": "EXPEDIA GROUP, INC.",
@@ -640,7 +640,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "CDNS",
       "name": "CADENCE DESIGN SYS",
@@ -648,7 +648,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "INCY",
       "name": "INCYTE CORPORATION",
@@ -656,7 +656,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "CHKP",
       "name": "CHECK POINT SOFTWARE",
@@ -664,7 +664,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "SWKS",
       "name": "SKYWORKS SOLUTIONS",
@@ -672,7 +672,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "CTRP",
       "name": "CTRIP.COM INTL LTD",
@@ -680,7 +680,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "MXIM",
       "name": "MAXIM INTEGRATED",
@@ -688,7 +688,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "WDC",
       "name": "WESTERN DIGITAL CP",
@@ -696,7 +696,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "SYMC",
       "name": "SYMANTEC CORPORATION",
@@ -704,7 +704,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "CTXS",
       "name": "CITRIX SYSTEMS INC",
@@ -712,7 +712,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "ULTA",
       "name": "ULTA BEAUTY, INC.",
@@ -720,7 +720,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "AAL",
       "name": "AMERICAN AIRLINES GP",
@@ -728,7 +728,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "NTAP",
       "name": "NETAPP, INC.",
@@ -736,7 +736,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "WYNN",
       "name": "WYNN RESORTS LIMITED",
@@ -744,7 +744,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "TTWO",
       "name": "TAKE-TWO INTERACTI",
@@ -752,7 +752,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "BMRN",
       "name": "BIOMARIN PHARMACEUT",
@@ -760,7 +760,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "JBHT",
       "name": "J B HUNT TRANSPORT",
@@ -768,7 +768,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "LBTYK",
       "name": "LIBERTY GLOBAL ORD C",
@@ -776,7 +776,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "HAS",
       "name": "HASBRO INC",
@@ -784,7 +784,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "FOXA",
       "name": "FOX CORP CM A",
@@ -792,7 +792,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "MYL",
       "name": "MYLAN NV ORD SHS",
@@ -800,7 +800,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "HSIC",
       "name": "HENRY SCHEIN CMN",
@@ -808,7 +808,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "FOX",
       "name": "FOX CORP CM B",
@@ -816,7 +816,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "sym": "LBTYA",
       "name": "LIBERTY GLOBAL ORD A",
