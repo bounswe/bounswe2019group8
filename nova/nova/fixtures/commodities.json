@@ -1,6 +1,6 @@
 [
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "type": "commodity",
       "name": "Gold",
@@ -8,7 +8,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "type": "commodity",
       "name": "Silver",
@@ -16,7 +16,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "type": "commodity",
       "name": "Platinum",
@@ -24,7 +24,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "type": "commodity",
       "name": "Crude Oil",
@@ -32,7 +32,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "type": "commodity",
       "name": "Heating Oil",
@@ -40,7 +40,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "type": "commodity",
       "name": "CBOT Wheat Future",
@@ -48,7 +48,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "type": "commodity",
       "name": "Corn",
@@ -56,7 +56,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "type": "commodity",
       "name": "Oat",
@@ -64,7 +64,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "type": "commodity",
       "name": "Live Cattle",
@@ -72,7 +72,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "type": "commodity",
       "name": "Milk",
@@ -80,7 +80,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "type": "commodity",
       "name": "Cotton",

@@ -1,6 +1,6 @@
 [
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "type": "forex",
       "name": "Euro",
@@ -8,7 +8,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "type": "forex",
       "name": "Turkish Lira",
@@ -16,7 +16,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "type": "forex",
       "name": "Japanese Yen",
@@ -24,7 +24,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "type": "forex",
       "name": "Australian Dollar",
@@ -32,7 +32,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "type": "forex",
       "name": "Canadian Dollar",
@@ -40,7 +40,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "type": "forex",
       "name": "Chinese Yuan",
@@ -48,7 +48,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "type": "forex",
       "name": "Swiss Franc",
@@ -56,7 +56,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "type": "forex",
       "name": "BritishPound",
@@ -64,7 +64,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "type": "forex",
       "name": "Mexican Peso",
@@ -72,7 +72,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "type": "forex",
       "name": "Singapore Dollar",
@@ -80,7 +80,7 @@
     }
   },
   {
-    "model": "TradingEquipment",
+    "model": "nova.TradingEquipment",
     "fields": {
       "type": "forex",
       "name": "U.S. Dollar",
