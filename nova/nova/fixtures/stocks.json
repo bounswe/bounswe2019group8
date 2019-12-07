@@ -1,0 +1,826 @@
+[
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "AAPL",
+      "name": "APPLE INC.",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "MSFT",
+      "name": "MICROSOFT CORP",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "AMZN",
+      "name": "AMAZON.COM INC",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "FB",
+      "name": "FACEBOOK INC",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "GOOG",
+      "name": "ALPHABET CL C CAP",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "GOOGL",
+      "name": "ALPHABET CL A CMN",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "INTC",
+      "name": "INTEL CORP",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "CMCSA",
+      "name": "COMCAST CORP A",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "CSCO",
+      "name": "CISCO SYSTEMS INC",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "PEP",
+      "name": "PEPSICO INC",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "ADBE",
+      "name": "ADOBE INC.",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "AMGN",
+      "name": "AMGEN",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "COST",
+      "name": "COSTCO WHOLESALE",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "NFLX",
+      "name": "NETFLIX, INC.",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "PYPL",
+      "name": "PAYPAL HOLDINGS",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "NVDA",
+      "name": "NVIDIA CORPORATION",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "AVGO",
+      "name": "BROADCOM INC.",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "TXN",
+      "name": "TEXAS INSTRUMENTS",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "CHTR",
+      "name": "CHARTER COMMUNICATIO",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "QCOM",
+      "name": "QUALCOMM INC",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "SBUX",
+      "name": "STARBUCKS CORP",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "BKNG",
+      "name": "BOOKING HOLDINGS INC",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "GILD",
+      "name": "GILEAD SCIENCES, INC",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "CELG",
+      "name": "CELGENE CORP",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "MDLZ",
+      "name": "MONDELEZ INTL CMN A",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "FISV",
+      "name": "FISERV, INC.",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "ADP",
+      "name": "AUTOMATIC DATA PROCS",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "TMUS",
+      "name": "T-MOBILE US CMN",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "INTU",
+      "name": "INTUIT INC",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "ISRG",
+      "name": "INTUITIVE SURG, INC.",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "CSX",
+      "name": "C S X CP",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "TSLA",
+      "name": "TESLA, INC.",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "BIIB",
+      "name": "BIOGEN INC CMN",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "MU",
+      "name": "MICRON TECHNOLOGY",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "WBA",
+      "name": "WALGREENS BTS ALN CM",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "VRTX",
+      "name": "VERTEX PHARMACEUTIC",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "AMAT",
+      "name": "APPLIED MATERIALS",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "ILMN",
+      "name": "ILLUMINA, INC.",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "ATVI",
+      "name": "ACTIVISION BLIZZARD",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "MAR",
+      "name": "MARRIOTT INT CL A CM",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "ROST",
+      "name": "ROSS STORES, INC.",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "ADI",
+      "name": "ANALOG DEVICES CMN",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "LRCX",
+      "name": "LAM RESEARCH CORP",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "KHC",
+      "name": "KRAFT HEINZ CO CMN",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "NXPI",
+      "name": "NXP SEMICONDUCTORS",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "AMD",
+      "name": "ADV MICRO DEVICES",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "CTSH",
+      "name": "COGNIZANT TECH SOL",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "REGN",
+      "name": "REGENERON PHARMACEUT",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "ORLY",
+      "name": "O'REILLY AUTOMOTIVE",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "ADSK",
+      "name": "AUTODESK INC",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "XEL",
+      "name": "XCEL ENERGY CMN",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "MNST",
+      "name": "MONSTER BEVERAGE CP",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "SIRI",
+      "name": "SIRIUS XM HOLDINGS I",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "PAYX",
+      "name": "PAYCHEX, INC.",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "EBAY",
+      "name": "EBAY INC.",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "BIDU",
+      "name": "BAIDU, INC.",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "JD",
+      "name": "JD.COM, INC. ADS",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "EA",
+      "name": "ELECTRONIC ARTS INC",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "CTAS",
+      "name": "CINTAS CORP",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "KLAC",
+      "name": "KLA CP CMN STK",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "WDAY",
+      "name": "WORKDAY, INC.",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "PCAR",
+      "name": "PACCAR INC.",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "DLTR",
+      "name": "DOLLAR TREE INC",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "LULU",
+      "name": "LULULEMON ATHLETICA",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "ALXN",
+      "name": "ALEXION PHARM INC",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "WLTW",
+      "name": "WILLIS TOWERS WTS CM",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "MELI",
+      "name": "MERCADOLIBRE, INC.",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "IDXX",
+      "name": "IDEXX LABORATORIES",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "VRSK",
+      "name": "VERISK ANALYTICS INC",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "UAL",
+      "name": "UNITED AIRLNS HLD CM",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "XLNX",
+      "name": "XILINX, INC.",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "MCHP",
+      "name": "MICROCHIP TECHNOLOGY",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "VRSN",
+      "name": "VERISIGN, INC.",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "CERN",
+      "name": "CERNER CORP",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "FAST",
+      "name": "FASTENAL CO",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "NTES",
+      "name": "NETEASE INC ADS",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "ALGN",
+      "name": "ALIGN TECHNOLOGY I",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "SNPS",
+      "name": "SYNOPSYS, INC.",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "ASML",
+      "name": "ASML HLDG NY REG",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "EXPE",
+      "name": "EXPEDIA GROUP, INC.",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "CDNS",
+      "name": "CADENCE DESIGN SYS",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "INCY",
+      "name": "INCYTE CORPORATION",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "CHKP",
+      "name": "CHECK POINT SOFTWARE",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "SWKS",
+      "name": "SKYWORKS SOLUTIONS",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "CTRP",
+      "name": "CTRIP.COM INTL LTD",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "MXIM",
+      "name": "MAXIM INTEGRATED",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "WDC",
+      "name": "WESTERN DIGITAL CP",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "SYMC",
+      "name": "SYMANTEC CORPORATION",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "CTXS",
+      "name": "CITRIX SYSTEMS INC",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "ULTA",
+      "name": "ULTA BEAUTY, INC.",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "AAL",
+      "name": "AMERICAN AIRLINES GP",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "NTAP",
+      "name": "NETAPP, INC.",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "WYNN",
+      "name": "WYNN RESORTS LIMITED",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "TTWO",
+      "name": "TAKE-TWO INTERACTI",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "BMRN",
+      "name": "BIOMARIN PHARMACEUT",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "JBHT",
+      "name": "J B HUNT TRANSPORT",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "LBTYK",
+      "name": "LIBERTY GLOBAL ORD C",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "HAS",
+      "name": "HASBRO INC",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "FOXA",
+      "name": "FOX CORP CM A",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "MYL",
+      "name": "MYLAN NV ORD SHS",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "HSIC",
+      "name": "HENRY SCHEIN CMN",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "FOX",
+      "name": "FOX CORP CM B",
+      "type": "stock"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "sym": "LBTYA",
+      "name": "LIBERTY GLOBAL ORD A",
+      "type": "stock"
+    }
+  }
+]
