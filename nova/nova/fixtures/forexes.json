@@ -1,0 +1,90 @@
+[
+  {
+    "model": "nova.TradingEquipment",
+    "fields": {
+      "type": "forex",
+      "name": "Euro",
+      "sym": "EUR_USD"
+    }
+  },
+  {
+    "model": "nova.TradingEquipment",
+    "fields": {
+      "type": "forex",
+      "name": "Turkish Lira",
+      "sym": "TRY_USD"
+    }
+  },
+  {
+    "model": "nova.TradingEquipment",
+    "fields": {
+      "type": "forex",
+      "name": "Japanese Yen",
+      "sym": "JPY_USD"
+    }
+  },
+  {
+    "model": "nova.TradingEquipment",
+    "fields": {
+      "type": "forex",
+      "name": "Australian Dollar",
+      "sym": "AUD_USD"
+    }
+  },
+  {
+    "model": "nova.TradingEquipment",
+    "fields": {
+      "type": "forex",
+      "name": "Canadian Dollar",
+      "sym": "CAD_USD"
+    }
+  },
+  {
+    "model": "nova.TradingEquipment",
+    "fields": {
+      "type": "forex",
+      "name": "Chinese Yuan",
+      "sym": "CNY_USD"
+    }
+  },
+  {
+    "model": "nova.TradingEquipment",
+    "fields": {
+      "type": "forex",
+      "name": "Swiss Franc",
+      "sym": "CHF_USD"
+    }
+  },
+  {
+    "model": "nova.TradingEquipment",
+    "fields": {
+      "type": "forex",
+      "name": "BritishPound",
+      "sym": "GBP_USD"
+    }
+  },
+  {
+    "model": "nova.TradingEquipment",
+    "fields": {
+      "type": "forex",
+      "name": "Mexican Peso",
+      "sym": "MXN_USD"
+    }
+  },
+  {
+    "model": "nova.TradingEquipment",
+    "fields": {
+      "type": "forex",
+      "name": "Singapore Dollar",
+      "sym": "SGD_USD"
+    }
+  },
+  {
+    "model": "nova.TradingEquipment",
+    "fields": {
+      "type": "forex",
+      "name": "U.S. Dollar",
+      "sym": "USD_USD"
+    }
+  }
+]

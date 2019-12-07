@@ -1,0 +1,90 @@
+[
+  {
+    "model": "nova.TradingEquipment",
+    "fields": {
+      "type": "commodity",
+      "name": "Gold",
+      "sym": "GC:CMX"
+    }
+  },
+  {
+    "model": "nova.TradingEquipment",
+    "fields": {
+      "type": "commodity",
+      "name": "Silver",
+      "sym": "SI:CMX"
+    }
+  },
+  {
+    "model": "nova.TradingEquipment",
+    "fields": {
+      "type": "commodity",
+      "name": "Platinum",
+      "sym": "PL:CMX"
+    }
+  },
+  {
+    "model": "nova.TradingEquipment",
+    "fields": {
+      "type": "commodity",
+      "name": "Crude Oil",
+      "sym": "CL:NMX"
+    }
+  },
+  {
+    "model": "nova.TradingEquipment",
+    "fields": {
+      "type": "commodity",
+      "name": "Heating Oil",
+      "sym": "HO:NMX"
+    }
+  },
+  {
+    "model": "nova.TradingEquipment",
+    "fields": {
+      "type": "commodity",
+      "name": "CBOT Wheat Future",
+      "sym": "ZW"
+    }
+  },
+  {
+    "model": "nova.TradingEquipment",
+    "fields": {
+      "type": "commodity",
+      "name": "Corn",
+      "sym": "ZC"
+    }
+  },
+  {
+    "model": "nova.TradingEquipment",
+    "fields": {
+      "type": "commodity",
+      "name": "Oat",
+      "sym": "ZO"
+    }
+  },
+  {
+    "model": "nova.TradingEquipment",
+    "fields": {
+      "type": "commodity",
+      "name": "Live Cattle",
+      "sym": "LE"
+    }
+  },
+  {
+    "model": "nova.TradingEquipment",
+    "fields": {
+      "type": "commodity",
+      "name": "Milk",
+      "sym": "DC"
+    }
+  },
+  {
+    "model": "nova.TradingEquipment",
+    "fields": {
+      "type": "commodity",
+      "name": "Cotton",
+      "sym": "TT:NMX"
+    }
+  }
+]

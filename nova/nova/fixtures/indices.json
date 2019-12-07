@@ -1,0 +1,42 @@
+[
+  {
+    "model": "nova.TradingEquipment",
+    "fields": {
+      "type": "index",
+      "name": "NASDAQ Composite",
+      "sym": "IXIC"
+    }
+  },
+  {
+    "model": "nova.TradingEquipment",
+    "fields": {
+      "type": "index",
+      "name": "NYSE Composite",
+      "sym": "NYA"
+    }
+  },
+  {
+    "model": "nova.TradingEquipment",
+    "fields": {
+      "type": "index",
+      "name": "S&P 500",
+      "sym": "SPX"
+    }
+  },
+  {
+    "model": "nova.TradingEquipment",
+    "fields": {
+      "type": "index",
+      "name": "Russell 2000",
+      "sym": "RUT"
+    }
+  },
+  {
+    "model": "nova.TradingEquipment",
+    "fields": {
+      "type": "index",
+      "name": "NASDAQ-100 Index",
+      "sym": "NDX"
+    }
+  }
+]
