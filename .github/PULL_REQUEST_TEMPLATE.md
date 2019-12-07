@@ -1,7 +1,7 @@
 ### Description
 What does this implement/fix? Explain your changes.
 
-### Related Issues
+### Related Issues
 ...
 
 ### Other Comments
