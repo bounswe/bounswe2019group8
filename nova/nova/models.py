@@ -52,7 +52,10 @@ class TradingEquipment(models.Model):
     TYPE_CHOICES = (
         ('forex', 'forex'),
         ('digital', 'digital'),
-        ('stock', 'stock')
+        ('stock', 'stock'),
+        ('etf', 'etf'),
+        ('commodity', 'commodity'),
+        ('index', 'index')
     )
 
     type = models.CharField(max_length=30, choices=TYPE_CHOICES, default='forex')
