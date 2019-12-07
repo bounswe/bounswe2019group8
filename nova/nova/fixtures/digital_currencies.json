@@ -1,0 +1,74 @@
+[
+  {
+    "model": "nova.TradingEquipment",
+    "fields": {
+      "name": "Bitcoin",
+      "sym": "BTC_USD",
+      "type": "digital"
+    }
+  },
+  {
+    "model": "nova.TradingEquipment",
+    "fields": {
+      "name": "Litecoin",
+      "sym": "LTC_USD",
+      "type": "digital"
+    }
+  },
+  {
+    "model": "nova.TradingEquipment",
+    "fields": {
+      "name": "Ethereum",
+      "sym": "ETH",
+      "type": "digital"
+    }
+  },
+  {
+    "model": "nova.TradingEquipment",
+    "fields": {
+      "name": "Zcash",
+      "sym": "ZEC",
+      "type": "digital"
+    }
+  },
+  {
+    "model": "nova.TradingEquipment",
+    "fields": {
+      "name": "Dash",
+      "sym": "DASH",
+      "type": "digital"
+    }
+  },
+  {
+    "model": "nova.TradingEquipment",
+    "fields": {
+      "name": "Ripple",
+      "sym": "XRP",
+      "type": "digital"
+    }
+  },
+  {
+    "model": "nova.TradingEquipment",
+    "fields": {
+      "name": "Monero",
+      "sym": "XMR",
+      "type": "digital"
+    }
+  },
+  {
+    "model": "nova.TradingEquipment",
+    "fields": {
+      "name": "Neo",
+      "sym": "NEO",
+      "type": "digital"
+    }
+  },
+  {
+    "model": "nova.TradingEquipment",
+    "fields": {
+      "name": "EOSIO",
+      "sym": "EOS",
+      "type": "digital"
+    }
+  }
+]

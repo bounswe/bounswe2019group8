@@ -52,14 +52,17 @@ class TradingEquipment(models.Model):
     TYPE_CHOICES = (
         ('forex', 'forex'),
         ('digital', 'digital'),
-        ('stock', 'stock')
+        ('stock', 'stock'),
+        ('etf', 'etf'),
+        ('commodity', 'commodity'),
+        ('index', 'index')
     )
 
-    type = models.CharField(max_length=30, choices=TYPE_CHOICES, default='forex')
+    type = models.CharField(max_length=31, choices=TYPE_CHOICES, default='forex')
 
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=255)
 
-    sym = models.CharField(max_length=12, unique=True, blank=True)
+    sym = models.CharField(max_length=15, unique=True, blank=True)
 
     last_updated_daily = models.DateTimeField(null=True, blank=True)
 
@@ -188,24 +191,26 @@ class Event(models.Model):
     predicted = models.CharField(max_length=100, blank=True)
     value = models.CharField(max_length=100, blank=True)
 
+
 class Currency(models.Model):
     sym = models.CharField(max_length=10)
 
-class Asset(models.Model):
 
+class Asset(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
     currency = models.ForeignKey(Currency, on_delete=models.CASCADE)
 
-    amount = models.IntegerField(default = 0)
+    amount = models.IntegerField(default=0)
+
 
 class Notification(models.Model):
-
     to = models.ForeignKey(User, on_delete=models.CASCADE)
 
     message = models.TextField()
 
     date = models.DateTimeField(auto_now_add=True)
+
 
 class Order(models.Model):
     BUY = 1
