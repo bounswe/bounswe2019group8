@@ -1,0 +1,50 @@
+[
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "name": "Direxion Daily S&P Oil & Gas Exp. & Prod.",
+      "sym": "GUSH",
+      "type": "etf"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "name": "Direxion Daily Natural Gas Related",
+      "sym": "GASL",
+      "type": "etf"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "name": "Invesco QQQ Trust",
+      "sym": "QQQ",
+      "type": "etf"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "name": "Direxion Daily Junior Gold Miners Index",
+      "sym": "JDST",
+      "type": "etf"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "name": "UGAZ",
+      "sym": "Credit Suisse AG",
+      "type": "etf"
+    }
+  },
+  {
+    "model": "TradingEquipment",
+    "fields": {
+      "name": "SPY",
+      "sym": "SPDR S&P 500",
+      "type": "etf"
+    }
+  }
+]
