@@ -89,53 +89,25 @@ class ArticleComment(Comment):
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
 
 
-class Parity(models.Model):
-    # COMMENTS ARE RELATED TO ALPHAVANTAGE
+class Price(models.Model):
+    observe_date = models.DateField()
+    observe_time = models.TimeField(null=True, default=None)
 
-    # for intraday, we can set the time interval for 10mins, which results in 144 entries per day
-    # At the end of the day we can clear the previous data from database
+    tr_eq = models.ForeignKey(TradingEquipment, on_delete=models.CASCADE)
 
-    # for weekly, we can store the last 156 weeks = 3 years
-    # Once a week, we can update these 156 week data
-
-    # for monthly, we can store the last 36 months = 3 years
-    # Once a month, we can update these 36 months data
+    indicative_value = models.DecimalField(max_digits=15, decimal_places=8)
+    bid_value = models.DecimalField(max_digits=15, decimal_places=8, null=True)
+    ask_value = models.DecimalField(max_digits=15, decimal_places=8, null=True)
 
     INTERVAL_CHOICES = (
-
         ('intraday', 'intraday'),
-        ('daily', 'daily'),
-        ('weekly', 'weekly'),
-        ('monthly', 'monthly')
+        ('open', 'open'),
+        ('close', 'close'),
+        ('high', 'high'),
+        ('low', 'low'),
     )
 
-    interval_category = models.CharField(max_length=32, choices=INTERVAL_CHOICES, default='daily')
-
-    observed_at = models.DateTimeField()
-
-    tr_eq = models.ForeignKey(TradingEquipment, on_delete=models.CASCADE, null=True)
-
-    open = models.DecimalField(max_digits=15, decimal_places=8)
-
-    close = models.DecimalField(max_digits=15, decimal_places=8)
-
-    high = models.DecimalField(max_digits=15, decimal_places=8)
-
-    low = models.DecimalField(max_digits=15, decimal_places=8)
-
-    REQUIRED_FIELDS = ['observed_at', 'interval_category', 'tr_eq', 'open', 'close', 'high', 'low']
-
-
-class CurrentPrice(models.Model):
-    observed_at = models.DateTimeField()
-
-    tr_eq = models.ForeignKey(TradingEquipment, on_delete=models.CASCADE, null=True)
-
-    exchange_rate = models.DecimalField(max_digits=15, decimal_places=8)
-
-    bid_price = models.DecimalField(max_digits=15, decimal_places=8)
-
-    ask_price = models.DecimalField(max_digits=15, decimal_places=8)
+    interval = models.CharField(max_length=31, choices=INTERVAL_CHOICES, default='daily')
 
 
 class Prediction(models.Model):
@@ -192,14 +164,10 @@ class Event(models.Model):
     value = models.CharField(max_length=100, blank=True)
 
 
-class Currency(models.Model):
-    sym = models.CharField(max_length=10)
-
-
 class Asset(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
-    currency = models.ForeignKey(Currency, on_delete=models.CASCADE)
+    tr_eq = models.ForeignKey(TradingEquipment, on_delete=models.CASCADE)
 
     amount = models.IntegerField(default=0)
 
