@@ -3,9 +3,8 @@ from django.contrib.auth.models import Group
 from rest_framework import serializers
 
 from .libs.serializers import NovaSerializer
-from .models import User, Article, TradingEquipment, Comment, Parity, TradingEquipmentComment, ArticleComment, \
-    Prediction, LikeDislike, ArticleLikeDislike, CommentLikeDislike, Event, CurrentPrice, Asset, Notification, Order, \
-    Currency
+from .models import User, Article, TradingEquipment, Comment, TradingEquipmentComment, ArticleComment, \
+    Prediction, LikeDislike, ArticleLikeDislike, CommentLikeDislike, Event, Asset, Notification, Order
 
 
 class UserBasicSerializer(NovaSerializer):
@@ -104,29 +103,6 @@ class CommentLikeDislikeSerializer(NovaSerializer):
         model = CommentLikeDislike
         fields = ['liker', 'choice', 'comment']
 
-class ParitySerializer(NovaSerializer):
-    class Meta:
-        model = Parity
-        fields = ['interval_category', 'observed_at', 'tr_eq', 'open', 'close', 'high', 'low']
-
-    def create(self, validated_data):
-        return super(ParitySerializer, self).create(validated_data)
-
-    def update(self, instance, validated_data):
-        return super(ParitySerializer, self).update(instance, validated_data)
-
-
-class CurrentPriceSerializer(NovaSerializer):
-    class Meta:
-        model = CurrentPrice
-        fields = ['observed_at', 'tr_eq', 'bid_price', 'ask_price', 'exchange_rate']
-
-    def create(self, validated_data):
-        return super(CurrentPriceSerializer, self).create(validated_data)
-
-    def update(self, instance, validated_data):
-        return super(CurrentPriceSerializer, self).update(instance, validated_data)
-
 
 class EventSerializer(NovaSerializer):
     class Meta:
@@ -134,21 +110,11 @@ class EventSerializer(NovaSerializer):
 
         fields = create_only_fields = ['id', 'date', 'time', 'name', 'country', 'importance', 'value']
 
-class CurrencySerializer(NovaSerializer):
-    class Meta:
-        model = Currency
-        fields = create_only_fields = ['sym']
 
 class AssetSerializer(NovaSerializer):
     class Meta:
         model = Asset
-        fields = ['owner', 'currency', 'amount']
-
-    def create(self, validated_data):
-        return super(AssetSerializer, self).create(validated_data)
-
-    def update(self, instance, validated_data):
-        return super(AssetSerializer, self).update(instance, validated_data)
+        fields = ['owner', 'tr_eq', 'amount']
 
 
 class NotificationSerializer(NovaSerializer):
