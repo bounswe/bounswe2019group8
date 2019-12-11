@@ -81,6 +81,8 @@ def do_request_current(tr_eq):
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
 def fill_intraday(request):
+    if request.data.get('cronJobKey') != CRON_JOB_KEY:
+        raise PermissionDenied()
     all_eq_list = TradingEquipment.objects.filter(Q(type='forex') | Q(type='digital'))
 
     # CURRENT PRICE PROCESSING
@@ -123,6 +125,8 @@ def fill_intraday(request):
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny, ))
 def fill_daily(request):
+    if request.data.get('cronJobKey') != CRON_JOB_KEY:
+        raise PermissionDenied()
     all_eq_list = TradingEquipment.objects.filter(Q(type='forex') | Q(type='digital'))
 
     # DAILY PRICE PROCESSING
