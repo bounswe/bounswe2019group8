@@ -95,7 +95,7 @@ class Price(models.Model):
 
     tr_eq = models.ForeignKey(TradingEquipment, on_delete=models.CASCADE)
 
-    indicative_value = models.DecimalField(max_digits=15, decimal_places=8)
+    indicative_value = models.DecimalField(max_digits=15, decimal_places=8 )
     bid_value = models.DecimalField(max_digits=15, decimal_places=8, null=True)
     ask_value = models.DecimalField(max_digits=15, decimal_places=8, null=True)
 
@@ -107,7 +107,7 @@ class Price(models.Model):
         ('low', 'low'),
     )
 
-    interval = models.CharField(max_length=31, choices=INTERVAL_CHOICES, default='daily')
+    interval = models.CharField(max_length=31, choices=INTERVAL_CHOICES)
 
 
 class Prediction(models.Model):
@@ -208,3 +208,4 @@ class Order(models.Model):
     choice = models.SmallIntegerField(choices=ORDER_CHOICES)
 
     tr_eq = models.ForeignKey(TradingEquipment, on_delete=models.CASCADE)
+
