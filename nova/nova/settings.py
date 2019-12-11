@@ -169,3 +169,7 @@ AV_EXCLUDE = {'TRY_CNY', 'TRY_AUD', 'TRY_MXN', 'CNY_MXN', 'CNY_TRY', 'MXN_TRY', 
 
 FX_CURRENCY_LIST = {'USD', 'EUR', 'TRY', 'JPY', 'AUD', 'CAD', 'CNY', 'CHF', 'GBP', 'MXN', 'SGD'}
 DIG_CURRENCY_LIST = {'BTC', 'LTC', 'ETH', 'ZEC', 'DASH', 'XRP', 'XMR', 'NEO', 'EOS'}
+
+NASDAQ_BASE_URL = "https://api.nasdaq.com/api/quote"
+
+CRON_JOB_KEY = os.environ.get('CRON_JOB_KEY')
