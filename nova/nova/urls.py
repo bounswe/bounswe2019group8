@@ -2,7 +2,7 @@ from django.urls import path
 
 from nova.other_views import article_view, trading_eq_view, comment_view, like_view, dislike_view, parity_view, \
     events as events_views
-from . import views
+from . import views, cron_jobs
 
 urlpatterns = [
     path('users', views.users_coll),
@@ -74,4 +74,6 @@ urlpatterns = [
     path('pars', trading_eq_view.getp),
 
     path('cnt', trading_eq_view.cnt),
+
+    path('cron_jobs/intradaily_prices', cron_jobs.fetch_all_intradaily),
 ]
