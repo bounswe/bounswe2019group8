@@ -42,7 +42,8 @@ def fetch_commodities_intradaily():
             tr_eq=commodity,
             indicative_value=indicative_value,
             bid_value=bid_value,
-            ask_value=ask_value
+            ask_value=ask_value,
+            interval='intraday',
         )
 
 
