@@ -78,7 +78,7 @@ def do_request_current(tr_eq):
 
 # this should run every 5 minutes. (To make several passes in half an hour)
 # Will not change equipments updated in less than 30 minutes.
-@api_view(['GET'])
+@api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
 def fill_intraday(request):
     if request.data.get('cronJobKey') != CRON_JOB_KEY:
@@ -122,7 +122,7 @@ def fill_intraday(request):
 # Will not change equipments updated in less than 24 hours.
 # It takes three passes to fill all the fx and digitals.
 # We can make this function run like 3 times for one hour, then further calls in the same day wont be necessary
-@api_view(['GET'])
+@api_view(['POST'])
 @permission_classes((permissions.AllowAny, ))
 def fill_daily(request):
     if request.data.get('cronJobKey') != CRON_JOB_KEY:
