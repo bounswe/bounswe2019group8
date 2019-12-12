@@ -40,8 +40,6 @@ urlpatterns = [
 
     path('trading_equipments/<int:pk>', trading_eq_view.trading_eq_res),
 
-    path('trading_equipments_init', trading_eq_view.init_eqs),
-
     path('trading_equipments/<int:pk>/comments', comment_view.comment_coll_tr_eq),
 
     path('trading_equipments/<int:pk>/predictions/upvotes', trading_eq_view.upvotes_tr_eq),
@@ -54,14 +52,6 @@ urlpatterns = [
 
     path('comments/<int:pk>/dislikes', dislike_view.dislikes_comment_coll),
 
-    path('trading_equipments/<int:pk>/parities', parity_view.parities_coll),
-
-    path('trading_equipments/<sym>/parities', parity_view.parities_sym_coll),
-
-    path('trading_equipments/<int:pk>/current_prices', parity_view.current_price_coll),
-
-    path('trading_equipments/<sym>/current_prices', parity_view.current_price_sym_coll),
-
     path('trading_equipment_searches', trading_eq_view.tr_eq_searches),
 
     # Events
@@ -69,11 +59,9 @@ urlpatterns = [
 
     # TEMPORARY ENDPOINTS FOR TESTS
 
-    path('getall', trading_eq_view.fill),
-
-    path('pars', trading_eq_view.getp),
-
     path('cnt', trading_eq_view.cnt),
 
     path('cron_jobs/nasdaq_intradaily', nasdaq.fetch_all_intradaily),
+
+    path('cron_jobs/nasdaq_daily', nasdaq.fetch_all_daily),
 ]
