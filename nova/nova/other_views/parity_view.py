@@ -1,3 +1,4 @@
+"""
 from rest_framework import permissions
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
@@ -58,3 +59,4 @@ def current_price_sym_coll(request, sym):
     current_prices = CurrentPrice.objects.filter(tr_eq=tr_eq)
     serializer = CurrentPriceSerializer(current_prices, many=True)
     return Response(serializer.data, status.HTTP_200_OK)
+ """
