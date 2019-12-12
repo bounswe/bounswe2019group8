@@ -119,6 +119,20 @@ def fetch_all_intradaily(request):
         raise PermissionDenied()
 
     fetch_commodities_intradaily()
-    # others will be added here
+    # other intradaily jobs will be added here
+
+    return Response('Success')
+
+
+@api_view(['POST'])
+@permission_classes((permissions.AllowAny,))
+def fetch_all_daily(request):
+    if request.data.get('cronJobKey') != CRON_JOB_KEY:
+        raise PermissionDenied()
+
+    delete_old_prices()
+
+    fetch_commodities_daily()
+    # other daily jobs will be added here
 
     return Response('Success')
