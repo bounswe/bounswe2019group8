@@ -186,14 +186,6 @@
   {
     "model": "nova.TradingEquipment",
     "fields": {
-      "sym": "CELG",
-      "name": "CELGENE CORP",
-      "type": "stock"
-    }
-  },
-  {
-    "model": "nova.TradingEquipment",
-    "fields": {
       "sym": "MDLZ",
       "name": "MONDELEZ INTL CMN A",
       "type": "stock"
@@ -674,14 +666,6 @@
   {
     "model": "nova.TradingEquipment",
     "fields": {
-      "sym": "CTRP",
-      "name": "CTRIP.COM INTL LTD",
-      "type": "stock"
-    }
-  },
-  {
-    "model": "nova.TradingEquipment",
-    "fields": {
       "sym": "MXIM",
       "name": "MAXIM INTEGRATED",
       "type": "stock"
@@ -692,14 +676,6 @@
     "fields": {
       "sym": "WDC",
       "name": "WESTERN DIGITAL CP",
-      "type": "stock"
-    }
-  },
-  {
-    "model": "nova.TradingEquipment",
-    "fields": {
-      "sym": "SYMC",
-      "name": "SYMANTEC CORPORATION",
       "type": "stock"
     }
   },
