@@ -35,7 +35,7 @@ def portfolio_ops(request):
 @permission_classes((permissions.IsAuthenticated, ))
 def portfolio_visitor(request, pk):
     try:
-        portfolio = Portfolio.objects.filter(Q(owner=pk) | Q(private=False))
+        portfolio = Portfolio.objects.filter(Q(owner=pk) & Q(private=False))
     except Portfolio.DoesNotExist:
         raise NotFound()
     serializer = PortfolioSerializer(portfolio, many=True)
