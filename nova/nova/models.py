@@ -27,6 +27,8 @@ class User(AbstractUser):
 
     following_articles = models.ManyToManyField('Article', 'followers')
 
+    following_portfolios = models.ManyToManyField('Portfolio', 'followers')
+
     email_activated = models.BooleanField(blank=True, default=False)
 
     USERNAME_FIELD = 'email'
@@ -48,6 +50,13 @@ class Article(models.Model):
     REQUIRED_FIELDS = ['created_at', 'title', 'content']
 
 
+class Portfolio(models.Model):
+    private = models.BooleanField(default=False)
+
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    name =  models.CharField(max_length=32)
+
 class TradingEquipment(models.Model):
     TYPE_CHOICES = (
         ('forex', 'forex'),
@@ -67,6 +76,8 @@ class TradingEquipment(models.Model):
     last_updated_daily = models.DateTimeField(null=True, blank=True)
 
     last_updated_current = models.DateTimeField(null=True, blank=True)
+
+    appeared_portfolios = models.ManyToManyField(Portfolio, related_name='equipments', blank=True)
 
     REQUIRED_FIELDS = ['type', 'name', 'sym']
 
@@ -208,4 +219,7 @@ class Order(models.Model):
     choice = models.SmallIntegerField(choices=ORDER_CHOICES)
 
     tr_eq = models.ForeignKey(TradingEquipment, on_delete=models.CASCADE)
+
+
+
 
