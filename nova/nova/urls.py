@@ -1,11 +1,15 @@
 from django.urls import path
 
-from nova.other_views import article_view, trading_eq_view, comment_view, like_view, dislike_view, parity_view, \
-    events as events_views, portfolio_view
+from nova.other_views import article_view, trading_eq_view, comment_view, like_view, dislike_view, \
+    events as events_views
 from . import views, nasdaq
+from .swagger import get_swagger_view
 
 urlpatterns = [
+    path('', get_swagger_view(title='Mercatus API Documentation')),
+
     path('users', views.users_coll),
+
     path('users/<int:pk>', views.user_res),
 
     path('users/<int:pk>/followings', views.user_followings_coll),
