@@ -53,6 +53,15 @@ urlpatterns = [
     path('comments/<int:pk>/dislikes', dislike_view.dislikes_comment_coll),
 
     path('trading_equipment_searches', trading_eq_view.tr_eq_searches),
+    
+    # Portfolios
+    path('portfolios', portfolio_view.portfolio_ops),
+
+    path('portfolios/<int:pk>', portfolio_view.portfolio_update),
+
+    path('portfolios/<int:pk>/follows', portfolio_view.portfolio_follows),
+
+    path('users/<int:pk>/portfolios', portfolio_view.portfolio_visitor),
 
     # Events
     path('events/<date>', events_views.events_coll),
