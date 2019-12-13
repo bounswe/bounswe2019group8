@@ -14,6 +14,7 @@ conda install pillow
 conda install psycopg2
 conda install -c conda-forge django-cors-headers
 conda install requests
+conda install -c conda-forge django-rest-swagger
 ```
 
 Then, create a PostgreSQL database named `mercatus`. Supply the DB credentials to the project by running:
