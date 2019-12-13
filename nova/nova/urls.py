@@ -1,7 +1,7 @@
 from django.urls import path
 
 from nova.other_views import article_view, trading_eq_view, comment_view, like_view, dislike_view, parity_view, \
-    events as events_views
+    events as events_views, portfolio_view
 from . import views, nasdaq
 
 urlpatterns = [
@@ -53,6 +53,15 @@ urlpatterns = [
     path('comments/<int:pk>/dislikes', dislike_view.dislikes_comment_coll),
 
     path('trading_equipment_searches', trading_eq_view.tr_eq_searches),
+    
+    # Portfolios
+    path('portfolios', portfolio_view.portfolio_ops),
+
+    path('portfolios/<int:pk>', portfolio_view.portfolio_update),
+
+    path('portfolios/<int:pk>/follows', portfolio_view.portfolio_follows),
+
+    path('users/<int:pk>/portfolios', portfolio_view.portfolio_visitor),
 
     # Events
     path('events/<date>', events_views.events_coll),

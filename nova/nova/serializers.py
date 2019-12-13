@@ -4,7 +4,7 @@ from rest_framework import serializers
 
 from .libs.serializers import NovaSerializer
 from .models import User, Article, TradingEquipment, Comment, TradingEquipmentComment, ArticleComment, \
-    Prediction, LikeDislike, ArticleLikeDislike, CommentLikeDislike, Event, Asset, Notification, Order
+    Prediction, LikeDislike, ArticleLikeDislike, CommentLikeDislike, Event, Asset, Notification, Order, Portfolio
 
 
 class UserBasicSerializer(NovaSerializer):
@@ -13,16 +13,32 @@ class UserBasicSerializer(NovaSerializer):
         fields = ['pk', 'first_name', 'last_name']
 
 
+
+class TradingEquipmentSerializer(NovaSerializer):
+    class Meta:
+        model = TradingEquipment
+        fields = ['type', 'name', 'sym', 'pk', 'last_updated_daily', 'last_updated_current', 'appeared_portfolios']
+        create_only_fields = ['type', 'name', 'sym']
+
+class PortfolioSerializer(NovaSerializer):
+    equipments = TradingEquipmentSerializer(read_only=True, many=True)
+    class Meta:
+        model = Portfolio
+        fields = ['pk', 'equipments', 'owner', 'name', 'followers', 'private']
+
+
+
 class UserSerializer(NovaSerializer):
     class Meta:
         model = User
         fields = ['email', 'lat', 'long', 'first_name', 'last_name', 'date_of_birth', 'profile_image', 'password', 'pk',
-                  'groups', 'followers', 'followings', 'email_activated']
-        read_only_fields = ['followers', 'followings']
+                  'groups', 'followers', 'followings', 'email_activated', 'following_portfolios']
+        read_only_fields = ['followers', 'followings', 'following_portfolios']
         create_only_fields = ['first_name', 'last_name']
 
     followers = UserBasicSerializer(read_only=True, many=True)
     followings = UserBasicSerializer(read_only=True, many=True)
+    following_portfolios = PortfolioSerializer(read_only=True, many=True)
 
     password = serializers.CharField(
         write_only=True,
@@ -54,11 +70,6 @@ class ArticleSerializer(NovaSerializer):
         create_only_fields = ['author']
 
 
-class TradingEquipmentSerializer(NovaSerializer):
-    class Meta:
-        model = TradingEquipment
-        fields = ['type', 'name', 'sym', 'pk', 'last_updated_daily', 'last_updated_current']
-        create_only_fields = ['type', 'name', 'sym']
 
 
 class CommentSerializer(NovaSerializer):
@@ -127,3 +138,5 @@ class OrderSerializer(NovaSerializer):
     class Meta:
         model = Order
         fields = ['type', 'owner', 'max_volume', 'trigger', 'choice', 'tr_eq']
+
+
