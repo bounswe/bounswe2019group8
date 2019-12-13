@@ -1,7 +1,7 @@
 from django.urls import path
 
 from nova.other_views import article_view, trading_eq_view, comment_view, like_view, dislike_view, \
-    events as events_views
+    events as events_views, portfolio_view
 from . import views, nasdaq
 from .swagger import get_swagger_view
 
