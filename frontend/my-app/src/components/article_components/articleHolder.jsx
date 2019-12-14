@@ -16,9 +16,6 @@ class ArticleHolder extends Component {
     count: 0
   };
   render() {
-
-
-
     return (
       <React.Fragment>
         <Tabs defaultActiveKey="articles" style={{fontWeight:'lighter', 
@@ -34,7 +31,6 @@ class ArticleHolder extends Component {
             <WriteArticlePage></WriteArticlePage>
           </Tab>
         </Tabs>
-
       </React.Fragment>
     );
   }
