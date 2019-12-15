@@ -74,9 +74,9 @@ class TradingEquipment(models.Model):
 
 
 class Portfolio(models.Model):
-    private = models.BooleanField(default=False)
+    private = models.BooleanField(default=True)
 
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='portfolios')
 
     name = models.CharField(max_length=31)
 
