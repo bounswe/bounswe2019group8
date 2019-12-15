@@ -68,14 +68,14 @@ def portfolio_update(request, pk):
         except TradingEquipment.DoesNotExist:
             raise NotFound()
         if request.method == 'POST':
-            equipment.appeared_portfolios.add(portfolio)
+            portfolio.tr_eqs.add(equipment)
             serializer = PortfolioSerializer(portfolio)
             return Response(serializer.data, status.HTTP_200_OK)
 
         elif request.method == 'DELETE':
-            if equipment.appeared_portfolios.filter(pk=portfolio.pk):
+            if portfolio.tr_eqs.filter(pk=equipment.pk):
                 serializer = PortfolioSerializer(portfolio)
-                equipment.appeared_portfolios.remove(portfolio)
+                portfolio.tr_eqs.remove(equipment)
                 return Response(serializer.data, status.HTTP_200_OK)
             else:
                 return Response('Equipment not in portfolio.', status.HTTP_400_BAD_REQUEST)
