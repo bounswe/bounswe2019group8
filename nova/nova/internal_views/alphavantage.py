@@ -7,7 +7,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 
 from nova.models import TradingEquipment, Price
-from .settings import AV_URLS, ALPHAVANTAGE_KEYS, CRON_JOB_KEY
+from nova.settings import AV_URLS, ALPHAVANTAGE_KEYS, CRON_JOB_KEY
 from rest_framework import permissions
 
 from rest_framework.response import Response
@@ -76,7 +76,6 @@ def do_request_current(tr_eq):
     return
 
 
-
 # this should run every 5 minutes. (To make several passes in half an hour)
 # Will not change equipments updated in less than 30 minutes.
 @api_view(['POST'])
@@ -101,7 +100,6 @@ def fill_intraday(request):
         if tr_eq.last_updated_current is None or minutes > 30:
             result = do_request_current(tr_eq)
             if result is not None:
-
                 dttm = result['6. Last Refreshed'].split(' ')
                 new_price_obj = Price.objects.create(
                     tr_eq=tr_eq,
@@ -119,12 +117,11 @@ def fill_intraday(request):
     return Response(status.HTTP_200_OK)
 
 
-
 # Will not change equipments updated in less than 24 hours.
 # It takes three passes to fill all the fx and digitals.
 # We can make this function run like 3 times for one hour, then further calls in the same day wont be necessary
 @api_view(['POST'])
-@permission_classes((permissions.AllowAny, ))
+@permission_classes((permissions.AllowAny,))
 def fill_daily(request):
     if request.data.get('cronJobKey') != CRON_JOB_KEY:
         raise PermissionDenied()
@@ -215,8 +212,3 @@ def fill_daily(request):
                 tr_eq.last_updated_daily = now
                 tr_eq.save()
     return Response(status.HTTP_200_OK)
-
-
-
-"""
-"""

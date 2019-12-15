@@ -14,25 +14,26 @@ from nova.settings import CRON_JOB_KEY, NASDAQ_BASE_URL
 
 from dateutil.relativedelta import relativedelta
 
+
 def fetch_stocks_daily():
     stocks = TradingEquipment.objects.filter(type='stock')
 
     for stock in stocks:
-        url = NASDAQ_BASE_URL +  '/' + stock.sym + '/historical'
+        url = NASDAQ_BASE_URL + '/' + stock.sym + '/historical'
 
         now = datetime.now()
         before = now - relativedelta(months=1)
         now = str(now).split(' ')
         before = str(before).split(' ')
 
-        response = requests.get(url, params = {'assetclass' : 'stocks', 'fromdate' : before[0], 'todate': now[0]})
+        response = requests.get(url, params={'assetclass': 'stocks', 'fromdate': before[0], 'todate': now[0]})
 
         if response.status_code != 200:
             print('Error occurred while fetching ', stock.sym)
             continue
 
         json_response = response.json()
-        for row in range(0, len(json_response['data']['tradesTable']['rows'])-1):
+        for row in range(0, len(json_response['data']['tradesTable']['rows']) - 1):
             try:
                 data_date = json_response['data']['tradesTable']['rows'][row]['date']
                 close = json_response['data']['tradesTable']['rows'][row]['close']
@@ -74,13 +75,14 @@ def fetch_stocks_daily():
             stock.last_updated_daily = now
             stock.save()
 
+
 def fetch_stocks_intradaily():
     stocks = TradingEquipment.objects.filter(type='stock')
 
     for stock in stocks:
-        url = NASDAQ_BASE_URL +  '/' + stock.sym + '/info'
-        print("STOCK"+stock.sym)
-        response = requests.get(url, params = {'assetclass' : 'stocks'})
+        url = NASDAQ_BASE_URL + '/' + stock.sym + '/info'
+        print("STOCK" + stock.sym)
+        response = requests.get(url, params={'assetclass': 'stocks'})
         print(response)
         if response.status_code != 200:
             print('Error occurred while fetching ', stock.sym)
@@ -147,6 +149,7 @@ def fetch_commodities_intradaily():
         now = make_aware(datetime.now(), get_default_timezone())
         commodity.last_updated_current = now
         commodity.save()
+
 
 def fetch_commodities_daily():
     commodities = TradingEquipment.objects.filter(type='commodity')

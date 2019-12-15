@@ -2,9 +2,10 @@ from django.urls import path
 
 from nova.views import articles as article_views, auth_tokens as auth_token_views, \
     comments as  comment_views, events as event_views, likes as like_views, dislikes as dislike_views, \
-    orders as order_views, parities as parity_views, users as user_views, trading_equipments as trading_equipment_views, \
+    orders as order_views, parities as parity_views, users as user_views, \
+    trading_equipments as trading_equipment_views, \
     portfolios as portfolio_views
-from . import nasdaq
+from nova.internal_views import nasdaq as nasdaq_views
 from .swagger import get_swagger_view
 
 urlpatterns = [
@@ -84,7 +85,7 @@ urlpatterns = [
 
     path('cnt', trading_equipment_views.cnt),
 
-    path('cron_jobs/nasdaq_intradaily', nasdaq.fetch_all_intradaily),
+    path('cron_jobs/nasdaq_intradaily', nasdaq_views.fetch_all_intradaily),
 
-    path('cron_jobs/nasdaq_daily', nasdaq.fetch_all_daily),
+    path('cron_jobs/nasdaq_daily', nasdaq_views.fetch_all_daily),
 ]
