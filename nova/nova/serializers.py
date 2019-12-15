@@ -2,7 +2,7 @@ from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import Group
 from rest_framework import serializers
 
-from .libs.serializers import NovaSerializer
+from .utils.serializers import NovaSerializer
 from .models import User, Article, TradingEquipment, Comment, TradingEquipmentComment, ArticleComment, \
     Prediction, LikeDislike, ArticleLikeDislike, CommentLikeDislike, Event, Asset, Notification, Order, Portfolio
 
@@ -13,19 +13,19 @@ class UserBasicSerializer(NovaSerializer):
         fields = ['pk', 'first_name', 'last_name']
 
 
-
 class TradingEquipmentSerializer(NovaSerializer):
     class Meta:
         model = TradingEquipment
         fields = ['type', 'name', 'sym', 'pk', 'last_updated_daily', 'last_updated_current', 'appeared_portfolios']
         create_only_fields = ['type', 'name', 'sym']
 
+
 class PortfolioSerializer(NovaSerializer):
     equipments = TradingEquipmentSerializer(read_only=True, many=True)
+
     class Meta:
         model = Portfolio
         fields = ['pk', 'equipments', 'owner', 'name', 'followers', 'private']
-
 
 
 class UserSerializer(NovaSerializer):
@@ -68,8 +68,6 @@ class ArticleSerializer(NovaSerializer):
         model = Article
         fields = ['author', 'title', 'content', 'rating', 'pk']
         create_only_fields = ['author']
-
-
 
 
 class CommentSerializer(NovaSerializer):
@@ -138,5 +136,3 @@ class OrderSerializer(NovaSerializer):
     class Meta:
         model = Order
         fields = ['type', 'owner', 'max_volume', 'trigger', 'choice', 'tr_eq']
-
-
