@@ -6,7 +6,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 
 from nova.permissions import Public
-from ..libs.parse_event_data import parse_event_data
+from ..utils.parse_event_data import parse_event_data
 from ..models import Event
 from ..serializers import EventSerializer
 
