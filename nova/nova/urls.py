@@ -4,9 +4,12 @@ from nova.views import articles as article_views, auth_tokens as auth_token_view
     comments as comment_views, events as event_views, likes as like_views, dislikes as dislike_views, \
     orders as order_views, parities as parity_views, users as user_views, \
     trading_equipments as trading_equipment_views, \
-    portfolios as portfolio_views, assets as asset_views
+    portfolios as portfolio_views, assets as asset_views, \
+    annotations as annotation_views
+
 from nova.internal_views import nasdaq as nasdaq_views
 from nova.internal_views import alphavantage as av_views
+
 from .swagger import get_swagger_view
 
 urlpatterns = [
@@ -84,6 +87,10 @@ urlpatterns = [
 
     # Assets
     path('users/<int:user_pk>/cash', asset_views.cash_coll),
+
+    # Annotations
+    path('articles/<int:article_pk>/annotations', annotation_views.annotations_coll),
+    path('articles/<int:article_pk>/annotations/<int:annotation_pk>', annotation_views.annotation_res),
 
     # TEMPORARY ENDPOINTS FOR TESTS
 
