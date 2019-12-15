@@ -50,13 +50,6 @@ class Article(models.Model):
     REQUIRED_FIELDS = ['created_at', 'title', 'content']
 
 
-class Portfolio(models.Model):
-    private = models.BooleanField(default=False)
-
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
-
-    name =  models.CharField(max_length=32)
-
 class TradingEquipment(models.Model):
     TYPE_CHOICES = (
         ('forex', 'forex'),
@@ -77,11 +70,17 @@ class TradingEquipment(models.Model):
 
     last_updated_current = models.DateTimeField(null=True, blank=True)
 
-    appeared_portfolios = models.ManyToManyField(Portfolio, related_name='equipments', blank=True)
-
     REQUIRED_FIELDS = ['type', 'name', 'sym']
 
 
+class Portfolio(models.Model):
+    private = models.BooleanField(default=False)
+
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    name = models.CharField(max_length=31)
+
+    tr_eqs = models.ManyToManyField(TradingEquipment)
 class Comment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
