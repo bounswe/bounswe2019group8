@@ -6,9 +6,8 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.exceptions import NotFound
 from rest_framework.response import Response
 
-
 from ..models import TradingEquipment, Prediction
-from ..serializers import TradingEquipmentSerializer,PredictionSerializer
+from ..serializers import TradingEquipmentSerializer, PredictionSerializer
 from ..settings import FX_CURRENCY_LIST, DIG_CURRENCY_LIST, AV_EXCLUDE
 
 
@@ -170,6 +169,7 @@ def init_eqs(request):
 
     return Response(status=status.HTTP_200_OK)
 
+
 """
 # create parities from alphavantage responses
 @api_view(['GET'])
@@ -184,6 +184,8 @@ def getp(request):
     return Response(serializer.data, status.HTTP_200_OK)
 
 """
+
+
 @api_view(['GET'])
 def cnt(request):
     tr_eqs = TradingEquipment.objects.all()
