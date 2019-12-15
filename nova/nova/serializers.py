@@ -3,6 +3,7 @@ from django.contrib.auth.models import Group
 from rest_framework import serializers
 from nova.utils.validators import validate_exists
 
+from nova.permissions import is_user_in_group
 from .utils.serializers import NovaSerializer
 from .models import User, Article, TradingEquipment, Comment, TradingEquipmentComment, ArticleComment, \
     Prediction, LikeDislike, ArticleLikeDislike, CommentLikeDislike, Event, Asset, Notification, Order, Portfolio
@@ -95,11 +96,12 @@ class UserSerializer(NovaSerializer):
 
         created = super(UserSerializer, self).create(validated_data)
 
-        created.assets.set([
-            Asset.objects.create(owner=created, amount=0,
-                                 tr_eq=TradingEquipment.objects.get(sym='USD_USD'))])
+        if is_user_in_group(created, "trader"):
+            created.assets.set([
+                Asset.objects.create(owner=created, amount=0,
+                                     tr_eq=TradingEquipment.objects.get(sym='USD_USD'))])
 
-        created.save()
+            created.save()
 
         return created
 

@@ -2,19 +2,22 @@
   {
     "model": "auth.Group",
     "fields": {
-      "name": "basic"
+      "name": "basic",
+      "pk": 1
     }
   },
   {
     "model": "auth.Group",
     "fields": {
-      "name": "trader"
+      "name": "trader",
+      "pk": 2
     }
   },
   {
     "model": "auth.Group",
     "fields": {
-      "name": "admin"
+      "name": "admin",
+      "pk": 3
     }
   }
 ]

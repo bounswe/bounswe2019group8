@@ -34,7 +34,7 @@ class IsGetOrIsAuthenticated(permissions.BasePermission):
 
 class IsTraderUser(permissions.BasePermission):
     def has_permission(self, request, view):
-        return is_user_in_group(request.user, "trader")
+        return is_user_in_group(request.user, "trader") or is_user_in_group(request.user, "admin")
 
 
 class IsAdminUser(permissions.BasePermission):
