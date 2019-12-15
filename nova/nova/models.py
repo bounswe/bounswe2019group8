@@ -25,9 +25,9 @@ class User(AbstractUser):
 
     following_tr_eqs = models.ManyToManyField('TradingEquipment', 'followers')
 
-    following_articles = models.ManyToManyField('Article', 'followers')
+    following_articles = models.ManyToManyField('Article', related_name='followers')
 
-    following_portfolios = models.ManyToManyField('Portfolio', 'followers')
+    following_portfolios = models.ManyToManyField('Portfolio', related_name='followers')
 
     email_activated = models.BooleanField(blank=True, default=False)
 
@@ -81,6 +81,8 @@ class Portfolio(models.Model):
     name = models.CharField(max_length=31)
 
     tr_eqs = models.ManyToManyField(TradingEquipment)
+
+
 class Comment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -105,7 +107,7 @@ class Price(models.Model):
 
     tr_eq = models.ForeignKey(TradingEquipment, on_delete=models.CASCADE)
 
-    indicative_value = models.DecimalField(max_digits=15, decimal_places=8 )
+    indicative_value = models.DecimalField(max_digits=15, decimal_places=8)
     bid_value = models.DecimalField(max_digits=15, decimal_places=8, null=True)
     ask_value = models.DecimalField(max_digits=15, decimal_places=8, null=True)
 
@@ -179,7 +181,7 @@ class Asset(models.Model):
 
     tr_eq = models.ForeignKey(TradingEquipment, on_delete=models.CASCADE)
 
-    amount = models.IntegerField(default=0)
+    amount = models.DecimalField(max_digits=15, decimal_places=3)
 
 
 class Notification(models.Model):
@@ -187,7 +189,7 @@ class Notification(models.Model):
 
     message = models.TextField()
 
-    date = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
 
 class Order(models.Model):
@@ -218,7 +220,3 @@ class Order(models.Model):
     choice = models.SmallIntegerField(choices=ORDER_CHOICES)
 
     tr_eq = models.ForeignKey(TradingEquipment, on_delete=models.CASCADE)
-
-
-
-
