@@ -135,22 +135,34 @@ def portfolio_update(request, pk):
         return Response(status.HTTP_200_OK)
 
 
-# /portfolios/pk/follows
-@api_view(['POST', 'DELETE'])
-def portfolio_follows(request, pk):
+# user/<user_pk>/following_portfolios/
+@api_view(['GET', 'POST'])
+@permission_classes((permissions.IsAuthenticated,))
+def user_following_portfolios_coll(request, user_pk):
     try:
-        portfolio = Portfolio.objects.get(pk=pk)
-    except Portfolio.DoesNotExist:
+        user = User.objects.get(pk=user_pk)
+    except:
         raise NotFound()
 
-    if portfolio.private == True:
-        raise PermissionDenied()
-
     if request.method == 'POST':
-        portfolio.followers.add(request.user)
-        serializer = PortfolioSerializer(portfolio, partial=True)
-        return Response(serializer.data, status.HTTP_200_OK)
+        if 'portfolio_pk' not in request.data:
+            raise ValidationError()
 
-    elif request.method == 'DELETE':
-        portfolio.followers.remove(request.user)
-        return Response('Unfollowed the portfolio', status.HTTP_200_OK)
+        try:
+            portfolio = Portfolio.objects.get(pk=request.data["portfolio_pk"])
+        except:
+            raise NotFound()
+
+        if portfolio.private or request.user.pk != user_pk:
+            raise PermissionDenied()
+
+        user.following_portfolios.add(portfolio)
+
+        serializer = PortfolioSerializer(portfolio)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    elif request.method == 'GET':
+        portfolios = user.following_portfolios
+        serializer = PortfolioSerializer(portfolios, many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
