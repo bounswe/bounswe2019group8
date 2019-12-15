@@ -6,7 +6,8 @@ from nova.utils.validators import validate_exists
 from nova.permissions import is_user_in_group
 from .utils.serializers import NovaSerializer
 from .models import User, Article, TradingEquipment, Comment, TradingEquipmentComment, ArticleComment, \
-    Prediction, LikeDislike, ArticleLikeDislike, CommentLikeDislike, Event, Asset, Notification, Order, Portfolio
+    Prediction, LikeDislike, ArticleLikeDislike, CommentLikeDislike, Event, Asset, Notification, Order, Portfolio, \
+    Annotation
 
 
 class UserBasicSerializer(NovaSerializer):
@@ -111,11 +112,21 @@ class UserSerializer(NovaSerializer):
         return super(UserSerializer, self).update(instance, validated_data)
 
 
+class AnnotationSerializer(NovaSerializer):
+    class Meta:
+        model = Annotation
+        fields = ['created_at', 'owner', 'from_position', 'to_position', 'content', 'article', 'pk']
+        create_only_fields = ['created_at', 'owner', 'article']
+
+
 class ArticleSerializer(NovaSerializer):
     class Meta:
         model = Article
-        fields = ['author', 'title', 'content', 'rating', 'pk']
+        fields = ['author', 'title', 'content', 'rating', 'pk', 'annotations']
+        read_only_fields = ['annotations']
         create_only_fields = ['author']
+
+    annotations = AnnotationSerializer(read_only=True, many=True)
 
 
 class CommentSerializer(NovaSerializer):

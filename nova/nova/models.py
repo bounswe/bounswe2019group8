@@ -50,6 +50,21 @@ class Article(models.Model):
     REQUIRED_FIELDS = ['created_at', 'title', 'content']
 
 
+class Annotation(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    owner = models.ForeignKey('User', on_delete=models.CASCADE)
+
+    from_position = models.PositiveIntegerField()
+    to_position = models.PositiveIntegerField()
+
+    article = models.ForeignKey('Article', on_delete=models.CASCADE, related_name='annotations')
+
+    content = models.TextField(default="")
+
+    REQUIRED_FIELDS = ['created_at', 'from_position', 'to_position']
+
+
 class TradingEquipment(models.Model):
     TYPE_CHOICES = (
         ('forex', 'forex'),
