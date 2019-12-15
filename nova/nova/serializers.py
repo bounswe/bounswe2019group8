@@ -59,14 +59,21 @@ class PortfolioSerializer(NovaSerializer):
         return instance
 
 
+class AssetSerializer(NovaSerializer):
+    class Meta:
+        model = Asset
+        fields = ['owner', 'tr_eq', 'amount']
+
+
 class UserSerializer(NovaSerializer):
     class Meta:
         model = User
         fields = ['email', 'lat', 'long', 'first_name', 'last_name', 'date_of_birth', 'profile_image', 'password', 'pk',
-                  'groups', 'followers', 'followings', 'email_activated', 'following_portfolios']
-        read_only_fields = ['followers', 'followings', 'following_portfolios']
+                  'groups', 'followers', 'followings', 'email_activated', 'following_portfolios', 'assets']
+        read_only_fields = ['followers', 'followings', 'following_portfolios', 'assets']
         create_only_fields = ['first_name', 'last_name']
 
+    assets = AssetSerializer(read_only=True, many=True)
     followers = UserBasicSerializer(read_only=True, many=True)
     followings = UserBasicSerializer(read_only=True, many=True)
     following_portfolios = PortfolioSerializer(read_only=True, many=True)
@@ -86,7 +93,15 @@ class UserSerializer(NovaSerializer):
     def create(self, validated_data):
         validated_data['password'] = make_password(validated_data.get('password'))
 
-        return super(UserSerializer, self).create(validated_data)
+        created = super(UserSerializer, self).create(validated_data)
+
+        created.assets.set([
+            Asset.objects.create(owner=created, amount=0,
+                                 tr_eq=TradingEquipment.objects.get(sym='USD_USD'))])
+
+        created.save()
+
+        return created
 
     def update(self, instance, validated_data):
         if 'password' in validated_data:
@@ -149,12 +164,6 @@ class EventSerializer(NovaSerializer):
         model = Event
 
         fields = create_only_fields = ['id', 'date', 'time', 'name', 'country', 'importance', 'value']
-
-
-class AssetSerializer(NovaSerializer):
-    class Meta:
-        model = Asset
-        fields = ['owner', 'tr_eq', 'amount']
 
 
 class NotificationSerializer(NovaSerializer):
