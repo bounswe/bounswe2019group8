@@ -16,7 +16,7 @@ class UserBasicSerializer(NovaSerializer):
 class TradingEquipmentSerializer(NovaSerializer):
     class Meta:
         model = TradingEquipment
-        fields = ['type', 'name', 'sym', 'pk', 'last_updated_daily', 'last_updated_current', 'appeared_portfolios']
+        fields = ['type', 'name', 'sym', 'pk', 'last_updated_daily', 'last_updated_current']
         create_only_fields = ['type', 'name', 'sym']
 
 
@@ -25,7 +25,7 @@ class PortfolioSerializer(NovaSerializer):
 
     class Meta:
         model = Portfolio
-        fields = ['pk', 'equipments', 'owner', 'name', 'followers', 'private']
+        fields = ['pk', 'equipments', 'owner', 'name', 'followers', 'private', 'tr_eqs']
 
 
 class UserSerializer(NovaSerializer):
