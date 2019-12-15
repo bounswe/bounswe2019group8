@@ -1,4 +1,3 @@
-from django.contrib.auth import authenticate
 from django.contrib.postgres.search import SearchVector
 from django.core.mail import EmailMessage
 from django.db.models import Q
@@ -6,15 +5,15 @@ from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from rest_framework import permissions
 from rest_framework import status
-from rest_framework.authtoken.models import Token
+
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.exceptions import AuthenticationFailed, PermissionDenied, NotFound, ValidationError
+from rest_framework.exceptions import PermissionDenied, NotFound, ValidationError
 from rest_framework.response import Response
 
 from nova.email_token import account_activation_token
-from .models import User
-from .permissions import IsPostOrIsAuthenticated, is_user_in_group
-from .serializers import UserSerializer
+from nova.models import User
+from nova.permissions import IsPostOrIsAuthenticated, is_user_in_group
+from nova.serializers import UserSerializer
 
 
 @api_view(['GET'])
@@ -144,18 +143,6 @@ def user_followers_coll(request, pk):
         followers = user.followers.all()
         serializer = UserSerializer(followers, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-
-
-@api_view(['POST'])
-@permission_classes((permissions.AllowAny,))
-def auth_tokens_coll(request):
-    user = authenticate(request=request,
-                        username=request.data.get('email'), password=request.data.get('password'))
-    if user is None:
-        raise AuthenticationFailed()
-
-    token, created = Token.objects.get_or_create(user=user)
-    return Response({'token': token.key, 'user_id': user.pk}, status=status.HTTP_200_OK)
 
 
 # kinda creating a user_searches object
