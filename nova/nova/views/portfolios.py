@@ -1,38 +1,46 @@
-from django.db.models import Q
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.exceptions import NotFound, PermissionDenied
+from rest_framework.exceptions import NotFound, PermissionDenied, ValidationError
 from rest_framework import permissions, status
 from rest_framework.response import Response
 
-from nova.models import Portfolio, TradingEquipment
+from nova.models import Portfolio, User
 from nova.permissions import is_user_in_group
-from nova.serializers import PortfolioSerializer, UserSerializer
+from nova.serializers import PortfolioSerializer
 
 
-# /portfolios
-# CREATE NEW PORTFOLIO, GET ALL OF MY PORTFOLIOS
+# users/<user_pk>/portfolios
 @api_view(['GET', 'POST'])
 @permission_classes((permissions.IsAuthenticated,))
-def portfolio_ops(request):
+def portfolios_coll(request, user_pk):
+    try:
+        user = User.objects.get(pk=user_pk)
+    except User.DoesNotExist:
+        raise NotFound()
+
     if request.method == 'GET':
-        try:
-            portfolio = Portfolio.objects.filter(owner=request.user)
-        except Portfolio.DoesNotExist:
-            raise NotFound()
-        serializer = PortfolioSerializer(portfolio, many=True)
-        return Response(serializer.data, status.HTTP_200_OK)
+        if request.user.pk == user_pk:
+            portfolios = user.portfolios.filter()
+        else:
+            portfolios = user.portfolios.filter(private=False)
 
-    else:
-        portfolio = Portfolio.objects.create(
-            owner=request.user,
-            name=request.data['name']
-        )
-        serializer = PortfolioSerializer(portfolio)
-        return Response(serializer.data, status.HTTP_200_OK)
+        serializer = PortfolioSerializer(portfolios, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    elif request.method == 'POST':
+        if request.user.pk != user_pk:
+            raise PermissionDenied()
+
+        serializer = PortfolioSerializer(data={'owner': request.user.pk, **request.data})
+
+        if serializer.is_valid():
+            serializer.save()
+
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-# /users/pk/portfolios
-@api_view(['GET'])
+# users/<user_pk>/portfolios/<portfolio_pk>
 @permission_classes((permissions.IsAuthenticated,))
 def portfolio_visitor(request, pk):
     try:
