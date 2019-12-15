@@ -30,9 +30,10 @@ def portfolio_ops(request):
         serializer = PortfolioSerializer(portfolio)
         return Response(serializer.data, status.HTTP_200_OK)
 
+
 # /users/pk/portfolios
 @api_view(['GET'])
-@permission_classes((permissions.IsAuthenticated, ))
+@permission_classes((permissions.IsAuthenticated,))
 def portfolio_visitor(request, pk):
     try:
         portfolio = Portfolio.objects.filter(Q(owner=pk) & Q(private=False))
@@ -44,9 +45,8 @@ def portfolio_visitor(request, pk):
 
 # /portfolios/pk
 @api_view(['POST', 'DELETE', 'GET', 'PUT'])
-@permission_classes((permissions.IsAuthenticated, ))
+@permission_classes((permissions.IsAuthenticated,))
 def portfolio_update(request, pk):
-
     try:
         portfolio = Portfolio.objects.get(pk=pk)
     except Portfolio.DoesNotExist:
@@ -73,7 +73,7 @@ def portfolio_update(request, pk):
             return Response(serializer.data, status.HTTP_200_OK)
 
         elif request.method == 'DELETE':
-            if equipment.appeared_portfolios.filter(pk = portfolio.pk):
+            if equipment.appeared_portfolios.filter(pk=portfolio.pk):
                 serializer = PortfolioSerializer(portfolio)
                 equipment.appeared_portfolios.remove(portfolio)
                 return Response(serializer.data, status.HTTP_200_OK)
@@ -83,7 +83,7 @@ def portfolio_update(request, pk):
     if 'name' in request.data or 'private' in request.data:
         if request.method == 'PUT':
             try:
-                portfolio = Portfolio.objects.get(pk = pk)
+                portfolio = Portfolio.objects.get(pk=pk)
             except Portfolio.DoesNotExist:
                 raise NotFound()
             if 'name' in request.data:
@@ -98,11 +98,12 @@ def portfolio_update(request, pk):
 
     if len(request.data) == 0 and request.method == 'DELETE':
         try:
-            portfolio = Portfolio.objects.get(pk = pk)
+            portfolio = Portfolio.objects.get(pk=pk)
         except Portfolio.DoesNotExist:
             raise NotFound()
         portfolio.delete()
         return Response(status.HTTP_200_OK)
+
 
 # /portfolios/pk/follows
 @api_view(['POST', 'DELETE'])
@@ -113,7 +114,7 @@ def portfolio_follows(request, pk):
         raise NotFound()
 
     if portfolio.private == True:
-            raise PermissionDenied()
+        raise PermissionDenied()
 
     if request.method == 'POST':
         portfolio.followers.add(request.user)

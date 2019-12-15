@@ -24,6 +24,7 @@ def order_coll(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 @api_view(['GET'])
 def order_res(request, pk):
     try:
@@ -34,7 +35,6 @@ def order_res(request, pk):
     serializer = OrderSerializer(order, request.data, partial=True)
     if not serializer.is_valid():
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 
     if request.method == 'GET':
         return Response(serializer.data)
