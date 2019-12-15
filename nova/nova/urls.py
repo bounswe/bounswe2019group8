@@ -6,6 +6,7 @@ from nova.views import articles as article_views, auth_tokens as auth_token_view
     trading_equipments as trading_equipment_views, \
     portfolios as portfolio_views
 from nova.internal_views import nasdaq as nasdaq_views
+from nova.internal_views import alphavantage as av_views
 from .swagger import get_swagger_view
 
 urlpatterns = [
@@ -88,4 +89,8 @@ urlpatterns = [
     path('cron_jobs/nasdaq_intradaily', nasdaq_views.fetch_all_intradaily),
 
     path('cron_jobs/nasdaq_daily', nasdaq_views.fetch_all_daily),
+
+    path('cron_jobs/av_intradaily', av_views.fill_intraday),
+
+    path('cron_jobs/av_daily', av_views.fill_daily)
 ]
