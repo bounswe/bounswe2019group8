@@ -41,18 +41,40 @@ def portfolios_coll(request, user_pk):
 
 
 # users/<user_pk>/portfolios/<portfolio_pk>
+@api_view(['GET', 'PUT', 'DELETE'])
 @permission_classes((permissions.IsAuthenticated,))
-def portfolio_visitor(request, pk):
+def portfolios_res(request, user_pk, portfolio_pk):
     try:
-        portfolio = Portfolio.objects.filter(Q(owner=pk) & Q(private=False))
-    except Portfolio.DoesNotExist:
+        user = User.objects.get(pk=user_pk)
+        portfolio = user.portfolios.get(pk=portfolio_pk)
+    except:
         raise NotFound()
-    serializer = PortfolioSerializer(portfolio, many=True)
-    return Response(serializer.data, status.HTTP_200_OK)
 
+    serializer = PortfolioSerializer(portfolio, request.data, partial=True)
 
-# /portfolios/pk
-@api_view(['POST', 'DELETE', 'GET', 'PUT'])
+    if not serializer.is_valid():
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    if request.method == 'PUT':
+        if not is_user_in_group(request.user, "admin") and user_pk != request.user.pk:
+            raise PermissionDenied()
+
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    elif request.method == 'GET':
+        if not is_user_in_group(request.user, "admin") and portfolio.private and user_pk != request.user.pk:
+            raise PermissionDenied()
+
+        return Response(serializer.data)
+
+    elif request.method == 'DELETE':
+        if not is_user_in_group(request.user, "admin") and user_pk != request.user.pk:
+            raise PermissionDenied()
+
+        portfolio.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
 @permission_classes((permissions.IsAuthenticated,))
 def portfolio_update(request, pk):
     try:
