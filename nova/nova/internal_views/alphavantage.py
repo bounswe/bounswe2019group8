@@ -3,15 +3,14 @@ from datetime import datetime
 import requests
 from django.db.models import Q
 from django.utils.timezone import make_aware, get_default_timezone
+from rest_framework import permissions
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
+from rest_framework.exceptions import PermissionDenied
+from rest_framework.response import Response
 
 from nova.models import TradingEquipment, Price
 from nova.settings import AV_URLS, ALPHAVANTAGE_KEYS, CRON_JOB_KEY
-from rest_framework import permissions
-
-from rest_framework.response import Response
-from rest_framework.exceptions import PermissionDenied
 
 
 def do_request_daily(tr_eq):
@@ -81,7 +80,7 @@ def do_request_current(tr_eq):
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
 def fill_intraday(request):
-    if request.data.get('cronJobKey') != CRON_JOB_KEY:
+    if request.data.get('cron_job_key') != CRON_JOB_KEY:
         raise PermissionDenied()
     all_eq_list = TradingEquipment.objects.filter(Q(type='forex') | Q(type='digital'))
 
@@ -123,7 +122,7 @@ def fill_intraday(request):
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
 def fill_daily(request):
-    if request.data.get('cronJobKey') != CRON_JOB_KEY:
+    if request.data.get('cron_job_key') != CRON_JOB_KEY:
         raise PermissionDenied()
     all_eq_list = TradingEquipment.objects.filter(Q(type='forex') | Q(type='digital'))
 
