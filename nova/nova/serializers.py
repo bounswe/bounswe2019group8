@@ -70,8 +70,8 @@ class UserSerializer(NovaSerializer):
     class Meta:
         model = User
         fields = ['email', 'lat', 'long', 'first_name', 'last_name', 'date_of_birth', 'profile_image', 'password', 'pk',
-                  'groups', 'followers', 'followings', 'email_activated', 'following_portfolios', 'assets']
-        read_only_fields = ['followers', 'followings', 'following_portfolios', 'assets']
+                  'groups', 'followers', 'followings', 'email_activated', 'following_portfolios']
+        read_only_fields = ['followers', 'followings', 'following_portfolios']
         create_only_fields = ['first_name', 'last_name']
 
     assets = AssetSerializer(read_only=True, many=True)
