@@ -1,6 +1,7 @@
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import Group
 from rest_framework import serializers
+from nova.utils.validators import validate_exists
 
 from .utils.serializers import NovaSerializer
 from .models import User, Article, TradingEquipment, Comment, TradingEquipmentComment, ArticleComment, \
@@ -20,12 +21,42 @@ class TradingEquipmentSerializer(NovaSerializer):
         create_only_fields = ['type', 'name', 'sym']
 
 
+class TradingEquipmentOfPortfolioSerializer(NovaSerializer):
+    class Meta:
+        model = TradingEquipment
+        fields = ['sym']
+
+        extra_kwargs = {
+            'sym': {'validators': [lambda d: validate_exists(TradingEquipment, {"sym": d})]},
+        }
+
+
 class PortfolioSerializer(NovaSerializer):
-    equipments = TradingEquipmentSerializer(read_only=True, many=True)
+    tr_eqs = TradingEquipmentOfPortfolioSerializer(many=True, default=[])
 
     class Meta:
         model = Portfolio
-        fields = ['pk', 'equipments', 'owner', 'name', 'followers', 'private', 'tr_eqs']
+        fields = ['pk', 'tr_eqs', 'owner', 'name', 'private']
+        create_only_fields = ['owner', 'followers']
+
+    def create(self, validated_data):
+        tr_eqs = validated_data.pop('tr_eqs')
+        portfolio = Portfolio.objects.create(**validated_data)
+
+        portfolio.tr_eqs.set([TradingEquipment.objects.get(sym=d["sym"]) for d in tr_eqs])
+
+        return portfolio
+
+    def update(self, instance, validated_data):
+        tr_eqs = validated_data.pop('tr_eqs')
+
+        super(PortfolioSerializer, self).update(instance, validated_data)
+
+        instance.tr_eqs.set([TradingEquipment.objects.get(sym=d["sym"]) for d in tr_eqs])
+
+        instance.save()
+
+        return instance
 
 
 class UserSerializer(NovaSerializer):
@@ -129,7 +160,7 @@ class AssetSerializer(NovaSerializer):
 class NotificationSerializer(NovaSerializer):
     class Meta:
         model = Notification
-        fields = ['to', 'message', 'date']
+        fields = ['to', 'message', 'created_at']
 
 
 class OrderSerializer(NovaSerializer):
