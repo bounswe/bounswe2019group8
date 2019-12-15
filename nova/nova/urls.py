@@ -1,7 +1,7 @@
 from django.urls import path
 
 from nova.views import articles as article_views, auth_tokens as auth_token_views, \
-    comments as  comment_views, events as event_views, likes as like_views, dislikes as dislike_views, \
+    comments as comment_views, events as event_views, likes as like_views, dislikes as dislike_views, \
     orders as order_views, parities as parity_views, users as user_views, \
     trading_equipments as trading_equipment_views, \
     portfolios as portfolio_views
@@ -71,13 +71,13 @@ urlpatterns = [
     path('comments/<int:pk>/dislikes', dislike_views.dislikes_comment_coll),
 
     # Portfolios
-    path('portfolios', portfolio_views.portfolio_ops),
+    path('users/<int:user_pk>/portfolios', portfolio_views.portfolios_coll),
 
-    path('portfolios/<int:pk>', portfolio_views.portfolio_update),
+    path('users/<int:user_pk>/portfolios/<int:portfolio_pk>', portfolio_views.portfolios_res),
 
-    path('portfolios/<int:pk>/follows', portfolio_views.portfolio_follows),
+    path('users/<int:user_pk>/following_portfolios/<int:portfolio_pk>', portfolio_views.user_following_portfolios_res),
 
-    path('users/<int:pk>/portfolios', portfolio_views.portfolio_visitor),
+    path('users/<int:user_pk>/following_portfolios', portfolio_views.user_following_portfolios_coll),
 
     # Events
     path('events/<date>', event_views.events_coll),
