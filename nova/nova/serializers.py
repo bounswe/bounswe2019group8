@@ -3,6 +3,7 @@ from django.contrib.auth.models import Group
 from rest_framework import serializers
 from nova.utils.validators import validate_exists
 
+from nova.permissions import is_user_in_group
 from .utils.serializers import NovaSerializer
 from .models import User, Article, TradingEquipment, Comment, TradingEquipmentComment, ArticleComment, \
     Prediction, LikeDislike, ArticleLikeDislike, CommentLikeDislike, Event, Asset, Notification, Order, Portfolio
@@ -59,6 +60,12 @@ class PortfolioSerializer(NovaSerializer):
         return instance
 
 
+class AssetSerializer(NovaSerializer):
+    class Meta:
+        model = Asset
+        fields = ['owner', 'tr_eq', 'amount']
+
+
 class UserSerializer(NovaSerializer):
     class Meta:
         model = User
@@ -67,6 +74,7 @@ class UserSerializer(NovaSerializer):
         read_only_fields = ['followers', 'followings', 'following_portfolios']
         create_only_fields = ['first_name', 'last_name']
 
+    assets = AssetSerializer(read_only=True, many=True)
     followers = UserBasicSerializer(read_only=True, many=True)
     followings = UserBasicSerializer(read_only=True, many=True)
     following_portfolios = PortfolioSerializer(read_only=True, many=True)
@@ -86,7 +94,16 @@ class UserSerializer(NovaSerializer):
     def create(self, validated_data):
         validated_data['password'] = make_password(validated_data.get('password'))
 
-        return super(UserSerializer, self).create(validated_data)
+        created = super(UserSerializer, self).create(validated_data)
+
+        if is_user_in_group(created, "trader"):
+            created.assets.set([
+                Asset.objects.create(owner=created, amount=0,
+                                     tr_eq=TradingEquipment.objects.get(sym='USD_USD'))])
+
+            created.save()
+
+        return created
 
     def update(self, instance, validated_data):
         if 'password' in validated_data:
@@ -149,12 +166,6 @@ class EventSerializer(NovaSerializer):
         model = Event
 
         fields = create_only_fields = ['id', 'date', 'time', 'name', 'country', 'importance', 'value']
-
-
-class AssetSerializer(NovaSerializer):
-    class Meta:
-        model = Asset
-        fields = ['owner', 'tr_eq', 'amount']
 
 
 class NotificationSerializer(NovaSerializer):

@@ -177,7 +177,7 @@ class Event(models.Model):
 
 
 class Asset(models.Model):
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='assets')
 
     tr_eq = models.ForeignKey(TradingEquipment, on_delete=models.CASCADE)
 
