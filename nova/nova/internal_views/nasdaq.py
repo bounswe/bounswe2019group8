@@ -3,135 +3,42 @@ from dateutil.relativedelta import relativedelta
 from django.db.models import Q
 from django.utils.datetime_safe import datetime, date
 from django.utils.timezone import make_aware, get_default_timezone
-from rest_framework import permissions, status
+from rest_framework import permissions
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.exceptions import PermissionDenied, NotFound
+from rest_framework.exceptions import PermissionDenied
 from rest_framework.response import Response
 
 from nova.models import TradingEquipment, Price
-from nova.serializers import TradingEquipmentSerializer
 from nova.settings import CRON_JOB_KEY, NASDAQ_BASE_URL
 
-from dateutil.relativedelta import relativedelta
 
-
-def fetch_stocks_daily():
-    stocks = TradingEquipment.objects.filter(type='stock')
-
-    for stock in stocks:
-        url = NASDAQ_BASE_URL + '/' + stock.sym + '/historical'
-
-        now = datetime.now()
-        before = now - relativedelta(months=1)
-        now = str(now).split(' ')
-        before = str(before).split(' ')
-
-        response = requests.get(url, params={'assetclass': 'stocks', 'fromdate': before[0], 'todate': now[0]})
-
-        if response.status_code != 200:
-            print('Error occurred while fetching ', stock.sym)
-            continue
-
-        json_response = response.json()
-        for row in range(0, len(json_response['data']['tradesTable']['rows']) - 1):
-            try:
-                data_date = json_response['data']['tradesTable']['rows'][row]['date']
-                close = json_response['data']['tradesTable']['rows'][row]['close']
-                open = json_response['data']['tradesTable']['rows'][row]['open']
-                high = json_response['data']['tradesTable']['rows'][row]['high']
-                low = json_response['data']['tradesTable']['rows'][row]['low']
-            except TypeError:
-                print('Error occurred while parsing ', stock.sym)
-                continue
-
-            date_arr = data_date.split('/')
-
-            data_date = date_arr[2] + '-' + date_arr[0] + '-' + date_arr[1]
-            Price.objects.create(
-                observe_date=make_aware(datetime.strptime(data_date, '%Y-%m-%d')),
-                tr_eq=stock,
-                indicative_value=close[1:],
-                interval='close',
-            )
-            Price.objects.create(
-                observe_date=make_aware(datetime.strptime(data_date, '%Y-%m-%d')),
-                tr_eq=stock,
-                indicative_value=open[1:],
-                interval='open',
-            )
-            Price.objects.create(
-                observe_date=make_aware(datetime.strptime(data_date, '%Y-%m-%d')),
-                tr_eq=stock,
-                indicative_value=high[1:],
-                interval='high',
-            )
-            Price.objects.create(
-                observe_date=make_aware(datetime.strptime(data_date, '%Y-%m-%d')),
-                tr_eq=stock,
-                indicative_value=low[1:],
-                interval='low',
-            )
-            now = make_aware(datetime.now(), get_default_timezone())
-            stock.last_updated_daily = now
-            stock.save()
-
-
-def fetch_stocks_intradaily():
-    stocks = TradingEquipment.objects.filter(type='stock')
-
-    for stock in stocks:
-        url = NASDAQ_BASE_URL + '/' + stock.sym + '/info'
-        print("STOCK" + stock.sym)
-        response = requests.get(url, params={'assetclass': 'stocks'})
-        print(response)
-        if response.status_code != 200:
-            print('Error occurred while fetching ', stock.sym)
-            continue
-
-        json_response = response.json()
-        try:
-            indicative_value = json_response['data']['primaryData']['lastSalePrice']
-        except TypeError:
-            print('Error occurred while parsing ', stock.sym)
-            continue
-
-        current_date = date.today()
-        current_time = datetime.now().time()
-
-        Price.objects.create(
-            observe_date=current_date,
-            observe_time=current_time,
-            tr_eq=stock,
-            indicative_value=indicative_value[1:],
-            interval='intraday',
-        )
-        now = make_aware(datetime.now(), get_default_timezone())
-        stock.last_updated_current = now
-        stock.save()
-
-
-def fetch_commodities_intradaily():
-    commodities = TradingEquipment.objects.filter(type='commodity')
+def fetch_intradaily(eq_type, asset_class):
+    commodities = TradingEquipment.objects.filter(type=eq_type)
 
     for commodity in commodities:
         url = NASDAQ_BASE_URL + '/' + commodity.sym + '/info'
 
-        response = requests.get(url, params={'assetclass': 'commodities'})
+        response = requests.get(url, params={'assetclass': asset_class})
 
         if response.status_code != 200:
-            print('Error occurred while fetching ', commodity.sym)
+            print('Error occurred while fetching', commodity.sym)
             continue
 
         json_response = response.json()
 
         try:
-            indicative_value = json_response['data']['primaryData']['lastSalePrice']
-            ask_value = json_response['data']['keyStats']['Ask']['value']
-            ask_value = None if ask_value == 'N/A' else float(ask_value)
-            bid_value = json_response['data']['keyStats']['Bid']['value']
-            bid_value = None if bid_value == 'N/A' else float(bid_value)
+            indicative_value = parse_price(json_response['data']['primaryData']['lastSalePrice'])
+            ask_value = parse_price(json_response['data']['keyStats']['Ask']['value']) if 'Ask' in \
+                                                                                          json_response['data'][
+                                                                                              'keyStats'] else None
+            bid_value = parse_price(json_response['data']['keyStats']['Bid']['value']) if 'Bid' in \
+                                                                                          json_response['data'][
+                                                                                              'keyStats'] else None
+        except KeyError:
+            print('Error occurred while parsing', commodity.sym)
+            continue
         except TypeError:
-            print('Error occurred while parsing ', commodity.sym)
+            print('Error occurred while parsing', commodity.sym)
             continue
 
         current_date = date.today()
@@ -146,13 +53,14 @@ def fetch_commodities_intradaily():
             ask_value=ask_value,
             interval='intraday',
         )
+
         now = make_aware(datetime.now(), get_default_timezone())
         commodity.last_updated_current = now
         commodity.save()
 
 
-def fetch_commodities_daily():
-    commodities = TradingEquipment.objects.filter(type='commodity')
+def fetch_daily(eq_type, asset_class):
+    commodities = TradingEquipment.objects.filter(type=eq_type)
 
     today = date.today()
     last_month = today - relativedelta(months=1)
@@ -161,29 +69,36 @@ def fetch_commodities_daily():
         url = NASDAQ_BASE_URL + '/' + commodity.sym + '/historical'
 
         response = requests.get(url, params={
-            'assetclass': 'commodities',
+            'assetclass': asset_class,
             'limit': 30,
             'fromdate': last_month,
             'todate': today,
         })
 
         if response.status_code != 200:
-            print('Error occurred while fetching ', commodity.sym)
+            print('Error occurred while fetching', commodity.sym)
             continue
 
         json_response = response.json()
 
-        rows = json_response['data']['tradesTable']['rows']
+        try:
+            rows = json_response['data']['tradesTable']['rows']
+        except KeyError:
+            print('Error occurred while parsing', commodity.sym)
+            continue
+        except TypeError:
+            print('Error occurred while parsing', commodity.sym)
+            continue
 
         for row in rows:
             date_tokens = row['date'].split('/')
             date_str = date_tokens[2] + '-' + date_tokens[0] + '-' + date_tokens[1]
 
             price_dict = {
-                'open': row['open'],
-                'close': row['close'],
-                'high': row['high'],
-                'low': row['low'],
+                'open': parse_price(row['open']),
+                'close': parse_price(row['close']),
+                'high': parse_price(row['high']),
+                'low': parse_price(row['low']),
             }
 
             for key, value in price_dict.items():
@@ -217,11 +132,14 @@ def delete_old_prices():
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
 def fetch_all_intradaily(request):
-    if request.data.get('cronJobKey') != CRON_JOB_KEY:
+    if request.data.get('cron_job_key') != CRON_JOB_KEY:
         raise PermissionDenied()
 
-    fetch_commodities_intradaily()
-    fetch_stocks_intradaily()
+    fetch_intradaily('commodity', 'commodities')
+    fetch_intradaily('stock', 'stocks')
+    fetch_intradaily('etf', 'etf')
+    fetch_intradaily('index', 'index')
+
     # other intradaily jobs will be added here
 
     return Response('Success')
@@ -230,13 +148,22 @@ def fetch_all_intradaily(request):
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
 def fetch_all_daily(request):
-    if request.data.get('cronJobKey') != CRON_JOB_KEY:
+    if request.data.get('cron_job_key') != CRON_JOB_KEY:
         raise PermissionDenied()
 
     delete_old_prices()
 
-    fetch_commodities_daily()
-    fetch_stocks_daily()
+    fetch_daily('commodity', 'commodities')
+    fetch_daily('stock', 'stocks')
+    fetch_daily('etf', 'etf')
+    fetch_daily('index', 'index')
     # other daily jobs will be added here
 
     return Response('Success')
+
+
+def parse_price(price_str):
+    if price_str is None or price_str == 'N/A':
+        return None
+    else:
+        return price_str[1:] if price_str.startswith('$') else price_str
