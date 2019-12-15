@@ -92,6 +92,8 @@ def user_following_portfolios_res(request, user_pk, portfolio_pk):
 
         user.following_portfolios.remove(portfolio)
 
+        user.save()
+
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
@@ -117,6 +119,8 @@ def user_following_portfolios_coll(request, user_pk):
             raise PermissionDenied()
 
         user.following_portfolios.add(portfolio)
+
+        user.save()
 
         serializer = PortfolioSerializer(portfolio)
 
