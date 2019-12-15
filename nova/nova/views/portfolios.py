@@ -75,64 +75,24 @@ def portfolios_res(request, user_pk, portfolio_pk):
         portfolio.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+
+# users/<user_pk>/following_portfolios/<portfolio_pk>
+@api_view(['DELETE'])
 @permission_classes((permissions.IsAuthenticated,))
-def portfolio_update(request, pk):
+def user_following_portfolios_res(request, user_pk, portfolio_pk):
     try:
-        portfolio = Portfolio.objects.get(pk=pk)
-    except Portfolio.DoesNotExist:
+        user = User.objects.get(pk=user_pk)
+        portfolio = user.following_portfolios.get(pk=portfolio_pk)
+    except:
         raise NotFound()
 
-    if request.method == 'GET':
-        if request.user.pk == portfolio.owner.pk or portfolio.private == False:
-            serializer = PortfolioSerializer(portfolio, partial=True)
-            return Response(serializer.data, status.HTTP_200_OK)
+    if request.method == 'DELETE':
+        if request.user.pk != user_pk:
+            raise PermissionDenied()
 
-    # BELOW FUNCTIONS ARE ADD DELETE AND UPDATES TO THE PORTFOLIO
-    if not is_user_in_group(request.user, "admin") and request.user.pk != portfolio.owner.pk:
-        raise PermissionDenied()
+        user.following_portfolios.remove(portfolio)
 
-    if 'tr_eq' in request.data:
-        tr_eq_pk = request.data['tr_eq']
-        try:
-            equipment = TradingEquipment.objects.get(pk=tr_eq_pk)
-        except TradingEquipment.DoesNotExist:
-            raise NotFound()
-        if request.method == 'POST':
-            portfolio.tr_eqs.add(equipment)
-            serializer = PortfolioSerializer(portfolio)
-            return Response(serializer.data, status.HTTP_200_OK)
-
-        elif request.method == 'DELETE':
-            if portfolio.tr_eqs.filter(pk=equipment.pk):
-                serializer = PortfolioSerializer(portfolio)
-                portfolio.tr_eqs.remove(equipment)
-                return Response(serializer.data, status.HTTP_200_OK)
-            else:
-                return Response('Equipment not in portfolio.', status.HTTP_400_BAD_REQUEST)
-
-    if 'name' in request.data or 'private' in request.data:
-        if request.method == 'PUT':
-            try:
-                portfolio = Portfolio.objects.get(pk=pk)
-            except Portfolio.DoesNotExist:
-                raise NotFound()
-            if 'name' in request.data:
-                portfolio.name = request.data['name']
-
-            elif 'private' in request.data:
-                portfolio.private = request.data['private']
-
-            portfolio.save()
-            serializer = PortfolioSerializer(portfolio, partial=True)
-            return Response(serializer.data, status.HTTP_200_OK)
-
-    if len(request.data) == 0 and request.method == 'DELETE':
-        try:
-            portfolio = Portfolio.objects.get(pk=pk)
-        except Portfolio.DoesNotExist:
-            raise NotFound()
-        portfolio.delete()
-        return Response(status.HTTP_200_OK)
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 # user/<user_pk>/following_portfolios/
