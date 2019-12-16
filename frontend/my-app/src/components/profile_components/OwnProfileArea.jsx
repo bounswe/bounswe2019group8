@@ -3,51 +3,64 @@ import { Button, Card, ListGroup, Row, Col } from "react-bootstrap";
 import UpdateCredentials from "./UpdateCredentials";
 import "./ProfileArea.css";
 import axios from "axios";
-import {withRouter} from "react-router-dom";
+import { withRouter } from "react-router-dom";
+
+import { AiFillCamera } from "react-icons/ai";
+import { FaCameraRetro } from 'react-icons/fa'
+import { MdDelete, MdFileUpload } from 'react-icons/md'
+
+import ImageUploader from 'react-images-upload';
+
+
 class OwnProfileArea extends React.Component {
   constructor() {
     super();
 
     this.state = {
+      picture: null,
+      pictureName: '',
       updateClicked: false,
-      credentials:{},
+      credentials: {},
+      imageUploadMenu: false,
       api: axios.create({
         baseURL: "http://8.209.81.242:8000/"
       }),
-      users:[],
-      me:{followings:[],followers:[]}
+      users: [],
+      me: { followings: [], followers: [] }
     };
+    this.handleImageChange = this.handleImageChange.bind(this);
+
   }
   componentDidMount() {
     var url =
-    "http://8.209.81.242:8000/users/" + localStorage.getItem("userId");
-  var credentials1 = { ...this.state.credentials };
-  var id = localStorage.getItem("userId");
-  var token = localStorage.getItem("userToken");
-  credentials1.id = id;
-  credentials1.userToken = token;
-  var userType;
-  axios
-    .get("http://8.209.81.242:8000/users", {
-      headers: { Authorization: `Token ${token}` }
-    })
-    .then(res => {
-      this.setState({ users: res.data });
-    });
-  axios
-    .get(url, { headers: { Authorization: `Token ${token}` } })
-    .then(res => {
+      "http://8.209.81.242:8000/users/" + localStorage.getItem("userId");
+    var credentials1 = { ...this.state.credentials };
+    var id = localStorage.getItem("userId");
+    var token = localStorage.getItem("userToken");
+    credentials1.id = id;
+    credentials1.userToken = token;
+    var userType;
+    axios
+      .get("http://8.209.81.242:8000/users", {
+        headers: { Authorization: `Token ${token}` }
+      })
+      .then(res => {
+        this.setState({ users: res.data });
+      });
+    axios
+      .get(url, { headers: { Authorization: `Token ${token}` } })
+      .then(res => {
 
-      var credentials = { ...this.state.credentials };
-      credentials.userEmail = res.data.email;
-      credentials.firstName = res.data.first_name;
-      credentials.lastName = res.data.last_name;
-      credentials.dateOfBirth = res.data.date_of_birth;
-      credentials.id = id;
-      credentials.userToken = token;
-      credentials.userGroup = res.data.groups[0];
-      this.setState({ credentials: credentials });
-    });
+        var credentials = { ...this.state.credentials };
+        credentials.userEmail = res.data.email;
+        credentials.firstName = res.data.first_name;
+        credentials.lastName = res.data.last_name;
+        credentials.dateOfBirth = res.data.date_of_birth;
+        credentials.id = id;
+        credentials.userToken = token;
+        credentials.userGroup = res.data.groups[0];
+        this.setState({ credentials: credentials });
+      });
   }
 
 
@@ -65,40 +78,95 @@ class OwnProfileArea extends React.Component {
       });
   }
 
+  handleImageMenu() {
+    let imageUploadState = this.state.imageUploadMenu
+    this.setState({
+      imageUploadMenu: !imageUploadState
+    })
+  }
+
+  handleImageSubmit = (e) => {
+    e.preventDefault()
+    alert(this.state)
+  }
+
+  handleImageChange = (e) => {
+    this.setState({
+      picture: e.target.files[0],
+      pictureName: e.target.files[0].name.substr(0,5) + '...'
+    })
+  };
+
   render() {
     const myCredentials = {
       margin: 10
     };
-      return (
-        <Row>
-        <Col xs={{offset:4, span:4}}>
-        <Card  style={{backgroundColor: "#FFF", width:"100%"}}>
-          <Card.Img variant="top" src={require("../images/rick.jpg")} />
-          <ListGroup className="list-group-flush">
-          <ListGroup.Item action href ="/followers" className="my-follow">
 
-                      My Followers
+    let addImageMenu
+    if (this.state.imageUploadMenu) {
+      addImageMenu =
+        <div style={{ margin: 'auto', width: '100%', fontSize: 14, marginBottom: 8, padding:22 }}>
+          <form onSubmit={this.handleImageSubmit}>
+            <div style={{float:'left'}}>
+              <label for="file-upload" class="imageButton">
+                CHOOSE FILE
+            </label>
+              <input onChange={this.handleImageChange} style={{ float:'left' }} className='file' id='file-upload' type="file" />
+              <div style={{padding:6, float:'right', overflow:'hidden' }}>
+                {
+                  this.state.pictureName
+                }
+              </div>
+            </div>
+            <button type='submit' style={{ float:'right' }} className='imageButton'>
+              <MdFileUpload ></MdFileUpload>
+              UPLOAD
+            </button>
+          </form>
+        </div>
+    }
+
+    return (
+      <Row>
+        <Col xs={{ offset: 4, span: 4 }}>
+          <Card style={{ backgroundColor: "#FFF", width: "100%", padding: 20 }}>
+            <Card.Img variant="top" src={this.state.picture} />
+            <Row style={{ padding: 5, margin: 5, justifyContent: 'center', backgroundColor: '#009688' }}>
+              <FaCameraRetro onClick={() => this.handleImageMenu()} className='icon' style={{ marginRight: 12 }}></FaCameraRetro>
+              <MdDelete className='icon'></MdDelete>
+            </Row>
+            <Row>
+              {addImageMenu}
+            </Row>
+            {
+
+
+            }
+            <ListGroup className="list-group-flush">
+              <ListGroup.Item action href="/followers" className="my-follow">
+
+                My Followers
                       </ListGroup.Item>
-          <ListGroup.Item action href ="/followings" className="my-follow">
-                      My Followings
+              <ListGroup.Item action href="/followings" className="my-follow">
+                My Followings
 
             </ListGroup.Item>
-            <ListGroup.Item action href ={"/profile/" + localStorage.getItem("userId") +"/articles"} className="my-follow">
+              <ListGroup.Item action href={"/profile/" + localStorage.getItem("userId") + "/articles"} className="my-follow">
 
-                      Articles
+                Articles
             </ListGroup.Item>
 
-            <ListGroup.Item>
-              {this.state.credentials.firstName +
-                " " +
-                this.state.credentials.lastName}
-            </ListGroup.Item>
-            <ListGroup.Item>{this.state.credentials.userEmail}</ListGroup.Item>
-            <ListGroup.Item>
-              {this.state.credentials.dateOfBirth}
-            </ListGroup.Item>
-          </ListGroup>
-          <Card.Body>
+              <ListGroup.Item>
+                {this.state.credentials.firstName +
+                  " " +
+                  this.state.credentials.lastName}
+              </ListGroup.Item>
+              <ListGroup.Item>{this.state.credentials.userEmail}</ListGroup.Item>
+              <ListGroup.Item>
+                {this.state.credentials.dateOfBirth}
+              </ListGroup.Item>
+            </ListGroup>
+            <Card.Body>
 
               <Button
                 style={myCredentials}
@@ -109,17 +177,17 @@ class OwnProfileArea extends React.Component {
                 Update Info
               </Button>
 
-          </Card.Body>
-        </Card>
+            </Card.Body>
+          </Card>
         </Col>
-        </Row>
+      </Row>
 
-      );
+    );
   }
   handleUpdateClick = () => {
     this.setState({ updateClicked: !this.state.updateClicked });
   };
-  followingsClick = () =>{
+  followingsClick = () => {
     this.props.history.push("/followings")
   }
 }
