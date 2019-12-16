@@ -81,11 +81,11 @@ class TraderNavbar extends Component {
                 <MdChromeReaderMode style={{marginRight: 10}}></MdChromeReaderMode>
                 Articles
               </NavDropdown.Item>
-              <NavDropdown.Item href="#">
+              <NavDropdown.Item href="#" >
                 <MdSettings style={{marginRight: 10}}></MdSettings>
                 Settings
               </NavDropdown.Item>
-              <NavDropdown.Item href="#">
+              <NavDropdown.Item href="" onClick={() => this.portfolioClick()}>
                 <FaListAlt style={{marginRight: 10}}></FaListAlt>
                 Portfolio
               </NavDropdown.Item>
@@ -121,6 +121,10 @@ class TraderNavbar extends Component {
   articleClick = () => {
     this.props.history.push("/login");
     this.props.history.push("/profile/" + localStorage.getItem("userId") + "/articles");
+  }
+  portfolioClick = () => {
+    this.props.history.push("/login");
+    this.props.history.push("/profile/" + localStorage.getItem("userId") + "/portfolio");
   }
   logoutClick = () => {
     localStorage.setItem("userId", null);

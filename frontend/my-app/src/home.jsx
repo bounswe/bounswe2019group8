@@ -20,6 +20,7 @@ import DoVerify from "./components/doVerify";
 import EventsPage from "./components/event_components/event_page";
 import GraphPage from "./components/parity_components/graphPage";
 import ArticleHolder2 from "./components/article_components/articleHolder2";
+import OwnPortfolioPage from "./components/portfolio_components/ownPortfolioPage";
 
 import NewParitiesPage from "./components/parity_components/newParitiesPage";
 
@@ -94,6 +95,13 @@ class Home extends Component {
             exact
             key={Math.random() * 99}
             component={SearchResults}
+          />
+          <Route
+            exact
+            path="/profile/:id/portfolio"
+            exact
+            key={Math.random() * 99}
+            component={OwnPortfolioPage}
           />
           <Route exact path="/articlewrite" component={WriteArticlePageSummoner} />
           <Route exact path="/treq" component={NewParitiesPage}/>
