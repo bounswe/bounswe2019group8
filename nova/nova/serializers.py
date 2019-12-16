@@ -13,7 +13,7 @@ from .models import User, Article, TradingEquipment, Comment, TradingEquipmentCo
 class UserBasicSerializer(NovaSerializer):
     class Meta:
         model = User
-        fields = ['pk', 'first_name', 'last_name']
+        fields = ['pk', 'first_name', 'last_name', 'profile_image']
 
 
 class TradingEquipmentSerializer(NovaSerializer):
