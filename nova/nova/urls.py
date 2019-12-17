@@ -1,15 +1,15 @@
+from django.conf.urls.static import static
 from django.urls import path
 
+from nova.internal_views import alphavantage as av_views
+from nova.internal_views import nasdaq as nasdaq_views
 from nova.views import articles as article_views, auth_tokens as auth_token_views, \
     comments as comment_views, events as event_views, likes as like_views, dislikes as dislike_views, \
-    orders as order_views, parities as parity_views, users as user_views, \
+    users as user_views, \
     trading_equipments as trading_equipment_views, \
     portfolios as portfolio_views, assets as asset_views, \
     annotations as annotation_views
-
-from nova.internal_views import nasdaq as nasdaq_views
-from nova.internal_views import alphavantage as av_views
-
+from .settings import MEDIA_URL, MEDIA_ROOT
 from .swagger import get_swagger_view
 
 urlpatterns = [
@@ -90,6 +90,7 @@ urlpatterns = [
 
     # Annotations
     path('articles/<int:article_pk>/annotations', annotation_views.annotations_coll),
+
     path('articles/<int:article_pk>/annotations/<int:annotation_pk>', annotation_views.annotation_res),
 
     # TEMPORARY ENDPOINTS FOR TESTS
@@ -103,4 +104,5 @@ urlpatterns = [
     path('cron_jobs/av_intradaily', av_views.fill_intraday),
 
     path('cron_jobs/av_daily', av_views.fill_daily)
-] + static(MEDIA_URL, document_root = MEDIA_ROOT)
+
+] + static(MEDIA_URL, document_root=MEDIA_ROOT)
