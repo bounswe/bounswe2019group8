@@ -33,3 +33,16 @@ def cash_coll(request, user_pk):
         cash_asset.save()
 
         return Response(AssetSerializer(cash_asset).data, status=status.HTTP_201_CREATED)
+@api_view(['POST', 'GET'])
+@permission_classes((IsTraderUser,))
+def assets_coll(request, user_pk):
+    try:
+        user = User.objects.get(pk=user_pk)
+    except User.DoesNotExist:
+        raise NotFound()
+
+    if request.user.pk != user_pk:
+        raise PermissionDenied()
+
+    if request.method == 'GET':
+        return Response(AssetSerializer(user.assets, many=True).data, status=status.HTTP_200_OK)
