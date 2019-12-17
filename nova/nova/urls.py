@@ -103,4 +103,4 @@ urlpatterns = [
     path('cron_jobs/av_intradaily', av_views.fill_intraday),
 
     path('cron_jobs/av_daily', av_views.fill_daily)
-]
+] + static(MEDIA_URL, document_root = MEDIA_ROOT)
