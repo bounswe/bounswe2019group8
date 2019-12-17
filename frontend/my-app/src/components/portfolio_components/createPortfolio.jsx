@@ -43,16 +43,18 @@ export default function CreatePortfolio(submitClicked, ...props) {
     }
     var data = {
       name: fields.name,
-      private: switchVar
+      private: switchVar,
+      tr_eqs: [{"sym":"TRY_USD"}, {"sym":"MSFT"}]
     };
-    
+    var user_id = localStorage.getItem("userId");
+    var token = localStorage.getItem("userToken");
     axios
-      .post("http://8.209.81.242:8000/portfolios", data, {
+      .post("http://8.209.81.242:8000/users/"+user_id+"/portfolios", data, {
         headers: { Authorization: `Token ${token}` }
       })
       .then(function (response) {
         console.log(response);
-        window.location.reload();
+        //window.location.reload();
       });
 
   }

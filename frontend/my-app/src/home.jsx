@@ -21,6 +21,7 @@ import EventsPage from "./components/event_components/event_page";
 import GraphPage from "./components/parity_components/graphPage";
 import ArticleHolder2 from "./components/article_components/articleHolder2";
 import OwnPortfolioPage from "./components/portfolio_components/ownPortfolioPage";
+import SingleOwnPortfolioPage from "./components/portfolio_components/singleOwnPortfolioPage";
 
 import NewParitiesPage from "./components/parity_components/newParitiesPage";
 
@@ -102,6 +103,13 @@ class Home extends Component {
             exact
             key={Math.random() * 99}
             component={OwnPortfolioPage}
+          />
+          <Route
+            exact
+            path="/profile/:id/portfolio/:pk"
+            exact
+            key={Math.random() * 99}
+            component={SingleOwnPortfolioPage}
           />
           <Route exact path="/articlewrite" component={WriteArticlePageSummoner} />
           <Route exact path="/treq" component={NewParitiesPage}/>
