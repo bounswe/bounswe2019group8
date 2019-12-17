@@ -1,0 +1,14 @@
+[
+  {
+    "model": "nova.Price",
+    "fields": {
+      "observe_date": "2019-12-12",
+      "observe_time": "00:00:00.000000",
+      "tr_eq": 1776,
+      "indicative_value": 1,
+      "ask_value": 1,
+      "bid_value": 1,
+      "interval": "intraday"
+    }
+  }
+]
