@@ -4,9 +4,9 @@ from rest_framework import status
 from rest_framework.response import Response
 from ..permissions import IsTraderUser
 
-from nova.models import User, TradingEquipment
-from nova.serializers import AssetSerializer
-from decimal import Decimal
+from nova.models import User, TradingEquipment, Price, Asset
+from nova.serializers import AssetSerializer, PriceSerializer
+from nova.utils.numeric import get_decimal_amount, get_current_price
 
 
 # users/<user_pk>/cash
@@ -22,11 +22,9 @@ def cash_coll(request, user_pk):
         if request.user.pk != user_pk:
             raise PermissionDenied()
 
-        try:
-            amount = Decimal(request.data['amount'])
-            if amount <= 0:
-                raise ValueError()
-        except:
+        amount = get_decimal_amount(request.data)
+
+        if amount is None:
             raise ValidationError("Amount must be a positive real number")
 
         cash_asset = user.assets.get(tr_eq=TradingEquipment.objects.get(sym='USD_USD'))
