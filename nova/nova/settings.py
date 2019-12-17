@@ -172,7 +172,7 @@ EMAIL_HOST_USER = 'mercatus.bounswe@gmail.com'
 EMAIL_HOST_PASSWORD = 'fnyycxorasikyxkl'
 EMAIL_PORT = 587
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, '')
 MEDIA_URL = '/media/'
 
 ALPHAVANTAGE_KEYS = ['QZQCYEL31RPUPJOR', 'E0SOC3U8P5FOU8UB', 'CWEM01JWXJIDKX8Q', '4W7D04POAPQBNF7T',
