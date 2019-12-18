@@ -17,6 +17,9 @@
     margin-top: 0.5vh;
     background-color: rgb(213, 222, 230);
 }
-.your-portfolios-badge{
-    
+.own-portfolio-list-group-items{
+    background-color: #fff;
+}
+.own-portfolio-list-group-items:hover{
+    background-color: rgb(168, 184, 101);
 }

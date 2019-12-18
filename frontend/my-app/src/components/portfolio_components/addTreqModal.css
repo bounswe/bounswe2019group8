@@ -1,0 +1,38 @@
+.dropdown-menu-for-modal{
+    overflow-y: scroll;
+    height: 20vh;
+}
+.add-new-treq-btn{
+    margin-left: 30vw;
+    margin-right: 30vw;
+    margin-bottom: 1vh;
+    background-color: #494949;
+    border-color: #494949;
+    width: 30vw;
+}
+.add-new-treq-btn:hover{
+    background-color: #f6b93b;
+    border-color: #f6b93b;
+    color: #494949;
+}
+.add-new-treq-btn-add{
+    background-color: #494949;
+    border-color: #494949;
+    margin-top: -0.3vh;
+    width: 30vw;
+}
+.add-new-treq-btn-add:hover{
+    background-color: #f6b93b;
+    border-color: #f6b93b;
+    color: #494949;
+    margin-top: -0.3vh;
+    width: 30vw;
+}
+.add-new-treq-btn-close:hover{
+    background-color: rgb(187, 99, 99);
+    border-color: rgb(187, 99, 99);
+    color: #494949;
+}
+.drop-dpwn-toggle-btn{
+    width: 32vw;
+}

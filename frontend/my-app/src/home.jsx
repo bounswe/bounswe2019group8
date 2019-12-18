@@ -21,6 +21,9 @@ import EventsPage from "./components/event_components/event_page";
 import GraphPage from "./components/parity_components/graphPage";
 import ArticleHolder2 from "./components/article_components/articleHolder2";
 import OwnPortfolioPage from "./components/portfolio_components/ownPortfolioPage";
+import OthersPortfolioPage from "./components/portfolio_components/othersPortfolioPage";
+import SingleOwnPortfolioPage from "./components/portfolio_components/singleOwnPortfolioPage";
+import OthersSinglePortfolioPage from "./components/portfolio_components/othersSinglePortfolioPage";
 
 import NewParitiesPage from "./components/parity_components/newParitiesPage";
 
@@ -38,8 +41,6 @@ class Home extends Component {
     }
   }
   render() {
-    console.log(this.props);
-
     return (
       <React.Fragment>
         <MainNavbar />
@@ -102,6 +103,27 @@ class Home extends Component {
             exact
             key={Math.random() * 99}
             component={OwnPortfolioPage}
+          />
+          <Route
+            exact
+            path="/profile/:id/others_portfolio"
+            exact
+            key={Math.random() * 99}
+            component={OthersPortfolioPage}
+          />
+          <Route
+            exact
+            path="/profile/:id/portfolio/:pk"
+            exact
+            key={Math.random() * 99}
+            component={SingleOwnPortfolioPage}
+          />
+           <Route
+            exact
+            path="/profile/:othersId/others_portfolio/:pk"
+            exact
+            key={Math.random() * 99}
+            component={OthersSinglePortfolioPage}
           />
           <Route exact path="/articlewrite" component={WriteArticlePageSummoner} />
           <Route exact path="/treq" component={NewParitiesPage}/>
