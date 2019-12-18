@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import "./singleOwnPortfolioPage.css";
 import axios from "axios";
 import {ListGroup, ListGroupItem, Badge} from "react-bootstrap";
+import FollowPortfolioButton from "./followPortfolioButton";
 class OthersSinglePortfolioPage extends Component {
     state = { 
         trEqs: [],
@@ -20,6 +21,7 @@ class OthersSinglePortfolioPage extends Component {
                 <Badge>
                 <h1 className="single-own-portfolio-header">{this.state.name}</h1>
                 </Badge>
+                <FollowPortfolioButton othersId={this.props.match.params.othersId} pk={this.props.match.params.pk}/>
                 <Badge className="single-own-portfolio-treqs-badge">Equipment:</Badge>
                 <ListGroup>
                     {groupItems}</ListGroup>

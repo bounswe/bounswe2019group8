@@ -6,21 +6,21 @@ import { FaFolderOpen, FaFolderPlus} from "react-icons/fa";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
 import PortfolioListHandler from "./portfolioListHandler";
+import FollowingPortfolioListHandler from "./followingPortfolioListHandler";
 
 class OwnPortfolioPage extends Component {
     state = { 
-        portfolioList : []
+        portfolioList : [],
+        followingPortfolioList: []
      }
     render() { 
         var portfolioList2 = [];
-        var pkList = [];
-        var nameList = [];
+        var followingPortfolioList = [];
         for(var i = 0; i < this.state.portfolioList.length; i++){
-            pkList.push(this.state.portfolioList[i].pk);
-            nameList.push(this.state.portfolioList[i].name);
+            portfolioList2.push(<PortfolioListHandler pk={this.state.portfolioList[i].pk} name={this.state.portfolioList[i].name}></PortfolioListHandler>);
         }
-        for(var i = 0; i < this.state.portfolioList.length; i++){
-            portfolioList2.push(<PortfolioListHandler pk={pkList[i]} name={nameList[i]}></PortfolioListHandler>);
+        for(var i = 0; i < this.state.followingPortfolioList.length; i++){
+            followingPortfolioList.push(<FollowingPortfolioListHandler ownerId={this.state.followingPortfolioList[i].owner} pk={this.state.followingPortfolioList[i].pk} name={this.state.followingPortfolioList[i].name}></FollowingPortfolioListHandler>)
         }
         return ( 
             <div className="portfolio-outer-div">
@@ -37,6 +37,13 @@ class OwnPortfolioPage extends Component {
                         <CreatePortfolio></CreatePortfolio>
                     </Tab>
                     <Tab eventKey="followed-portfolios" title={<div><FaFolderOpen></FaFolderOpen> Followed Portfolios </div>} >
+                    <ListGroup>
+                    <div className="your-portfolios-div">
+                        <ListGroup>
+                        {followingPortfolioList}
+                    </ListGroup>
+                        </div>
+                    </ListGroup>
                     </Tab>
                  </Tabs>
             </div>
@@ -54,6 +61,12 @@ class OwnPortfolioPage extends Component {
           .get("http://8.209.81.242:8000/users/" + userId + "/portfolios",  {
             headers: { Authorization: `Token ${token}` }}).then(res => {
             this.setState({portfolioList: res.data});
+          }
+          );
+          axios
+          .get("http://8.209.81.242:8000/users/" + userId + "/following_portfolios",  {
+            headers: { Authorization: `Token ${token}` }}).then(res => {
+            this.setState({followingPortfolioList: res.data});
           }
           );
       }

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import {Route} from "react-router-dom";
-import "./ProfileArea.css";
+import "../profile_components/ProfileArea.css";
 import axios from "axios";
 import { Button, Card, ListGroup } from "react-bootstrap";
 import {FaHeart} from "react-icons/fa";

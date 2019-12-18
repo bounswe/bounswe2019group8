@@ -5,6 +5,7 @@ import "./singleOwnPortfolioPage.css";
 import AddTreqModal from "./addTreqModal";
 import RemoveTrEqButton from "./removeTrEqButton";
 import {withRouter} from "react-router-dom";
+
 class SingleOwnPortfolioPage extends Component {
     state = { 
         trEqs: [],

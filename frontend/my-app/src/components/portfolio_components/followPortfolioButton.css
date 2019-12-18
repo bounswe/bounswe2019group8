@@ -1,0 +1,19 @@
+.follow-portfolio-btn{
+    background-color: #494949;
+    width: 20%;
+    margin-left: 35vw;
+    margin-bottom: 1vh;
+    border-color: #494949;
+    color: white;
+    display: flex;
+}
+.follow-portfolio-btn:hover{
+    background-color: #f6b93b;
+    border-color: #f6b93b;
+    color: #494949;
+}
+.follow-portfolio-btn:active{
+    background-color: #f6b93b !important;
+    border-color: #f6b93b !important;
+    color: #494949;
+}
