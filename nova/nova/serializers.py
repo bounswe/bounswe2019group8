@@ -7,7 +7,7 @@ from nova.permissions import is_user_in_group
 from .utils.serializers import NovaSerializer
 from .models import User, Article, TradingEquipment, Comment, TradingEquipmentComment, ArticleComment, \
     Prediction, LikeDislike, ArticleLikeDislike, CommentLikeDislike, Event, Asset, Notification, Order, Portfolio, \
-    Annotation
+    Annotation, Price
 
 
 class UserBasicSerializer(NovaSerializer):
@@ -65,6 +65,8 @@ class AssetSerializer(NovaSerializer):
     class Meta:
         model = Asset
         fields = ['owner', 'tr_eq', 'amount']
+
+    tr_eq = TradingEquipmentSerializer(read_only=True)
 
 
 class UserSerializer(NovaSerializer):
@@ -189,3 +191,9 @@ class OrderSerializer(NovaSerializer):
     class Meta:
         model = Order
         fields = ['type', 'owner', 'max_volume', 'trigger', 'choice', 'tr_eq']
+
+
+class PriceSerializer(NovaSerializer):
+    class Meta:
+        model = Price
+        fields = ['observe_date', 'observe_time', 'tr_eq', 'indicative_value', 'ask_value', 'bid_value', 'interval']

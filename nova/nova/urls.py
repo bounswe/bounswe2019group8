@@ -87,6 +87,7 @@ urlpatterns = [
 
     # Assets
     path('users/<int:user_pk>/cash', asset_views.cash_coll),
+    path('users/<int:user_pk>/assets', asset_views.assets_coll),
 
     # Annotations
     path('articles/<int:article_pk>/annotations', annotation_views.annotations_coll),

@@ -81,6 +81,7 @@
   },
   {
     "model": "nova.TradingEquipment",
+    "pk": 1776,
     "fields": {
       "type": "forex",
       "name": "U.S. Dollar",
