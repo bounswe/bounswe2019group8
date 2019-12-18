@@ -58,17 +58,17 @@ export default function AddTreqModal({...props}) {
     }
     return (
       <div>
-        <Button variant="primary" onClick={handleShow}>
+        <Button variant="primary" className="add-new-treq-btn" onClick={handleShow}>
           Add a new trading equipment to this portfolio!
         </Button>
   
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Add a trading equipment</Modal.Title>
+            <Modal.Title>Add a new trading equipment</Modal.Title>
           </Modal.Header>
           <Modal.Body>
           <Dropdown >
-                <Dropdown.Toggle variant="success" id="dropdown-basic">
+                <Dropdown.Toggle className="drop-dpwn-toggle-btn" variant="success" id="dropdown-basic">
                     Equipments
                 </Dropdown.Toggle>
 
@@ -76,12 +76,12 @@ export default function AddTreqModal({...props}) {
                    {eqNames}
                 </Dropdown.Menu>
            </Dropdown>
-              Woohoo, you're reading this text in a modal!</Modal.Body>
+             </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
+            <Button variant="secondary" className="add-new-treq-btn-close" onClick={handleClose}>
               Close
             </Button>
-            <Button variant="primary" onClick={handleAdd}>
+            <Button variant="primary" className="add-new-treq-btn-add"onClick={handleAdd}>
               Add
             </Button>
           </Modal.Footer>

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import axios from "axios";
-import {Button, ListGroup, ListGroupItem} from "react-bootstrap";
+import {Button, ListGroup, ListGroupItem, Badge} from "react-bootstrap";
 import "./singleOwnPortfolioPage.css";
 import AddTreqModal from "./addTreqModal";
+import RemoveTrEqButton from "./removeTrEqButton";
 class SingleOwnPortfolioPage extends Component {
     state = { 
         trEqs: [],
@@ -12,13 +13,21 @@ class SingleOwnPortfolioPage extends Component {
     render() { 
         var groupItems = [];
         for(var i = 0; i < this.state.trEqs.length; i++){
-        groupItems.push(<ListGroupItem className="single-own-portfolio-list-group-items">{this.state.trEqs[i].sym}</ListGroupItem>)
+        groupItems.push(<ListGroupItem className="single-own-portfolio-list-group-items">
+            <Badge className="single-own-portfolio-inlist-badge"> {this.state.trEqs[i].sym}</Badge>
+        <RemoveTrEqButton pk={this.props.match.params.pk} trEqs={this.state.trEqs} sym={this.state.trEqs[i].sym}></RemoveTrEqButton>
+        </ListGroupItem>)
         }
         return ( 
             <div className="single-portfolio-outer-div">
+                <Badge>
                 <h1 className="single-own-portfolio-header">{this.state.name}</h1>
+                </Badge>
+                
                 <AddTreqModal onAddTreqModal={() => this.justToReRender()} pk={this.props.match.params.pk} name={this.state.name} prevEqs={this.state.trEqs}></AddTreqModal>
-                <ListGroup>{groupItems}</ListGroup>
+                <Badge className="single-own-portfolio-treqs-badge">Equipment:</Badge>
+                <ListGroup>
+                    {groupItems}</ListGroup>
             </div>
          );
     }
