@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {ListGroup, ListGroupItem, Button} from "react-bootstrap";
 import "./ownPortfolioPage.css";
 import { withRouter } from "react-router-dom";
-class PortfolioHandler extends Component {
+class OthersPortfolioHandler extends Component {
     constructor(props) {
         super(props);
     }
@@ -12,7 +12,7 @@ class PortfolioHandler extends Component {
         return ( 
             <div>
                 <ListGroup>
-                    <ListGroupItem onClick={() => this.listItemClick()} className="own-portfolio-list-group-items">
+                    <ListGroupItem othersId={this.props.othersId} onClick={() => this.listItemClick()} className="own-portfolio-list-group-items">
                         {this.props.name}
                     </ListGroupItem>
                 </ListGroup>
@@ -20,10 +20,9 @@ class PortfolioHandler extends Component {
          );
     }
     listItemClick = () => {
-        var userId = localStorage.getItem("userId");
-        this.props.history.push("/profile/" + userId + "/portfolio");
-        this.props.history.push("/profile/" + localStorage.getItem("userId") +"/portfolio/" + this.props.pk);
+        this.props.history.push("/profile/" + this.props.othersId + "/others_portfolio");
+        this.props.history.push("/profile/" + this.props.othersId +"/others_portfolio/" + this.props.pk);
       };
 }
  
-export default withRouter(PortfolioHandler);
+export default withRouter(OthersPortfolioHandler);

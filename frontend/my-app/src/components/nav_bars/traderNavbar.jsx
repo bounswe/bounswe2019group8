@@ -203,7 +203,6 @@ class TraderNavbar extends Component {
     axios
     .get("http://8.209.81.242:8000/events/" + today).then(res => {
       var eventsList = res.data;
-      console.log(eventsList.length);
       if(eventsList.length === 0){
         axios
         .post("http://8.209.81.242:8000/events/" + today).then(res => {
@@ -233,8 +232,6 @@ class TraderNavbar extends Component {
         );
       }
       threeDaysEventsList = threeDaysEventsList.concat(eventsList);
-      console.log(threeDaysEventsList);
-      console.log(eventsList);
     }
     );
     axios

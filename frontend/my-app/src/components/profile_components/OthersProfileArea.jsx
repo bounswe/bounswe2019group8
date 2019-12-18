@@ -69,6 +69,10 @@ class OthersProfileArea extends React.Component {
             
                       Articles            
             </ListGroup.Item>
+            <ListGroup.Item action href ={"/profile/" + this.props.userId +"/others_portfolio"} className="my-follow">
+            
+                      Portfolios           
+            </ListGroup.Item>
             <ListGroup.Item>
               {this.state.credentials.firstName +
                 " " +

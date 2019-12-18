@@ -87,6 +87,10 @@ class OwnProfileArea extends React.Component {
 
                       Articles
             </ListGroup.Item>
+            <ListGroup.Item action href ={"/profile/" + localStorage.getItem("userId") +"/portfolio"} className="my-follow">
+
+                      Portfolios
+            </ListGroup.Item>
 
             <ListGroup.Item>
               {this.state.credentials.firstName +

@@ -25,7 +25,6 @@ export default function CreatePortfolio(submitClicked, ...props) {
   }
   function switchChange(){
       switchClicked(!switchOn);
-      console.log(switchOn);
   }
 
   async function handleSubmit(event) {
@@ -33,9 +32,8 @@ export default function CreatePortfolio(submitClicked, ...props) {
 
     setIsLoading(true);
     var token = localStorage.getItem("userToken");
-    console.log(token);
     var switchVar = "False";
-    if(switchOn === true){
+    if(switchOn !== true){
         switchVar = "True";
     }
     else{
@@ -44,7 +42,7 @@ export default function CreatePortfolio(submitClicked, ...props) {
     var data = {
       name: fields.name,
       private: switchVar,
-      tr_eqs: [{"sym":"TRY_USD"}, {"sym":"MSFT"}]
+      tr_eqs: []
     };
     var user_id = localStorage.getItem("userId");
     var token = localStorage.getItem("userToken");
@@ -53,7 +51,6 @@ export default function CreatePortfolio(submitClicked, ...props) {
         headers: { Authorization: `Token ${token}` }
       })
       .then(function (response) {
-        console.log(response);
         //window.location.reload();
       });
 
