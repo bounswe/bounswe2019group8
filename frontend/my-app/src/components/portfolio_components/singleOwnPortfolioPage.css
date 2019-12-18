@@ -57,4 +57,9 @@
     width: 10vw;
     margin-top: 2vh;
 }
-
+.single-own-portfolio-delete-btn{
+    width: 30vw;
+    margin-left: 30vw;
+    margin-right: 30vw;
+    margin-bottom: 1vh;
+}

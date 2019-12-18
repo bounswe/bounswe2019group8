@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import axios from "axios";
-import {ListGroup, ListGroupItem, Badge} from "react-bootstrap";
+import {Button, ListGroup, ListGroupItem, Badge} from "react-bootstrap";
 import "./singleOwnPortfolioPage.css";
 import AddTreqModal from "./addTreqModal";
 import RemoveTrEqButton from "./removeTrEqButton";
+import {withRouter} from "react-router-dom";
 class SingleOwnPortfolioPage extends Component {
     state = { 
         trEqs: [],
@@ -25,11 +26,22 @@ class SingleOwnPortfolioPage extends Component {
                 </Badge>
                 
                 <AddTreqModal onAddTreqModal={() => this.justToReRender()} pk={this.props.match.params.pk} name={this.state.name} prevEqs={this.state.trEqs}></AddTreqModal>
+                <Button action href ={"/profile/" + localStorage.getItem("userId") +"/portfolio"} onClick={() => this.handleDelete()} className="single-own-portfolio-delete-btn" variant="danger">Delete portfolio</Button>
                 <Badge className="single-own-portfolio-treqs-badge">Equipment:</Badge>
                 <ListGroup>
                     {groupItems}</ListGroup>
             </div>
          );
+    }
+    handleDelete = () => {
+        var userId = localStorage.getItem("userId");
+        var token = localStorage.getItem("userToken");
+        axios
+        .delete("http://8.209.81.242:8000/users/" + userId + "/portfolios/" + this.props.match.params.pk,{
+        headers: { Authorization: `Token ${token}` }
+        }).then(response => {
+            console.log(response);
+        });
     }
     justToReRender = () => {
         console.log("neden bro");
@@ -60,4 +72,4 @@ class SingleOwnPortfolioPage extends Component {
       
 }
  
-export default SingleOwnPortfolioPage;
+export default withRouter(SingleOwnPortfolioPage);

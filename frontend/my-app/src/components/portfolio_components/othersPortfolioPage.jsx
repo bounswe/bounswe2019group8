@@ -24,14 +24,12 @@ class OthersPortfolioPage extends Component {
         return ( 
             <div className="portfolio-outer-div">
                 <Tabs defaultActiveKey="your-portfolios" style={{fontWeight:'lighter',  justifyContent: 'center', backgroundColor:'whitesmoke' , borderRadius:"3px"}}>
-                    <Tab eventKey="your-portfolios" title={<div><FaFolderOpen></FaFolderOpen> Your Portfolios</div>}>
+                    <Tab eventKey="your-portfolios" title={<div><FaFolderOpen></FaFolderOpen>Portfolios</div>}>
                         <div className="your-portfolios-div">
                         <ListGroup>
                         {portfolioList2}
                     </ListGroup>
                         </div>
-                    </Tab>
-                    <Tab eventKey="followed-portfolios" title={<div><FaFolderOpen></FaFolderOpen> Followed Portfolios </div>} >
                     </Tab>
                  </Tabs>
             </div>

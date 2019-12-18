@@ -33,17 +33,13 @@ export default function AddTreqModal({...props}) {
             }
         }
         stringToSend += "]";
-        console.log(stringToSend);
-        console.log(JSON.parse(stringToSend));
         var data = {
             tr_eqs: [{"sym":eq}].concat(JSON.parse(stringToSend))
         }
-        console.log(data.tr_eqs);
         axios
         .put("http://8.209.81.242:8000/users/" + userId + "/portfolios/" + props.pk, data,{
         headers: { Authorization: `Token ${token}` }
         }).then(response => {
-            console.log(response);
         });
         handleClose();
         handleReRender();
@@ -52,7 +48,7 @@ export default function AddTreqModal({...props}) {
     var eqNames = [];
     var eqList = JSON.parse(localStorage.getItem("equipmentList"));
     for(var i = 0; i < eqList.length; i++){
-    console.log(eqList.length);
+
     //eqNames.push(<DropdownItem onClick={() => setEq(eqList[i])} className="dropdown-item">{eqList[i].name}</DropdownItem>);
     eqNames.push(<DropDownHandler eq={eqList[i]} onDropDownHandler={handleSet} ></DropDownHandler>);
     }
@@ -81,7 +77,7 @@ export default function AddTreqModal({...props}) {
             <Button variant="secondary" className="add-new-treq-btn-close" onClick={handleClose}>
               Close
             </Button>
-            <Button variant="primary" className="add-new-treq-btn-add"onClick={handleAdd}>
+            <Button action href ={"/profile/" + localStorage.getItem("userId") +"/portfolio/" + props.pk} variant="primary" className="add-new-treq-btn-add"onClick={handleAdd}>
               Add
             </Button>
           </Modal.Footer>
