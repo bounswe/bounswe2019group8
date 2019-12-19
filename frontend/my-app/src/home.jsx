@@ -31,7 +31,13 @@ import UpdatePage from "./components/profile_components/updatePage";
 
 
 class Home extends Component {
-  state = {};
+  constructor(){
+    super();
+    this.state = {
+      imageUrl: ''
+    };
+    this.imageChangeHandler = this.imageChangeHandler.bind(this)
+  }
   putParities(){
     if(localStorage.getItem("equipmentList") !== null){
       return <ParityBadgeHolder/>
@@ -40,10 +46,16 @@ class Home extends Component {
       return <div/>
     }
   }
+  imageChangeHandler(url){
+    this.setState({
+      imageUrl: url
+    })
+  }
   render() {
+    console.log(this.props);
     return (
       <React.Fragment>
-        <MainNavbar />
+        <MainNavbar imageHandler={() => this.imageChangeHandler} imageUrl={this.state.imageUrl}/>
 
         <Switch>
           <Route exact path="/login" component={LoginRouter} />
@@ -53,7 +65,7 @@ class Home extends Component {
             path="/profile/:id"
             exact
             key={Math.random() * 10}
-            component={ProfilePage}
+            render={(props) => <ProfilePage {...props} imageUrl={this.state.imageUrl} imageHandler={() => this.imageChangeHandler}/>}
           />
           <Route
             exact
