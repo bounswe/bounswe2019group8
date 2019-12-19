@@ -21,10 +21,14 @@ import axios from "axios";
 import Followings from "../profile_components/followings";
 
 class BasicNavbar extends Component {
-  state = { credentials: {}, searchText: "" };
+  constructor(props) {
+    super(props);
+    this.state = { imageUrl:'', credentials: {}, searchText: "" };
+  }
   changeHandler = event => {
     this.setState({
-      searchText: event.target.value
+      searchText: event.target.value,
+      imageLink: ''
     });
   };
   render() {
@@ -87,7 +91,7 @@ class BasicNavbar extends Component {
               </NavDropdown.Item>
               <NavDropdown.Item href="#" onClick={() => this.portfolioClick()}>
                 <FaListAlt style={{marginRight: 10}}></FaListAlt>
-                Portfolio
+                Portfolio                                                                                            
               </NavDropdown.Item>
 
               <NavDropdown.Divider />
@@ -97,9 +101,11 @@ class BasicNavbar extends Component {
               </NavDropdown.Item>
 
             </NavDropdown>
+            <div style={{color:'red'}}>{this.props.imageUrl == null}</div>
+
             <img
               className="rounded-circle profileImage"
-              src={require("../images/rick.jpg")}
+              src={'http://mercatus.xyz:8000' + this.state.imageLink}
               size="sm"
               alt="10x10"
               width="60"
@@ -144,6 +150,7 @@ class BasicNavbar extends Component {
     var token = localStorage.getItem("userToken");
     credentials1.id = id;
     credentials1.userToken = token;
+
     var threeDaysEventsList = [];
 
     //we get the dates of 3 days to request upcoming events
@@ -187,9 +194,9 @@ class BasicNavbar extends Component {
         credentials.id = id;
         credentials.userToken = token;
         credentials.userGroup = res.data.groups[0];
-        this.setState({ credentials: credentials });
+        this.setState({ credentials: credentials, imageLink: res.data.profile_image });
       });
-
+    this.props.imageHandler(this.state.imageLink)
     axios.get("http://8.209.81.242:8000/trading_equipments").then(res => {
       var equipmentList = res.data;
       localStorage.setItem("equipmentList", JSON.stringify(equipmentList));
@@ -257,6 +264,7 @@ class BasicNavbar extends Component {
     }
     );
   }
+  
 }
 
 export default withRouter(BasicNavbar);
