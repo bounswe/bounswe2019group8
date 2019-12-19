@@ -11,11 +11,7 @@ class ProfilePage extends React.Component {
     id:this.props.match.params.id
   }
   }
-  componentDidMount(){
- 
-  }
   render() {
-  
     if(localStorage.getItem("userId")==="null"){
       return (
         <div>
@@ -29,6 +25,8 @@ class ProfilePage extends React.Component {
           <div>
             <OwnProfileArea
               userId = {this.state.id}
+              imageHandler={() => this.props.imageHandler}
+              imageUrl={this.props.imageUrl}
             />
           </div>
         );

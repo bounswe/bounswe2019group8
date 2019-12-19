@@ -9,10 +9,14 @@ import PortfolioListHandler from "./portfolioListHandler";
 import FollowingPortfolioListHandler from "./followingPortfolioListHandler";
 
 class OwnPortfolioPage extends Component {
-    state = { 
-        portfolioList : [],
-        followingPortfolioList: []
-     }
+    constructor(props){
+        super(props);
+        this.state = { 
+            portfolioList : [],
+            followingPortfolioList: []
+        }
+    }
+    
     render() { 
         var portfolioList2 = [];
         var followingPortfolioList = [];
@@ -32,7 +36,7 @@ class OwnPortfolioPage extends Component {
                     </ListGroup>
                         </div>
                     </Tab>
-                    <Tab eventKey="create-portfolio" title={<div><FaFolderPlus></FaFolderPlus>
+                    <Tab eventKey="create-portfolio"  title={<div><FaFolderPlus></FaFolderPlus>
                     Create a new Portfolio </div>} >
                         <CreatePortfolio></CreatePortfolio>
                     </Tab>
