@@ -12,19 +12,19 @@ class MainNavbar extends Component {
     if(localStorage.getItem("userGroup")==="1"){
       return(
       <React.Fragment>
-        <BasicNavbar/>
+        <BasicNavbar imageUrl={this.props.imageUrl} imageHandler = {this.props.imageHandler}/>
       </React.Fragment>)
     }
     else if(localStorage.getItem("userGroup")==="2"){
       return(
         <React.Fragment>
-          <TraderNavbar/>
+          <TraderNavbar imageUrl={this.props.imageUrl} imageHandler = {this.props.imageHandler}/>
         </React.Fragment>)
     }
     else{
       return(
         <React.Fragment>
-          <GuestNavbar/>
+          <GuestNavbar imageHandler = {this.props.imageHandler}/>
         </React.Fragment>)
     }
     
