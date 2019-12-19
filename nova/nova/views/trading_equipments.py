@@ -8,7 +8,6 @@ from rest_framework.response import Response
 
 from ..models import TradingEquipment, Prediction
 from ..serializers import TradingEquipmentSerializer, PredictionSerializer
-from ..settings import FX_CURRENCY_LIST, DIG_CURRENCY_LIST, AV_EXCLUDE
 
 
 # TRADING EQUIPMENTS ARE READ ONLY. THEY ARE CREATED AFTER EXTERNAL API REQUESTS
@@ -132,65 +131,3 @@ def tr_eq_searches(request):
         Q(search__icontains=search_text) | Q(search=search_text))
     serializer = TradingEquipmentSerializer(fts_qs, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
-
-
-# TEMPORARY ENDPOINTS FOR TESTS
-
-#   Below function inits all trading equipments. We need to either call it once for all when server is deployed
-#   or make it run itself upon server start
-
-@api_view(['GET'])
-def init_eqs(request):
-    TradingEquipment.objects.all().delete()
-    Parity.objects.all().delete()
-    CurrentPrice.objects.all().delete()
-    for from_cur in FX_CURRENCY_LIST:
-        for to_cur in FX_CURRENCY_LIST:
-            if from_cur != to_cur:
-                sym = from_cur + '_' + to_cur
-                if sym not in AV_EXCLUDE:
-                    tr_eq = TradingEquipment.objects.create(
-                        type='forex',
-                        name=sym,
-                        sym=sym
-                    )
-                    tr_eq.save()
-
-    for from_cur in DIG_CURRENCY_LIST:
-        for to_cur in FX_CURRENCY_LIST:
-            sym = from_cur + '_' + to_cur
-            if sym not in AV_EXCLUDE:
-                tr_eq = TradingEquipment.objects.create(
-                    type='digital',
-                    name=sym,
-                    sym=sym
-                )
-                tr_eq.save()
-
-    return Response(status=status.HTTP_200_OK)
-
-
-"""
-# create parities from alphavantage responses
-@api_view(['GET'])
-def fill(request):
-    fill_parities()
-    return Response(status.HTTP_200_OK)
-
-
-@api_view(['GET'])
-def getp(request):
-    serializer = ParitySerializer(Parity.objects.all(), many=True)
-    return Response(serializer.data, status.HTTP_200_OK)
-
-"""
-
-
-@api_view(['GET'])
-def cnt(request):
-    tr_eqs = TradingEquipment.objects.all()
-    count = 0
-    for eq in tr_eqs:
-        if eq.last_updated_daily is None or eq.last_updated_current is None:
-            count += 1
-    return Response(count, status.HTTP_200_OK)
