@@ -24,7 +24,8 @@ class TraderNavbar extends Component {
   state = { credentials: {}, searchText: "" };
   changeHandler = event => {
     this.setState({
-      searchText: event.target.value
+      searchText: event.target.value,
+      imageLink: ''
     });
   };
   render() {
@@ -99,7 +100,7 @@ class TraderNavbar extends Component {
             </NavDropdown>
             <img
               className="rounded-circle profileImage"
-              src={require("../images/rick.jpg")}
+              src={'http://mercatus.xyz:8000' + this.state.imageLink}
               size="sm"
               alt="10x10"
               width="60"
@@ -187,9 +188,10 @@ class TraderNavbar extends Component {
         credentials.id = id;
         credentials.userToken = token;
         credentials.userGroup = res.data.groups[0];
-        this.setState({ credentials: credentials });
+        this.props.imageHandler(res.data.profile_image)
+        this.setState({ credentials: credentials, imageLink: res.data.profile_image });
       });
-
+    this.props.imageHandler(this.state.imageLink)
     axios.get("http://8.209.81.242:8000/trading_equipments").then(res => {
       var equipmentList = res.data;
       localStorage.setItem("equipmentList", JSON.stringify(equipmentList));
@@ -203,6 +205,7 @@ class TraderNavbar extends Component {
     axios
     .get("http://8.209.81.242:8000/events/" + today).then(res => {
       var eventsList = res.data;
+      console.log(eventsList.length);
       if(eventsList.length === 0){
         axios
         .post("http://8.209.81.242:8000/events/" + today).then(res => {
@@ -232,6 +235,8 @@ class TraderNavbar extends Component {
         );
       }
       threeDaysEventsList = threeDaysEventsList.concat(eventsList);
+      console.log(threeDaysEventsList);
+      console.log(eventsList);
     }
     );
     axios
