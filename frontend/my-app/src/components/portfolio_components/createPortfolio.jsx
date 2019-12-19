@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import {
   FormGroup,
   FormControl,
@@ -51,7 +52,7 @@ export default function CreatePortfolio(submitClicked, ...props) {
         headers: { Authorization: `Token ${token}` }
       })
       .then(function (response) {
-        //window.location.reload();
+        window.location.reload();
       });
 
   }
