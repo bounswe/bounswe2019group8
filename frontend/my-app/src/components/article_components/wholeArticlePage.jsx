@@ -13,17 +13,38 @@ import { FaHeart } from "react-icons/fa";
 import { MdBookmarkBorder } from "react-icons/md";
 
 class WholeArticlePage extends Component {
-  state = {
-    articleTitle: "",
-    articleContent: "",
-    authorId: -1,
-    authorName: "",
-    articlePk: "",
-    articleRanking: 0,
-    likeState: 0,
-    rating: 0
-  };
+  constructor(){
+    super();
+    this.state = {
+      articleTitle: "",
+      articleContent: "",
+      authorId: -1,
+      authorName: "",
+      articlePk: "",
+      articleRanking: 0,
+      likeState: 0,
+      rating: 0,
+      annot:'asdasdasd',
+      cursortStart:0,
+      cursorEnd:0
+    };
+    this.getSelectionText = this.getSelectionText.bind(this)
+  }
+
+  getSelectionText() {
+    var text = "";
+    let textVal = this.refs.articlecontent; 
+    if (window.getSelection) {
+        text = window.getSelection().toString();
+    }
+    this.setState({
+      annot: text,
+      cursorStart: textVal.selectionStart,
+    })
+}
+
   render() {
+
     return (
       <div style={{ width: '90%', margin: 'auto', paddingLeft: 100, paddingRight: 100, paddingTop: 30 }}>
 
@@ -52,7 +73,9 @@ class WholeArticlePage extends Component {
               <MdBookmarkBorder style={{ color: 'darkblue', marginRight: 6 }}></MdBookmarkBorder>
               {this.state.articleTitle}
             </div>
-            <p className="my-par" style={{ fontSize: 15 }}>{this.state.articleContent}</p>
+
+
+            <p className="my-par" onMouseUp={this.getSelectionText} ref='articlecontent' style={{ fontSize: 15 }}>{this.state.articleContent}</p>
 
           </Jumbotron>
           <p style={{float:'right'}}>
