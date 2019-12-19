@@ -8,17 +8,19 @@ import { withRouter } from "react-router-dom";
 import { AiFillCamera } from "react-icons/ai";
 import { FaCameraRetro } from 'react-icons/fa'
 import { MdDelete, MdFileUpload } from 'react-icons/md'
-
-import ImageUploader from 'react-images-upload';
+import FormData from 'form-data'
+import ProfileImage from "./profileImage";
 
 
 class OwnProfileArea extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
+      isLoading:false,
       picture: null,
       pictureName: '',
+      imgPreviewUrl: '',
       updateClicked: false,
       credentials: {},
       imageUploadMenu: false,
@@ -32,6 +34,9 @@ class OwnProfileArea extends React.Component {
 
   }
   componentDidMount() {
+    this.setState({
+      isLoading: true
+    })
     var url =
       "http://8.209.81.242:8000/users/" + localStorage.getItem("userId");
     var credentials1 = { ...this.state.credentials };
@@ -42,7 +47,7 @@ class OwnProfileArea extends React.Component {
     var userType;
     axios
       .get("http://8.209.81.242:8000/users", {
-        headers: { Authorization: `Token ${token}` }
+        headers: { 'Content-Type':'multipart/form-data', Authorization: `Token ${token}` }
       })
       .then(res => {
         this.setState({ users: res.data });
@@ -52,6 +57,7 @@ class OwnProfileArea extends React.Component {
       .then(res => {
 
         var credentials = { ...this.state.credentials };
+        credentials.profileImageUrl = res.data.profile_image;
         credentials.userEmail = res.data.email;
         credentials.firstName = res.data.first_name;
         credentials.lastName = res.data.last_name;
@@ -61,13 +67,19 @@ class OwnProfileArea extends React.Component {
         credentials.userGroup = res.data.groups[0];
         this.setState({ credentials: credentials });
       });
+      this.setState({
+        isLoading:false,
+      })
+      
   }
 
 
   updateMe() {
+
     this.props.api
       .get(`users/${this.props.credentials.id}`, {
         headers: { Authorization: `Token ${this.props.credentials.userToken}` }
+        
       })
       .then(response => {
         console.log(response);
@@ -79,7 +91,7 @@ class OwnProfileArea extends React.Component {
   }
 
   handleImageMenu() {
-    let imageUploadState = this.state.imageUploadMenu
+    let imageUploadState = this.state.imageUploadMenu                                                                                                                                               
     this.setState({
       imageUploadMenu: !imageUploadState
     })
@@ -87,7 +99,19 @@ class OwnProfileArea extends React.Component {
 
   handleImageSubmit = (e) => {
     e.preventDefault()
-    alert(this.state)
+    this.setState({
+      isLoading:true
+    })
+    let data = new FormData();
+
+    data.append('profile_image', this.state.picture)
+    let url = 'http://mercatus.xyz:8000/users/' + this.state.credentials.id
+    axios.put(url, data, {
+      headers: {
+        'Authorization': `Token ${this.state.credentials.userToken}`,
+        'Content-Type': 'multipart/form-data'
+    }}) 
+    this.componentDidMount();
   }
 
   handleImageChange = (e) => {
@@ -95,19 +119,24 @@ class OwnProfileArea extends React.Component {
       picture: e.target.files[0],
       pictureName: e.target.files[0].name.substr(0,5) + '...'
     })
+
   };
 
   render() {
     const myCredentials = {
       margin: 10
     };
+    let finalUrl = 'http://mercatus.xyz:8000' + this.state.credentials.profileImageUrl
+    let imageComp =
+    (this.state.isLoading) ? <div style={{margin:'auto', fontSize:26}}>Uploading...</div> : <Card.Img variant="top" src={finalUrl} />
 
-    let addImageMenu
+    let addImageMenu = <div></div>
     if (this.state.imageUploadMenu) {
       addImageMenu =
         <div style={{ margin: 'auto', width: '100%', fontSize: 14, marginBottom: 8, padding:22 }}>
           <form onSubmit={this.handleImageSubmit}>
             <div style={{float:'left'}}>
+
               <label for="file-upload" class="imageButton">
                 CHOOSE FILE
             </label>
@@ -120,7 +149,7 @@ class OwnProfileArea extends React.Component {
             </div>
             <button type='submit' style={{ float:'right' }} className='imageButton'>
               <MdFileUpload ></MdFileUpload>
-              UPLOAD
+              UPLOAD 
             </button>
           </form>
         </div>
@@ -130,7 +159,7 @@ class OwnProfileArea extends React.Component {
       <Row>
         <Col xs={{ offset: 4, span: 4 }}>
           <Card style={{ backgroundColor: "#FFF", width: "100%", padding: 20 }}>
-            <Card.Img variant="top" src={this.state.picture} />
+            {imageComp}
             <Row style={{ padding: 5, margin: 5, justifyContent: 'center', backgroundColor: '#009688' }}>
               <FaCameraRetro onClick={() => this.handleImageMenu()} className='icon' style={{ marginRight: 12 }}></FaCameraRetro>
               <MdDelete className='icon'></MdDelete>
@@ -154,10 +183,6 @@ class OwnProfileArea extends React.Component {
               <ListGroup.Item action href={"/profile/" + localStorage.getItem("userId") + "/articles"} className="my-follow">
 
                 Articles
-            </ListGroup.Item>
-            <ListGroup.Item action href ={"/profile/" + localStorage.getItem("userId") +"/portfolio"} className="my-follow">
-
-                      Portfolios
             </ListGroup.Item>
 
               <ListGroup.Item>
