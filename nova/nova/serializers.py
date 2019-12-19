@@ -88,14 +88,11 @@ class UserSerializer(NovaSerializer):
         style={'input_type': 'password', 'placeholder': 'Password'}
     )
 
-    def validate(self, attrs):
-        if len(attrs.get('groups', [])) != 1:
-            attrs['groups'] = Group.objects.filter(name="basic")
-
-        return attrs
-
     def create(self, validated_data):
         validated_data['password'] = make_password(validated_data.get('password'))
+
+        if len(validated_data.get('groups', [])) != 1:
+            validated_data['groups'] = Group.objects.filter(name="basic")
 
         created = super(UserSerializer, self).create(validated_data)
 
@@ -111,6 +108,10 @@ class UserSerializer(NovaSerializer):
     def update(self, instance, validated_data):
         if 'password' in validated_data:
             validated_data['password'] = make_password(validated_data['password'])
+
+        if 'groups' in validated_data and len(validated_data['groups']) != 1:
+            validated_data['groups'] = Group.objects.filter(name="basic")
+
         return super(UserSerializer, self).update(instance, validated_data)
 
 
