@@ -21,7 +21,7 @@ import axios from "axios";
 import Followings from "../profile_components/followings";
 
 class TraderNavbar extends Component {
-  state = { credentials: {}, searchText: "" };
+  state = { imageUrl:'', credentials: {}, searchText: "" };
   changeHandler = event => {
     this.setState({
       searchText: event.target.value,
@@ -116,14 +116,17 @@ class TraderNavbar extends Component {
     );
   }
   profileClick = () => {
+    this.componentDidMount();
     this.props.history.push("/login");
     this.props.history.push("/profile/" + localStorage.getItem("userId"));
   };
   articleClick = () => {
+    this.componentDidMount();
     this.props.history.push("/login");
     this.props.history.push("/profile/" + localStorage.getItem("userId") + "/articles");
   }
   portfolioClick = () => {
+    this.componentDidMount();
     this.props.history.push("/login");
     this.props.history.push("/profile/" + localStorage.getItem("userId") + "/portfolio");
   }
