@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "./parityBadgeHolder.css";
-import axios from "axios";
 import {
     Button,
     Navbar,
@@ -11,9 +10,13 @@ import NavLinkComponent from "./navLinkComponents";
 import { FaSignOutAlt, FaListAlt, FaUserCircle, FaSearchDollar, FaThumbsDown } from "react-icons/fa";
 import GraphPage from "./graphPage";
   
-class NewParitiesPage extends Component {
+class NewParitiesPageBasic extends Component {
   state = {
+  forexJson : JSON.parse(localStorage.getItem("equipmentList2")),
   stockJson : JSON.parse(localStorage.getItem("equipmentList")),
+  digitalJson : JSON.parse(localStorage.getItem("equipmentList3")),
+  forexBadges:[],
+  digitalBadges:[],
   stockBadges:[],
   firstBadge:[ <NavDropdown.Item>Not Selected</NavDropdown.Item>],
   secondBadge:[ <NavDropdown.Item>Not Selected</NavDropdown.Item>],
@@ -25,19 +28,11 @@ class NewParitiesPage extends Component {
   SecondType:"Not Selected",
   parityPk:0,
   buyClicked:false,
-  lastClicked:null,
-  assets:null,
-  buyAmount:0
+  lastClicked:null
    };
   componentDidMount(){
     var allBadges ={commodity:[],stock:[],digital:[],forex:[],etf:[],index:[]};
     var stockJson = this.state.stockJson;
-    var token = localStorage.getItem("userToken");
-    axios.get("http://8.209.81.242:8000/users/" + localStorage.getItem("userId")+"/assets", {
-      headers: { Authorization: `Token ${token}` }
-    }).then(res => {
-      this.setState({assets: res.data});
-    });
     if(stockJson !== null){   
       for (var i = 0; i < stockJson.length; i++) {
         allBadges[stockJson[i].type].push(
@@ -85,8 +80,7 @@ class NewParitiesPage extends Component {
                 type="text"
                 placeholder={this.state.firstParity}
                 className="mr-sm-2"
-              /> 
-           
+              />
             <NavDropdown
               title="Compare Parity Type"
               id="basic-nav-dropdown"
@@ -130,18 +124,10 @@ class NewParitiesPage extends Component {
           aria-controls="basic-navbar-nav"
         />
         <Navbar.Collapse id="basic-navbar-nav"></Navbar.Collapse>
-        <font color="white">Buy Amount</font> 
-        <FormControl
-                width = "%50"
-                input type="number"
-                placeholder={this.state.buyAmount}
-                className="mr-sm-2"
-                onChange={this.changeBuy}
-              
-              />
         </Navbar>
         : <div/>
       }
+       
       </div>
       { this.state.parityGet
         ? <GraphPage doubleTap={this.handleSearchClick} pk = {this.state.parityPk}/>
@@ -186,11 +172,6 @@ class NewParitiesPage extends Component {
     this.setState({buyClicked:!this.state.buyClicked});
 
   }
-  changeBuy = event => {
-    this.setState({
-      buyAmount: event.target.value
-    });
-  }
 }
 
-export default NewParitiesPage;
+export default NewParitiesPageBasic;
