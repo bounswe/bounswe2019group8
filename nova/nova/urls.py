@@ -9,7 +9,8 @@ from nova.views import articles as article_views, auth_tokens as auth_token_view
     trading_equipments as trading_equipment_views, \
     portfolios as portfolio_views, assets as asset_views, \
     annotations as annotation_views,\
-    notifications as notification_views
+    notifications as notification_views,\
+    recommendations as recommendation_views
 
 from .settings import MEDIA_URL, MEDIA_ROOT
 from .swagger import get_swagger_view
@@ -105,6 +106,9 @@ urlpatterns = [
 
     path('cron_jobs/av_intradaily', av_views.fill_intraday),
 
-    path('cron_jobs/av_daily', av_views.fill_daily)
+    path('cron_jobs/av_daily', av_views.fill_daily),
+
+    # Recommendations
+    path('articles/recommendations', recommendation_views.article_recommendations_coll)
 
 ] + static(MEDIA_URL, document_root=MEDIA_ROOT)
