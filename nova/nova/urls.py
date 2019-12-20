@@ -8,8 +8,9 @@ from nova.views import articles as article_views, auth_tokens as auth_token_view
     users as user_views, \
     trading_equipments as trading_equipment_views, \
     portfolios as portfolio_views, assets as asset_views, \
-    annotations as annotation_views,\
-    notifications as notification_views
+    annotations as annotation_views, \
+    notifications as notification_views, \
+    prices as price_views
 
 from .settings import MEDIA_URL, MEDIA_ROOT
 from .swagger import get_swagger_view
@@ -67,6 +68,13 @@ urlpatterns = [
     path('trading_equipments/<int:pk>/predictions/downvotes', trading_equipment_views.downvotes_tr_eq),
 
     path('trading_equipment_searches', trading_equipment_views.tr_eq_searches),
+
+    # Prices
+    path('trading_equipments/<str:tr_eq_sym>/prices/daily', price_views.daily_prices_coll),
+
+    path('trading_equipments/<str:tr_eq_sym>/prices/intradaily', price_views.intradaily_prices_coll),
+
+    path('trading_equipments/<str:tr_eq_sym>/prices/current', price_views.current_price_res),
 
     # Comments
     path('comments/<int:pk>', comment_views.comment_res),
