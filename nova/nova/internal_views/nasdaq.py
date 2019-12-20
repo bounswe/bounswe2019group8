@@ -9,6 +9,7 @@ from rest_framework.response import Response
 
 from nova.models import TradingEquipment, Price
 from nova.settings import CRON_JOB_KEY, NASDAQ_BASE_URL
+from nova.utils.functions import parse_price
 
 
 def fetch_intradaily(eq_type, asset_class):
@@ -156,10 +157,3 @@ def fetch_all_daily(request):
     # other daily jobs will be added here
 
     return Response('Success')
-
-
-def parse_price(price_str):
-    if price_str is None or price_str == 'N/A':
-        return None
-    else:
-        return price_str[1:] if price_str.startswith('$') else price_str
