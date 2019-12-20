@@ -1,59 +1,83 @@
 import React, { Component } from "react";
-import ParityBadge from "./parityBadge";
 import "./parityBadgeHolder.css";
 import {
     Button,
-    Form,
     Navbar,
-    Nav,
     NavDropdown,
     FormControl
   } from "react-bootstrap";
 import NavLinkComponent from "./navLinkComponents";
 import { FaSignOutAlt, FaListAlt, FaUserCircle, FaSearchDollar, FaThumbsDown } from "react-icons/fa";
-import { MdSettings, MdChromeReaderMode } from "react-icons/md";
 import GraphPage from "./graphPage";
   
 class NewParitiesPage extends Component {
   state = {
-  parityJson : JSON.parse(localStorage.getItem("equipmentList")),
-  firstParityBadges:[],
-  secondParityBadges:[],
+  forexJson : JSON.parse(localStorage.getItem("equipmentList2")),
+  stockJson : JSON.parse(localStorage.getItem("equipmentList")),
+  digitalJson : JSON.parse(localStorage.getItem("equipmentList3")),
+  forexBadges:["Not Selected"],
+  digitalBadges:["Not Selected"],
+  stockBadges:["Not Selected"],
+  firstBadge:["Not Selected"],
+  secondBadge:["Not Selected"],
   firstParity:"",
-  secondParity:"",
+  secondParity:"USD",
   parityPk:0,
   parityGet:false,
+  firstParityType:null,
+  secondParityType:null,
   renderedGraph:(<div></div>)};
   componentDidMount(){
-    var parityCheckList =[];
-    var parityCheckList2 = [];
-    var parityBadgeList = [];
-    var parityBadgeList2 = [];
-    var parityJson = this.state.parityJson;
-    if(parityJson !== null){
-      for (var i = 0; i < parityJson.length; i++) {
-        if (parityCheckList.includes(parityJson[i].name.split("_")[0]) === false){
-        parityCheckList.push (parityJson[i].name.split("_")[0])
-        }
-        if (parityCheckList2.includes(parityJson[i].name.split("_")[1]) === false){
-        parityCheckList2.push (parityJson[i].name.split("_")[1])
-        }  
+    var forexCheckList =[];
+    var forexBadgeList = [];
+    var stockCheckList =[];
+    var stockBadgeList = [];
+    var digitalCheckList =[];
+    var digitalBadgeList = [];
+    var stockJson = this.state.stockJson;
+    var forexJson = this.state.forexJson;
+    var digitalJson = this.state.digitalJson;
+    if(forexJson !== null){
+      for (var i = 0; i < forexJson.length; i++) {
+        if (forexCheckList.includes(forexJson[i].sym.split("_")[0]) === false){
+        forexCheckList.push (forexJson[i].sym.split("_")[0])
+        } 
       }
-      parityCheckList.sort()
-      parityCheckList2.sort()
-      for (var i = 0; i < parityCheckList.length; i++) {
-        parityBadgeList.push(
-        <NavLinkComponent thisName={parityCheckList[i]} setParity={this.setFirstParity}></NavLinkComponent>);
+      forexCheckList.sort()
+      for (var i = 0; i < forexCheckList.length; i++) {
+        forexBadgeList.push(
+        <NavLinkComponent thisName={forexCheckList[i]} setParity={this.setParity}></NavLinkComponent>);
       }
-      for (var i = 0; i < parityCheckList2.length; i++) {
-        parityBadgeList2.push(
-        <NavLinkComponent thisName={parityCheckList2[i]} setParity={this.setSecondParity}></NavLinkComponent>);
-      }  
-      this.setState({firstParityBadges:parityBadgeList,secondParityBadges:parityBadgeList2})
+      this.setState({forexBadges:forexBadgeList})
+    }
+    if(stockJson !== null){
+      for (var i = 0; i < stockJson.length; i++) {
+        if (stockCheckList.includes(stockJson[i].sym.split("_")[0]) === false){
+        stockCheckList.push (stockJson[i].sym.split("_")[0])
+        } 
+      }
+      stockCheckList.sort()
+      for (var i = 0; i < stockCheckList.length; i++) {
+        stockBadgeList.push(
+        <NavLinkComponent thisName={stockCheckList[i]} setParity={this.setParity}></NavLinkComponent>);
+      }
+      this.setState({stockBadges:stockBadgeList})
+    }
+    if(forexJson !== null){
+      for (var i = 0; i < forexJson.length; i++) {
+        if (forexCheckList.includes(forexJson[i].sym.split("_")[0]) === false){
+        forexCheckList.push (forexJson[i].sym.split("_")[0])
+        } 
+      }
+      forexCheckList.sort()
+      for (var i = 0; i < forexCheckList.length; i++) {
+        forexBadgeList.push(
+        <NavLinkComponent thisName={forexCheckList[i]} setParity={this.setParity}></NavLinkComponent>);
+      }
+      this.setState({forexBadges:forexBadgeList})
     }
   }
   render() {
-    if(this.state.parityGet){
       return (
         <React.Fragment>
          <div>
@@ -68,29 +92,28 @@ class NewParitiesPage extends Component {
               
               id="basic-nav-dropdown"
             >
-          {this.state.firstParityBadges}
+          {this.state.forexBadges}
             </NavDropdown>
             <NavDropdown
               title="Second Parity"
               
               id="basic-nav-dropdown"
             >
-          {this.state.secondParityBadges}
+          {this.state.secondForexBadges}
             </NavDropdown>
             <FormControl
+                readOnly
                 type="text"
                 value={this.state.searchText}
                 placeholder={this.state.firstParity}
                 className="mr-sm-2"
                 id = 'searchBar'
-                onChange={this.changeHandler}
               />
                <FormControl
                 type="text"
                 placeholder={this.state.secondParity}
                 className="mr-sm-2"
                 id = 'searchBar'
-                onChange={this.changeHandler}
               />
              <Button onClick={()=> this.handleSearchClick()} id='searchButton'  variant="outline-success">
                 Find
@@ -100,61 +123,16 @@ class NewParitiesPage extends Component {
         </Navbar>
         {this.renderedGraph}
       </div>
-      <GraphPage doubleTap={this.handleSearchClick} pk = {this.state.parityPk}/>
+      { this.state.parityGet
+        ? <GraphPage doubleTap={this.handleSearchClick} pk = {this.state.parityPk}/>
+        : <div/>
+      }
+      
         </React.Fragment>
       );
-    }else{
-        return (
-            <React.Fragment>
-             <div>
-            <Navbar bg="dark" expand="lg" >
-              <Navbar.Toggle
-                class="navbar-toggler"
-                aria-controls="basic-navbar-nav"
-              />
-              <Navbar.Collapse id="basic-navbar-nav">
-                <NavDropdown
-                  title="First Parity"
-                  
-                  id="basic-nav-dropdown"
-                >
-              {this.state.firstParityBadges}
-                </NavDropdown>
-                <NavDropdown
-                  title="Second Parity"
-                  
-                  id="basic-nav-dropdown"
-                >
-              {this.state.secondParityBadges}
-                </NavDropdown>
-                <FormControl
-                    type="text"
-                    value={this.state.searchText}
-                    placeholder={this.state.firstParity}
-                    className="mr-sm-2"
-                    id = 'searchBar'
-                    onChange={this.changeHandler}
-                  />
-                   <FormControl
-                    type="text"
-                    placeholder={this.state.secondParity}
-                    className="mr-sm-2"
-                    id = 'searchBar'
-                    onChange={this.changeHandler}
-                  />
-                   <Button onClick={()=> this.handleSearchClick()} id='searchButton'  variant="outline-success">
-                    Find
-                    <FaSearchDollar style={{marginLeft: 6}}></FaSearchDollar>
     
-                  </Button>
-              </Navbar.Collapse>
-            </Navbar>
-          </div>
-            </React.Fragment>
-          );
-    }
   }
-  setFirstParity = (firstParity2) =>{
+  setParity = (firstParity2) =>{
       var newParity = firstParity2
     this.setState({firstParity:newParity})
   }
@@ -165,8 +143,8 @@ class NewParitiesPage extends Component {
   handleSearchClick = (e) =>{
     console.log("basildim")
     var count = 0;
-    this.state.parityJson.forEach((element)=>{
-        if (element.name === this.state.firstParity + "_" + this.state.secondParity){
+    this.state.forexJson.forEach((element)=>{
+        if (element.sym === this.state.firstParity + "_" + this.state.secondParity){
             this.setState({parityPk:element.pk})
             this.setState({parityGet:false})
             window.setTimeout(this.handeSearchFollow, 30)                    
@@ -178,6 +156,12 @@ class NewParitiesPage extends Component {
     }
   handeSearchFollow = () =>{
     this.setState({parityGet:!this.state.parityGet}) 
+  }
+  setFirtsParityType = (firstParity) =>{
+
+  }
+  setSecondParityType = (secondParity) =>{
+
   }
 
 }

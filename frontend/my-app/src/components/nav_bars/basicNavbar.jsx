@@ -201,6 +201,10 @@ class BasicNavbar extends Component {
       var equipmentList = res.data;
       localStorage.setItem("equipmentList", JSON.stringify(equipmentList));
     });
+    axios.get("http://8.209.81.242:8000/trading_equipments_init").then(res => {
+      var equipmentList = res.data;
+      localStorage.setItem("equipmentList2", JSON.stringify(equipmentList));
+    });
     axios
     .get("http://8.209.81.242:8000/articles").then(res => {
       var articleList2 = res.data;
