@@ -46,7 +46,5 @@ def create_comment_notification(sender, instance, **kwargs):
 def create_article_notification(sender, instance, **kwargs):
     if not kwargs['created']:
         return
-
-    print("hi")
-
+    
     create_following_notifications(instance, 'article_create', 'source_article', instance.author)
