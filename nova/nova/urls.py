@@ -87,16 +87,13 @@ urlpatterns = [
 
     # Assets
     path('users/<int:user_pk>/cash', asset_views.cash_coll),
+
     path('users/<int:user_pk>/assets', asset_views.assets_coll),
 
     # Annotations
     path('articles/<int:article_pk>/annotations', annotation_views.annotations_coll),
 
     path('articles/<int:article_pk>/annotations/<int:annotation_pk>', annotation_views.annotation_res),
-
-    # TEMPORARY ENDPOINTS FOR TESTS
-
-    path('cnt', trading_equipment_views.cnt),
 
     path('cron_jobs/nasdaq_intradaily', nasdaq_views.fetch_all_intradaily),
 

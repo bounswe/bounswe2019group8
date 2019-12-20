@@ -81,10 +81,6 @@ class TradingEquipment(models.Model):
 
     sym = models.CharField(max_length=15, unique=True, blank=True)
 
-    last_updated_daily = models.DateTimeField(null=True, blank=True)
-
-    last_updated_current = models.DateTimeField(null=True, blank=True)
-
     REQUIRED_FIELDS = ['type', 'name', 'sym']
 
 
