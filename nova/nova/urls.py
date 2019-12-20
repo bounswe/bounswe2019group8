@@ -8,7 +8,9 @@ from nova.views import articles as article_views, auth_tokens as auth_token_view
     users as user_views, \
     trading_equipments as trading_equipment_views, \
     portfolios as portfolio_views, assets as asset_views, \
-    annotations as annotation_views
+    annotations as annotation_views,\
+    notifications as notification_views
+
 from .settings import MEDIA_URL, MEDIA_ROOT
 from .swagger import get_swagger_view
 
@@ -94,6 +96,8 @@ urlpatterns = [
     path('articles/<int:article_pk>/annotations', annotation_views.annotations_coll),
 
     path('articles/<int:article_pk>/annotations/<int:annotation_pk>', annotation_views.annotation_res),
+
+    path('users/<int:user_pk>/notifications', notification_views.notifications_coll),
 
     path('cron_jobs/nasdaq_intradaily', nasdaq_views.fetch_all_intradaily),
 

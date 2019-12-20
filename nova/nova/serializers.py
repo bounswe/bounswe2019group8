@@ -185,7 +185,8 @@ class EventSerializer(NovaSerializer):
 class NotificationSerializer(NovaSerializer):
     class Meta:
         model = Notification
-        fields = ['to', 'message', 'created_at']
+        fields = ['to', 'reason', 'source_type', 'source_user', 'source_comment', 'source_article', 'source_annotation',
+                  'is_read', 'created_at']
 
 
 class OrderSerializer(NovaSerializer):

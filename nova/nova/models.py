@@ -134,6 +134,8 @@ class Price(models.Model):
 
 
 class Prediction(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+
     UPVOTE = 1
     DOWNVOTE = -1
 
@@ -195,14 +197,6 @@ class Asset(models.Model):
     amount = models.DecimalField(max_digits=15, decimal_places=3)
 
 
-class Notification(models.Model):
-    to = models.ForeignKey(User, on_delete=models.CASCADE)
-
-    message = models.TextField()
-
-    created_at = models.DateTimeField(auto_now_add=True)
-
-
 class Order(models.Model):
     BUY = 1
     SELL = -1
@@ -231,3 +225,29 @@ class Order(models.Model):
     choice = models.SmallIntegerField(choices=ORDER_CHOICES)
 
     tr_eq = models.ForeignKey(TradingEquipment, on_delete=models.CASCADE)
+
+
+class Notification(models.Model):
+    REASON_CHOICES = (
+        ('comment_create', 'comment_create'),
+        ('article_create', 'article_create'),
+        ('annotation_create', 'annotation_create')
+    )
+
+    SOURCE_TYPE_CHOICES = (
+        ('following_user', 'following_user'),
+    )
+
+    to = models.ForeignKey(User, on_delete=models.CASCADE, related_name='notifications')
+
+    reason = models.CharField(max_length=255, choices=REASON_CHOICES)
+    source_type = models.CharField(max_length=255, choices=SOURCE_TYPE_CHOICES)
+
+    source_user = models.ForeignKey(User, blank=True, null=True, default=None, on_delete=models.SET_NULL)
+    source_comment = models.ForeignKey(Comment, blank=True, null=True, default=None, on_delete=models.SET_NULL)
+    source_article = models.ForeignKey(Article, blank=True, null=True, default=None, on_delete=models.SET_NULL)
+    source_annotation = models.ForeignKey(Annotation, blank=True, null=True, default=None, on_delete=models.SET_NULL)
+
+    is_read = models.BooleanField(default=False)
+
+    created_at = models.DateTimeField(auto_now_add=True)
