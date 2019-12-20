@@ -5,7 +5,7 @@ import "./traderNavbar.css";
 import WriteArticlePage from "../article_components/writeArticlePage";
 import ArticleHolder from "../article_components/articleHolder";
 import WholeArticlePage from "../article_components/wholeArticlePage";
-import { FaSignOutAlt, FaListAlt, FaUserCircle, FaSearchDollar } from "react-icons/fa";
+import { FaSignOutAlt, FaListAlt, FaUserCircle, FaSearchDollar, FaMoneyCheckAlt } from "react-icons/fa";
 import { MdSettings, MdChromeReaderMode } from "react-icons/md";
 
 import {
@@ -90,6 +90,10 @@ class TraderNavbar extends Component {
                 <FaListAlt style={{marginRight: 10}}></FaListAlt>
                 Portfolio
               </NavDropdown.Item>
+              <NavDropdown.Item href="" onClick={() => this.investmentsClick()}>
+              <FaMoneyCheckAlt style={{marginRight: 10}}></FaMoneyCheckAlt>
+                Investments  
+              </NavDropdown.Item>
 
               <NavDropdown.Divider />
               <NavDropdown.Item onClick={() => this.logoutClick()}>
@@ -119,6 +123,11 @@ class TraderNavbar extends Component {
     this.componentDidMount();
     this.props.history.push("/login");
     this.props.history.push("/profile/" + localStorage.getItem("userId"));
+  };
+  investmentsClick = () => {
+    this.componentDidMount();
+    this.props.history.push("/login");
+    this.props.history.push("/profile/" + localStorage.getItem("userId") + "/investments");
   };
   articleClick = () => {
     this.componentDidMount();

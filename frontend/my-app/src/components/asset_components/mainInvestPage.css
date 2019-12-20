@@ -1,0 +1,31 @@
+.assets-list-item{
+    display: flex;
+    flex-direction: row;
+    margin-left: 25vw;
+    margin-right: 25vw;
+    width: 50vw;
+}
+.assets-name-div{
+    margin-left: 1vw;
+    margin-right: 1vw;
+}
+.assets-amount-div{
+    margin-left: 30vw;
+    margin-right: 1vw;
+}
+.forex-dropdown-div{
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    margin-left: 25vw;
+    margin-right: 25vw;
+    width: 60vw;
+    border-radius: 3px;
+}
+.forex-buy-dropdown{
+    width: 20vw;
+}
+.forex-sell-dropdown{
+    width: 20vw;
+    margin-left: 20vw;
+}

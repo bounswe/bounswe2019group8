@@ -67,7 +67,6 @@ export default function AddTreqModal({...props}) {
                 <Dropdown.Toggle className="drop-dpwn-toggle-btn" variant="success" id="dropdown-basic">
                     Equipments
                 </Dropdown.Toggle>
-
                 <Dropdown.Menu className="dropdown-menu-for-modal">
                    {eqNames}
                 </Dropdown.Menu>

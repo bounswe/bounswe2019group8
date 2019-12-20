@@ -24,7 +24,7 @@ import OwnPortfolioPage from "./components/portfolio_components/ownPortfolioPage
 import OthersPortfolioPage from "./components/portfolio_components/othersPortfolioPage";
 import SingleOwnPortfolioPage from "./components/portfolio_components/singleOwnPortfolioPage";
 import OthersSinglePortfolioPage from "./components/portfolio_components/othersSinglePortfolioPage";
-
+import MainInvestmentPage from "./components/asset_components/mainInvestPage";
 import NewParitiesPage from "./components/parity_components/newParitiesPage";
 
 import UpdatePage from "./components/profile_components/updatePage";
@@ -122,6 +122,13 @@ class Home extends Component {
             exact
             key={Math.random() * 99}
             component={OthersPortfolioPage}
+          />
+          <Route
+            exact
+            path="/profile/:id/investments"
+            exact
+            key={Math.random() * 99}
+            component={MainInvestmentPage}
           />
           <Route
             exact
