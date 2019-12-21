@@ -11,7 +11,8 @@ from nova.views import articles as article_views, auth_tokens as auth_token_view
     annotations as annotation_views, \
     notifications as notification_views, \
     recommendations as recommendation_views, \
-    prices as price_views
+    prices as price_views, \
+    semantic_search as semantic_search_views
 
 from .settings import MEDIA_URL, MEDIA_ROOT
 from .swagger import get_swagger_view
@@ -108,6 +109,7 @@ urlpatterns = [
 
     # Notifications
     path('users/<int:user_pk>/notifications', notification_views.notifications_coll),
+
     path('users/<int:user_pk>/notifications/count', notification_views.notifications_coll_count),
 
     # Internal
@@ -122,6 +124,9 @@ urlpatterns = [
     # Recommendations
     path('articles/recommendations', recommendation_views.article_recommendations_coll),
 
-    path('portfolios/recommendations', recommendation_views.portfolio_recommendations_coll)
+    path('portfolios/recommendations', recommendation_views.portfolio_recommendations_coll),
+
+    # Semantic Search
+    path('semantic_search', semantic_search_views.search_articles),
 
 ] + static(MEDIA_URL, document_root=MEDIA_ROOT)
