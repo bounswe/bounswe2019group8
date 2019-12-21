@@ -127,6 +127,6 @@ urlpatterns = [
     path('portfolios/recommendations', recommendation_views.portfolio_recommendations_coll),
 
     # Semantic Search
-    path('articles/semantic_search', semantic_search_views.search_articles),
+    path('semantic_search', semantic_search_views.search_articles),
 
 ] + static(MEDIA_URL, document_root=MEDIA_ROOT)
