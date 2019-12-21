@@ -28,7 +28,7 @@ import OthersSinglePortfolioPage from "./components/portfolio_components/othersS
 import NewParitiesPage from "./components/parity_components/newParitiesPage";
 
 import UpdatePage from "./components/profile_components/updatePage";
-
+import NotifPage from "./components/notification_components/notifPage";
 
 class Home extends Component {
   constructor(){
@@ -122,6 +122,13 @@ class Home extends Component {
             exact
             key={Math.random() * 99}
             component={OthersPortfolioPage}
+          />
+          <Route
+            exact
+            path="/profile/:id/notif"
+            exact
+            key={Math.random() * 99}
+            component={NotifPage}
           />
           <Route
             exact

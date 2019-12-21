@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {ListGroup, ListGroupItem, Button} from "react-bootstrap";
+import {ListGroup, ListGroupItem, Badge} from "react-bootstrap";
 import "./ownPortfolioPage.css";
 import { withRouter } from "react-router-dom";
 class PortfolioHandler extends Component {
@@ -13,7 +13,9 @@ class PortfolioHandler extends Component {
             <div>
                 <ListGroup>
                     <ListGroupItem onClick={() => this.listItemClick()} className="own-portfolio-list-group-items">
+                        <Badge className="portfolio-list-item-badge">
                         {this.props.name}
+                        </Badge>
                     </ListGroupItem>
                 </ListGroup>
             </div>

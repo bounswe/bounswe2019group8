@@ -6,6 +6,7 @@ import WriteArticlePage from "../article_components/writeArticlePage";
 import ArticleHolder from "../article_components/articleHolder";
 import WholeArticlePage from "../article_components/wholeArticlePage";
 import { FaSignOutAlt, FaListAlt, FaUserCircle, FaSearchDollar } from "react-icons/fa";
+import {IoIosNotificationsOutline} from "react-icons/io";
 import { MdSettings, MdChromeReaderMode } from "react-icons/md";
 
 import {
@@ -19,9 +20,11 @@ import {
 import { withRouter } from "react-router-dom";
 import axios from "axios";
 import Followings from "../profile_components/followings";
+import {Effect} from 'react-notification-badge';
+import NotificationBadge from 'react-notification-badge';
 
 class TraderNavbar extends Component {
-  state = { imageUrl:'', credentials: {}, searchText: "" };
+  state = { imageUrl:'', credentials: {}, searchText: "", notifCount: 0 };
   changeHandler = event => {
     this.setState({
       searchText: event.target.value,
@@ -62,7 +65,14 @@ class TraderNavbar extends Component {
               <Button id='searchButton' href={"/search/" + this.state.searchText} variant="outline-success">
                 Search
                 <FaSearchDollar style={{marginLeft: 6}}></FaSearchDollar>
-
+              </Button>
+              <Button onClick={() => this.notifClick()} id='searchButton' href={"/profile/" + localStorage.getItem("userId") + "/notif"} variant="outline-success">
+              <NotificationBadge count={this.state.notifCount} effect={Effect.ROTATE_Y}/>
+                Notifications
+                
+                <IoIosNotificationsOutline style={{marginLeft: 6}}>
+                
+                </IoIosNotificationsOutline>
               </Button>
             </Form>
             <NavDropdown
@@ -116,19 +126,24 @@ class TraderNavbar extends Component {
     );
   }
   profileClick = () => {
-    this.componentDidMount();
+    this.componentWillMount();
     this.props.history.push("/login");
     this.props.history.push("/profile/" + localStorage.getItem("userId"));
   };
   articleClick = () => {
-    this.componentDidMount();
+    this.componentWillMount();
     this.props.history.push("/login");
     this.props.history.push("/profile/" + localStorage.getItem("userId") + "/articles");
   }
   portfolioClick = () => {
-    this.componentDidMount();
+    this.componentWillMount();
     this.props.history.push("/login");
     this.props.history.push("/profile/" + localStorage.getItem("userId") + "/portfolio");
+  }
+  notifClick = () => {
+    this.componentWillMount();
+    this.props.history.push("/login");
+    this.props.history.push("/profile/" + localStorage.getItem("userId") + "/notif");
   }
   logoutClick = () => {
     localStorage.setItem("userId", null);
@@ -140,7 +155,7 @@ class TraderNavbar extends Component {
     localStorage.setItem("threeDaysEventsList", null);
     this.props.history.push("/login");
   };
-  componentDidMount() {
+  componentWillMount() {
     var url =
       "http://8.209.81.242:8000/users/" + localStorage.getItem("userId");
     var credentials1 = { ...this.state.credentials };
@@ -208,7 +223,6 @@ class TraderNavbar extends Component {
     axios
     .get("http://8.209.81.242:8000/events/" + today).then(res => {
       var eventsList = res.data;
-      console.log(eventsList.length);
       if(eventsList.length === 0){
         axios
         .post("http://8.209.81.242:8000/events/" + today).then(res => {
@@ -238,8 +252,6 @@ class TraderNavbar extends Component {
         );
       }
       threeDaysEventsList = threeDaysEventsList.concat(eventsList);
-      console.log(threeDaysEventsList);
-      console.log(eventsList);
     }
     );
     axios
@@ -261,6 +273,12 @@ class TraderNavbar extends Component {
       localStorage.setItem("threeDaysEventsList", JSON.stringify(threeDaysEventsList));
     }
     );
+    axios
+        .get("http://8.209.81.242:8000/users/" + id +"/notifications/count",  {
+          headers: { Authorization: `Token ${token}` }}).then(res => {
+          this.setState({notifCount: res.data.count});
+        }
+        );
   }
 }
 

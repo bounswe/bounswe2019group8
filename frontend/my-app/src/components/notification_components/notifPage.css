@@ -1,0 +1,9 @@
+.main-notif-continer{
+    background-color: rgb(223, 208, 208);
+    width: 70vw;
+    margin-left: 15vw;
+    margin-right: 15vw;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    border-radius: 3px;
+}
