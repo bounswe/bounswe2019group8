@@ -17,6 +17,7 @@ class FollowPortfolioButton extends Component {
             headers: { Authorization: `Token ${token}` }}).then(res => {
                 console.log(res);
                 this.setState({followList: res.data});
+                this.setState({isFollowed: false});
                 for(var i = 0; i < res.data.length; i++){
                     if(this.props.pk == res.data[i].pk){
                         this.setState({isFollowed: true});
@@ -55,6 +56,7 @@ class FollowPortfolioButton extends Component {
            });
       }
       unfollow=()=> {
+        console.log("inside unfollow");
         var tempList=[];
         var userId = localStorage.getItem("userId");
         var token = localStorage.getItem("userToken");
@@ -63,7 +65,7 @@ class FollowPortfolioButton extends Component {
             headers: { Authorization: `Token ${token}` }
           })
           .then(response => {
-            
+            console.log(response);
             /*axios
             .get("http://8.209.81.242:8000/users/"+localStorage.getItem("userId")+"/followings", {
               headers: { Authorization: `Token ${localStorage.getItem("userToken")}` }
