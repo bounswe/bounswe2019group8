@@ -1,42 +1,50 @@
 import React, { Component } from "react";
-import { Button, Card, ListGroup } from "react-bootstrap";
+import { Button, Card, ListGroup, ListGroupItem } from "react-bootstrap";
 import axios from "axios";
 import {withRouter} from "react-router-dom";
+import TrEqSearchHandler from "./trEqSearchHandler";
+import UserSearchHandler from "./userSearchHandler";
 
 class SearchResults extends Component {
   state = {
-    api: axios.create({
-        baseURL: "http://8.209.81.242:8000/"
-      }),
-      followings:[]
+      trEqList: [],
+      userList: []
   };
 
-  componentDidMount(){
-    var tempList =[];
-    this.state.api
-      .post(
-        "user_searches",
-        {
-          search_text: this.props.match.params.search
-        },
-        {
-          headers: {
-            Authorization: `Token ${localStorage.getItem("userToken")}`
-          }
-        }
-      )
-      .then(response => {
-        
-        response.data.forEach((element)=>{
-            tempList.push(element)
-          });
-         this.setState({followings:tempList})
-     
-        
-       });
+  componentWillMount(){
+    var data = {
+      search_text: this.props.match.params.search
+    };
+    var user_id = localStorage.getItem("userId");
+    var token = localStorage.getItem("userToken");
+    axios
+      .post("http://8.209.81.242:8000/trading_equipment_searches", data, {
+        headers: { Authorization: `Token ${token}` }
+      })
+      .then(res => {
+        this.setState({trEqList: res.data});
+        console.log(this.state.trEqList);
+      });
+      axios
+      .post("http://8.209.81.242:8000/user_searches", data, {
+        headers: { Authorization: `Token ${token}` }
+      })
+      .then(res => {
+        this.setState({userList: res.data});
+        console.log(this.state.userList);
+      });
   }
   render() {
+    var trEqListItems = [];
+    var userListItems = [];
     console.log("i get clalled")
+    for(var i = 0; i < this.state.trEqList.length; i++){
+    trEqListItems.push(<TrEqSearchHandler result={this.state.trEqList[i]}></TrEqSearchHandler>);
+    //trEqListItems.push(<ListGroupItem>{i}</ListGroupItem>)
+    }
+    for(var i = 0; i < this.state.userList.length; i++){
+      userListItems.push(<UserSearchHandler result={this.state.userList[i]}></UserSearchHandler>)
+    }
     return(
     <React.Fragment>
        <Card style={{ width: "36rem", align: "center" }}>
@@ -45,17 +53,19 @@ class SearchResults extends Component {
           <ListGroup.Item>
              Results :
               <ListGroup className="list-group-flush">
-                {this.state.followings.map((f, i) => (
-                   <ListGroup.Item action href ={"/profile/"+f.pk}>
-                      {i + 1} - {`${f.first_name} ${f.last_name}`}
-                    </ListGroup.Item>
-                  ))}
+                {trEqListItems}
+                {userListItems}
               </ListGroup>
             </ListGroup.Item>     
           </ListGroup>
        
         </Card>
     </React.Fragment>
+    )
+    return(
+      <div>
+        hello
+      </div>
     )
   }
 

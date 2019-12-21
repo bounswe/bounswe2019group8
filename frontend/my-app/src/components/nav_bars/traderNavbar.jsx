@@ -126,22 +126,22 @@ class TraderNavbar extends Component {
     );
   }
   profileClick = () => {
-    this.componentDidMount();
+    this.componentWillMount();
     this.props.history.push("/login");
     this.props.history.push("/profile/" + localStorage.getItem("userId"));
   };
   articleClick = () => {
-    this.componentDidMount();
+    this.componentWillMount();
     this.props.history.push("/login");
     this.props.history.push("/profile/" + localStorage.getItem("userId") + "/articles");
   }
   portfolioClick = () => {
-    this.componentDidMount();
+    this.componentWillMount();
     this.props.history.push("/login");
     this.props.history.push("/profile/" + localStorage.getItem("userId") + "/portfolio");
   }
   notifClick = () => {
-    this.componentDidMount();
+    this.componentWillMount();
     this.props.history.push("/login");
     this.props.history.push("/profile/" + localStorage.getItem("userId") + "/notif");
   }
@@ -155,7 +155,7 @@ class TraderNavbar extends Component {
     localStorage.setItem("threeDaysEventsList", null);
     this.props.history.push("/login");
   };
-  componentDidMount() {
+  componentWillMount() {
     var url =
       "http://8.209.81.242:8000/users/" + localStorage.getItem("userId");
     var credentials1 = { ...this.state.credentials };
