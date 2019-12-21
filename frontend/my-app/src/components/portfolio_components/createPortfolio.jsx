@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import "./createPortfolio.css";
 import {
   FormGroup,
   FormControl,
@@ -57,7 +57,7 @@ export default function CreatePortfolio(submitClicked, ...props) {
 
   }
   return (
-    <div className="field-container">
+    <div className="create-portfolio-div">
       <form onSubmit={handleSubmit}>
         <FormGroup controlId="name" size="large">
           <FormLabel>

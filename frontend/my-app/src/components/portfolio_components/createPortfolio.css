@@ -1,9 +1,11 @@
 .create-portfolio-div{
-    width: 60vw;
+    width: 40vw;
     border-radius: 3px;
     height: 70vh;
-    margin-left: 15vw;
-    margin-right: 15vw;
+    margin-left: 25vw;
+    margin-right: 25vw;
     margin-top: 0.5vh;
+    padding-left: 1vw;
+    padding-right: 1vw;
     background-color: rgb(213, 222, 230);
 }

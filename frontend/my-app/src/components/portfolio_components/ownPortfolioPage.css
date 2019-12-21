@@ -23,3 +23,8 @@
 .own-portfolio-list-group-items:hover{
     background-color: rgb(168, 184, 101);
 }
+.portfolio-list-item-badge{
+    margin-left: 18vw;
+    width: 20vw;
+    margin-right: 18vw;
+}

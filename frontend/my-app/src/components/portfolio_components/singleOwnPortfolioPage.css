@@ -19,11 +19,12 @@
 }
 .single-own-portfolio-list-group-items{
     background-color: #fff;
-    width: 60vw;
-    margin-left: 15vw;
-    margin-right: 15vw;
+    width: 40vw;
+    margin-left: 10vw;
+    margin-right: 10vw;
     display: flex;
     flex-direction: row;
+    margin-top: 1vh;
 }
 .single-own-portfolio-list-group-items:hover{
     background-color: rgb(229, 233, 216);
@@ -45,7 +46,7 @@
 }
 .single-portfolio-remove-btn{
     width: 10vw;
-    margin-left:35vw;
+    margin-left:10vw;
     margin-bottom: 0.5vh;
 }
 .single-portfolio-remove-btn:hover{
