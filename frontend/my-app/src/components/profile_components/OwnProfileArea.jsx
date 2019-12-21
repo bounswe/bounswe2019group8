@@ -9,7 +9,7 @@ import { AiFillCamera } from "react-icons/ai";
 import { FaCameraRetro } from 'react-icons/fa'
 import { MdDelete, MdFileUpload } from 'react-icons/md'
 import FormData from 'form-data'
-import ProfileImage from "./profileImage";
+
 
 
 class OwnProfileArea extends React.Component {
