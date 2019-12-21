@@ -1,7 +1,7 @@
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-from nova.models import Comment, Annotation, Article, Notification
+from nova.models import ArticleComment, Annotation, Article, Notification
 
 
 # @receiver(post_save, sender = TradingEquipment)
@@ -34,7 +34,7 @@ def create_annotation_notification(sender, instance, **kwargs):
     create_following_notifications(instance, 'annotation_create', 'source_annotation', instance.owner)
 
 
-@receiver(post_save, sender=Comment)
+@receiver(post_save, sender=ArticleComment)
 def create_comment_notification(sender, instance, **kwargs):
     if not kwargs['created']:
         return
@@ -46,5 +46,5 @@ def create_comment_notification(sender, instance, **kwargs):
 def create_article_notification(sender, instance, **kwargs):
     if not kwargs['created']:
         return
-    
+
     create_following_notifications(instance, 'article_create', 'source_article', instance.author)

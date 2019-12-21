@@ -106,8 +106,11 @@ urlpatterns = [
 
     path('articles/<int:article_pk>/annotations/<int:annotation_pk>', annotation_views.annotation_res),
 
+    # Notifications
     path('users/<int:user_pk>/notifications', notification_views.notifications_coll),
+    path('users/<int:user_pk>/notifications/count', notification_views.notifications_coll_count),
 
+    # Internal
     path('cron_jobs/nasdaq_intradaily', nasdaq_views.fetch_all_intradaily),
 
     path('cron_jobs/nasdaq_daily', nasdaq_views.fetch_all_daily),
