@@ -1,5 +1,5 @@
 from django.conf.urls.static import static
-from django.urls import path, re_path
+from django.urls import path
 
 from nova.internal_views import alphavantage as av_views
 from nova.internal_views import nasdaq as nasdaq_views
