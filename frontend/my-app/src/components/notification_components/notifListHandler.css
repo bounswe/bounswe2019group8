@@ -1,5 +1,5 @@
 .single-notif-container{
-    width: 40vw;
+    width: 60vw;
     margin-left: 5vw;
     margin-right: 5vw;
     background-color: rgb(223, 208, 208);
@@ -16,7 +16,6 @@
     max-width: 10vw;
     font-size: 12px;
     font-weight: bold;
-    margin-left: 15vw;
 }
 .notif-from-btn:hover{
     background-color: #f6b93b;
@@ -25,10 +24,9 @@
     max-width: 10vw;
     font-size: 12px;
     font-weight: bold;
-    margin-left: 15vw;
 }
 .single-notif-all-tags-container{
-    margin-left: 10vw;
+    margin-left: 0vw;
     display: flex;
     flex-direction: row;
 }
@@ -38,6 +36,26 @@
     color: black;
     font-weight: bold;
     width: 10vw;
-    margin-left: -10vw;
+    font-size: 12px;
+}
+.notif-date-btn:disabled{
+    background-color: white;
+    border-color: white;
+    color: black;
+    font-weight: bold;
+    width: 10vw;
+    font-size: 12px;
+    margin-left:2.8vw;
+    margin-right:2.8vw;
+}
+.notif-time-btn:disabled{
+    background-color: white;
+    border-color: white;
+    color: black;
+    font-weight: bold;
+    width: 10vw;
+    font-size: 12px;
+    margin-left:2.8vw;
+    margin-right:2.8vw;
 }
 

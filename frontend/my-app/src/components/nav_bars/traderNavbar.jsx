@@ -276,7 +276,6 @@ class TraderNavbar extends Component {
     axios
         .get("http://8.209.81.242:8000/users/" + id +"/notifications/count",  {
           headers: { Authorization: `Token ${token}` }}).then(res => {
-          console.log(res.data);
           this.setState({notifCount: res.data.count});
         }
         );

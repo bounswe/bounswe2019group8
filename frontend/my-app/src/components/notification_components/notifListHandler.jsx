@@ -20,11 +20,15 @@ class NotifListHandler extends Component {
             reason = "New annotation"
         }
         console.log(this.props.notif);
+        var date = this.props.notif.created_at.substring(0,10);
+        var time = this.props.notif.created_at.substring(11,19);
         return ( 
             <div className="single-notif-container">
                     <ListGroupItem>
                         <div className="single-notif-all-tags-container">
                         <Button className="notif-type-btn" disabled>{reason}</Button>
+                        <Button className="notif-date-btn" disabled>{date}</Button>
+                        <Button className="notif-time-btn" disabled>{time}</Button>
                         <Button onClick={() => this.otherProfileClick()} className="notif-from-btn">{ "from: " +this.state.senderName}</Button>
                         </div>
                     </ListGroupItem>
