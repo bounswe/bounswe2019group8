@@ -10,7 +10,7 @@ from nova.views import articles as article_views, auth_tokens as auth_token_view
     portfolios as portfolio_views, assets as asset_views, \
     annotations as annotation_views,\
     notifications as notification_views,\
-    recommendations as recommendation_views \
+    recommendations as recommendation_views, \
     prices as price_views
 
 from .settings import MEDIA_URL, MEDIA_ROOT
