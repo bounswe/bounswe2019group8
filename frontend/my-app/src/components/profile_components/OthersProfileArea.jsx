@@ -28,6 +28,7 @@ class OthersProfileArea extends React.Component {
     .get(url, { headers: { Authorization: `Token ${token}` } })
     .then(res => {
       var credentials = { ...this.state.credentials };
+      credentials.profileImage = res.data.profile_image
       credentials.userEmail = res.data.email;
       credentials.firstName = res.data.first_name;
       credentials.lastName = res.data.last_name;
@@ -61,7 +62,7 @@ class OthersProfileArea extends React.Component {
       
       return (
         <Card>
-          <Card.Img variant="top" src={require("../images/rick.jpg")} />
+          <Card.Img variant="top" src={'http://mercatus.xyz:8000' + this.state.credentials.profileImage} />
           <ListGroup className="list-group-flush">
             <ListGroup.Item>
             <FollowButton userId={this.props.userId}/></ListGroup.Item>
