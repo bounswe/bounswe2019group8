@@ -30,14 +30,20 @@ import NewParitiesPage from "./components/parity_components/newParitiesPage";
 import UpdatePage from "./components/profile_components/updatePage";
 import NotifPage from "./components/notification_components/notifPage";
 
+import { Row, Col, Card } from "react-bootstrap";
+import axios from "axios";
+
 class Home extends Component {
   constructor(){
     super();
     this.state = {
-      imageUrl: ''
+      imageUrl: '',
+      portfolios: [],
+      priceMap: {},
     };
     this.imageChangeHandler = this.imageChangeHandler.bind(this)
   }
+
   putParities(){
     if(localStorage.getItem("equipmentList") !== null){
       return <ParityBadgeHolder/>
@@ -46,11 +52,88 @@ class Home extends Component {
       return <div/>
     }
   }
+
   imageChangeHandler(url){
     this.setState({
       imageUrl: url
     })
   }
+
+  getName(sym) {
+    const tradingEquipments = JSON.parse(localStorage.getItem("equipmentList"));
+
+    return tradingEquipments.find(trEq => (trEq.sym === sym)).name;
+  }
+
+  getPrice(sym) {
+    const tradingEquipments = JSON.parse(localStorage.getItem("equipmentList"));
+
+    const price = Math.round(this.state.priceMap[tradingEquipments.find(trEq => (trEq.sym === sym)).pk]*100)/100;
+
+    if (isNaN(price))
+      return "";
+
+    return `${price}$`;
+  }
+
+  updatePrices() {
+      if (this.props.location.pathname.length > 1)
+        return;
+      for (const portfolio of this.state.portfolios) {
+        for (const eq of portfolio.tr_eqs) {
+
+          axios
+            .get(`trading_equipments/${eq.sym}/prices/current`, {
+              headers: { Authorization: `Token ${localStorage.getItem("userToken")}` }}).then(res => {
+                  const data = res.data;
+                  this.setState({ priceMap: {...this.state.priceMap, [data.tr_eq]: data.indicative_value} });
+
+            }
+
+            );
+        }
+
+      }
+
+  }
+
+  renderPorfolio(p) {
+    return <Card>
+    <Card.Title>{p.name}</Card.Title>
+    <Card.Body>{p.tr_eqs.map(eq => <Row>{this.getName(eq.sym)}({eq.sym}) {this.getPrice(eq.sym)}</Row>)}</Card.Body>
+    </Card>;
+  }
+
+  renderHome() {
+    return (<Row>
+      <Col><h2 className="text-center" style={{backgroundColor:"#fff"}}>Articles</h2><ArticleHolder2/></Col>
+      <Col><h2 className="text-center" style={{backgroundColor:"#fff"}}>Portfolios</h2>{this.state.portfolios.map(p => this.renderPorfolio(p))}</Col>
+    </Row>
+  );
+  }
+
+  componentDidMount() {
+    axios
+      .get("users/" + localStorage.getItem("userId") + "/portfolios", {
+        headers: { Authorization: `Token ${localStorage.getItem("userToken")}` }}).then(res => {
+            const portfolios = res.data;
+            this.setState({ portfolios });
+
+      }
+
+      );
+
+      this.timer = setInterval(() => {
+        this.updatePrices();
+
+    }, 3000);
+
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timer);
+  }
+
   render() {
     console.log(this.props);
     return (
@@ -152,7 +235,9 @@ class Home extends Component {
           <Route exact path="/activations/:restOfUrl/:rest" component={DoVerify}/>
           <Route exact path="/upd_cred" component={UpdatePage}/>
         </Switch>
-        {(this.props.location.pathname.length <= 1) && (localStorage.getItem("userToken")) &&  <ArticleHolder2/>}
+        {(this.props.location.pathname.length <= 1)&& (localStorage.getItem("userToken")) && this.renderHome()}
+        
+
 
       </React.Fragment>
     );
