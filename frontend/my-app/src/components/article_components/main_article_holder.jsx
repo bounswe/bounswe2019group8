@@ -46,6 +46,6 @@ class MainArticleHolder extends Component {
         //const listItems = this.state.gridOfArticles.map(line => <li>{line}</li>);
       }
     }
-}
+
  
 export default MainArticleHolder;

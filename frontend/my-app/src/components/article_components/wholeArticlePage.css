@@ -1,3 +1,10 @@
+.modal {
+  font-family: Georgia, serif;
+  font-weight: lighter;
+}
+.main {
+  font-family: Georgia, serif;
+}
 .first-div {
   background-color: white;
 
@@ -81,11 +88,69 @@
 }
 
 #commentContainer {
-  background-color:white;
-  border: 1px solid black;
+  background-color: white;
+  border:none;
+  border-left: 1px solid black;
   transition: 0.2s;
 }
 
 #makeCommentContainer {
   background: none;
+}
+
+.annotationButton {
+  font-size: 12px; 
+  padding: 12px; 
+  border-radius: 12px;
+  background-color: rgb(29, 2, 2);
+  color: white;
+  transition: 0.3s;
+  border-left:4px solid rgb(173, 165, 247);
+  letter-spacing: 2px;
+}
+
+.annotationButton:hover {
+  padding: 12px; 
+  border-radius: 12px;
+  background-color: rgb(126, 85, 85);
+  color: white;
+  cursor:pointer;
+}
+
+.operatedText {
+  text-decoration: none;
+
+}
+
+.operatedText em {
+  background-color:  #C02F1D;
+}
+
+
+.operatedText em:hover {
+  text-decoration: none;
+
+}
+
+.a:hover{
+  text-decoration: none;
+}
+
+[contenteditable="true"]:active,
+[contenteditable="true"]:focus{
+border:none;
+outline:none;
+}
+
+.styledTextPart:hover{
+  color: rgb(43, 94, 94);
+  cursor: pointer;
+}
+
+.annotationScreenButton {
+  font-size: 20px;
+}
+
+.annotationScreenButton:hover {
+  color:rgb(43, 94, 94);
 }

@@ -24,7 +24,7 @@ class ArticleCommentHolder extends Component {
     }
     return (
       <React.Fragment>
-        <div className="outer-div" >
+        <div className="outer-div" style={{padding:12}} >
           <div className="article-comment-container">
             <Badge className="comments-badge">Comments:</Badge>
             <div className="my-outer-div">{finalList}</div>
@@ -50,7 +50,7 @@ class ArticleCommentHolder extends Component {
         this.setState({ comments: commentList });
         console.log(this.state.comments);
       });
-
+    
     console.log(this.props.articlePk);
   }
 }
