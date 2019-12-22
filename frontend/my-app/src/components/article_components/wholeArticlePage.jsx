@@ -12,9 +12,6 @@ import ArticleLike from "./articleLike";
 import ArticleDislike from "./articleDislike";
 import { FaHeart } from "react-icons/fa";
 import { MdBookmarkBorder, MdDeleteForever, MdClose } from "react-icons/md";
-import $ from 'jquery';
-import 'bootstrap';
-import { TextAnnotator } from "react-text-annotate";
 import AnnotatedArticle from "./annotated_article";
 import ModalHeader from "react-bootstrap/ModalHeader";
 
