@@ -1,14 +1,19 @@
+.notif-item:hover {
+    background-color: whitesmoke;
+}
+
 .single-notif-container{
     width: 60vw;
     margin-left: 5vw;
     margin-right: 5vw;
-    background-color: rgb(223, 208, 208);
+    
     padding-left: 1vw;
     padding-right: 1vw;
     padding-top: 1vh;
     padding-bottom: 1vh;
     border-radius: 3px;
 }
+
 .notif-from-btn{
     background-color: white;
     color: black;
@@ -31,7 +36,7 @@
     flex-direction: row;
 }
 .notif-type-btn:disabled{
-    background-color: white;
+    background:none;
     border-color: white;
     color: black;
     font-weight: bold;
@@ -39,7 +44,7 @@
     font-size: 12px;
 }
 .notif-date-btn:disabled{
-    background-color: white;
+    background: none;
     border-color: white;
     color: black;
     font-weight: bold;
@@ -49,7 +54,7 @@
     margin-right:2.8vw;
 }
 .notif-time-btn:disabled{
-    background-color: white;
+    background: none;
     border-color: white;
     color: black;
     font-weight: bold;
