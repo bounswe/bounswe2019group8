@@ -6,6 +6,7 @@ import TrEqSearchHandler from "./trEqSearchHandler";
 import UserSearchHandler from "./userSearchHandler";
 import ArticleSemanticHandler from "./articleSemanticHandler";
 import CommentSemanticHandler from "./commentSemanticHandler";
+import AnnotationSemanticHandler from "./annotationSemanticHandler";
 
 class SearchResults extends Component {
   state = {
@@ -28,7 +29,6 @@ class SearchResults extends Component {
       })
       .then(res => {
         this.setState({articleSemanticList: res.data});
-        console.log(this.state.articleSemanticList);
       });
       axios
       .get("http://8.209.81.242:8000/semantic_search?keyword=" + data.search_text + "&type=annotation",{
@@ -36,7 +36,7 @@ class SearchResults extends Component {
       })
       .then(res => {
         this.setState({annotationSemanticList: res.data});
-        console.log(this.state.annotationSemanticList);
+        console.log(res.data);
       });
       axios
       .get("http://8.209.81.242:8000/semantic_search?keyword=" + data.search_text + "&type=comment",{
@@ -44,7 +44,6 @@ class SearchResults extends Component {
       })
       .then(res => {
         this.setState({commentSemanticList: res.data});
-        console.log(this.state.commentSemanticList);
       });
       axios
       .post("http://8.209.81.242:8000/trading_equipment_searches", data, {
@@ -52,7 +51,6 @@ class SearchResults extends Component {
       })
       .then(res => {
         this.setState({trEqList: res.data});
-        console.log(this.state.trEqList);
       });
       axios
       .post("http://8.209.81.242:8000/user_searches", data, {
@@ -60,7 +58,6 @@ class SearchResults extends Component {
       })
       .then(res => {
         this.setState({userList: res.data});
-        console.log(this.state.userList);
       });
   }
   render() {
@@ -70,7 +67,6 @@ class SearchResults extends Component {
     var commentListItems = [];
     var annotationListItems = [];
 
-    console.log("i get clalled")
     for(var i = 0; i < this.state.trEqList.length; i++){
     trEqListItems.push(<TrEqSearchHandler result={this.state.trEqList[i]}></TrEqSearchHandler>);
     //trEqListItems.push(<ListGroupItem>{i}</ListGroupItem>)
@@ -83,6 +79,9 @@ class SearchResults extends Component {
     }
     for(var i = 0; i < this.state.commentSemanticList.length; i++){
       commentListItems.push(<CommentSemanticHandler result={this.state.commentSemanticList[i]}></CommentSemanticHandler>)
+    }
+    for(var i = 0; i < this.state.annotationSemanticList.length; i++){
+      annotationListItems.push(<AnnotationSemanticHandler result={this.state.annotationSemanticList[i]}></AnnotationSemanticHandler>)
     }
 
     return(
@@ -97,6 +96,7 @@ class SearchResults extends Component {
                 {userListItems}
                 {articleListItems}
                 {commentListItems}
+                {annotationListItems}
               </ListGroup>
             </ListGroup.Item>     
           </ListGroup>
@@ -110,6 +110,5 @@ class SearchResults extends Component {
       </div>
     )
   }
-
 }
 export default withRouter(SearchResults);

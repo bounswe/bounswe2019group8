@@ -5,14 +5,29 @@ import {withRouter} from "react-router-dom";
 class CommentSemanticHandler extends Component {
     state = {  }
     render() { 
-        return ( 
-            <div>
-            <ListGroupItem>
-                <Button >{"Found in comment: \"" + this.props.result.content + "\""}</Button>
-                </ListGroupItem>
-            </div>
-         );
+        console.log(this.props.result);
+        var prop = "article";
+        var prop2 = "trading_equipment";
+        if(this.props.result.hasOwnProperty(prop)){
+            return ( 
+                <div>
+                <ListGroupItem>
+                    <Button onClick={() => this.articleCommentClick()}>{"Found in comment: \"" + this.props.result.content + "\""}</Button>
+                    </ListGroupItem>
+                </div>
+             );
+        }
+        else if(this.props.result.hasOwnProperty(prop2)){
+            return ( 
+                <div>
+                This one is an equipment comment.
+                </div>
+             );
+        }
     }
+    articleCommentClick = () => {
+        this.props.history.push("/articles/" + this.props.result.article);
+      };
 
     
 }
