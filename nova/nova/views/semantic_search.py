@@ -6,14 +6,14 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 
 from nova.models import Article, ArticleComment, Annotation, Event
-from nova.serializers import ArticleSerializer, CommentSerializer, AnnotationSerializer, EventSerializer
+from nova.serializers import ArticleSerializer, ArticleCommentSerializer, AnnotationSerializer, EventSerializer
 from nova.settings import SEMANTIC_SEARCH_URL
 
 similar_count = 10
 
 models_serializers = [
     ('article', Article, ArticleSerializer),
-    ('comment', ArticleComment, CommentSerializer),
+    ('comment', ArticleComment, ArticleCommentSerializer),
     ('annotation', Annotation, AnnotationSerializer),
     ('event', Event, EventSerializer)
 ]
