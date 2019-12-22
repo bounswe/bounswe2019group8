@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
-import { Jumbotron, Button, Modal, ModalFooter, Card } from "react-bootstrap";
+import { Jumbotron, Button, Modal, ModalFooter, Card, ModalBody } from "react-bootstrap";
 import axios from "axios";
 import ArticleMakeComment from "./article_make_comment";
 import ArticleCommentHolder from "./articleCommentHolder";
@@ -12,11 +12,11 @@ import ArticleLike from "./articleLike";
 import ArticleDislike from "./articleDislike";
 import { FaHeart } from "react-icons/fa";
 import { MdBookmarkBorder, MdDeleteForever, MdClose } from "react-icons/md";
-import AnnotationModal from './annotation_modal'
 import $ from 'jquery';
 import 'bootstrap';
 import { TextAnnotator } from "react-text-annotate";
 import AnnotatedArticle from "./annotated_article";
+import ModalHeader from "react-bootstrap/ModalHeader";
 
 
 
@@ -41,7 +41,14 @@ class WholeArticlePage extends Component {
       annotationInfo: [],
       shownAnnotation: null,
       showSpecificAnnotation: false,
-      annotationOwnerName: ""
+      annotationOwnerName: "",
+      specificAnnotationContent: '',
+      specificAnnotationOwnerPk: 0,
+      specificAnnotationX: 0,
+      specificAnnotationY: 0,
+      specificAnnotationPk: 0,
+      specificAnnotationQuote: '',
+      showErrorMessage: false
     };
     this.articleRef = React.createRef()
     this.handleShow = this.handleShow.bind(this)
@@ -55,6 +62,7 @@ class WholeArticlePage extends Component {
     this.isEditor = this.isEditor.bind(this)
     this.handleAnnotationModal = this.handleAnnotationModal.bind(this)
     this.getAnnotationOwner = this.getAnnotationOwner.bind(this)
+    this.handleError = this.handleError.bind(this)
   }
 
   getTextSelection(editor) {
@@ -144,6 +152,13 @@ class WholeArticlePage extends Component {
     })
   }
 
+  handleError() {
+    let status = this.state.showErrorMessage
+    this.setState({
+      showErrorMessage: !status
+    })
+  }
+
   handleSave(event) {
     event.preventDefault();
     var token = localStorage.getItem("userToken");
@@ -174,40 +189,62 @@ class WholeArticlePage extends Component {
     var token = localStorage.getItem("userToken");
     return axios.get("http://8.209.81.242:8000/users/" + ownerPk, {
       headers: { Authorization: `Token ${token}` }
+    }).then((res) => {
+      this.setState({
+        annotationOwnerName: res.data.first_name + ' ' + res.data.last_name
+      })
     })
+
   }
 
 
   deleteAnnotation(annotPk) {
-    this.setState({ showSpecificAnnotation: false, })    
+    this.setState({ showSpecificAnnotation: false, })
 
     var token = localStorage.getItem("userToken");
     axios.delete("http://8.209.81.242:8000/articles/" + this.state.articlePk + '/annotations/' + annotPk, {
       headers: { Authorization: `Token ${token}` }
-      }
-    ).then((res) => this.refreshPage())
+    }
+    ).then((res) =>
+      this.refreshPage()).catch(error => {
+        if(error.response.status == 403) {
+          this.setState({
+            showErrorMessage:true
+          })
+        }
+      })
     return;
   }
 
   handleAnnotationModal(event, ownerPk, content, quote, annotPk) {
-    let fullName = ""
-    this.getAnnotationOwner(ownerPk).then((response) => {
-      this.setState({
-        annotationOwnerName: response.data.first_name + ' ' + response.data.last_name
-      })
+
+    this.getAnnotationOwner(ownerPk)
+    if (this.state.annotationOwnerName == null) return;
+
+    this.setState({
+      specificAnnotationContent: content,
+      specificAnnotationOwnerPk: ownerPk,
+      specificAnnotationX: event.pageX,
+      specificAnnotationY: event.pageY,
+      specificAnnotationPk: annotPk,
+      specificAnnotationQuote: quote,
+      showSpecificAnnotation: true
     })
-    if (this.state.annotationOwnerName.length == 0) return;
-    let mouseX = event.pageX, mouseY = event.pageY
+
+  }
+
+  render() {
     const annotBoxStyle = {
-      backgroundColor: 'whitesmoke', left: mouseX, top: mouseY, position: 'absolute'
+      backgroundColor: 'whitesmoke', left: this.state.specificAnnotationX, top: this.state.specificAnnotationY, position: 'absolute'
     }
-    let shownAnnot =
-      <div style={annotBoxStyle}>{quote} + {content}</div>
+    let errorMsg = <Modal onHide={this.handleError} show={this.state.showErrorMessage}>
+      <ModalHeader closeButton>You can not delete other users annotations.</ModalHeader>
+    </Modal>
     let annotCard =
       <Card style={annotBoxStyle}>
         <Card.Header>
           <MdDeleteForever className='annotationScreenButton'
-            onClick={() => this.deleteAnnotation(annotPk)}
+            onClick={() => this.deleteAnnotation(this.state.specificAnnotationPk)}
             style={{ float: 'left' }}></MdDeleteForever>
           <MdClose className='annotationScreenButton'
             onClick={() => this.setState({ showSpecificAnnotation: false })}
@@ -217,25 +254,21 @@ class WholeArticlePage extends Component {
           <blockquote className="blockquote mb-0">
             <p style={{ padding: 3, fontStyle: 'italic', letterSpacing: 1.4 }}>
               {' '}
-              {content}{' '}
+              {this.state.specificAnnotationContent}{' '}
             </p>
             <footer className="blockquote-footer">
               Annotation by <a
-                href={"/profile/" + ownerPk} title="Source Title"> {this.state.annotationOwnerName} </a>
+                href={"/profile/" + this.state.specificAnnotationOwnerPk} title="Source Title"> {this.state.annotationOwnerName} </a>
             </footer>
           </blockquote>
         </Card.Body>
       </Card>
-    this.setState({
-      shownAnnotation: annotCard,
-      showSpecificAnnotation: true
-    })
-  }
 
-  render() {
     let ann = '"' + this.state.annot + '"'
+
     let annotated_article = <AnnotatedArticle annotationList={this.state.annotationInfo}
       articleContent={this.state.articleContent} handleAnnotationModal={this.handleAnnotationModal}></AnnotatedArticle>
+
     let modal =
       <Modal className='modal' centered show={this.state.showModal} onHide={this.handleShow} animation={true}>
         <Modal.Header closeButton>
@@ -275,7 +308,7 @@ class WholeArticlePage extends Component {
     const popover = (this.state.annot.length > 0) ?
       annotationButton : <div></div>
 
-    const shownAnnotation = (this.state.showSpecificAnnotation) ? this.state.shownAnnotation : null
+    const shownAnnotation = (this.state.showSpecificAnnotation) ? annotCard : null
 
     return (
       <div className='main' style={{ width: '70%', margin: 'auto', paddingLeft: 100, paddingRight: 100, paddingTop: 30 }}>
@@ -286,7 +319,7 @@ class WholeArticlePage extends Component {
               {modal}
               {this.state.showModal}
               {shownAnnotation}
-
+              {this.state.showErrorMessage ? errorMsg : null}
               <Button
                 id='writtenBy'
                 href={"/profile/" + this.state.authorId}
@@ -380,6 +413,7 @@ class WholeArticlePage extends Component {
     }).then(res => {
       this.setState({ annotationInfo: res.data });
     })
+
   }
   refreshPage = () => {
     window.location.reload();

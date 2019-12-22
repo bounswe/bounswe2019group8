@@ -10,7 +10,7 @@ class AnnotatedArticle extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            sortedAnnotations: []
+            sortedAnnotations: [],
         }
         this.initData = this.initData.bind(this)
     }
@@ -18,7 +18,7 @@ class AnnotatedArticle extends React.Component {
     initData() {
         const myArray = [].concat(this.props.annotationList)
         myArray.sort(function (a, b) { return parseInt(a.from_position) - parseInt(b.from_position) })
-        return myArray
+        return <div>{this.controller(myArray)}</div>
 
     }
 
@@ -27,7 +27,6 @@ class AnnotatedArticle extends React.Component {
         const colors = ['#F2FFEA', '#ECF4FF', '#FFF9EA', '#F5EEFD']
         let fullName = ""
 
-
         const rand = Math.floor(Math.random() * 4 + 0)
         // send color, user, note, text to another component
         let substr = text.substring(from, to)
@@ -35,7 +34,7 @@ class AnnotatedArticle extends React.Component {
             <em className='styledTextPart'><a
                 onClick={(e) => this.props.handleAnnotationModal(e, annotation.owner, annotation.content, substr, annotation.pk)}
                 style={{ backgroundColor: colors[rand], fontSize: 18 }}
-                >
+            >
                 {substr}
             </a></em>
 
@@ -53,6 +52,7 @@ class AnnotatedArticle extends React.Component {
         let rangeTo = sortedArr[0].from_position
         let firstPart = text.substring(rangeFrom, rangeTo)
         let result = []
+
         result.push(firstPart)
         for (var i = 0; i < arrLength - 1; i++) {
             result.push(this.styledText(text, sortedArr[i].from_position, sortedArr[i].to_position, sortedArr[i]))
@@ -66,12 +66,13 @@ class AnnotatedArticle extends React.Component {
     }
 
     render() {
-        let sortedArr = this.initData()
-        let processed = this.controller(sortedArr)
-        return <div>{processed}</div>
+        
+        //let processed = this.controller(sortedArr)
+        return this.initData()
+       // return <div>{processed}</div>
     }
 
-    componentDidMount() {
+    componentDidUpdate() {
     }
     //let text = document.getElementById('articleText1').textContent.trim()
     //document.getElementById('articleText1').innerHTML = text.substring(0, start) +
