@@ -4,19 +4,26 @@ import axios from "axios";
 import {ListGroup, ListGroupItem, Badge} from "react-bootstrap";
 import FollowPortfolioButton from "./followPortfolioButton";
 class OthersSinglePortfolioPage extends Component {
-    state = { 
+    state = {
         trEqs: [],
         name: "",
         yesNo: true
      }
-    render() { 
+
+      getName(sym) {
+        const tradingEquipments = JSON.parse(localStorage.getItem("equipmentList"));
+
+        return tradingEquipments.find(trEq => (trEq.sym === sym)).name;
+      }
+
+    render() {
         var groupItems = [];
         for(var i = 0; i < this.state.trEqs.length; i++){
         groupItems.push(<ListGroupItem className="single-own-portfolio-list-group-items">
-            <Badge className="single-own-portfolio-inlist-badge"> {this.state.trEqs[i].sym}</Badge>
+            <Badge className="single-own-portfolio-inlist-badge"> {this.getName(this.state.trEqs[i].sym)} ({this.state.trEqs[i].sym})</Badge>
         </ListGroupItem>)
         }
-        return ( 
+        return (
             <div className="single-portfolio-outer-div">
                 <Badge>
                 <h1 className="single-own-portfolio-header">{this.state.name}</h1>
@@ -43,5 +50,5 @@ class OthersSinglePortfolioPage extends Component {
           );
       }
 }
- 
+
 export default OthersSinglePortfolioPage;

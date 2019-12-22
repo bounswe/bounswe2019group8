@@ -7,25 +7,33 @@ import RemoveTrEqButton from "./removeTrEqButton";
 import {withRouter} from "react-router-dom";
 
 class SingleOwnPortfolioPage extends Component {
-    state = { 
+    state = {
         trEqs: [],
         name: "",
         yesNo: true
      }
-    render() { 
+
+    getName(sym) {
+      const tradingEquipments = JSON.parse(localStorage.getItem("equipmentList"));
+
+      return tradingEquipments.find(trEq => (trEq.sym === sym)).name;
+    }
+
+    render() {
+      console.log(localStorage);
         var groupItems = [];
         for(var i = 0; i < this.state.trEqs.length; i++){
         groupItems.push(<ListGroupItem className="single-own-portfolio-list-group-items">
-            <Badge className="single-own-portfolio-inlist-badge"> {this.state.trEqs[i].sym}</Badge>
+            <Badge className="single-own-portfolio-inlist-badge"> {this.getName(this.state.trEqs[i].sym)} ({this.state.trEqs[i].sym})</Badge>
         <RemoveTrEqButton pk={this.props.match.params.pk} trEqs={this.state.trEqs} sym={this.state.trEqs[i].sym}></RemoveTrEqButton>
         </ListGroupItem>)
         }
-        return ( 
+        return (
             <div className="single-portfolio-outer-div">
                 <Badge>
                 <h1 className="single-own-portfolio-header">{this.state.name}</h1>
                 </Badge>
-                
+
                 <AddTreqModal onAddTreqModal={() => this.justToReRender()} pk={this.props.match.params.pk} name={this.state.name} prevEqs={this.state.trEqs}></AddTreqModal>
                 <Button action href ={"/profile/" + localStorage.getItem("userId") +"/portfolio"} onClick={() => this.handleDelete()} className="single-own-portfolio-delete-btn" variant="danger">Delete portfolio</Button>
                 <Badge className="single-own-portfolio-treqs-badge">Equipment:</Badge>
@@ -65,12 +73,12 @@ class SingleOwnPortfolioPage extends Component {
                 this.setState({name: res.data.name})
                 this.setState({trEqs: trEqs});
           }
-    
+
           );
-        
-    
+
+
       }
-      
+
 }
- 
+
 export default withRouter(SingleOwnPortfolioPage);
