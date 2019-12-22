@@ -1,7 +1,23 @@
-.comment-card {
-  width:80%;
-}
 
+.comment-card {
+  border: none;
+  background-color: #acb7ae;
+  letter-spacing:1.2px;
+}
+.comment-card:before, .comment-card:after {
+  content: '';
+  height: 0;
+  width: 0;
+  position: absolute;
+  display: block;
+  border-width: 10px 12px 10px 0;
+  border-style: solid;
+
+  border-color: transparent #acb7ae;
+  border-radius:30px;
+  top: 50%;
+  left: -11px;
+}
 #commentBy {
   color:purple;
   font-weight: bold;
