@@ -1,8 +1,5 @@
 import React from 'react'
-import ReactFragment from 'react'
-import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 import "./wholeArticlePage.css";
-import axios from "axios";
 
 
 
