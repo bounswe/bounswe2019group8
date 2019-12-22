@@ -21,17 +21,11 @@ class ArticleHolder extends Component {
 
     return (
       <React.Fragment>
-        <Tabs defaultActiveKey="articles" style={{fontWeight:'lighter',
-          justifyContent: 'center',
-          backgroundColor:'whitesmoke' }}>
-          <Tab eventKey="articles" title={<div><TiThMenuOutline></TiThMenuOutline> Articles List</div>}>
+
             <div className="container" style={{marginTop:8}}>
               <div className="article-card-container">{this.state.finalList}</div>
             </div>
-          </Tab>
-
-        </Tabs>
-
+      
       </React.Fragment>
     );
   }

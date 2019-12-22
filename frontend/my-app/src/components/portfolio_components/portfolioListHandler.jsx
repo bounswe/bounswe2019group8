@@ -7,9 +7,9 @@ class PortfolioHandler extends Component {
         super(props);
     }
     state = {  }
-    render() { 
+    render() {
         var myList = [];
-        return ( 
+        return (
             <div>
                 <ListGroup>
                     <ListGroupItem onClick={() => this.listItemClick()} className="own-portfolio-list-group-items">
@@ -27,5 +27,5 @@ class PortfolioHandler extends Component {
         this.props.history.push("/profile/" + localStorage.getItem("userId") +"/portfolio/" + this.props.pk);
       };
 }
- 
+
 export default withRouter(PortfolioHandler);

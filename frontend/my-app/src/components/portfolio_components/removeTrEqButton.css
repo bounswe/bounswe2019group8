@@ -1,13 +1,11 @@
 .trEq-remove-btn{
-    width: 10vw;
-    margin-left: 23vw;
+    
     font-size: 1vw;
 }
 .trEq-remove-btn:hover{
-    
+
 }
 .trEq-remove-btn-div{
     display: flex;
     flex-direction: row;
-    width: 100vw;
 }

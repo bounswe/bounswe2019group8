@@ -70,7 +70,7 @@ class OwnProfileArea extends React.Component {
       this.setState({
         isLoading:false,
       })
-      
+
   }
 
 
@@ -79,7 +79,7 @@ class OwnProfileArea extends React.Component {
     this.props.api
       .get(`users/${this.props.credentials.id}`, {
         headers: { Authorization: `Token ${this.props.credentials.userToken}` }
-        
+
       })
       .then(response => {
         console.log(response);
@@ -91,7 +91,7 @@ class OwnProfileArea extends React.Component {
   }
 
   handleImageMenu() {
-    let imageUploadState = this.state.imageUploadMenu                                                                                                                                               
+    let imageUploadState = this.state.imageUploadMenu
     this.setState({
       imageUploadMenu: !imageUploadState
     })
@@ -110,7 +110,7 @@ class OwnProfileArea extends React.Component {
       headers: {
         'Authorization': `Token ${this.state.credentials.userToken}`,
         'Content-Type': 'multipart/form-data'
-    }}) 
+    }})
     this.componentDidMount();
   }
 
@@ -126,7 +126,10 @@ class OwnProfileArea extends React.Component {
     const myCredentials = {
       margin: 10
     };
-    let finalUrl = 'http://mercatus.xyz:8000' + this.state.credentials.profileImageUrl
+
+    let finalUrl = this.state.credentials.profileImageUrl ? ('http://mercatus.xyz:8000' + this.state.credentials.profileImageUrl)
+    : require("../images/default_profile_picture.png");
+
     let imageComp =
     (this.state.isLoading) ? <div style={{margin:'auto', fontSize:26}}>Uploading...</div> : <Card.Img variant="top" src={finalUrl} />
 
@@ -149,7 +152,7 @@ class OwnProfileArea extends React.Component {
             </div>
             <button type='submit' style={{ float:'right' }} className='imageButton'>
               <MdFileUpload ></MdFileUpload>
-              UPLOAD 
+              UPLOAD
             </button>
           </form>
         </div>
