@@ -30,6 +30,7 @@
   color: black;
   display: flex;
 }
+
 .list-group-item.my-follow:hover{
   background-color: rgb(204, 170, 170);
 }
@@ -41,7 +42,7 @@
 }
 
 .icon:hover {
-  color: black;
+  color: #dc3545;
 }
 
 input[type="file"] {
@@ -81,4 +82,8 @@ input[type="file"] {
   cursor: pointer;
   color: #fff;
   text-transform: uppercase;
+}
+
+.profileAreaButton {
+  margin-bottom: 10px;
 }
