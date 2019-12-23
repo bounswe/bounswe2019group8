@@ -31,6 +31,7 @@ class HomeFragment : Fragment() {
     private lateinit var rv2: RecyclerView
 
     override fun onCreateView(
+
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?

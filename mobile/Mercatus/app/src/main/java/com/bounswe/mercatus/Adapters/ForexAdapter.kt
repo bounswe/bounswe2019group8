@@ -2,6 +2,7 @@ package com.bounswe.mercatus.Adapters
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -104,8 +105,8 @@ class ForexAdapter(val context : Context, val forexList: ArrayList<ForexShowBody
                     }
                 }
                 else  {
-                    Toast.makeText(context, "Show forex failed.", Toast.LENGTH_SHORT)
-                        .show()
+      //              Toast.makeText(context, "Show forex failed..", Toast.LENGTH_SHORT)
+      //                  .show()
                 }
             }
         })
@@ -145,8 +146,9 @@ class ForexAdapter(val context : Context, val forexList: ArrayList<ForexShowBody
                     }
                 }
                 else  {
-                    Toast.makeText(context, "Show forex failed.", Toast.LENGTH_SHORT)
-                        .show()
+          //          Toast.makeText(context, "Show forex failed.", Toast.LENGTH_SHORT)
+          //              .show()
+                    Log.d("Forex adapter:", "show forex error")
                 }
             }
         })

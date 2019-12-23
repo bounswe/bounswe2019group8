@@ -3,6 +3,7 @@ package com.bounswe.mercatus.Fragments
 import android.app.SearchManager
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -94,11 +95,18 @@ class SearchForexActivity : AppCompatActivity() {
                         override fun onResponse(call: Call<List<ForexDataModel>>, response: Response<List<ForexDataModel>>) {
                             if (response.code() == 200) {
 
+                                Log.d("SearchForexActivity",""+response)
+                                Log.d("SearchForexActivity1",""+response.body())
+                                Log.d("SearchForexActivity2",""+query)
+                                Log.d("SearchForexActivity3",""+forexItems.size)
 
                                 val res: List<ForexDataModel>? = response.body()
 
                                 for(i in res.orEmpty()){
+                                    Log.d("SearchForexActivity4",""+i.name)
                                     if (i.name.contains(query, true)) {
+
+                                        Log.d("SearchForexActivity5",""+i.name)
                                         forexItems.add(ForexShowBody(i.name, i.sym, i.pk))
                                     }
                                 }

@@ -74,7 +74,7 @@ class ModifyPasswordActivity : AppCompatActivity() {
                 if (response.code() == 200) {
                     Toast.makeText(this@ModifyPasswordActivity, "Password changed successfully!", Toast.LENGTH_SHORT)
                         .show()
-                    onBackPressed()
+           //         onBackPressed()
                 }
                 else  {
                     Toast.makeText(this@ModifyPasswordActivity, "Password can't change.", Toast.LENGTH_SHORT)

@@ -24,6 +24,12 @@
         tools:layout="@layout/fragment_events" />
 
     <fragment
+        android:id="@+id/nav_portfolios"
+        android:name="com.bounswe.mercatus.ui.PortfolioFragment"
+        android:label="@string/menu_portfolios"
+        tools:layout="@layout/fragment_portfolios" />
+
+    <fragment
         android:id="@+id/nav_forex"
         android:name="com.bounswe.mercatus.ui.ForexFragment"
         android:label="@string/forex"
