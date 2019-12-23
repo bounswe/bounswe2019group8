@@ -38,7 +38,8 @@ class NewParitiesPage extends Component {
   lastClicked:null,
   assets:null,
   buyAmount:0,
-  refresh:true
+  refresh:true,
+  rateType:"daily"
    };
   componentDidMount(){
     var count1 =0
@@ -104,6 +105,13 @@ class NewParitiesPage extends Component {
             aria-controls="basic-navbar-nav"
           />
           <Navbar.Collapse id="basic-navbar-nav">
+          <NavDropdown
+              title="Rate" 
+              id="basic-nav-dropdown"
+            >
+          <NavDropdown.Item onClick={() => this.setRateType("daily")}>Daily</NavDropdown.Item>
+          <NavDropdown.Item onClick={() => this.setRateType("intradaily")}>IntraDaily</NavDropdown.Item>
+            </NavDropdown>
           <NavDropdown
               title="Main Parity Type" 
               id="basic-nav-dropdown"
@@ -238,7 +246,7 @@ class NewParitiesPage extends Component {
       }
       </div>
       { this.state.parityGet
-        ? <GraphPage doubleTap={this.handleSearchClick} firstType={this.state.firstSym.split("_")[0]} secondType={this.state.secondSym.split("_")[0]} pk = {this.state.parityPk}/>
+        ? <GraphPage rateType={this.state.rateType} doubleTap={this.handleSearchClick} firstType={this.state.firstSym} secondType={this.state.secondSym} pk = {this.state.parityPk}/>
         : <div/>
       }
         </React.Fragment>
@@ -268,9 +276,9 @@ class NewParitiesPage extends Component {
   this.setState({secondParity:newParity})
   }
   handleSearchClick = (e) =>{
-    console.log("basildim")
+
             this.setState({parityGet:false})
-            window.setTimeout(this.handeSearchFollow, 30)                    
+            window.setTimeout(this.handeSearchFollow, 100)                    
     }
   handeSearchFollow = () =>{
     this.setState({parityGet:!this.state.parityGet}) 
@@ -318,6 +326,11 @@ class NewParitiesPage extends Component {
     if(count2===0){
       this.setState({currentBuyingAmount:"0"})
     }   
+  }
+  setRateType = (rateType) =>{
+    this.setState({rateType:rateType})
+    this.handleSearchClick()
+
   }
   handleCheckoutClick =()=>{
     axios.post("http://8.209.81.242:8000/users/" + localStorage.getItem("userId")+"/assets", 

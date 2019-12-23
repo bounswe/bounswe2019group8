@@ -14,11 +14,12 @@ class GraphPage extends Component {
         state={
             pk:this.props.pk,
             currentValue: 0,
-            parityName: this.props.firstType+"_"+this.props.secondType,
+            secondaryData:[],
+            parityName: this.props.firstType.split("_")[0]+"_"+this.props.secondType.split("_")[0],
             labels: [],
             data: [],
             boo:"",
-            dorInt : "daily" 
+            dorInt : this.props.rateType 
           }
 
     render() { 
@@ -42,14 +43,24 @@ class GraphPage extends Component {
            
          );
         }
-    componentWillMount(){
-        if(this.state.dorInt === "daily"){
+        
+        initial = () =>{
           var token = localStorage.getItem("userToken");
-            axios.get("http://8.209.81.242:8000/trading_equipments/" + this.state.parityName + "/prices/daily", {
+            
+            
+        }
+        componentDidMount(){ 
+        if(this.state.dorInt === "daily"){
+            var token = localStorage.getItem("userToken");
+            
+            axios.get("http://8.209.81.242:8000/trading_equipments/" + this.props.secondType + "/prices/daily", {
+              headers: { Authorization: `Token ${token}` }
+            }).then(res => {
+              this.setState({secondaryData:res.data.reverse()})
+              axios.get("http://8.209.81.242:8000/trading_equipments/" + this.props.firstType + "/prices/daily", {
               headers: { Authorization: `Token ${token}` }
             }).then(res => {
               var parityData = res.data.reverse();
-              
               this.setState({parityData: parityData});
               var labels = [];
               var data = [];
@@ -66,43 +77,83 @@ class GraphPage extends Component {
                   parityData[i].observe_date[8] + 
                   parityData[i].observe_date[9];
                 labels.push(myLabel);
-                data.push(parityData[i].indicative_value);
+                if(this.props.secondType === "USD_USD"){
+                  data.push(parityData[i].indicative_value);
+                }
+                else{
+                  if(typeof this.state.secondaryData[i]!== "undefined"){
+                    data.push(parityData[i].indicative_value/ this.state.secondaryData[i].indicative_value)
+                  }
+                  else{
+                    labels.pop()
+                  }
+                  }
+                
               }
-              this.setState({labels: labels});
-              this.setState({data: data});
+              this.setState({labels: labels, data: data, currentValue:data[data.length-1]});
+            
             });
+            });
+
+            
         }
         if(this.state.dorInt === "intradaily"){
           var token = localStorage.getItem("userToken");
-          axios.get("http://8.209.81.242:8000/trading_equipments/" + this.state.parityName + "/prices/intradaily", {
+          axios.get("http://8.209.81.242:8000/trading_equipments/" + this.props.secondType + "/prices/intradaily", {
             headers: { Authorization: `Token ${token}` }
           }).then(res => {
-            var parityData = res.data.reverse();
-            
-            this.setState({parityData: parityData});
-            var labels = [];
-            var data = [];
-            var myLabel = "";
-            for(var i = 0; i < parityData.length; i++){
-                myLabel = parityData[i].observe_date[0] + 
-                parityData[i].observe_date[1] + 
-                parityData[i].observe_date[2] + 
-                parityData[i].observe_date[3] + 
-                parityData[i].observe_date[4] + 
-                parityData[i].observe_date[5] +
-                parityData[i].observe_date[6] +
-                parityData[i].observe_date[7] +
-                parityData[i].observe_date[8] + 
-                parityData[i].observe_date[9];
-              labels.push(myLabel);
-              data.push(parityData[i].indicative_value);
-            }
-            this.setState({labels: labels});
-            this.setState({data: data});
+            this.setState({secondaryData:res.data})
+            axios.get("http://8.209.81.242:8000/trading_equipments/" + this.props.firstType + "/prices/intradaily", {
+              headers: { Authorization: `Token ${token}` }
+            }).then(res => {
+              var parityData = res.data;
+           
+              this.setState({parityData: parityData});
+              var labels = [];
+              var data = [];
+              var myLabel = "";
+              for(var i = 0; i < parityData.length; i++){
+                  myLabel = parityData[i].observe_time[0] + 
+                  parityData[i].observe_time[1] + 
+                  parityData[i].observe_time[2] + 
+                  parityData[i].observe_time[3] + 
+                  parityData[i].observe_time[4] + 
+                  parityData[i].observe_time[5] +
+                  parityData[i].observe_time[6] +
+                  parityData[i].observe_time[7]
+                labels.push(myLabel);
+                if(this.props.secondType === "USD_USD"){
+                  data.push(parityData[i].indicative_value);
+                }
+                else{
+                  if(typeof this.state.secondaryData[i]!== "undefined"){
+                    data.push(parityData[i].indicative_value/ this.state.secondaryData[i].indicative_value)
+                  }
+                  else{
+                    labels.pop()
+                  }
+                  }
+              }
+              for(var i =0; i<labels.length;i++){
+                for (var j=0; j<labels.length-1;j++){
+                  if (labels[j] > labels[j+1]){
+                    var x = data[j];
+                    var y = labels[j]
+                    parityData[j] = parityData[j+1];
+                    parityData[j+1] = x;
+                    labels[j] = labels[j+1];
+                    labels[j+1] = y;
+                  }
+                }
+              }
+              this.setState({labels: labels, data: data, currentValue:data[data.length-1]});
+           
+            });
           });
+         
         }        
             
-           
+     
             
     }
     refreshPage = () =>{
