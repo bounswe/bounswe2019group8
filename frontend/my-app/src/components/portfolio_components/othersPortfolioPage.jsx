@@ -24,7 +24,7 @@ class OthersPortfolioPage extends Component {
             followingPortfolioList.push(<FollowingPortfolioListHandler ownerId={this.state.followingPortfolioList[i].owner} pk={this.state.followingPortfolioList[i].pk} name={this.state.followingPortfolioList[i].name}></FollowingPortfolioListHandler>)
         }
         return (
-            <div className="portfolio-outer-div">
+            <div style={{width:'70%', margin:'auto', marginTop:20}}className="portfolio-outer-div">
                 <Tabs defaultActiveKey="your-portfolios" style={{fontWeight:'lighter',  justifyContent: 'center', backgroundColor:'whitesmoke' , borderRadius:"3px"}}>
                     <Tab eventKey="your-portfolios" title={<div><FaFolderOpen></FaFolderOpen>Portfolios</div>}>
                         <div className="your-portfolios-div">

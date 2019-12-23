@@ -1,19 +1,18 @@
 .portfolio-outer-div{
-    margin-top: 0.5vh;
+    margin-top: 24px;
     height: 90vh;
     width: 90vw;
     margin-left: 5vw;
     margin-right: 5vw;
     border-radius: 3px;
-    background-color: white;
 }
 
 .your-portfolios-div{
-    width: 60vw;
+    width: 70%;
+    margin:auto;
     border-radius: 3px;
     height: 70vh;
-    margin-left: 15vw;
-    margin-right: 15vw;
+
     margin-top: 0.5vh;
     background-color: rgb(213, 222, 230);
 }

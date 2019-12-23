@@ -1,9 +1,13 @@
 .trEq-remove-btn{
-    
-    font-size: 1vw;
+    float:right;
+    background: none;
+    border:none;
+    color:#000000;
+    font-size: 20px;
+    letter-spacing: 3px;
 }
 .trEq-remove-btn:hover{
-
+    background-color: rgb(204, 93, 93);
 }
 .trEq-remove-btn-div{
     display: flex;

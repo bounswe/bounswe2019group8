@@ -1,11 +1,10 @@
 .single-portfolio-outer-div{
-    margin-top: 0.5vh;
-    height: 100vh;
+    margin-top: 20px;
     width: 60vw;
     margin-left: 20vw;
     margin-right: 20vw;
     border-radius: 3px;
-    background-color: white;
+    background-color: #343a40;
 }
 
 .single-your-portfolios-div{
@@ -18,6 +17,7 @@
     background-color: rgb(213, 222, 230);
 }
 .single-own-portfolio-list-group-items{
+    letter-spacing: 1.5px;
     background-color: #fff;
     width: 40vw;
     margin-left: 10vw;
@@ -25,6 +25,8 @@
     display: flex;
     flex-direction: row;
     margin-top: 1vh;
+    padding:30px;
+
 }
 .single-own-portfolio-list-group-items:hover{
     background-color: rgb(229, 233, 216);
@@ -36,13 +38,11 @@
     margin-left:10vw;
 }
 .single-own-portfolio-treqs-badge{
-    font-size: 1.5vw;
-    background-color: #494949;
+    font-size: 20px;
+    letter-spacing: 1.5px;
     width: 10vw;
     color: white;
-    margin-right: 15vw;
     margin-bottom: 0.5vh;
-    margin-left: 10vw;
 }
 .single-portfolio-remove-btn{
     width: 10vw;

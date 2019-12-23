@@ -13,7 +13,6 @@ export default function AddTreqModal({...props}) {
     const handleShow = () => setShow(true);
     let [eq, setEq] = useState("");
     const handleSet = (x) => {
-        console.log("x:" + x);
         setEq(x);
     }
     const handleReRender = () => {
@@ -53,24 +52,27 @@ export default function AddTreqModal({...props}) {
     eqNames.push(<DropDownHandler eq={eqList[i]} onDropDownHandler={handleSet} ></DropDownHandler>);
     }
     return (
-      <div>
-        <Button variant="primary" className="add-new-treq-btn" onClick={handleShow}>
-          Add a new trading equipment to this portfolio!
+      <div >
+        <Button style={{fontWeight:'lighter', letterSpacing:3}} variant="primary" className="add-new-treq-btn" onClick={handleShow}>
+          NEW EQUIPMENT
         </Button>
   
-        <Modal show={show} onHide={handleClose}>
+        <Modal  show={show} onHide={handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Add a new trading equipment</Modal.Title>
+            <Modal.Title style={{fontSize:20}}>Add a new trading equipment</Modal.Title>
           </Modal.Header>
           <Modal.Body>
           <Dropdown >
-                <Dropdown.Toggle className="drop-dpwn-toggle-btn" variant="success" id="dropdown-basic">
+                <Dropdown.Toggle style={{marginBottom:30}} variant="success" id="dropdown-basic">
                     Equipments
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu className="dropdown-menu-for-modal">
                    {eqNames}
                 </Dropdown.Menu>
+                <div style={{textAlign:'center', fontSize:32}}>
+                  {eq}
+                </div>
            </Dropdown>
              </Modal.Body>
           <Modal.Footer>

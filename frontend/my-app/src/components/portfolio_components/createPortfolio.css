@@ -1,9 +1,8 @@
 .create-portfolio-div{
-    width: 40vw;
+    margin:auto;
+    width: 70%;
     border-radius: 3px;
     height: 70vh;
-    margin-left: 25vw;
-    margin-right: 25vw;
     margin-top: 0.5vh;
     padding-left: 1vw;
     padding-right: 1vw;
