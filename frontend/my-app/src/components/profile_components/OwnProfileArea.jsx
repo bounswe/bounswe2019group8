@@ -20,6 +20,7 @@ class OwnProfileArea extends React.Component {
     this.state = {
       recommendedArticles: [],
       assets: [],
+      usersList: [],
       recommendedPortfolios: [],
       isLoading: false,
       picture: null,
@@ -48,6 +49,18 @@ class OwnProfileArea extends React.Component {
     this.setState({
       isLoading: true
     })
+
+    if ((this.state.usersList.length) === 0) {
+      var token = localStorage.getItem("userToken");
+      axios.get("http://8.209.81.242:8000/users", {
+        headers: { Authorization: `Token ${token}` }
+      }).then((res) => {
+        console.log("done");
+        this.setState({usersList: res.data});
+      })
+
+    }
+
     var url =
       "http://8.209.81.242:8000/users/" + localStorage.getItem("userId");
     var credentials1 = { ...this.state.credentials };
@@ -142,14 +155,16 @@ class OwnProfileArea extends React.Component {
     this.componentDidMount();
   }
 
-  getArticleOwner(ownerPk) {
-    var token = localStorage.getItem("userToken");
-    return axios.get("http://8.209.81.242:8000/users/" + ownerPk, {
-      headers: { Authorization: `Token ${token}` }
-    }).then((res) => {
-      return res.data.first_name + ' ' + res.data.last_name
-    })
 
+
+  getUserName(pk) {
+    //console.log("getArticleOwner", this.state);
+    const user = this.state.usersList.find(u => u.pk === pk);
+    if (user)
+      return `${user.first_name} ${user.last_name}`;
+    else {
+      return "";
+    }
   }
 
   handleCashIn() {
@@ -275,7 +290,7 @@ class OwnProfileArea extends React.Component {
 
                   </Card.Title>
 
-                  <Card.Subtitle style={{ fontSize: 14 }} className="mb-2 ">by {el.author}</Card.Subtitle>
+                  <Card.Subtitle style={{ fontSize: 14 }} className="mb-2 ">by {this.getUserName(el.author)}</Card.Subtitle>
                   <Card.Body style={{
                     marginBottom: 14,
                     marginTop: 24
@@ -327,7 +342,7 @@ class OwnProfileArea extends React.Component {
 
                   </Card.Title>
 
-                  <Card.Subtitle style={{ fontSize: 14 }} className="mb-2 "> {el.owner}</Card.Subtitle>
+                  <Card.Subtitle style={{ fontSize: 14 }} className="mb-2 ">by {this.getUserName(el.owner)}</Card.Subtitle>
                   <Card.Body style={{
                     marginBottom: 14,
                     marginTop: 24
