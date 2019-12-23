@@ -3,14 +3,17 @@ import {Button} from "react-bootstrap";
 import "./removeTrEqButton.css";
 import axios from "axios";
 
+import {MdDelete} from 'react-icons/md'
+
 class RemoveTrEqButton extends Component {
     state = { 
         hello: true
      }
     render() { 
         return ( 
-            <div className="trEq-remove-btn-div">
-                <Button action href ={"/profile/" + localStorage.getItem("userId") +"/portfolio/" + this.props.pk} onClick={() => this.handleRemove()} className="trEq-remove-btn">Remove</Button>
+            <div style={{float:'right'}}>
+                <Button action href ={"/profile/" + localStorage.getItem("userId") +"/portfolio/" + this.props.pk} 
+                onClick={() => this.handleRemove()} className="trEq-remove-btn"><MdDelete></MdDelete></Button>
             </div>
          );
     }

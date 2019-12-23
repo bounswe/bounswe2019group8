@@ -28,9 +28,10 @@ class OwnPortfolioPage extends Component {
         }
         return ( 
             <div className="portfolio-outer-div">
-                <Tabs defaultActiveKey="your-portfolios" style={{fontWeight:'lighter',  justifyContent: 'center', backgroundColor:'whitesmoke' , borderRadius:"3px"}}>
+                <Tabs defaultActiveKey="your-portfolios" style={{marginBottom:10, marginTop:10, margin:'auto', width:'70%',
+                    fontWeight:'lighter',  justifyContent: 'center', backgroundColor:'whitesmoke' , borderRadius:"3px"}}>
                     <Tab eventKey="your-portfolios" title={<div><FaFolderOpen></FaFolderOpen> Your Portfolios</div>}>
-                        <div className="your-portfolios-div">
+                        <div style={{width:'70%', margin:'auto', marginTop:6}}className="your-portfolios-div">
                         <ListGroup>
                         {portfolioList2}
                     </ListGroup>
