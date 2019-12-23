@@ -121,7 +121,17 @@ class Home extends Component {
 
       }
 
-      );
+    ).then(() => {
+      axios
+        .get("users/" + localStorage.getItem("userId") + "/following_portfolios", {
+          headers: { Authorization: `Token ${localStorage.getItem("userToken")}` }}).then(res => {
+              const portfolios = res.data;
+              this.setState({ portfolios: [...this.state.portfolios, ...portfolios] });
+
+        }
+
+      )
+    });
 
       this.timer = setInterval(() => {
         this.updatePrices();
@@ -236,7 +246,7 @@ class Home extends Component {
           <Route exact path="/upd_cred" component={UpdatePage}/>
         </Switch>
         {(this.props.location.pathname.length <= 1)&& (localStorage.getItem("userToken")) && this.renderHome()}
-        
+
 
 
       </React.Fragment>
