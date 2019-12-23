@@ -30,7 +30,7 @@
         <activity android:name=".Fragments.Articles.ShowArticleActivity" />
         <activity android:name=".Fragments.Articles.CreateArticleActivity" />
         <activity android:name=".Fragments.Articles.CreateEventActivity" />
-        <activity android:name=".Fragments.Articles.ShowEventActivity" />
+        <activity android:name=".Fragments.ShowEventActivity" />
         <activity android:name=".Fragments.Portfolios.CreatePortfolioActivity" />
 
         <activity android:name=".Fragments.Portfolios.ShowPortfolioActivity" />

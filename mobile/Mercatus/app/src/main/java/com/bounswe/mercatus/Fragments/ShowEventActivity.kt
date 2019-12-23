@@ -1,4 +1,4 @@
-package com.bounswe.mercatus.Fragments.Articles
+package com.bounswe.mercatus.Fragments
 
 import android.content.Context
 import android.os.Bundle
