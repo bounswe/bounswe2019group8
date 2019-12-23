@@ -370,14 +370,6 @@ interface ApiInterface {
         @Header("Authorization") token: String
     ): retrofit2.Call<List<PredictionModel>>
 
-    ////// Trading Equipments Section
-    // Get forex items
-    @Headers("Content-Type:application/json")
-    @GET("trading_equipments/forex")
-    fun getForexSearch(
-        @Header("Authorization") token: String
-    ): retrofit2.Call<List<ForexDataModel>>
-
     // Get all events
     @Headers("Content-Type:application/json")
     @GET("events/{events_date}")

@@ -3,7 +3,6 @@ package com.bounswe.mercatus.Fragments
 import android.app.SearchManager
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -13,8 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
 import com.bounswe.mercatus.Adapters.ForexAdapter
-import com.bounswe.mercatus.Models.TradingEquipments.ForexDataModel
 import com.bounswe.mercatus.Models.TradingEquipments.ForexShowBody
+import com.bounswe.mercatus.Models.TradingEquipments.OtherTradingBody
 import com.bounswe.mercatus.R
 import retrofit2.Call
 import retrofit2.Callback
@@ -67,15 +66,12 @@ class SearchForexActivity : AppCompatActivity() {
                 searchView.setQuery("", false)
                 searchItem.collapseActionView()
 
-                val res = getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
-                val tokenV = res?.getString("token", "Data Not Found!")
-
                 if(!query.isNullOrBlank()){
 
 
-                    mer.getForexSearch("Token " + tokenV.toString()).enqueue(object :
-                        Callback<List<ForexDataModel>> {
-                        override fun onFailure(call: Call<List<ForexDataModel>>, t: Throwable) {
+                    mer.getOtherEquipments().enqueue(object :
+                        Callback<List<OtherTradingBody>> {
+                        override fun onFailure(call: Call<List<OtherTradingBody>>, t: Throwable) {
                             if(t.cause is ConnectException){
                                 Toast.makeText(
                                     this@SearchForexActivity,
@@ -92,21 +88,14 @@ class SearchForexActivity : AppCompatActivity() {
                             }
                         }
 
-                        override fun onResponse(call: Call<List<ForexDataModel>>, response: Response<List<ForexDataModel>>) {
+                        override fun onResponse(call: Call<List<OtherTradingBody>>, response: Response<List<OtherTradingBody>>) {
                             if (response.code() == 200) {
 
-                                Log.d("SearchForexActivity",""+response)
-                                Log.d("SearchForexActivity1",""+response.body())
-                                Log.d("SearchForexActivity2",""+query)
-                                Log.d("SearchForexActivity3",""+forexItems.size)
-
-                                val res: List<ForexDataModel>? = response.body()
+                                val res: List<OtherTradingBody>? = response.body()
 
                                 for(i in res.orEmpty()){
-                                    Log.d("SearchForexActivity4",""+i.name)
                                     if (i.name.contains(query, true)) {
 
-                                        Log.d("SearchForexActivity5",""+i.name)
                                         forexItems.add(
                                             ForexShowBody(
                                                 i.name,
