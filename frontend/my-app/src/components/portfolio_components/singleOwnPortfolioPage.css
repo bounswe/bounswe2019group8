@@ -33,7 +33,10 @@
 }
 .single-own-portfolio-header{
     color: rgb(150, 141, 141);
-
+}
+.single-own-portfolio-headers{
+    display: flex;
+    flex-direction: column;
 }
 .single-own-portfolio-treqs-badge{
     font-size: 20px;

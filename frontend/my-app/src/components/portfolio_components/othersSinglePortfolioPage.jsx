@@ -10,7 +10,8 @@ class OthersSinglePortfolioPage extends Component {
         trEqs: [],
         name: "",
         owner: '',
-        yesNo: true
+        yesNo: true,
+        ownerName: ""
     }
 
     getName(sym) {
@@ -26,15 +27,23 @@ class OthersSinglePortfolioPage extends Component {
                 <Badge className="single-own-portfolio-inlist-badge"> {this.getName(this.state.trEqs[i].sym)} ({this.state.trEqs[i].sym})</Badge>
             </ListGroupItem>)
         }
+        console.log(this.state.ownerName);
         return (
             <div style={{ textAlign: 'center' }} className="single-portfolio-outer-div">
-
+              <div className="single-own-portfolio-headers">
                 <Badge style={{ marginBottom: 30, fontSize: 24, borderBottom: '1px groove white', paddingBottom: 10 }}>
                     <div style={{ color: 'white', fontWeight: 'lighter', letterSpacing: 5 }}
                         className="single-own-portfolio-header">
                         {this.state.name.toUpperCase()}
                     </div>
                 </Badge>
+                <Badge style={{ marginBottom: 30, fontSize: 18, borderBottom: '1px groove white', paddingBottom: 10 }}>
+                    <div style={{ color: 'white', fontWeight: 'lighter', letterSpacing: 5 }}
+                        className="single-own-portfolio-header">
+                        {this.state.ownerName.toUpperCase()}
+                    </div>
+                </Badge>
+                </div> 
                 <FollowPortfolioButton othersId={this.props.match.params.othersId} pk={this.props.match.params.pk} />
 
                 <div style={{
@@ -58,9 +67,15 @@ class OthersSinglePortfolioPage extends Component {
                 for (var i = 0; i < res.data.tr_eqs.length; i++) {
                     trEqs.push(res.data.tr_eqs[i]);
                 }
-                this.setState({ name: res.data.name })
+                this.setState({ name: res.data.name });
                 this.setState({ trEqs: trEqs });
-                this.setState({ owner: res.data.owner })
+                this.setState({ owner: res.data.owner });
+                axios
+                    .get("http://8.209.81.242:8000/users/" + res.data.owner,  {
+                        headers: { Authorization: `Token ${token}` }
+                    }).then(result => {
+                        this.setState({ownerName: result.data.first_name + " " + result.data.last_name});
+                    })
             }
             );
     }

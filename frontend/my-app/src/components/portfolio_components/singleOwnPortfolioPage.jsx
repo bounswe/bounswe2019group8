@@ -10,7 +10,8 @@ class SingleOwnPortfolioPage extends Component {
     state = {
         trEqs: [],
         name: "",
-        yesNo: true
+        yesNo: true, 
+        userName: ""
     }
 
     getName(sym) {
@@ -31,11 +32,16 @@ class SingleOwnPortfolioPage extends Component {
         }
         return (
             <div style={{ textAlign: 'center' }} className="single-portfolio-outer-div">
+              <div className="single-own-portfolio-headers">
                 <Badge style={{ marginBottom: 30, fontSize: 24, borderBottom: '1px groove white', paddingBottom: 10 }}>
                     <div style={{ color: 'white', fontWeight: 'lighter', letterSpacing: 5 }}
                         className="single-own-portfolio-header">{this.state.name.toUpperCase()}</div>
                 </Badge>
-
+                <Badge style={{ marginBottom: 30, fontSize: 18, borderBottom: '1px groove white', paddingBottom: 10 }}>
+                    <div style={{ color: 'white', fontWeight: 'lighter', letterSpacing: 5 }}
+                        className="single-own-portfolio-header">{this.state.userName.toUpperCase()}</div>
+                </Badge>
+                </div>
                 <AddTreqModal onAddTreqModal={() => this.justToReRender()}
                     pk={this.props.match.params.pk} name={this.state.name}
                     prevEqs={this.state.trEqs}></AddTreqModal>
@@ -88,10 +94,14 @@ class SingleOwnPortfolioPage extends Component {
                 this.setState({ name: res.data.name })
                 this.setState({ trEqs: trEqs });
             }
-
             );
-
-
+            axios
+            .get("http://8.209.81.242:8000/users/" + userId, {
+                headers: { Authorization: `Token ${token}` }
+            }).then(res => {
+                this.setState({userName: res.data.first_name + " " + res.data.last_name});
+            }
+            );
     }
 
 }
