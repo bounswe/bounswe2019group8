@@ -3,6 +3,7 @@ package com.bounswe.mercatus.ui
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,7 +37,7 @@ class ForexFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_forex, container, false)
 
         rv = root.findViewById(R.id.recyclerViewForex)
-        rv.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
+        rv.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false) as RecyclerView.LayoutManager?
 
         getForexItems(root)
 
@@ -76,8 +77,12 @@ class ForexFragment : Fragment() {
             }
             override fun onResponse(call: Call<List<ForexDataModel>>, response: Response<List<ForexDataModel>>) {
                 if (response.code() == 200) {
+
+
+                    Log.d("ForexFragment",""+response)
                     val respo: List<ForexDataModel>? = response.body()
 
+                    Log.d("ForexFragment1",""+respo)
                     for(i in respo.orEmpty()){
                         forexItems.add(ForexShowBody(i.name, i.sym, i.pk))
                     }

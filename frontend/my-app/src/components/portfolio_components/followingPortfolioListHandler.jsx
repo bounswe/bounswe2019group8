@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {ListGroup, ListGroupItem, Button} from "react-bootstrap";
 import "./ownPortfolioPage.css";
 import { withRouter } from "react-router-dom";
+
 class FollowingPortfolioHandler extends Component {
     constructor(props) {
         super(props);

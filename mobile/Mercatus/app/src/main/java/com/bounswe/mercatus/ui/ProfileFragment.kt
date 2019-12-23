@@ -3,13 +3,11 @@ package com.bounswe.mercatus.ui
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
@@ -19,6 +17,7 @@ import com.bounswe.mercatus.Fragments.User.FollowersActivity
 import com.bounswe.mercatus.Fragments.User.FollowingsActivity
 import com.bounswe.mercatus.Models.UserRes
 import com.bounswe.mercatus.R
+import kotlinx.android.synthetic.main.activity_create_portfolio.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -38,6 +37,7 @@ class ProfileFragment : Fragment() {
     private lateinit var name: TextView
     private lateinit var email: TextView
     private lateinit var date: TextView
+
 
 
     override fun onCreateView(
@@ -72,6 +72,8 @@ class ProfileFragment : Fragment() {
             activity?.onBackPressed()
             startActivity(intent)
         }
+
+
 
         getUser(name, isTrader, followers, followings, date, email)
 

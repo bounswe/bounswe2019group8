@@ -3,12 +3,12 @@
     height: 20vh;
 }
 .add-new-treq-btn{
-    margin-left: 30vw;
-    margin-right: 30vw;
+    margin-left: 10vw;
+    margin-right: 10vw;
     margin-bottom: 1vh;
     background-color: #494949;
     border-color: #494949;
-    width: 30vw;
+    width: 40vw;
 }
 .add-new-treq-btn:hover{
     background-color: #f6b93b;

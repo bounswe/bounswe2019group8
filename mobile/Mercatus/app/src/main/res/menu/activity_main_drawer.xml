@@ -16,6 +16,10 @@
             android:id="@+id/nav_events"
             android:icon="@drawable/ic_menu_explicit"
             android:title="@string/menu_events" />
+        <item
+            android:id="@+id/nav_portfolios"
+            android:icon="@drawable/ic_menu_explicit"
+            android:title="@string/menu_portfolios" />
     </group>
 
     <item android:title="@string/trading">
@@ -41,6 +45,10 @@
                 android:id="@+id/nav_profit"
                 android:icon="@drawable/ic_menu_trending"
                 android:title="@string/menu_profit" />
+            <item
+                android:id="@+id/nav_assets"
+                android:icon="@drawable/ic_menu_trending"
+                android:title="@string/menu_asset" />
         </menu>
     </item>
 

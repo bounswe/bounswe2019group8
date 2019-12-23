@@ -8,7 +8,12 @@ from nova.views import articles as article_views, auth_tokens as auth_token_view
     users as user_views, \
     trading_equipments as trading_equipment_views, \
     portfolios as portfolio_views, assets as asset_views, \
-    annotations as annotation_views
+    annotations as annotation_views, \
+    notifications as notification_views, \
+    recommendations as recommendation_views, \
+    prices as price_views, \
+    semantic_search as semantic_search_views
+
 from .settings import MEDIA_URL, MEDIA_ROOT
 from .swagger import get_swagger_view
 
@@ -66,6 +71,13 @@ urlpatterns = [
 
     path('trading_equipment_searches', trading_equipment_views.tr_eq_searches),
 
+    # Prices
+    path('trading_equipments/<str:tr_eq_sym>/prices/daily', price_views.daily_prices_coll),
+
+    path('trading_equipments/<str:tr_eq_sym>/prices/intradaily', price_views.intradaily_prices_coll),
+
+    path('trading_equipments/<str:tr_eq_sym>/prices/current', price_views.current_price_res),
+
     # Comments
     path('comments/<int:pk>', comment_views.comment_res),
 
@@ -87,6 +99,7 @@ urlpatterns = [
 
     # Assets
     path('users/<int:user_pk>/cash', asset_views.cash_coll),
+
     path('users/<int:user_pk>/assets', asset_views.assets_coll),
 
     # Annotations
@@ -94,16 +107,26 @@ urlpatterns = [
 
     path('articles/<int:article_pk>/annotations/<int:annotation_pk>', annotation_views.annotation_res),
 
-    # TEMPORARY ENDPOINTS FOR TESTS
+    # Notifications
+    path('users/<int:user_pk>/notifications', notification_views.notifications_coll),
 
-    path('cnt', trading_equipment_views.cnt),
+    path('users/<int:user_pk>/notifications/count', notification_views.notifications_coll_count),
 
+    # Internal
     path('cron_jobs/nasdaq_intradaily', nasdaq_views.fetch_all_intradaily),
 
     path('cron_jobs/nasdaq_daily', nasdaq_views.fetch_all_daily),
 
     path('cron_jobs/av_intradaily', av_views.fill_intraday),
 
-    path('cron_jobs/av_daily', av_views.fill_daily)
+    path('cron_jobs/av_daily', av_views.fill_daily),
+
+    # Recommendations
+    path('articles/recommendations', recommendation_views.article_recommendations_coll),
+
+    path('portfolios/recommendations', recommendation_views.portfolio_recommendations_coll),
+
+    # Semantic Search
+    path('semantic_search', semantic_search_views.search_articles),
 
 ] + static(MEDIA_URL, document_root=MEDIA_ROOT)

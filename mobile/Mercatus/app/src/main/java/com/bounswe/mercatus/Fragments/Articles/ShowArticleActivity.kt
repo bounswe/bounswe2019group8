@@ -5,6 +5,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
+import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -16,6 +17,7 @@ import com.bounswe.mercatus.API.RetrofitInstance
 import com.bounswe.mercatus.Adapters.CommentAdapter
 import com.bounswe.mercatus.Fragments.User.ShowProfileActivity
 import com.bounswe.mercatus.Models.*
+import com.bounswe.mercatus.ModelsgetArticles.CommentShowBody
 import com.bounswe.mercatus.R
 import kotlinx.android.synthetic.main.activity_show_article.*
 import kotlinx.android.synthetic.main.dialog_new_category.*
@@ -65,6 +67,8 @@ class ShowArticleActivity : AppCompatActivity() {
             dialogBuilder.setButton(AlertDialog.BUTTON_POSITIVE, "Send",DialogInterface.OnClickListener{
                     dialog, id ->
                 val text = dialogBuilder.editCategory.text
+
+                Log.d("view_Text:",""+text)
                 if(text.toString().isEmpty()){
                     Toast.makeText(this@ShowArticleActivity, "Comment cannot be empty!", Toast.LENGTH_SHORT).show()
                     dialogBuilder.layCategory.isErrorEnabled = true

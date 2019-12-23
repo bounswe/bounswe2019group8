@@ -2,7 +2,6 @@ import requests
 from dateutil.relativedelta import relativedelta
 from django.db.models import Q
 from django.utils.datetime_safe import datetime, date
-from django.utils.timezone import make_aware, get_default_timezone
 from rest_framework import permissions
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.exceptions import PermissionDenied
@@ -10,18 +9,19 @@ from rest_framework.response import Response
 
 from nova.models import TradingEquipment, Price
 from nova.settings import CRON_JOB_KEY, NASDAQ_BASE_URL
+from nova.utils.functions import parse_price
 
 
 def fetch_intradaily(eq_type, asset_class):
-    commodities = TradingEquipment.objects.filter(type=eq_type)
+    equipments = TradingEquipment.objects.filter(type=eq_type)
 
-    for commodity in commodities:
-        url = NASDAQ_BASE_URL + '/' + commodity.sym + '/info'
+    for equipment in equipments:
+        url = NASDAQ_BASE_URL + '/' + equipment.sym + '/info'
 
         response = requests.get(url, params={'assetclass': asset_class})
 
         if response.status_code != 200:
-            print('Error occurred while fetching', commodity.sym)
+            print('Error occurred while fetching', equipment.sym)
             continue
 
         json_response = response.json()
@@ -35,10 +35,10 @@ def fetch_intradaily(eq_type, asset_class):
                                                                                           json_response['data'][
                                                                                               'keyStats'] else None
         except KeyError:
-            print('Error occurred while parsing', commodity.sym)
+            print('Error occurred while parsing', equipment.sym)
             continue
         except TypeError:
-            print('Error occurred while parsing', commodity.sym)
+            print('Error occurred while parsing', equipment.sym)
             continue
 
         current_date = date.today()
@@ -47,26 +47,22 @@ def fetch_intradaily(eq_type, asset_class):
         Price.objects.create(
             observe_date=current_date,
             observe_time=current_time,
-            tr_eq=commodity,
+            tr_eq=equipment,
             indicative_value=indicative_value,
             bid_value=bid_value,
             ask_value=ask_value,
             interval='intraday',
         )
 
-        now = make_aware(datetime.now(), get_default_timezone())
-        commodity.last_updated_current = now
-        commodity.save()
-
 
 def fetch_daily(eq_type, asset_class):
-    commodities = TradingEquipment.objects.filter(type=eq_type)
+    equipments = TradingEquipment.objects.filter(type=eq_type)
 
     today = date.today()
     last_month = today - relativedelta(months=1)
 
-    for commodity in commodities:
-        url = NASDAQ_BASE_URL + '/' + commodity.sym + '/historical'
+    for equipment in equipments:
+        url = NASDAQ_BASE_URL + '/' + equipment.sym + '/historical'
 
         response = requests.get(url, params={
             'assetclass': asset_class,
@@ -76,7 +72,7 @@ def fetch_daily(eq_type, asset_class):
         })
 
         if response.status_code != 200:
-            print('Error occurred while fetching', commodity.sym)
+            print('Error occurred while fetching', equipment.sym)
             continue
 
         json_response = response.json()
@@ -84,10 +80,10 @@ def fetch_daily(eq_type, asset_class):
         try:
             rows = json_response['data']['tradesTable']['rows']
         except KeyError:
-            print('Error occurred while parsing', commodity.sym)
+            print('Error occurred while parsing', equipment.sym)
             continue
         except TypeError:
-            print('Error occurred while parsing', commodity.sym)
+            print('Error occurred while parsing', equipment.sym)
             continue
 
         for row in rows:
@@ -105,7 +101,7 @@ def fetch_daily(eq_type, asset_class):
                 Price.objects.create(
                     observe_date=date_str,
                     observe_time=None,
-                    tr_eq=commodity,
+                    tr_eq=equipment,
                     indicative_value=value,
                     bid_value=None,
                     ask_value=None,
@@ -115,7 +111,8 @@ def fetch_daily(eq_type, asset_class):
 
 def delete_old_prices():
     """
-    This method deletes intraday prices starting from yesterday (exclusive), and all price objects that are not intraday.
+    This method deletes intraday prices starting from yesterday (exclusive), and all price objects that are not
+    intraday.
     """
 
     today = date.today()
@@ -160,10 +157,3 @@ def fetch_all_daily(request):
     # other daily jobs will be added here
 
     return Response('Success')
-
-
-def parse_price(price_str):
-    if price_str is None or price_str == 'N/A':
-        return None
-    else:
-        return price_str[1:] if price_str.startswith('$') else price_str

@@ -192,3 +192,5 @@ DIG_CURRENCY_LIST = {'BTC', 'LTC', 'ETH', 'ZEC', 'DASH', 'XRP', 'XMR', 'NEO', 'E
 NASDAQ_BASE_URL = "https://api.nasdaq.com/api/quote"
 
 CRON_JOB_KEY = os.environ.get('CRON_JOB_KEY')
+
+SEMANTIC_SEARCH_URL = 'http://api.datamuse.com/words'

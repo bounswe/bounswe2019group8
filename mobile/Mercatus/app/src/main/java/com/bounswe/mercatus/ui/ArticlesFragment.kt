@@ -44,6 +44,8 @@ class ArticlesFragment : Fragment() {
         getArticles(root)
         return root
     }
+
+
     private fun getArticles(root: View){
         val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
 

@@ -3,6 +3,7 @@ package com.bounswe.mercatus.Fragments
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -15,6 +16,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.bounswe.mercatus.Fragments.Entrance.LoginActivity
+import com.bounswe.mercatus.Fragments.User.ModifyPasswordActivity
 import com.bounswe.mercatus.R
 import com.google.android.material.navigation.NavigationView
 
@@ -41,10 +43,12 @@ class MainActivity : AppCompatActivity(){
                 R.id.nav_home,
                 R.id.nav_articles,
                 R.id.nav_events,
+                R.id.nav_portfolios,
                 R.id.nav_forex,
                 R.id.nav_digital,
                 R.id.nav_profile,
-                R.id.nav_profit
+                R.id.nav_profit,
+                R.id.nav_assets
             ), drawerLayout
         )
 
@@ -61,6 +65,18 @@ class MainActivity : AppCompatActivity(){
             editor.putString("token", " ")
             editor.commit()
 
+            startActivity(intent)
+            finish()
+            true
+        }
+
+        R.id.action_settings -> {
+            Toast.makeText(this, "Action setting", Toast.LENGTH_LONG).show()
+            Log.d("action settings","setting works")
+
+
+            val intent = Intent(this@MainActivity, ModifyPasswordActivity::class.java)
+            this@MainActivity?.onBackPressed()
             startActivity(intent)
             finish()
             true

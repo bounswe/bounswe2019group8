@@ -8,12 +8,13 @@ import OthersPortfolioHandler from "./othersPortfolioHandler";
 import FollowingPortfolioListHandler from "./followingPortfolioListHandler";
 
 class OthersPortfolioPage extends Component {
-    state = { 
+    state = {
         othersId: "",
         portfolioList: [],
         followingPortfolioList: []
      }
-     render() { 
+
+     render() {
         var portfolioList2 = [];
         var followingPortfolioList = [];
         for(var i = 0; i < this.state.portfolioList.length; i++){
@@ -22,8 +23,8 @@ class OthersPortfolioPage extends Component {
         for(var i = 0; i < this.state.followingPortfolioList.length; i++){
             followingPortfolioList.push(<FollowingPortfolioListHandler ownerId={this.state.followingPortfolioList[i].owner} pk={this.state.followingPortfolioList[i].pk} name={this.state.followingPortfolioList[i].name}></FollowingPortfolioListHandler>)
         }
-        return ( 
-            <div className="portfolio-outer-div">
+        return (
+            <div style={{width:'70%', margin:'auto', marginTop:20}}className="portfolio-outer-div">
                 <Tabs defaultActiveKey="your-portfolios" style={{fontWeight:'lighter',  justifyContent: 'center', backgroundColor:'whitesmoke' , borderRadius:"3px"}}>
                     <Tab eventKey="your-portfolios" title={<div><FaFolderOpen></FaFolderOpen>Portfolios</div>}>
                         <div className="your-portfolios-div">
@@ -62,8 +63,8 @@ class OthersPortfolioPage extends Component {
           }
           );
       }
-      
+
 
 }
- 
+
 export default OthersPortfolioPage;
