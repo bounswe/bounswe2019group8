@@ -5,7 +5,6 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
-import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -69,10 +68,9 @@ class ShowArticleActivity : AppCompatActivity() {
             val editView = layoutInflater.inflate(R.layout.dialog_new_category, null)
             dialogBuilder.setView(editView)
             dialogBuilder.setButton(AlertDialog.BUTTON_POSITIVE, "Send",DialogInterface.OnClickListener{
-                    dialog, id ->
+                    dialog, _ ->
                 val text = dialogBuilder.editCategory.text
 
-                Log.d("view_Text:",""+text)
                 if(text.toString().isEmpty()){
                     Toast.makeText(this@ShowArticleActivity, "Comment cannot be empty!", Toast.LENGTH_SHORT).show()
                     dialogBuilder.layCategory.isErrorEnabled = true
@@ -88,7 +86,7 @@ class ShowArticleActivity : AppCompatActivity() {
                 }
             })
             dialogBuilder.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel",DialogInterface.OnClickListener {
-                    dialog, id ->
+                    dialog, _ ->
                 dialog.dismiss()
 
             })
@@ -296,8 +294,7 @@ class ShowArticleActivity : AppCompatActivity() {
                     likeArticleText.text = (size+1).toString()
                 }
                 else if (response.code() == 400) {
-                    deleteLike(pk)
-                    likeArticleText.text = (size-1).toString()
+                    deleteLike(pk, size)
                 }
                 else  {
                     Toast.makeText(this@ShowArticleActivity, "Like article failed.", Toast.LENGTH_SHORT)
@@ -307,7 +304,7 @@ class ShowArticleActivity : AppCompatActivity() {
         })
     }
 
-    private fun deleteLike(pk: Int){
+    private fun deleteLike(pk: Int, size: Int){
         val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
 
         val res = getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
@@ -337,6 +334,8 @@ class ShowArticleActivity : AppCompatActivity() {
                         .show()
 
                     likeArticle.setBackgroundResource(R.drawable.like_default)
+                    getLikes(pk)
+                    likeArticleText.text = (size).toString()
                 }
                 else  {
                     Toast.makeText(this@ShowArticleActivity, "Like article failed.", Toast.LENGTH_SHORT)
@@ -483,11 +482,10 @@ class ShowArticleActivity : AppCompatActivity() {
                 if (response.code() == 200) {
                     Toast.makeText(this@ShowArticleActivity, "Successfully disliked!", Toast.LENGTH_SHORT)
                         .show()
-                    likeArticleText.text = (listSize+1).toString()
+                    dislikeArticleText.text = (listSize+1).toString()
                 }
                 else if (response.code() == 400) {
-                    deleteDislike(pk)
-                    dislikeArticleText.text = (listSize-1).toString()
+                    deleteDislike(pk, listSize)
                 }
                 else  {
                     Toast.makeText(this@ShowArticleActivity, "Dislike article failed.", Toast.LENGTH_SHORT)
@@ -497,7 +495,7 @@ class ShowArticleActivity : AppCompatActivity() {
         })
     }
 
-    private fun deleteDislike(pk: Int){
+    private fun deleteDislike(pk: Int, size: Int){
         val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
 
         val res = getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
@@ -526,7 +524,8 @@ class ShowArticleActivity : AppCompatActivity() {
                     Toast.makeText(this@ShowArticleActivity, "Successfully dislike revoked!", Toast.LENGTH_SHORT)
                         .show()
                     dislikeArticle.setBackgroundResource(R.drawable.dis_default)
-
+                    dislikeArticleText.text = (size).toString()
+                    getDislikes(pk)
                 }
                 else  {
                     Toast.makeText(this@ShowArticleActivity, "Dislike article failed.", Toast.LENGTH_SHORT)
