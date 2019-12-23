@@ -1,18 +1,19 @@
 .single-portfolio-outer-div{
+    width: 800px;
+    margin: auto;
     margin-top: 20px;
-    width: 60vw;
-    margin-left: 20vw;
-    margin-right: 20vw;
+
     border-radius: 3px;
     background-color: #343a40;
 }
+
+
 
 .single-your-portfolios-div{
     width: 60vw;
     border-radius: 3px;
     height: 70vh;
-    margin-left: 15vw;
-    margin-right: 15vw;
+
     margin-top: 0.5vh;
     background-color: rgb(213, 222, 230);
 }
@@ -20,8 +21,7 @@
     letter-spacing: 1.5px;
     background-color: #fff;
     width: 40vw;
-    margin-left: 10vw;
-    margin-right: 10vw;
+
     display: flex;
     flex-direction: row;
     margin-top: 1vh;
@@ -33,9 +33,7 @@
 }
 .single-own-portfolio-header{
     color: rgb(150, 141, 141);
-    width: 40vw;
-    margin-right: 10vw;
-    margin-left:10vw;
+
 }
 .single-own-portfolio-treqs-badge{
     font-size: 20px;
@@ -44,9 +42,10 @@
     color: white;
     margin-bottom: 0.5vh;
 }
+
+
 .single-portfolio-remove-btn{
-    width: 10vw;
-    margin-left:10vw;
+
     margin-bottom: 0.5vh;
 }
 .single-portfolio-remove-btn:hover{
@@ -55,13 +54,19 @@
     border-color:#f6b93b;
 }
 .single-own-portfolio-inlist-badge{
+    float:left;
     width: 10vw;
     margin-top: 2vh;
 }
 .single-own-portfolio-delete-btn{
-    width: 40vw;
-    margin-left: 10vw;
-    margin-right: 10vw;
+
     margin-top: 1vh;
     margin-bottom: 1vh;
+}
+
+.listGroup {
+    transition: 0.3s;
+}
+.listGroup:hover {
+    background-color: #82990f;
 }

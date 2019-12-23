@@ -4,7 +4,7 @@ import axios from "axios";
 import { ListGroup, ListGroupItem, Badge } from "react-bootstrap";
 import FollowPortfolioButton from "./followPortfolioButton";
 
-import {MdDoNotDisturbOn} from 'react-icons/md'
+import { MdDoNotDisturbOn } from 'react-icons/md'
 class OthersSinglePortfolioPage extends Component {
     state = {
         trEqs: [],
@@ -22,26 +22,27 @@ class OthersSinglePortfolioPage extends Component {
     render() {
         var groupItems = [];
         for (var i = 0; i < this.state.trEqs.length; i++) {
-            groupItems.push(<ListGroupItem style={{width:'60%', fontSize:24, letterSpacing:1.5,  margin:'auto', marginBottom:20}}>
+            groupItems.push(<ListGroupItem className='listGroup' style={{ width: '60%', fontSize: 24, letterSpacing: 1.5, margin: 'auto', marginBottom: 20 }}>
                 <Badge className="single-own-portfolio-inlist-badge"> {this.getName(this.state.trEqs[i].sym)} ({this.state.trEqs[i].sym})</Badge>
             </ListGroupItem>)
         }
         return (
-            <div style={{textAlign:'center'}}className="single-portfolio-outer-div">
-                <Badge style={{ marginBottom: 30, borderBottom: '1px groove white', paddingBottom: 10 }}>
-                    <h1 className="single-own-portfolio-header">
-                        {this.state.name}
-                        <FollowPortfolioButton othersId={this.props.match.params.othersId} pk={this.props.match.params.pk} />
-    
-                    </h1>
+            <div style={{ textAlign: 'center' }} className="single-portfolio-outer-div">
+
+                <Badge style={{ marginBottom: 30, fontSize: 24, borderBottom: '1px groove white', paddingBottom: 10 }}>
+                    <div style={{ color: 'white', fontWeight: 'lighter', letterSpacing: 5 }}
+                        className="single-own-portfolio-header">
+                        {this.state.name.toUpperCase()}
+                    </div>
                 </Badge>
-                <Badge
-                    style={{
-                        color:'white',
-                        marginBottom: 30, marginTop: 50, fontSize: 30,
-                        borderBottom: '1px groove white', paddingBottom: 10
-                    }}
-                    >Equipments</Badge>
+                <FollowPortfolioButton othersId={this.props.match.params.othersId} pk={this.props.match.params.pk} />
+
+                <div style={{
+                    color: 'white', fontWeight: 'lighter',
+                    marginBottom: 30, marginTop: 50, fontSize: 20,
+                    borderBottom: '1px groove white', paddingBottom: 10
+                }}
+                    className="single-own-portfolio-header">Equipments</div>
                 <ListGroup>
                     {groupItems}</ListGroup>
             </div>
