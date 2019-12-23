@@ -1,23 +1,8 @@
 package com.bounswe.mercatus.Fragments.TradingEqps
 
-import android.content.Context
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.bounswe.mercatus.API.ApiInterface
-import com.bounswe.mercatus.API.RetrofitInstance
-import com.bounswe.mercatus.Adapters.CustomMarker
-import com.bounswe.mercatus.Models.ForexParityModel
 import com.bounswe.mercatus.R
-import com.github.mikephil.charting.animation.Easing
-import com.github.mikephil.charting.data.Entry
-import com.github.mikephil.charting.data.LineData
-import com.github.mikephil.charting.data.LineDataSet
-import kotlinx.android.synthetic.main.activity_forex_show.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import java.net.ConnectException
 
 class ZoomEqpActivity : AppCompatActivity() {
 
@@ -32,10 +17,10 @@ class ZoomEqpActivity : AppCompatActivity() {
         actionBar!!.title = forexName
         actionBar.setDisplayHomeAsUpEnabled(true)
 
-        getForexParity(forexID!!.toInt(), forexName!!)
+        //getForexParity(forexID!!.toInt(), forexName!!)
     }
 
-    private fun getForexParity(forex_id: Int, forexName: String){
+    /*private fun getForexParity(forex_id: Int, forexName: String){
         val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
 
         val res = getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
@@ -100,6 +85,8 @@ class ZoomEqpActivity : AppCompatActivity() {
             }
         })
     }
+
+     */
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true

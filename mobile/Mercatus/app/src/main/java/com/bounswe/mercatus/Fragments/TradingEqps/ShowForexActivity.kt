@@ -12,16 +12,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
 import com.bounswe.mercatus.Adapters.CommentTradingAdapter
-import com.bounswe.mercatus.Adapters.CustomMarker
 import com.bounswe.mercatus.Models.CommentShowTradingBody
 import com.bounswe.mercatus.Models.CreateCommentBody
-import com.bounswe.mercatus.Models.ForexParityModel
 import com.bounswe.mercatus.Models.PredictionModel
 import com.bounswe.mercatus.R
-import com.github.mikephil.charting.animation.Easing
-import com.github.mikephil.charting.data.Entry
-import com.github.mikephil.charting.data.LineData
-import com.github.mikephil.charting.data.LineDataSet
 import kotlinx.android.synthetic.main.activity_forex_show.*
 import kotlinx.android.synthetic.main.dialog_new_category.*
 import okhttp3.ResponseBody
@@ -43,9 +37,10 @@ class ShowForexActivity : AppCompatActivity() {
         actionBar!!.title = forexName
         actionBar.setDisplayHomeAsUpEnabled(true)
 
-
-        getUpVotes(forexID!!.toInt())
-        getDownVotes(forexID!!.toInt())
+        if(forexID != null){
+            getUpVotes(forexID.toInt())
+            getDownVotes(forexID.toInt())
+        }
 
         val rv = findViewById<RecyclerView>(R.id.recyclerViewForex)
         rv.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
@@ -70,7 +65,7 @@ class ShowForexActivity : AppCompatActivity() {
             val editView = layoutInflater.inflate(R.layout.dialog_new_category, null)
             dialogBuilder.setView(editView)
             dialogBuilder.setButton(AlertDialog.BUTTON_POSITIVE, "Send", DialogInterface.OnClickListener{
-                    dialog, id ->
+                    dialog, _ ->
                 val text = dialogBuilder.editCategory.text
                 if(text.toString().isEmpty()){
                     Toast.makeText(this@ShowForexActivity, "Comment cannot be empty!", Toast.LENGTH_SHORT).show()
@@ -87,17 +82,17 @@ class ShowForexActivity : AppCompatActivity() {
                 }
             })
             dialogBuilder.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", DialogInterface.OnClickListener {
-                    dialog, id ->
+                    dialog, _ ->
                 dialog.dismiss()
 
             })
             dialogBuilder.show()
         }
 
-        getForexParity(forexID!!.toInt(), forexName!!)
+        //getForexParity(forexID!!.toInt(), forexName!!)
         getComments(forexID!!.toInt(), commentsList, adapter)
     }
-    private fun getForexParity(forex_id: Int, forexName: String){
+    /*private fun getForexParity(forex_id: Int, forexName: String){
         val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
 
         val res = getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
@@ -162,6 +157,8 @@ class ShowForexActivity : AppCompatActivity() {
             }
         })
     }
+
+     */
     private fun getComments(eqp_id: Int, commentsList: ArrayList<CommentShowTradingBody>, adapter: CommentTradingAdapter){
         val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
 
@@ -189,9 +186,9 @@ class ShowForexActivity : AppCompatActivity() {
             }
             override fun onResponse(call: Call<List<CommentShowTradingBody>>, response: Response<List<CommentShowTradingBody>>) {
                 if (response.code() == 200) {
-                    val res: List<CommentShowTradingBody>? = response.body()
+                    val resp: List<CommentShowTradingBody>? = response.body()
                     commentsList.clear()
-                    for(i in res.orEmpty()){
+                    for(i in resp.orEmpty()){
                         commentsList.add(CommentShowTradingBody(i.author, i.content, i.pk , i.tr_eq))
                     }
                     adapter.notifyDataSetChanged()

@@ -3,7 +3,6 @@ package com.bounswe.mercatus.ui
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +14,6 @@ import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
 import com.bounswe.mercatus.Adapters.ForexAdapter
 import com.bounswe.mercatus.Fragments.SearchForexActivity
-import com.bounswe.mercatus.Fragments.TradingEqps.SearchEquipmentsActivity
 import com.bounswe.mercatus.Models.ForexDataModel
 import com.bounswe.mercatus.Models.ForexShowBody
 import com.bounswe.mercatus.R
@@ -37,12 +35,12 @@ class ForexFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_forex, container, false)
 
         rv = root.findViewById(R.id.recyclerViewForex)
-        rv.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false) as RecyclerView.LayoutManager?
+        rv.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
 
         getForexItems(root)
 
         fab  = root.findViewById(R.id.fabForex)
-        fab.setOnClickListener { view ->
+        fab.setOnClickListener {
             val intent = Intent(root.context, SearchForexActivity::class.java)
             startActivity(intent)
         }
@@ -77,12 +75,8 @@ class ForexFragment : Fragment() {
             }
             override fun onResponse(call: Call<List<ForexDataModel>>, response: Response<List<ForexDataModel>>) {
                 if (response.code() == 200) {
-
-
-                    Log.d("ForexFragment",""+response)
                     val respo: List<ForexDataModel>? = response.body()
 
-                    Log.d("ForexFragment1",""+respo)
                     for(i in respo.orEmpty()){
                         forexItems.add(ForexShowBody(i.name, i.sym, i.pk))
                     }

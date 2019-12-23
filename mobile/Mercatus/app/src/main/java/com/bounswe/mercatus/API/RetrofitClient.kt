@@ -264,19 +264,19 @@ interface ApiInterface {
 
     // Get forex items parity value
     @Headers("Content-Type:application/json")
-    @GET("trading_equipments/{forex_id}/parities")
+    @GET("trading_equipments/{tr_eq_sym}/prices/intradaily")
     fun getForexParity(
-        @Path("forex_id") fid: Int,
+        @Path("tr_eq_sym") tr_eq_sym: String,
         @Header("Authorization") token: String
-    ): retrofit2.Call<List<ForexParityModel>>
+    ): retrofit2.Call<List<NewPriceModel>>
 
     // Get forex items prices
     @Headers("Content-Type:application/json")
-    @GET("trading_equipments/{forex_id}/current_prices")
+    @GET("trading_equipments/{tr_eq_sym}/prices/current")
     fun getForexPrices(
-        @Path("forex_id") fid: Int,
+        @Path("tr_eq_sym") tr_eq_sym: String,
         @Header("Authorization") token: String
-    ): retrofit2.Call<List<PriceModel>>
+    ): retrofit2.Call<NewPriceModel>
 
     // Get digital items
     @Headers("Content-Type:application/json")

@@ -2,26 +2,14 @@ package com.bounswe.mercatus.Adapters
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.bounswe.mercatus.API.ApiInterface
-import com.bounswe.mercatus.API.RetrofitInstance
 import com.bounswe.mercatus.Fragments.TradingEqps.ShowForexActivity
-import com.bounswe.mercatus.Models.ForexParityModel
 import com.bounswe.mercatus.Models.ForexShowBody
-import com.bounswe.mercatus.Models.PriceModel
 import com.bounswe.mercatus.R
 import kotlinx.android.synthetic.main.forex_item.view.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import java.net.ConnectException
 
 class DigitalAdapter(val context : Context, val forexList: ArrayList<ForexShowBody>): RecyclerView.Adapter<DigitalAdapter.ViewHolder>() {
 
@@ -58,21 +46,21 @@ class DigitalAdapter(val context : Context, val forexList: ArrayList<ForexShowBo
             itemView.forexName.text = forex_name
             itemView.forexSymbol.text = forex_sym
 
-            getLatestForexParity(forex_id, itemView.situationForex)
-            getForexPrice(forex_id, itemView.highVal, itemView.lowVal)
+            //getLatestForexParity(forex_id, itemView.situationForex)
+            //getForexPrice(forex_sym, itemView.highVal, itemView.lowVal)
 
             this.currentForexShowBody = ForexShowBody(forex_name, forex_sym, forex_id)
             this.currentPosition = position
         }
     }
-    private fun getForexPrice(forex_id: Int, highVal: TextView, lowVal: TextView){
+    /*private fun getForexPrice(forex_sym: String, highVal: TextView, lowVal: TextView){
         val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
 
         val res = context.getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
         val tokenV = res.getString("token", "Data Not Found!")
-        mer.getForexPrices(forex_id, "Token " + tokenV.toString()).enqueue(object :
-            Callback<List<PriceModel>> {
-            override fun onFailure(call: Call<List<PriceModel>>, t: Throwable) {
+        mer.getForexPrices(forex_sym, "Token " + tokenV.toString()).enqueue(object :
+            Callback<NewPriceModel> {
+            override fun onFailure(call: Call<NewPriceModel>, t: Throwable) {
                 if(t.cause is ConnectException){
                     Toast.makeText(
                         context,
@@ -88,11 +76,11 @@ class DigitalAdapter(val context : Context, val forexList: ArrayList<ForexShowBo
                     ).show()
                 }
             }
-            override fun onResponse(call: Call<List<PriceModel>>, response: Response<List<PriceModel>>) {
+            override fun onResponse(call: Call<NewPriceModel>, response: Response<NewPriceModel>) {
                 if (response.code() == 200) {
-                    val forexPar: List<PriceModel>? = response.body()
+                    val forexPar: NewPriceModel? = response.body()
 
-                    if(forexPar!!.isNotEmpty()){
+                    /*if(forexPar != null){
                         if(forexPar[0].ask_price.length > 7 && forexPar[0].bid_price.length > 7){
                             highVal.text = forexPar[0].ask_price.substring(0,7)
                             lowVal.text = forexPar[0].bid_price.substring(0,7)
@@ -102,6 +90,8 @@ class DigitalAdapter(val context : Context, val forexList: ArrayList<ForexShowBo
                             lowVal.text = forexPar[0].bid_price
                         }
                     }
+
+                     */
                 }
                 else  {
                     Toast.makeText(context, "Show forex failed...", Toast.LENGTH_SHORT)
@@ -112,7 +102,9 @@ class DigitalAdapter(val context : Context, val forexList: ArrayList<ForexShowBo
         })
     }
 
-    private fun getLatestForexParity(forex_id: Int, situationForex: ImageView){
+     */
+
+    /*private fun getLatestForexParity(forex_id: Int, situationForex: ImageView){
         val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
 
         val res = context.getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
@@ -153,4 +145,6 @@ class DigitalAdapter(val context : Context, val forexList: ArrayList<ForexShowBo
             }
         })
     }
+
+     */
 }
