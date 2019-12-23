@@ -48,6 +48,7 @@ class DigitalAdapter(val context : Context, val forexList: ArrayList<ForexShowBo
                 //When click forex of an article item, show forex in detail
                 val intent = Intent(context, ShowForexActivity::class.java)
                 intent.putExtra("forex_id", currentForexShowBody?.pk.toString())
+                intent.putExtra("forex_sym", currentForexShowBody?.sym.toString())
                 intent.putExtra("forex_name", currentForexShowBody?.name.toString())
                 context.startActivity(intent)
             }
