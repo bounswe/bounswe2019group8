@@ -6,6 +6,7 @@ import DropdownItem from "react-bootstrap/DropdownItem";
 import "./addTreqModal.css";
 import axios from "axios";
 import DropDownHandler from "./dropDownHandler";
+import {MdLibraryAdd} from 'react-icons/md'
 
 export default function AddTreqModal({...props}) {
     const [show, setShow] = useState(false);
@@ -53,8 +54,8 @@ export default function AddTreqModal({...props}) {
     }
     return (
       <div >
-        <Button style={{fontWeight:'lighter', letterSpacing:3}} variant="primary" className="add-new-treq-btn" onClick={handleShow}>
-          NEW EQUIPMENT
+        <Button style={{maxWidth:300, fontWeight:'lighter', letterSpacing:3}} variant="primary" className="add-new-treq-btn" onClick={handleShow}>
+          <MdLibraryAdd></MdLibraryAdd> NEW EQUIPMENT
         </Button>
   
         <Modal  show={show} onHide={handleClose}>
