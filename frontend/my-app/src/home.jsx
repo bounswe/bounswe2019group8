@@ -227,6 +227,13 @@ class Home extends Component {
             key={Math.random() * 99}
             component={OthersSinglePortfolioPage}
           />
+          <Route
+            exact
+            path="/events#:eventId"
+            exact
+            key={Math.random() * 99}
+            component={EventsPage}
+          />
           <Route exact path="/articlewrite" component={WriteArticlePageSummoner} />
           <Route exact path="/treq" component={NewParitiesPage}/>
           <Route exact path="/events" component={EventsPage}/>
