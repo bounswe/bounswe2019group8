@@ -1,5 +1,6 @@
-package com.bounswe.mercatus.Models
+package com.bounswe.mercatus.Models.User
 
+import com.bounswe.mercatus.Models.User.UserRes
 import java.util.*
 
 data class UserBody(val date_of_birth: String,

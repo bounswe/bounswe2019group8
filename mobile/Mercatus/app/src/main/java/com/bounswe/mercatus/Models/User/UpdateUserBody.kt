@@ -1,4 +1,4 @@
-package com.bounswe.mercatus.Models
+package com.bounswe.mercatus.Models.User
 
 data class UpdateUserBody(
     val email: String,

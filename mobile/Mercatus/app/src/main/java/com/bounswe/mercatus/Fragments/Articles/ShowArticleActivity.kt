@@ -17,6 +17,9 @@ import com.bounswe.mercatus.API.RetrofitInstance
 import com.bounswe.mercatus.Adapters.CommentAdapter
 import com.bounswe.mercatus.Fragments.User.ShowProfileActivity
 import com.bounswe.mercatus.Models.*
+import com.bounswe.mercatus.Models.Article.GetArticleBody
+import com.bounswe.mercatus.Models.Comments.CommentBody
+import com.bounswe.mercatus.Models.User.UserRes
 import com.bounswe.mercatus.ModelsgetArticles.CommentShowBody
 import com.bounswe.mercatus.R
 import kotlinx.android.synthetic.main.activity_show_article.*

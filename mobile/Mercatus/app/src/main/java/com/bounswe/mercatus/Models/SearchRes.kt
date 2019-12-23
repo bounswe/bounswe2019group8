@@ -1,5 +1,7 @@
 package com.bounswe.mercatus.Models
 
+import com.bounswe.mercatus.Models.User.UserFollower
+
 data class SearchRes(
     val pk: Long,
     val email: String,

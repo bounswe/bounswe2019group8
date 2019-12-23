@@ -1,5 +1,7 @@
 package com.bounswe.mercatus.Models
 
+import com.bounswe.mercatus.Models.TradingEquipments.ForexShowBody
+
 // This body is designed to get articles response.
 data class GetPortfolioBody(
     val pk: Long,

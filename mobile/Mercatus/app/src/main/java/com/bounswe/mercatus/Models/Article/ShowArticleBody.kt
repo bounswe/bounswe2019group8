@@ -1,4 +1,4 @@
-package com.bounswe.mercatus.Models
+package com.bounswe.mercatus.Models.Article
 
 // This body is designed to get articles response.
 data class ShowArticleBody(

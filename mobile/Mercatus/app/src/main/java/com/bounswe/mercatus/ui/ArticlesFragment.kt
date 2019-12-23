@@ -14,7 +14,7 @@ import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
 import com.bounswe.mercatus.Adapters.ArticlesAdapter
 import com.bounswe.mercatus.Fragments.Articles.CreateArticleActivity
-import com.bounswe.mercatus.Models.GetArticleBody
+import com.bounswe.mercatus.Models.Article.GetArticleBody
 import com.bounswe.mercatus.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import retrofit2.Call
@@ -77,7 +77,15 @@ class ArticlesFragment : Fragment() {
                     val res: List<GetArticleBody>? = response.body()
 
                     for(i in res.orEmpty()){
-                        articles.add(GetArticleBody(i.author, i.title, i.content, i.rating, i.pk))
+                        articles.add(
+                            GetArticleBody(
+                                i.author,
+                                i.title,
+                                i.content,
+                                i.rating,
+                                i.pk
+                            )
+                        )
                     }
 
                     var adapter = ArticlesAdapter(root.context, articles)

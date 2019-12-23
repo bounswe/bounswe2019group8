@@ -1,4 +1,4 @@
-package com.bounswe.mercatus.Models
+package com.bounswe.mercatus.Models.TradingEquipments
 
 // This body is designed to get each forex item.
 data class ForexShowBody(

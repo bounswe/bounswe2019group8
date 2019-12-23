@@ -1,4 +1,4 @@
-package com.bounswe.mercatus.Models
+package com.bounswe.mercatus.Models.Article
 
 data class EditArticleBody(
     val title: String,

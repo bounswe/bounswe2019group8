@@ -15,9 +15,9 @@ import com.bounswe.mercatus.API.RetrofitInstance
 import com.bounswe.mercatus.Adapters.ArticlesAdapter
 import com.bounswe.mercatus.Adapters.ForexAdapter
 import com.bounswe.mercatus.Fragments.SearchActivity
-import com.bounswe.mercatus.Models.ForexDataModel
-import com.bounswe.mercatus.Models.ForexShowBody
-import com.bounswe.mercatus.Models.GetArticleBody
+import com.bounswe.mercatus.Models.TradingEquipments.ForexDataModel
+import com.bounswe.mercatus.Models.TradingEquipments.ForexShowBody
+import com.bounswe.mercatus.Models.Article.GetArticleBody
 import com.bounswe.mercatus.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import retrofit2.Call
@@ -89,12 +89,24 @@ class HomeFragment : Fragment() {
 
                     if(respo!!.size < 10){
                         for(i in respo.orEmpty()){
-                            forexItems.add(ForexShowBody(i.name, i.sym, i.pk))
+                            forexItems.add(
+                                ForexShowBody(
+                                    i.name,
+                                    i.sym,
+                                    i.pk
+                                )
+                            )
                         }
                     }
                     else{
                         for(i in respo.orEmpty().take(10)){
-                            forexItems.add(ForexShowBody(i.name, i.sym, i.pk))
+                            forexItems.add(
+                                ForexShowBody(
+                                    i.name,
+                                    i.sym,
+                                    i.pk
+                                )
+                            )
                         }
                     }
                     var adapter = ForexAdapter(root.context, forexItems)
@@ -140,12 +152,28 @@ class HomeFragment : Fragment() {
 
                     if(res!!.size < 3){
                         for(i in res.orEmpty()){
-                            articles.add(GetArticleBody(i.author, i.title, i.content, i.rating, i.pk))
+                            articles.add(
+                                GetArticleBody(
+                                    i.author,
+                                    i.title,
+                                    i.content,
+                                    i.rating,
+                                    i.pk
+                                )
+                            )
                         }
                     }
                     else{
                         for(i in res.orEmpty().take(3)){
-                            articles.add(GetArticleBody(i.author, i.title, i.content, i.rating, i.pk))
+                            articles.add(
+                                GetArticleBody(
+                                    i.author,
+                                    i.title,
+                                    i.content,
+                                    i.rating,
+                                    i.pk
+                                )
+                            )
                         }
                     }
                     var adapter2 = ArticlesAdapter(root.context, articles)

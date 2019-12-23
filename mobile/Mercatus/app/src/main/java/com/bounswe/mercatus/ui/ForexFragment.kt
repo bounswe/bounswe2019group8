@@ -14,8 +14,8 @@ import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
 import com.bounswe.mercatus.Adapters.ForexAdapter
 import com.bounswe.mercatus.Fragments.SearchForexActivity
-import com.bounswe.mercatus.Models.ForexDataModel
-import com.bounswe.mercatus.Models.ForexShowBody
+import com.bounswe.mercatus.Models.TradingEquipments.ForexDataModel
+import com.bounswe.mercatus.Models.TradingEquipments.ForexShowBody
 import com.bounswe.mercatus.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import retrofit2.Call
@@ -78,7 +78,13 @@ class ForexFragment : Fragment() {
                     val respo: List<ForexDataModel>? = response.body()
 
                     for(i in respo.orEmpty()){
-                        forexItems.add(ForexShowBody(i.name, i.sym, i.pk))
+                        forexItems.add(
+                            ForexShowBody(
+                                i.name,
+                                i.sym,
+                                i.pk
+                            )
+                        )
                     }
                     val adapter = ForexAdapter(root.context, forexItems)
 

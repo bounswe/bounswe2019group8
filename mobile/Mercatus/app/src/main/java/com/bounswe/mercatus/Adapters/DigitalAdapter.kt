@@ -2,14 +2,25 @@ package com.bounswe.mercatus.Adapters
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.bounswe.mercatus.API.ApiInterface
+import com.bounswe.mercatus.API.RetrofitInstance
 import com.bounswe.mercatus.Fragments.TradingEqps.ShowForexActivity
-import com.bounswe.mercatus.Models.ForexShowBody
+import com.bounswe.mercatus.Models.TradingEquipments.ForexShowBody
+import com.bounswe.mercatus.Models.TradingEquipments.PriceModel
 import com.bounswe.mercatus.R
 import kotlinx.android.synthetic.main.forex_item.view.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.net.ConnectException
 
 class DigitalAdapter(val context : Context, val forexList: ArrayList<ForexShowBody>): RecyclerView.Adapter<DigitalAdapter.ViewHolder>() {
 
@@ -46,21 +57,27 @@ class DigitalAdapter(val context : Context, val forexList: ArrayList<ForexShowBo
             itemView.forexName.text = forex_name
             itemView.forexSymbol.text = forex_sym
 
-            //getLatestForexParity(forex_id, itemView.situationForex)
-            //getForexPrice(forex_sym, itemView.highVal, itemView.lowVal)
+            getLatestForexParity(forex_sym, itemView.situationForex)
+            getForexPrice(forex_sym, itemView.highVal, itemView.lowVal)
 
-            this.currentForexShowBody = ForexShowBody(forex_name, forex_sym, forex_id)
+            this.currentForexShowBody =
+                ForexShowBody(
+                    forex_name,
+                    forex_sym,
+                    forex_id
+                )
             this.currentPosition = position
         }
     }
-    /*private fun getForexPrice(forex_sym: String, highVal: TextView, lowVal: TextView){
+    private fun getForexPrice(forex_sym: String, highVal: TextView, lowVal: TextView){
         val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
 
         val res = context.getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
         val tokenV = res.getString("token", "Data Not Found!")
+
         mer.getForexPrices(forex_sym, "Token " + tokenV.toString()).enqueue(object :
-            Callback<NewPriceModel> {
-            override fun onFailure(call: Call<NewPriceModel>, t: Throwable) {
+            Callback<PriceModel> {
+            override fun onFailure(call: Call<PriceModel>, t: Throwable) {
                 if(t.cause is ConnectException){
                     Toast.makeText(
                         context,
@@ -76,42 +93,36 @@ class DigitalAdapter(val context : Context, val forexList: ArrayList<ForexShowBo
                     ).show()
                 }
             }
-            override fun onResponse(call: Call<NewPriceModel>, response: Response<NewPriceModel>) {
+            override fun onResponse(call: Call<PriceModel>, response: Response<PriceModel>) {
                 if (response.code() == 200) {
-                    val forexPar: NewPriceModel? = response.body()
+                    val forexPar: PriceModel? = response.body()
 
-                    /*if(forexPar != null){
-                        if(forexPar[0].ask_price.length > 7 && forexPar[0].bid_price.length > 7){
-                            highVal.text = forexPar[0].ask_price.substring(0,7)
-                            lowVal.text = forexPar[0].bid_price.substring(0,7)
+                    if(forexPar != null){
+                        if(forexPar.ask_value.length > 7 && forexPar.bid_value.length > 7){
+                            highVal.text = forexPar.ask_value.substring(0,7)
+                            lowVal.text = forexPar.bid_value.substring(0,7)
                         }
                         else{
-                            highVal.text = forexPar[0].ask_price
-                            lowVal.text = forexPar[0].bid_price
+                            highVal.text = forexPar.ask_value
+                            lowVal.text = forexPar.bid_value
                         }
                     }
-
-                     */
                 }
                 else  {
-                    Toast.makeText(context, "Show forex failed...", Toast.LENGTH_SHORT)
-                        .show()
-                    Log.d("Digital adapter:", "show forex error1")
+                    Log.d("Forex adapter:", "Show forex failed.")
                 }
             }
         })
     }
 
-     */
-
-    /*private fun getLatestForexParity(forex_id: Int, situationForex: ImageView){
+    private fun getLatestForexParity(forex_sym: String, situationForex: ImageView){
         val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
 
         val res = context.getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
         val tokenV = res.getString("token", "Data Not Found!")
-        mer.getForexParity(forex_id, "Token " + tokenV.toString()).enqueue(object :
-            Callback<List<ForexParityModel>> {
-            override fun onFailure(call: Call<List<ForexParityModel>>, t: Throwable) {
+        mer.getForexParity(forex_sym, "Token " + tokenV.toString()).enqueue(object :
+            Callback<List<PriceModel>> {
+            override fun onFailure(call: Call<List<PriceModel>>, t: Throwable) {
                 if(t.cause is ConnectException){
                     Toast.makeText(
                         context,
@@ -127,24 +138,20 @@ class DigitalAdapter(val context : Context, val forexList: ArrayList<ForexShowBo
                     ).show()
                 }
             }
-            override fun onResponse(call: Call<List<ForexParityModel>>, response: Response<List<ForexParityModel>>) {
+            override fun onResponse(call: Call<List<PriceModel>>, response: Response<List<PriceModel>>) {
                 if (response.code() == 200) {
-                    val forexPar: List<ForexParityModel>? = response.body()
+                    val forexPar: List<PriceModel>? = response.body()
 
                     if(forexPar!!.isNotEmpty()){
-                        if(forexPar.last().open.toFloat() > forexPar.last().close.toFloat()){
+                        if(forexPar.first().ask_value.toFloat() > forexPar.last().ask_value.toFloat()){
                             situationForex.setImageResource(R.drawable.ic_decrease)
                         }
                     }
                 }
                 else  {
-                    Toast.makeText(context, "Show forex failed....", Toast.LENGTH_SHORT)
-                        .show()
-                    Log.d("Digital adapter:", "show forex error2")
+                    Log.d("Forex adapter:", "Show forex failed.")
                 }
             }
         })
     }
-
-     */
 }

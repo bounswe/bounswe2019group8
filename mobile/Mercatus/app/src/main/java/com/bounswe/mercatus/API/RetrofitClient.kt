@@ -1,6 +1,17 @@
 package com.bounswe.mercatus.API
 
 import com.bounswe.mercatus.Models.*
+import com.bounswe.mercatus.Models.Article.CreateArticleBody
+import com.bounswe.mercatus.Models.Article.EditArticleBody
+import com.bounswe.mercatus.Models.Article.GetArticleBody
+import com.bounswe.mercatus.Models.Article.LikerModel
+import com.bounswe.mercatus.Models.Comments.CommentBody
+import com.bounswe.mercatus.Models.Comments.CommentEditBody
+import com.bounswe.mercatus.Models.Comments.CommentShowTradingBody
+import com.bounswe.mercatus.Models.Comments.LikerModelComment
+import com.bounswe.mercatus.Models.TradingEquipments.ForexDataModel
+import com.bounswe.mercatus.Models.TradingEquipments.PriceModel
+import com.bounswe.mercatus.Models.User.*
 import okhttp3.OkHttpClient
 import okhttp3.ResponseBody
 import okhttp3.logging.HttpLoggingInterceptor
@@ -268,7 +279,7 @@ interface ApiInterface {
     fun getForexParity(
         @Path("tr_eq_sym") tr_eq_sym: String,
         @Header("Authorization") token: String
-    ): retrofit2.Call<List<NewPriceModel>>
+    ): retrofit2.Call<List<PriceModel>>
 
     // Get forex items prices
     @Headers("Content-Type:application/json")
@@ -276,7 +287,7 @@ interface ApiInterface {
     fun getForexPrices(
         @Path("tr_eq_sym") tr_eq_sym: String,
         @Header("Authorization") token: String
-    ): retrofit2.Call<NewPriceModel>
+    ): retrofit2.Call<PriceModel>
 
     // Get digital items
     @Headers("Content-Type:application/json")

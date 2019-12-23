@@ -1,26 +1,19 @@
 package com.bounswe.mercatus.Fragments.Articles
 
 import android.content.Context
-import android.content.DialogInterface
-import android.content.Intent
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
 import com.bounswe.mercatus.Adapters.CommentAdapter
-import com.bounswe.mercatus.Fragments.User.ShowProfileActivity
-import com.bounswe.mercatus.Models.*
+import com.bounswe.mercatus.Models.Article.GetArticleBody
 import com.bounswe.mercatus.ModelsgetArticles.CommentShowBody
 import com.bounswe.mercatus.R
-import kotlinx.android.synthetic.main.activity_show_article.*
-import kotlinx.android.synthetic.main.dialog_new_category.*
-import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

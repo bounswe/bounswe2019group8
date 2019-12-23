@@ -1,4 +1,4 @@
-package com.bounswe.mercatus.Models
+package com.bounswe.mercatus.Models.Comments
 
 import androidx.annotation.Nullable
 

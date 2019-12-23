@@ -8,8 +8,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
-import com.bounswe.mercatus.Models.EditArticleBody
-import com.bounswe.mercatus.Models.GetArticleBody
+import com.bounswe.mercatus.Models.Article.EditArticleBody
+import com.bounswe.mercatus.Models.Article.GetArticleBody
 import com.bounswe.mercatus.R
 import kotlinx.android.synthetic.main.activity_edit_article.*
 import kotlinx.android.synthetic.main.article_layout.editArticle
@@ -61,7 +61,11 @@ class EditArticleActivity : AppCompatActivity() {
         val res = getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
         val tokenV = res.getString("token", "Data Not Found!")
 
-        val editA = EditArticleBody(title, content, 0.0f)
+        val editA = EditArticleBody(
+            title,
+            content,
+            0.0f
+        )
         mercatus.editArticle(editA, pk,"Token " + tokenV.toString()).enqueue(object :
             Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {

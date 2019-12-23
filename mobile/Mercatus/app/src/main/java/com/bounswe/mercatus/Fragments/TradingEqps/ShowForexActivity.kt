@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
 import com.bounswe.mercatus.Adapters.CommentTradingAdapter
-import com.bounswe.mercatus.Models.CommentShowTradingBody
+import com.bounswe.mercatus.Models.Comments.CommentShowTradingBody
 import com.bounswe.mercatus.Models.CreateCommentBody
 import com.bounswe.mercatus.Models.PredictionModel
 import com.bounswe.mercatus.R
@@ -189,7 +189,14 @@ class ShowForexActivity : AppCompatActivity() {
                     val resp: List<CommentShowTradingBody>? = response.body()
                     commentsList.clear()
                     for(i in resp.orEmpty()){
-                        commentsList.add(CommentShowTradingBody(i.author, i.content, i.pk , i.tr_eq))
+                        commentsList.add(
+                            CommentShowTradingBody(
+                                i.author,
+                                i.content,
+                                i.pk,
+                                i.tr_eq
+                            )
+                        )
                     }
                     adapter.notifyDataSetChanged()
                 }

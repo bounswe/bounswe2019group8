@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
 import com.bounswe.mercatus.Fragments.TradingEqps.ShowForexActivity
-import com.bounswe.mercatus.Models.ForexShowBody
-import com.bounswe.mercatus.Models.NewPriceModel
+import com.bounswe.mercatus.Models.TradingEquipments.ForexShowBody
+import com.bounswe.mercatus.Models.TradingEquipments.PriceModel
 import com.bounswe.mercatus.R
 import kotlinx.android.synthetic.main.forex_item.view.*
 import retrofit2.Call
@@ -60,7 +60,12 @@ class ForexAdapter(val context : Context, val forexList: ArrayList<ForexShowBody
             getLatestForexParity(forex_sym, itemView.situationForex)
             getForexPrice(forex_sym, itemView.highVal, itemView.lowVal)
 
-            this.currentForexShowBody = ForexShowBody(forex_name, forex_sym, forex_id)
+            this.currentForexShowBody =
+                ForexShowBody(
+                    forex_name,
+                    forex_sym,
+                    forex_id
+                )
             this.currentPosition = position
         }
     }
@@ -72,8 +77,8 @@ class ForexAdapter(val context : Context, val forexList: ArrayList<ForexShowBody
         val tokenV = res.getString("token", "Data Not Found!")
 
         mer.getForexPrices(forex_sym, "Token " + tokenV.toString()).enqueue(object :
-            Callback<NewPriceModel> {
-            override fun onFailure(call: Call<NewPriceModel>, t: Throwable) {
+            Callback<PriceModel> {
+            override fun onFailure(call: Call<PriceModel>, t: Throwable) {
                 if(t.cause is ConnectException){
                     Toast.makeText(
                         context,
@@ -89,9 +94,9 @@ class ForexAdapter(val context : Context, val forexList: ArrayList<ForexShowBody
                     ).show()
                 }
             }
-            override fun onResponse(call: Call<NewPriceModel>, response: Response<NewPriceModel>) {
+            override fun onResponse(call: Call<PriceModel>, response: Response<PriceModel>) {
                 if (response.code() == 200) {
-                    val forexPar: NewPriceModel? = response.body()
+                    val forexPar: PriceModel? = response.body()
 
                     if(forexPar != null){
                         if(forexPar.ask_value.length > 7 && forexPar.bid_value.length > 7){
@@ -117,8 +122,8 @@ class ForexAdapter(val context : Context, val forexList: ArrayList<ForexShowBody
         val res = context.getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
         val tokenV = res.getString("token", "Data Not Found!")
         mer.getForexParity(forex_sym, "Token " + tokenV.toString()).enqueue(object :
-            Callback<List<NewPriceModel>> {
-            override fun onFailure(call: Call<List<NewPriceModel>>, t: Throwable) {
+            Callback<List<PriceModel>> {
+            override fun onFailure(call: Call<List<PriceModel>>, t: Throwable) {
                 if(t.cause is ConnectException){
                     Toast.makeText(
                         context,
@@ -134,9 +139,9 @@ class ForexAdapter(val context : Context, val forexList: ArrayList<ForexShowBody
                     ).show()
                 }
             }
-            override fun onResponse(call: Call<List<NewPriceModel>>, response: Response<List<NewPriceModel>>) {
+            override fun onResponse(call: Call<List<PriceModel>>, response: Response<List<PriceModel>>) {
                 if (response.code() == 200) {
-                    val forexPar: List<NewPriceModel>? = response.body()
+                    val forexPar: List<PriceModel>? = response.body()
 
                     if(forexPar!!.isNotEmpty()){
                         if(forexPar.first().ask_value.toFloat() > forexPar.last().ask_value.toFloat()){
