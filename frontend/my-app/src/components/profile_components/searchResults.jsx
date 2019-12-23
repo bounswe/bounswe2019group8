@@ -7,14 +7,15 @@ import UserSearchHandler from "./userSearchHandler";
 import ArticleSemanticHandler from "./articleSemanticHandler";
 import CommentSemanticHandler from "./commentSemanticHandler";
 import AnnotationSemanticHandler from "./annotationSemanticHandler";
-
+import EventSemanticHandler from "./eventSemanticHandler";
 class SearchResults extends Component {
   state = {
       trEqList: [],
       userList: [],
       articleSemanticList : [],
       commentSemanticList : [],
-      annotationSemanticList: []
+      annotationSemanticList: [],
+      eventSemanticList: []
   };
 
   componentWillMount(){
@@ -59,6 +60,14 @@ class SearchResults extends Component {
       .then(res => {
         this.setState({userList: res.data});
       });
+      axios
+      .get("http://8.209.81.242:8000/semantic_search?keyword=" + data.search_text + "&type=event",{
+        headers: { Authorization: `Token ${token}` }
+      })
+      .then(res => {
+        this.setState({eventSemanticList: res.data});
+      });
+
   }
   render() {
     var trEqListItems = [];
@@ -66,6 +75,7 @@ class SearchResults extends Component {
     var articleListItems = [];
     var commentListItems = [];
     var annotationListItems = [];
+    var eventListItems = [];
 
     for(var i = 0; i < this.state.trEqList.length; i++){
     trEqListItems.push(<TrEqSearchHandler result={this.state.trEqList[i]}></TrEqSearchHandler>);
@@ -83,6 +93,9 @@ class SearchResults extends Component {
     for(var i = 0; i < this.state.annotationSemanticList.length; i++){
       annotationListItems.push(<AnnotationSemanticHandler result={this.state.annotationSemanticList[i]}></AnnotationSemanticHandler>)
     }
+    for(var i = 0; i < this.state.eventSemanticList.length; i++){
+      eventListItems.push(<EventSemanticHandler result={this.state.eventSemanticList[i]}></EventSemanticHandler>)
+    }
 
     return(
     <React.Fragment>
@@ -97,6 +110,7 @@ class SearchResults extends Component {
                 {articleListItems}
                 {commentListItems}
                 {annotationListItems}
+                {eventListItems}
               </ListGroup>
             </ListGroup.Item>     
           </ListGroup>
