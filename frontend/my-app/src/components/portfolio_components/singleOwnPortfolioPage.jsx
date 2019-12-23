@@ -5,7 +5,7 @@ import "./singleOwnPortfolioPage.css";
 import AddTreqModal from "./addTreqModal";
 import RemoveTrEqButton from "./removeTrEqButton";
 import { withRouter } from "react-router-dom";
-
+import { MdDeleteSweep } from 'react-icons/md'
 class SingleOwnPortfolioPage extends Component {
     state = {
         trEqs: [],
@@ -22,28 +22,36 @@ class SingleOwnPortfolioPage extends Component {
     render() {
         var groupItems = [];
         for (var i = 0; i < this.state.trEqs.length; i++) {
-            groupItems.push(<ListGroupItem style={{width:'60%', fontSize:24, letterSpacing:1.5,  margin:'auto', marginBottom:20}}>
-                <Badge className="single-own-portfolio-inlist-badge"> {this.getName(this.state.trEqs[i].sym)} ({this.state.trEqs[i].sym})</Badge>
+            groupItems.push(<ListGroupItem className='listGroup' style={{ width: '60%', fontSize: 24, letterSpacing: 1.5, margin: 'auto', marginBottom: 20 }}>
+                <Badge className="single-own-portfolio-inlist-badge"> 
+                {this.getName(this.state.trEqs[i].sym)} ({this.state.trEqs[i].sym})
+                </Badge>
                 <RemoveTrEqButton pk={this.props.match.params.pk} trEqs={this.state.trEqs} sym={this.state.trEqs[i].sym}></RemoveTrEqButton>
             </ListGroupItem>)
         }
         return (
-            <div style={{textAlign:'center'}}className="single-portfolio-outer-div">
-                <Badge style={{marginBottom:30, borderBottom:'1px groove white', paddingBottom:10}}>
-                    <h1 className="single-own-portfolio-header">{this.state.name}</h1>
+            <div style={{ textAlign: 'center' }} className="single-portfolio-outer-div">
+                <Badge style={{ marginBottom: 30, fontSize: 24, borderBottom: '1px groove white', paddingBottom: 10 }}>
+                    <div style={{ color: 'white', fontWeight: 'lighter', letterSpacing: 5 }}
+                        className="single-own-portfolio-header">{this.state.name.toUpperCase()}</div>
                 </Badge>
-            
+
                 <AddTreqModal onAddTreqModal={() => this.justToReRender()}
                     pk={this.props.match.params.pk} name={this.state.name}
                     prevEqs={this.state.trEqs}></AddTreqModal>
-                <Button style={{ fontWeight:'lighter', letterSpacing:3}} 
-                action href={"/profile/" + localStorage.getItem("userId") + "/portfolio"} 
-                onClick={() => this.handleDelete()} className="single-own-portfolio-delete-btn" 
-                variant="danger">DELETE PORTFOLIO</Button>
-                <Badge style={{marginBottom:30, marginTop:50, fontSize:30, 
-                borderBottom:'1px groove white', paddingBottom:10}}
-                className="single-own-portfolio-header">Equipments</Badge>
-                <ListGroup style={{letterSpacing:'2'}}>
+                <Button style={{ width: 300, fontWeight: 'lighter', letterSpacing: 3, margin: 'auto' }}
+                    action href={"/profile/" + localStorage.getItem("userId") + "/portfolio"}
+                    onClick={() => this.handleDelete()} className="single-own-portfolio-delete-btn"
+                    variant="danger">
+                        <MdDeleteSweep style={{marginRight:5}}></MdDeleteSweep>DELETE PORTFOLIO
+                        </Button>
+                <div style={{
+                    color:'white', fontWeight:'lighter',
+                    marginBottom: 30, marginTop: 50, fontSize: 20,
+                    borderBottom: '1px groove white', paddingBottom: 10
+                }}
+                    className="single-own-portfolio-header">Equipments</div>
+                <ListGroup style={{ letterSpacing: '2' }}>
                     {groupItems}</ListGroup>
             </div>
         );

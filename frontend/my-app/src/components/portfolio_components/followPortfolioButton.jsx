@@ -87,10 +87,16 @@ class FollowPortfolioButton extends Component {
   render() {
     if (this.state.isFollowed) {
       return (
+
+
+
         <React.Fragment>
           <Button onClick={() => this.unfollow()}
-            style={{fontSize:12, marginTop:30, alignItems: 'center', justifyContent: 'center', margin: 'auto', 
-            padding: 4, paddingLeft:10, paddingRight:10 }}
+            style={{ 
+              width: 300, justifyContent:'center',
+              alignItems:'center', 
+              fontWeight: 'lighter', 
+              letterSpacing: 3, margin: 'auto' }}
             className="follow-portfolio-btn"
             action href={"/profile/" + this.props.othersId + "/others_portfolio/" + this.props.pk}>
             <FaUserTimes style={{ marginRight: 8 }}></FaUserTimes>
@@ -103,8 +109,12 @@ class FollowPortfolioButton extends Component {
       return (
         <React.Fragment>
           <Button
-            style={{fontSize:12, marginTop:30, alignItems: 'center', justifyContent: 'center', margin: 'auto', 
-            padding: 4, paddingLeft:10, paddingRight:10 }}
+            style={{
+            justifyContent:'center',
+            alignItems:'center',
+            width: 300, fontWeight: 'lighter', 
+            letterSpacing: 3, margin: 'auto' }}
+
 
             onClick={() => this.follow()} className="follow-portfolio-btn" action href={"/profile/" + this.props.othersId + "/others_portfolio/" + this.props.pk}>
             <FaUserCheck style={{ marginRight: 8 }}></FaUserCheck>
