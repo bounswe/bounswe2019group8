@@ -39,8 +39,9 @@ class ParityMakeComment extends Component {
           headers: { Authorization: `Token ${token}` }
         }
       )
-      .then(function(response) {});
-        this.props.doubleTap()
+      .then(response => {this.props.doubleTap(response.data);this.setState({comment: ""});});
+
+
   };
   render() {
     return (

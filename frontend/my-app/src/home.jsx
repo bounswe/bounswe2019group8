@@ -12,7 +12,7 @@ import Followings from "./components/profile_components/followings";
 import SearchResults from "./components/profile_components/searchResults";
 import ParityBadgeHolder from "./components/parity_components/parityBadgeHolder";
 import WriteArticlePageSummoner from "./components/article_components/writeArticlePageSummoner";
-import TradingEquipmentsPage from "./components/parity_components/tradingEquipmentsPage";
+
 import Followers from "./components/profile_components/followers";
 import OthersArticles from "./components/profile_components/othersArticles";
 import VerificationFailPage from "./components/verificationFailPage";
@@ -26,6 +26,8 @@ import SingleOwnPortfolioPage from "./components/portfolio_components/singleOwnP
 import OthersSinglePortfolioPage from "./components/portfolio_components/othersSinglePortfolioPage";
 
 import NewParitiesPage from "./components/parity_components/newParitiesPage";
+
+import TradingEquipmentsPage from "./components/trading-equipments/equipment";
 
 import UpdatePage from "./components/profile_components/updatePage";
 import NotifPage from "./components/notification_components/notifPage";
@@ -106,8 +108,8 @@ class Home extends Component {
 
   renderHome() {
     return (<Row>
-      <Col><h2 className="text-center" style={{backgroundColor:"#fff"}}>Articles</h2><ArticleHolder2/></Col>
-      <Col><h2 className="text-center" style={{backgroundColor:"#fff"}}>Portfolios</h2>{this.state.portfolios.map(p => this.renderPorfolio(p))}</Col>
+      <Col><h2 className="text-center" style={{color:"#fff", borderRadius: 10, backgroundColor: "orange"}}>Articles</h2><ArticleHolder2/></Col>
+      <Col><h2 className="text-center" style={{color:"#fff", borderRadius: 10, backgroundColor: "orange"}}>Portfolios</h2>{this.state.portfolios.map(p => this.renderPorfolio(p))}</Col>
     </Row>
   );
   }
@@ -245,9 +247,8 @@ class Home extends Component {
             component={EventsPage}
           />
           <Route exact path="/articlewrite" component={WriteArticlePageSummoner} />
-          <Route exact path="/treq" component={NewParitiesPage}/>
+          <Route exact path="/treq/:sym?" component={TradingEquipmentsPage}/>
           <Route exact path="/events" component={EventsPage}/>
-          <Route exact path="/treq/:pk" component={GraphPage}/>
           <Route exact path="/verif_fail" component={VerificationFailPage}/>
           <Route exact path="/activations/:restOfUrl/:rest" component={DoVerify}/>
           <Route exact path="/upd_cred" component={UpdatePage}/>
