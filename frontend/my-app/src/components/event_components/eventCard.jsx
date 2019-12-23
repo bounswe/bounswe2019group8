@@ -6,7 +6,7 @@ import TwoStarImportance from "./twoStarImportance";
 import ThreeStarImportance from "./threeStarImportance";
 class EventCard extends Component {
     state = {  }
-    render() { 
+    render() {
         var eventTime = this.props.eventData.time;
         if(eventTime === ""){
             eventTime = "All day"
@@ -22,8 +22,8 @@ class EventCard extends Component {
             importance.push(<ThreeStarImportance/>);
         }
 
-        return ( 
-            <div className="event-card">
+        return (
+            <div id={this.props.eventData.id} className="event-card">
                 <div className="event-name-div">
         <Badge className="event-field-badge">{this.props.eventData.name}</Badge>
                 </div>
@@ -39,13 +39,13 @@ class EventCard extends Component {
                 <div className="event-country-div">
                 <Badge className="event-field-badge">{this.props.eventData.country}</Badge>
                 </div>
-                
-                
+
+
             </div>
-                   
-            
+
+
          );
     }
 }
- 
+
 export default EventCard;
