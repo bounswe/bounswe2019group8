@@ -87,3 +87,7 @@ input[type="file"] {
 .profileAreaButton {
   margin-bottom: 10px;
 }
+
+.cards {
+    color:'red';
+}
