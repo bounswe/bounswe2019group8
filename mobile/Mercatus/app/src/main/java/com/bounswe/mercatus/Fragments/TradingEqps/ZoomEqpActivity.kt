@@ -94,7 +94,7 @@ class ZoomEqpActivity : AppCompatActivity() {
                     }
                 }
                 else  {
-                    Toast.makeText(this@ZoomEqpActivity, "Show forex failed.", Toast.LENGTH_SHORT)
+                    Toast.makeText(this@ZoomEqpActivity, "Show forex failed.....", Toast.LENGTH_SHORT)
                         .show()
                 }
             }

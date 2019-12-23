@@ -1,4 +1,4 @@
-package com.bounswe.mercatus.Models
+package com.bounswe.mercatus.ModelsgetArticles
 
 data class CommentShowBody(
     val author: Long,

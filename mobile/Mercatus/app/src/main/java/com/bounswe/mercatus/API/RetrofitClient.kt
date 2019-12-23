@@ -374,6 +374,59 @@ interface ApiInterface {
         @Body info: CreateEventBody,
         @Header("Authorization") token: String
     ): retrofit2.Call<GetEventBody>
+
+
+    // ---------------------    PORTFOLIO SECTION  --------------------------
+
+    // Create an portfolio
+    @Headers("Content-Type:application/json")
+    @POST("users/{user_id}/portfolios")
+    fun createPortfolio(
+        @Body info: CreatePortfolioBody,
+        @Path("user_id") id: Long,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<GetPortfolioBody>
+
+
+    // Get all portfolios
+    @Headers("Content-Type:application/json")
+    @GET("users/{user_id}/portfolios")
+    fun getPortfolios(
+        @Path("user_id") id: Long,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<List<GetPortfolioBody>>
+
+    // Get Specific Portfolio
+    @Headers("Content-Type:application/json")
+    @GET("users/{user_id}/portfolios/{portfolio_id}")
+    fun getSpecificPortfolio(
+        @Path("user_id") mid: Long,
+        @Header("Authorization") token: String,
+        @Path("portfolio_id") id: Long
+    ): retrofit2.Call<GetPortfolioBody>
+
+    // Get Specific Portfolio
+    @Headers("Content-Type:application/json")
+    @PUT("users/{user_id}/portfolios/{portfolio_id}")
+    fun updatePortfolio(
+        @Body info: UpdatePortfolio,
+        @Path("user_id") mid: Long,
+        @Header("Authorization") token: String,
+        @Path("portfolio_id") id: Long
+    ): retrofit2.Call<GetPortfolioBody>
+
+    // Delete Portfolio
+    @Headers("Content-Type:application/json")
+    @DELETE("users/{user_id}/portfolios/{portfolio_id}")
+    fun deletePortfolio(
+        @Path("user_id") mid: Long,
+        @Header("Authorization") token: String,
+        @Path("portfolio_id") id: Long
+    ): retrofit2.Call<ResponseBody>
+
+
+
+
 }
 class RetrofitInstance {
     companion object {

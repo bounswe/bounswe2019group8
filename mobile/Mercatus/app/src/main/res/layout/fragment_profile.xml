@@ -36,6 +36,8 @@
                 android:textStyle="bold|italic" />
         </LinearLayout>
 
+
+
         <androidx.cardview.widget.CardView
             android:layout_width="400dp"
             android:layout_height="75dp"
@@ -99,7 +101,11 @@
                         android:textStyle="bold" />
 
                 </LinearLayout>
+
+
             </LinearLayout>
+
+
         </androidx.cardview.widget.CardView>
     </RelativeLayout>
 
@@ -165,6 +171,8 @@
                 android:paddingLeft="20dp"
                 android:text=""/>
         </LinearLayout>
+
+
     </LinearLayout>
     <Button
         android:id="@+id/btnModify"

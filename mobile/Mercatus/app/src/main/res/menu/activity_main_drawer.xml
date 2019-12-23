@@ -16,6 +16,10 @@
             android:id="@+id/nav_events"
             android:icon="@drawable/ic_menu_explicit"
             android:title="@string/menu_events" />
+        <item
+            android:id="@+id/nav_portfolios"
+            android:icon="@drawable/ic_menu_explicit"
+            android:title="@string/menu_portfolios" />
     </group>
 
     <item android:title="@string/trading">

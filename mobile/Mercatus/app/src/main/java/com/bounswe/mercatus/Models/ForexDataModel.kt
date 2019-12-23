@@ -6,5 +6,6 @@ data class ForexDataModel(
     val name: String,
     val sym: String,
     val pk: Int,
-    val last_updated: String
+    val last_updated_daily: String,
+    val last_updated_current: String
 )

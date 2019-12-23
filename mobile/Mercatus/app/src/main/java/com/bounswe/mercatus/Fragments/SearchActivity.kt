@@ -3,6 +3,7 @@ package com.bounswe.mercatus.Fragments
 import android.app.SearchManager
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -83,10 +84,12 @@ class SearchActivity : AppCompatActivity() {
                         override fun onResponse(call: Call<List<SearchRes>>, response: Response<List<SearchRes>>) {
                             if (response.code() == 200) {
                                 val res: List<SearchRes>? = response.body()
-
+                                Log.d("SearchActivity",""+res)
                                 for(i in res.orEmpty()){
                                   users.add(SearchShow(i.first_name, i.last_name, i.pk))
                                 }
+
+
                                 if(users.isEmpty()){
                                     Toast.makeText(this@SearchActivity, "No users found!", Toast.LENGTH_SHORT).show()
                                 }

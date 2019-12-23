@@ -44,6 +44,7 @@
     <string name="menu_home">Home</string>
     <string name="menu_article">Articles</string>
     <string name="menu_events">Events</string>
+    <string name="menu_portfolios">Portfolios</string>
     <string name="menu_tools">Tools</string>
     <string name="menu_profile">Profile</string>
     <string name="menu_profit">Profit</string>
@@ -68,6 +69,7 @@
     <string name="comment">Comment</string>
     <string name="comments">Comments:</string>
     <string name="create_article">Create Article</string>
+    <string name="create_portfolio">Create Portfolio</string>
     <string name="create_comment">Create Comment</string>
     <string name="article">Article</string>
     <string name="edit_article">Edit Article</string>

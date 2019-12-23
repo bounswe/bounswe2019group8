@@ -156,7 +156,7 @@ class ShowForexActivity : AppCompatActivity() {
                     }
                 }
                 else  {
-                    Toast.makeText(this@ShowForexActivity, "Show forex failed.", Toast.LENGTH_SHORT)
+                    Toast.makeText(this@ShowForexActivity, "Show forex failed", Toast.LENGTH_SHORT)
                         .show()
                 }
             }
