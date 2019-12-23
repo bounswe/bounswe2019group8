@@ -14,10 +14,11 @@ class GraphPage extends Component {
         state={
             pk:this.props.pk,
             currentValue: 0,
-            parityName: "",
+            parityName: this.props.firstType+"_"+this.props.secondType,
             labels: [],
             data: [],
-            boo:"" 
+            boo:"",
+            dorInt : "daily" 
           }
 
     render() { 
@@ -42,12 +43,11 @@ class GraphPage extends Component {
          );
         }
     componentWillMount(){
-            var token = localStorage.getItem("userToken");
-            axios.get("http://8.209.81.242:8000/trading_equipments/" + this.state.pk + "/parities", {
+        if(this.state.dorInt === "daily"){
+          var token = localStorage.getItem("userToken");
+            axios.get("http://8.209.81.242:8000/trading_equipments/" + this.state.parityName + "/prices/daily", {
               headers: { Authorization: `Token ${token}` }
             }).then(res => {
-              var currentValue = res.data[0].close;
-              this.setState({currentValue: currentValue});
               var parityData = res.data.reverse();
               
               this.setState({parityData: parityData});
@@ -55,27 +55,54 @@ class GraphPage extends Component {
               var data = [];
               var myLabel = "";
               for(var i = 0; i < parityData.length; i++){
-                  myLabel = parityData[i].observed_at[0] + 
-                  parityData[i].observed_at[1] + 
-                  parityData[i].observed_at[2] + 
-                  parityData[i].observed_at[3] + 
-                  parityData[i].observed_at[4] + 
-                  parityData[i].observed_at[5] +
-                  parityData[i].observed_at[6] +
-                  parityData[i].observed_at[7] +
-                  parityData[i].observed_at[8] + 
-                  parityData[i].observed_at[9];
+                  myLabel = parityData[i].observe_date[0] + 
+                  parityData[i].observe_date[1] + 
+                  parityData[i].observe_date[2] + 
+                  parityData[i].observe_date[3] + 
+                  parityData[i].observe_date[4] + 
+                  parityData[i].observe_date[5] +
+                  parityData[i].observe_date[6] +
+                  parityData[i].observe_date[7] +
+                  parityData[i].observe_date[8] + 
+                  parityData[i].observe_date[9];
                 labels.push(myLabel);
-                data.push(parityData[i].close);
+                data.push(parityData[i].indicative_value);
               }
               this.setState({labels: labels});
               this.setState({data: data});
             });
-            axios.get("http://8.209.81.242:8000/trading_equipments/" + this.state.pk, {
-              headers: { Authorization: `Token ${token}` }
-            }).then(res => {
-              this.setState({parityName: res.data.name});
-            });
+        }
+        if(this.state.dorInt === "intradaily"){
+          var token = localStorage.getItem("userToken");
+          axios.get("http://8.209.81.242:8000/trading_equipments/" + this.state.parityName + "/prices/intradaily", {
+            headers: { Authorization: `Token ${token}` }
+          }).then(res => {
+            var parityData = res.data.reverse();
+            
+            this.setState({parityData: parityData});
+            var labels = [];
+            var data = [];
+            var myLabel = "";
+            for(var i = 0; i < parityData.length; i++){
+                myLabel = parityData[i].observe_date[0] + 
+                parityData[i].observe_date[1] + 
+                parityData[i].observe_date[2] + 
+                parityData[i].observe_date[3] + 
+                parityData[i].observe_date[4] + 
+                parityData[i].observe_date[5] +
+                parityData[i].observe_date[6] +
+                parityData[i].observe_date[7] +
+                parityData[i].observe_date[8] + 
+                parityData[i].observe_date[9];
+              labels.push(myLabel);
+              data.push(parityData[i].indicative_value);
+            }
+            this.setState({labels: labels});
+            this.setState({data: data});
+          });
+        }        
+            
+           
             
     }
     refreshPage = () =>{

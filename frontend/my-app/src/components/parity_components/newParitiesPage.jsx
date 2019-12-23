@@ -238,7 +238,7 @@ class NewParitiesPage extends Component {
       }
       </div>
       { this.state.parityGet
-        ? <GraphPage doubleTap={this.handleSearchClick} pk = {this.state.parityPk}/>
+        ? <GraphPage doubleTap={this.handleSearchClick} firstType={this.state.firstSym.split("_")[0]} secondType={this.state.secondSym.split("_")[0]} pk = {this.state.parityPk}/>
         : <div/>
       }
         </React.Fragment>
@@ -249,13 +249,17 @@ class NewParitiesPage extends Component {
    if(this.state.lastClicked==="first"){
     this.setState({firstParity:name, firstSym:symbol ,parityPk:pk})
     this.handleSearchClick()
+  
     window.setTimeout(this.handleCheckOut, 30)   
    }
    if(this.state.lastClicked==="second"){
     this.setState({secondParity:name, secondSym:symbol})
+    this.handleSearchClick();
    }
    if(this.state.lastClicked==="buywith"){
     this.setState({buyWithParity:name, buyWithSym:symbol})
+    this.handleSearchClick();
+    window.setTimeout(this.handleCheckOut, 30)   
    }
 
   }
@@ -318,8 +322,8 @@ class NewParitiesPage extends Component {
   handleCheckoutClick =()=>{
     axios.post("http://8.209.81.242:8000/users/" + localStorage.getItem("userId")+"/assets", 
     {
-      sell_amount: 10,
-      buy_tr_eq_sym:this.state.firstySym,
+      sell_amount: parseFloat(this.state.buyAmount),
+      buy_tr_eq_sym:this.state.firstSym,
       sell_tr_eq_sym:this.state.buyWithSym
     },
     {
