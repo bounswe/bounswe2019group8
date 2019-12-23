@@ -152,6 +152,7 @@ class TraderNavbar extends Component {
     localStorage.setItem("followings", null);
     localStorage.setItem("articleList", null);
     localStorage.setItem("equipmentList", null);
+    localStorage.setItem("equipmentList2", null);
     localStorage.setItem("threeDaysEventsList", null);
     this.props.history.push("/login");
   };
@@ -213,6 +214,14 @@ class TraderNavbar extends Component {
     axios.get("http://8.209.81.242:8000/trading_equipments").then(res => {
       var equipmentList = res.data;
       localStorage.setItem("equipmentList", JSON.stringify(equipmentList));
+    });
+    axios.get("http://8.209.81.242:8000/trading_equipments/forex").then(res => {
+      var equipmentList = res.data;
+      localStorage.setItem("equipmentList2", JSON.stringify(equipmentList));
+    });
+    axios.get("http://8.209.81.242:8000/trading_equipments/digital").then(res => {
+      var equipmentList = res.data;
+      localStorage.setItem("equipmentList3", JSON.stringify(equipmentList));
     });
     axios
     .get("http://8.209.81.242:8000/articles").then(res => {
