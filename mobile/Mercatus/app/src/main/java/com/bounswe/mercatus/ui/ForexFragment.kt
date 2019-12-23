@@ -90,6 +90,10 @@ class ForexFragment : Fragment() {
                             )
                         )
                     }
+                    if(forexItems.size > 1){
+                        forexItems.removeAt(forexItems.size-1)
+                    }
+
                     val adapter = ForexAdapter(root.context, forexItems)
 
                     rv.adapter = adapter
