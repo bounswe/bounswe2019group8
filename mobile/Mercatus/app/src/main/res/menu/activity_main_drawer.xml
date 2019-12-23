@@ -45,6 +45,10 @@
                 android:id="@+id/nav_profit"
                 android:icon="@drawable/ic_menu_trending"
                 android:title="@string/menu_profit" />
+            <item
+                android:id="@+id/nav_assets"
+                android:icon="@drawable/ic_menu_trending"
+                android:title="@string/menu_asset" />
         </menu>
     </item>
 

@@ -424,6 +424,37 @@ interface ApiInterface {
         @Path("portfolio_id") id: Long
     ): retrofit2.Call<ResponseBody>
 
+    // ---------------------    ASSET SECTION  --------------------------
+
+
+
+    // Get all portfolios
+    @Headers("Content-Type:application/json")
+    @GET("users/{user_id}/assets")
+    fun getAssets(
+        @Path("user_id") id: Long,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<List<GetAssetsBody>>
+
+    // Get all portfolios
+    @Headers("Content-Type:application/json")
+    @POST("users/{user_id}/cash")
+    fun addCash(
+
+        @Body info: AddCashBody,
+        @Path("user_id") id: Long,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<List<GetAssetsBody>>
+
+
+    // Get all portfolios
+    @Headers("Content-Type:application/json")
+    @POST("users/{user_id}/assets")
+    fun buyAssets(
+        @Body info: BuyAssetsModel,
+        @Path("user_id") id: Long,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<List<BuyAssetsModel>>
 
 
 
