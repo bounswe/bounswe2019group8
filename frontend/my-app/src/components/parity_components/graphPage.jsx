@@ -50,9 +50,26 @@ class GraphPage extends Component {
             
         }
         componentDidMount(){ 
-        if(this.state.dorInt === "daily"){
+          var token = localStorage.getItem("userToken");
+          var current1=0
+          var current2=0  
+          axios.get("http://8.209.81.242:8000/trading_equipments/" + this.props.secondType + "/prices/current", {
+            headers: { Authorization: `Token ${token}` }
+          }).then(res => {
+            current1= parseFloat(res.data.indicative_value)
+            console.log(current1)
+            axios.get("http://8.209.81.242:8000/trading_equipments/" + this.props.firstType + "/prices/current", {
+            headers: { Authorization: `Token ${token}` }
+          }).then(res => {
+            current2 = parseFloat(res.data.indicative_value)
+            console.log(current2)
+            this.setState({currentValue:current2/current1})
+          });
+          });
+          
+         
+          if(this.state.dorInt === "daily"){
             var token = localStorage.getItem("userToken");
-            
             axios.get("http://8.209.81.242:8000/trading_equipments/" + this.props.secondType + "/prices/daily", {
               headers: { Authorization: `Token ${token}` }
             }).then(res => {
@@ -65,7 +82,31 @@ class GraphPage extends Component {
               var labels = [];
               var data = [];
               var myLabel = "";
-              for(var i = 0; i < parityData.length; i++){
+              var myLength=0
+              if(this.props.firstType === "USD_USD"){
+                parityData = this.state.secondaryData
+                for(var i = 0; i < parityData.length; i++){
+                  myLabel = parityData[i].observe_date[0] + 
+                  parityData[i].observe_date[1] + 
+                  parityData[i].observe_date[2] + 
+                  parityData[i].observe_date[3] + 
+                  parityData[i].observe_date[4] + 
+                  parityData[i].observe_date[5] +
+                  parityData[i].observe_date[6] +
+                  parityData[i].observe_date[7] +
+                  parityData[i].observe_date[8] + 
+                  parityData[i].observe_date[9];
+                labels.push(myLabel);
+                if(this.props.secondType === "USD_USD"){
+                  data.push(1);
+                }           
+                else{
+                    data.push(1/parityData[i].indicative_value)
+                  }
+              }
+              }
+              else{
+                for(var i = 0; i < parityData.length; i++){
                   myLabel = parityData[i].observe_date[0] + 
                   parityData[i].observe_date[1] + 
                   parityData[i].observe_date[2] + 
@@ -90,7 +131,9 @@ class GraphPage extends Component {
                   }
                 
               }
-              this.setState({labels: labels, data: data, currentValue:data[data.length-1]});
+              }
+
+              this.setState({labels: labels, data: data});
             
             });
             });
@@ -112,7 +155,29 @@ class GraphPage extends Component {
               var labels = [];
               var data = [];
               var myLabel = "";
-              for(var i = 0; i < parityData.length; i++){
+              if(this.props.firstType === "USD_USD"){
+                parityData = this.state.secondaryData
+                for(var i = 0; i < parityData.length; i++){
+                  myLabel = parityData[i].observe_time[0] + 
+                  parityData[i].observe_time[1] + 
+                  parityData[i].observe_time[2] + 
+                  parityData[i].observe_time[3] + 
+                  parityData[i].observe_time[4] + 
+                  parityData[i].observe_time[5] +
+                  parityData[i].observe_time[6] +
+                  parityData[i].observe_time[7]
+                labels.push(myLabel);
+                if(this.props.secondType === "USD_USD"){
+                  data.push(1);
+                }
+                else{
+                  
+                    data.push(1/parityData[i].indicative_value)
+                  }
+              }
+              }
+              else{
+                for(var i = 0; i < parityData.length; i++){
                   myLabel = parityData[i].observe_time[0] + 
                   parityData[i].observe_time[1] + 
                   parityData[i].observe_time[2] + 
@@ -125,6 +190,7 @@ class GraphPage extends Component {
                 if(this.props.secondType === "USD_USD"){
                   data.push(parityData[i].indicative_value);
                 }
+           
                 else{
                   if(typeof this.state.secondaryData[i]!== "undefined"){
                     data.push(parityData[i].indicative_value/ this.state.secondaryData[i].indicative_value)
@@ -134,6 +200,8 @@ class GraphPage extends Component {
                   }
                   }
               }
+              }
+  
               for(var i =0; i<labels.length;i++){
                 for (var j=0; j<labels.length-1;j++){
                   if (labels[j] > labels[j+1]){
@@ -146,7 +214,7 @@ class GraphPage extends Component {
                   }
                 }
               }
-              this.setState({labels: labels, data: data, currentValue:data[data.length-1]});
+              this.setState({labels: labels, data: data});
            
             });
           });
@@ -154,7 +222,7 @@ class GraphPage extends Component {
         }        
             
      
-            
+               
     }
     refreshPage = () =>{
       setTimeout(function(){ this.state.boo = 'foo'; this.forceUpdate() }.bind(this), 10000);

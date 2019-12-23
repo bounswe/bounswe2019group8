@@ -257,7 +257,12 @@ class NewParitiesPage extends Component {
    if(this.state.lastClicked==="first"){
     this.setState({firstParity:name, firstSym:symbol ,parityPk:pk})
     this.handleSearchClick()
-  
+    if(this.state.firstType === "forex"){
+      this.setState({assetsBadges:this.state.forexBadges})
+    }
+    else{
+      this.setState({assetsBadges:this.state.dollarBadge})
+    }
     window.setTimeout(this.handleCheckOut, 30)   
    }
    if(this.state.lastClicked==="second"){
