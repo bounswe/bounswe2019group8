@@ -342,7 +342,7 @@ class OwnProfileArea extends React.Component {
                       color: 'white',
                       backgroundColor: 'black'
                     }}
-                    href={"/profile/" + el.owner + "/portfolio/" + el.pk}>View Portfolio
+                    href={"/profile/" + el.owner + "/others_portfolio/" + el.pk}>View Portfolio
               </Card.Link>
 
                 </Card.Body>
