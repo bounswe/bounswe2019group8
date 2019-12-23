@@ -12,10 +12,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
 import com.bounswe.mercatus.Adapters.CommentTradingAdapter
+import com.bounswe.mercatus.Adapters.CustomMarker
 import com.bounswe.mercatus.Models.Comments.CommentShowTradingBody
 import com.bounswe.mercatus.Models.CreateCommentBody
 import com.bounswe.mercatus.Models.PredictionModel
+import com.bounswe.mercatus.Models.TradingEquipments.PriceModel
 import com.bounswe.mercatus.R
+import com.github.mikephil.charting.animation.Easing
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
 import kotlinx.android.synthetic.main.activity_forex_show.*
 import kotlinx.android.synthetic.main.dialog_new_category.*
 import okhttp3.ResponseBody
@@ -31,6 +37,7 @@ class ShowForexActivity : AppCompatActivity() {
         setContentView(R.layout.activity_forex_show)
 
         val forexID = intent.getStringExtra("forex_id")
+        val forexSymbol = intent.getStringExtra("forex_sym")
         val forexName = intent.getStringExtra("forex_name")
 
         val actionBar = supportActionBar
@@ -53,6 +60,7 @@ class ShowForexActivity : AppCompatActivity() {
         zoomIn.setOnClickListener {
             val intent = Intent(this@ShowForexActivity, ZoomEqpActivity::class.java)
             intent.putExtra("forex_id", forexID)
+            intent.putExtra("forex_sym", forexSymbol)
             intent.putExtra("forex_name", forexName)
             startActivity(intent)
             finish()
@@ -89,17 +97,17 @@ class ShowForexActivity : AppCompatActivity() {
             dialogBuilder.show()
         }
 
-        //getForexParity(forexID!!.toInt(), forexName!!)
+        getForexParity(forexSymbol!!, forexName!!)
         getComments(forexID!!.toInt(), commentsList, adapter)
     }
-    /*private fun getForexParity(forex_id: Int, forexName: String){
+    private fun getForexParity(forex_sym: String, forexName: String){
         val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
 
         val res = getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
         val tokenV = res.getString("token", "Data Not Found!")
-        mer.getForexParity(forex_id, "Token " + tokenV.toString()).enqueue(object :
-            Callback<List<ForexParityModel>> {
-            override fun onFailure(call: Call<List<ForexParityModel>>, t: Throwable) {
+        mer.getForexParity(forex_sym, "Token " + tokenV.toString()).enqueue(object :
+            Callback<List<PriceModel>> {
+            override fun onFailure(call: Call<List<PriceModel>>, t: Throwable) {
                 if(t.cause is ConnectException){
                     Toast.makeText(
                         this@ShowForexActivity,
@@ -115,13 +123,13 @@ class ShowForexActivity : AppCompatActivity() {
                     ).show()
                 }
             }
-            override fun onResponse(call: Call<List<ForexParityModel>>, response: Response<List<ForexParityModel>>) {
+            override fun onResponse(call: Call<List<PriceModel>>, response: Response<List<PriceModel>>) {
                 if (response.code() == 200) {
-                    val forexPar: List<ForexParityModel>? = response.body()
+                    val forexPar: List<PriceModel>? = response.body()
                     val entries = ArrayList<Entry>()
                     var j = 0f
                     for(i in forexPar.orEmpty()){
-                        entries.add(Entry(j, i.close.toFloat()))
+                        entries.add(Entry(j, i.indicative_value.toFloat()))
                         j++
                     }
 
@@ -158,7 +166,6 @@ class ShowForexActivity : AppCompatActivity() {
         })
     }
 
-     */
     private fun getComments(eqp_id: Int, commentsList: ArrayList<CommentShowTradingBody>, adapter: CommentTradingAdapter){
         val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
 

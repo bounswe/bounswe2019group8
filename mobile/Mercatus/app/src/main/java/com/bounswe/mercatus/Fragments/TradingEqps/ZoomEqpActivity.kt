@@ -1,8 +1,23 @@
 package com.bounswe.mercatus.Fragments.TradingEqps
 
+import android.content.Context
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.bounswe.mercatus.API.ApiInterface
+import com.bounswe.mercatus.API.RetrofitInstance
+import com.bounswe.mercatus.Adapters.CustomMarker
+import com.bounswe.mercatus.Models.TradingEquipments.PriceModel
 import com.bounswe.mercatus.R
+import com.github.mikephil.charting.animation.Easing
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
+import kotlinx.android.synthetic.main.activity_zoom_eqp.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.net.ConnectException
 
 class ZoomEqpActivity : AppCompatActivity() {
 
@@ -11,23 +26,24 @@ class ZoomEqpActivity : AppCompatActivity() {
         setContentView(R.layout.activity_zoom_eqp)
 
         val forexID = intent.getStringExtra("forex_id")
+        val forexSymbol = intent.getStringExtra("forex_sym")
         val forexName = intent.getStringExtra("forex_name")
 
         val actionBar = supportActionBar
         actionBar!!.title = forexName
         actionBar.setDisplayHomeAsUpEnabled(true)
 
-        //getForexParity(forexID!!.toInt(), forexName!!)
+        getForexParity(forexSymbol, forexName!!)
     }
 
-    /*private fun getForexParity(forex_id: Int, forexName: String){
+    private fun getForexParity(forexSymbol: String, forexName: String){
         val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
 
         val res = getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
         val tokenV = res.getString("token", "Data Not Found!")
-        mer.getForexParity(forex_id, "Token " + tokenV.toString()).enqueue(object :
-            Callback<List<ForexParityModel>> {
-            override fun onFailure(call: Call<List<ForexParityModel>>, t: Throwable) {
+        mer.getForexParity(forexSymbol, "Token " + tokenV.toString()).enqueue(object :
+            Callback<List<PriceModel>> {
+            override fun onFailure(call: Call<List<PriceModel>>, t: Throwable) {
                 if(t.cause is ConnectException){
                     Toast.makeText(
                         this@ZoomEqpActivity,
@@ -43,13 +59,13 @@ class ZoomEqpActivity : AppCompatActivity() {
                     ).show()
                 }
             }
-            override fun onResponse(call: Call<List<ForexParityModel>>, response: Response<List<ForexParityModel>>) {
+            override fun onResponse(call: Call<List<PriceModel>>, response: Response<List<PriceModel>>) {
                 if (response.code() == 200) {
-                    val forexPar: List<ForexParityModel>? = response.body()
+                    val forexPar: List<PriceModel>? = response.body()
                     val entries = ArrayList<Entry>()
                     var j = 0f
                     for(i in forexPar.orEmpty()){
-                        entries.add(Entry(j, i.close.toFloat()))
+                        entries.add(Entry(j, i.indicative_value.toFloat()))
                         j++
                     }
 
@@ -85,8 +101,6 @@ class ZoomEqpActivity : AppCompatActivity() {
             }
         })
     }
-
-     */
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
