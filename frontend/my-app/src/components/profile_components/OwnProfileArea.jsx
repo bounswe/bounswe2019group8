@@ -191,7 +191,8 @@ class OwnProfileArea extends React.Component {
   render() {
     const myCredentials = {
     };
-    let finalUrl = 'http://mercatus.xyz:8000' + this.state.credentials.profileImageUrl
+    let finalUrl = this.state.credentials.profileImageUrl ? ('http://mercatus.xyz:8000' + this.state.credentials.profileImageUrl)
+ : require("../images/default_profile_picture.png");
     let imageComp =
       (this.state.isLoading) ? <div style={{ margin: 'auto', fontSize: 26 }}>Uploading...</div>
         : <Card.Img style={{ borderRadius: 36 }} variant="top" src={finalUrl} />
@@ -206,7 +207,7 @@ class OwnProfileArea extends React.Component {
           <Form>
             <Form.Group controlId="formBasicEmail">
               <Form.Label>Amount</Form.Label>
-              <Form.Control value={this.state.enteredCashValue} 
+              <Form.Control value={this.state.enteredCashValue}
               onChange={this.handleChangedCash}
               placeholder="(USD)" />
               <Form.Text className="text-muted">
@@ -215,7 +216,7 @@ class OwnProfileArea extends React.Component {
               </Form.Text>
             </Form.Group>
             <div
-              onClick={this.handleInvestment} 
+              onClick={this.handleInvestment}
               style={{cursor:'pointer', float:'right', backgroundColor: 'black', color:'white',
              letterSpacing: 1.8, textAlign: 'center', borderRadius: 20, padding:12 }}>
               Invest
@@ -274,7 +275,7 @@ class OwnProfileArea extends React.Component {
 
                   </Card.Title>
 
-                  <Card.Subtitle style={{ fontSize: 14 }} className="mb-2 ">by Furkan Aydar</Card.Subtitle>
+                  <Card.Subtitle style={{ fontSize: 14 }} className="mb-2 ">by {el.author}</Card.Subtitle>
                   <Card.Body style={{
                     marginBottom: 14,
                     marginTop: 24
@@ -305,7 +306,7 @@ class OwnProfileArea extends React.Component {
           )}
         </Row>
         let portfoliosRecommendedSection =
-    
+
       <Row style={{ marginTop: 40, height: 400, overflowY: 'scroll', overflowX: 'hidden' }}>
           {this.state.recommendedPortfolios.map(el =>
             <div display='inline'>
@@ -350,7 +351,7 @@ class OwnProfileArea extends React.Component {
             </div>
           )}
         </Row>
-  
+
 
         return (
       <Row>
@@ -409,7 +410,7 @@ class OwnProfileArea extends React.Component {
                       </ListGroup.Item>
                 <ListGroup.Item style={{ letterSpacing: 1.8, textAlign: 'center', borderRadius: 20, marginBottom: 12 }} action href="/followings" className="my-follow">
                   My Followings
-  
+
             </ListGroup.Item>
                 <ListGroup.Item style={{ letterSpacing: 1.8, textAlign: 'center', borderRadius: 20, marginBottom: 42 }} action href={"/profile/" + localStorage.getItem("userId") + "/articles"} className="my-follow">
 
@@ -447,14 +448,14 @@ class OwnProfileArea extends React.Component {
               <FaPlusSquare onClick={this.handleCashIn} style={{ marginLeft: 10 }}></FaPlusSquare>
               </Row>
               <Row style={{ color: 'white', padding: 20 }}>
-                {(this.state.assets.length > 1 || 
-                  (this.state.assets.length == 1 && this.state.assets[0].amount <=0) )? 
-                  'You have no assets.' : 
-                  this.state.assets.map(el => 
+                {(this.state.assets.length > 1 ||
+                  (this.state.assets.length == 1 && this.state.assets[0].amount <=0) )?
+                  'You have no assets.' :
+                  this.state.assets.map(el =>
                     <li>
                      {el.amount.replace('.',',') + ' ' +el.tr_eq.sym.split('_')[0] + ' (' + el.tr_eq.name + ')'  }
                     </li>
-                    )  
+                    )
                 }
               </Row>
             </Card>
@@ -471,6 +472,6 @@ class OwnProfileArea extends React.Component {
           this.props.history.push("/followings")
         }
         }
-        
-        
+
+
         export default withRouter(OwnProfileArea);

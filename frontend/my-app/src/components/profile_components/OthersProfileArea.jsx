@@ -64,9 +64,12 @@ class OthersProfileArea extends React.Component {
       margin: 10
     };
 
+    let profileImageUrl = this.state.credentials.profileImage ? ('http://mercatus.xyz:8000' + this.state.credentials.profileImage)
+ : require("../images/default_profile_picture.png");
+
     return (
       <Card style={{ minWidth: 450, marginLeft: 15, marginTop: 10, backgroundColor: '#343a40', padding: 20 }}>
-        <Card.Img style={{ borderRadius: 32 }} variant="top" src={'http://mercatus.xyz:8000' + this.state.credentials.profileImage} />
+        <Card.Img style={{ borderRadius: 32 }} variant="top" src={profileImageUrl} />
         <ListGroup className="list-group-flush">
           <ListGroup.Item style={{ textAlign: 'center', background: 'none' }}>
             <FollowButton userId={this.props.userId} />
