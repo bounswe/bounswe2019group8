@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +20,7 @@ import com.bounswe.mercatus.Models.TradingEquipments.ForexDataModel
 import com.bounswe.mercatus.Models.TradingEquipments.ForexShowBody
 import com.bounswe.mercatus.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.android.synthetic.main.fragment_digital.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,6 +29,7 @@ import java.net.ConnectException
 class DigitalFragment : Fragment() {
     private lateinit var rv: RecyclerView
     private lateinit var fab: FloatingActionButton
+    private var hasHeader: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -91,6 +95,7 @@ class DigitalFragment : Fragment() {
                     var adapter = DigitalAdapter(root.context, digitalItems)
                     rv.adapter = adapter
                     adapter.notifyDataSetChanged()
+                    runLayoutAnimation()
                 }
                 else  {
                     Toast.makeText(activity, "Get equipments failed.", Toast.LENGTH_SHORT)
@@ -98,6 +103,21 @@ class DigitalFragment : Fragment() {
                 }
             }
         })
+    }
+    private fun runLayoutAnimation() = recyclerViewDigital.apply {
+        layoutAnimation = AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_fall_down)
+        adapter?.notifyDataSetChanged()
+        scheduleLayoutAnimation()
+
+        if (hasHeader) {
+            layoutAnimationListener = object : Animation.AnimationListener {
+                override fun onAnimationStart(animation: Animation?) {
+                    layoutManager?.findViewByPosition(0)?.clearAnimation()
+                }
+                override fun onAnimationEnd(animation: Animation?) = Unit
+                override fun onAnimationRepeat(animation: Animation?) = Unit
+            }
+        }
     }
     override fun onStart() {
         getDigitalItems(super.getView()!!)
