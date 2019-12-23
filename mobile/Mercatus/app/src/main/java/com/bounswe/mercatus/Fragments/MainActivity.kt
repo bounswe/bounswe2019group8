@@ -46,6 +46,7 @@ class MainActivity : AppCompatActivity(){
                 R.id.nav_portfolios,
                 R.id.nav_forex,
                 R.id.nav_digital,
+                R.id.nav_other,
                 R.id.nav_profile,
                 R.id.nav_profit,
                 R.id.nav_assets

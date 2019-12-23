@@ -10,6 +10,7 @@ import com.bounswe.mercatus.Models.Comments.CommentEditBody
 import com.bounswe.mercatus.Models.Comments.CommentShowTradingBody
 import com.bounswe.mercatus.Models.Comments.LikerModelComment
 import com.bounswe.mercatus.Models.TradingEquipments.ForexDataModel
+import com.bounswe.mercatus.Models.TradingEquipments.OtherTradingBody
 import com.bounswe.mercatus.Models.TradingEquipments.PriceModel
 import com.bounswe.mercatus.Models.User.*
 import okhttp3.OkHttpClient
@@ -265,7 +266,8 @@ interface ApiInterface {
     ): retrofit2.Call<ResponseBody>
 
 
-    ////// Trading Equipments Section
+    // ---------------------    Trading Equipments SECTION  --------------------------
+
     // Get forex items
     @Headers("Content-Type:application/json")
     @GET("trading_equipments/forex")
@@ -295,6 +297,12 @@ interface ApiInterface {
     fun getDigital(
         @Header("Authorization") token: String
     ): retrofit2.Call<List<ForexDataModel>>
+
+    // Get other equipment items
+    @Headers("Content-Type:application/json")
+    @GET("trading_equipments")
+    fun getOtherEquipments(
+    ): retrofit2.Call<List<OtherTradingBody>>
 
     // Get comments for trading equipments
     @Headers("Content-Type:application/json")
