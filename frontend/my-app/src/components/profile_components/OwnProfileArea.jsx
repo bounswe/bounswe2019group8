@@ -259,7 +259,7 @@ class OwnProfileArea extends React.Component {
             <div display='inline'>
               <Card style={{
 
-                backgroundColor: '#9c4951', display: 'inline-block', width: 120,
+                backgroundColor: '#393f4d', display: 'inline-block', width: 120,
                 width: '18rem', padding: 12
               }}>
                 <Card.Body>
@@ -311,7 +311,7 @@ class OwnProfileArea extends React.Component {
             <div display='inline'>
               <Card style={{
 
-                backgroundColor: 'darkgreen', display: 'inline-block', width: 120,
+                backgroundColor: '#7dce94', display: 'inline-block', width: 120,
                 width: '18rem', padding: 12
               }}>
                 <Card.Body>
