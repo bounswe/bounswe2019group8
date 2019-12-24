@@ -49,7 +49,7 @@ class TraderNavbar extends Component {
           />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
-              <Nav.Link href="/treq/initial">Trading Equipment</Nav.Link>
+              <Nav.Link href="/treq/GBP_USD">Trading Equipment</Nav.Link>
               <Nav.Link href="/events">Events</Nav.Link>
               <Nav.Link href="/articles">Articles</Nav.Link>
             </Nav>
@@ -69,9 +69,9 @@ class TraderNavbar extends Component {
               <Button onClick={() => this.notifClick()} id='searchButton' href={"/profile/" + localStorage.getItem("userId") + "/notif"} variant="outline-success">
               <NotificationBadge count={this.state.notifCount} effect={Effect.ROTATE_Y}/>
                 Notifications
-                
+
                 <IoIosNotificationsOutline style={{marginLeft: 6}}>
-                
+
                 </IoIosNotificationsOutline>
               </Button>
             </Form>

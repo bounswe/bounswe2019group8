@@ -106,8 +106,8 @@ class Home extends Component {
 
   renderHome() {
     return (<Row>
-      <Col><h2 className="text-center" style={{backgroundColor:"#fff"}}>Articles</h2><ArticleHolder2/></Col>
-      <Col><h2 className="text-center" style={{backgroundColor:"#fff"}}>Portfolios</h2>{this.state.portfolios.map(p => this.renderPorfolio(p))}</Col>
+      <Col><h2 className="text-center" style={{color:"#fff", borderRadius: 10, backgroundColor: "orange"}}>Articles</h2><ArticleHolder2/></Col>
+      <Col><h2 className="text-center" style={{color:"#fff", borderRadius: 10, backgroundColor: "orange"}}>Portfolios</h2>{this.state.portfolios.map(p => this.renderPorfolio(p))}</Col>
     </Row>
   );
   }
