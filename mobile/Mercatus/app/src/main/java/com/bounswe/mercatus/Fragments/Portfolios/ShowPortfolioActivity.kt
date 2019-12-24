@@ -13,9 +13,10 @@ import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
 import com.bounswe.mercatus.Adapters.ForexAdapter
 import com.bounswe.mercatus.Fragments.User.ShowProfileActivity
-import com.bounswe.mercatus.Models.*
+import com.bounswe.mercatus.Models.GetPortfolioBody
 import com.bounswe.mercatus.Models.TradingEquipments.ForexShowBody
 import com.bounswe.mercatus.Models.TradingEquipments.ForexUpdateBody
+import com.bounswe.mercatus.Models.UpdatePortfolio
 import com.bounswe.mercatus.Models.User.UserRes
 import com.bounswe.mercatus.R
 import kotlinx.android.synthetic.main.activity_show_portfolio.*
@@ -53,6 +54,8 @@ class ShowPortfolioActivity : AppCompatActivity() {
         var adapter = ForexAdapter(this@ShowPortfolioActivity, equipmentList)
         rv.adapter = adapter
 
+        val addEquipmentText = findViewById<TextView>(R.id.AddEquipmentText)
+
         getEquipments(portfolioID.toInt(), equipmentList, adapter)
         val mercatus = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
         val res = getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
@@ -61,141 +64,47 @@ class ShowPortfolioActivity : AppCompatActivity() {
 
 
         add_a_new_trading_equipment.setOnClickListener {
-            //THIS SECTION SHOULD GET FIND THE EQUIPMENT AND ADD TO CURRENT EQUIPMENT LIST.
-            //GETS ERROR FROM SERVER SO I COMMENT IT
-            /*
+            val equipment_sym = addEquipmentText.text.toString()
+            // TODO check null equipment_sym
+            val list_equipment= ForexUpdateBody(equipment_sym)
 
-            //Inflate the dialog with custom view
-            val mDialogView =
-                LayoutInflater.from(this).inflate(R.layout.new_trading_equipment, null)
-            //AlertDialogBuilder
-            val mBuilder = AlertDialog.Builder(this)
-                .setView(mDialogView)
-                .setTitle("Login Form")
-            //show dialog
-            val mAlertDialog = mBuilder.show()
-            //login button click of custom layout
-            mDialogView.dialogLoginBtn.setOnClickListener {
-                //dismiss dialog
-                mAlertDialog.dismiss()
-                //get text from EditTexts of custom layout
-                val text = mDialogView.dialogNameEt.text.toString()
-                //set the input text in TextView
+            equipmentUpdateList.add(list_equipment)
 
-                mercatus.getForexSearch("Token " + tokenV.toString()).enqueue(object :
-                    Callback<List<ForexDataModel>> {
-                    override fun onFailure(call: Call<List<ForexDataModel>>, t: Throwable) {
-                        if(t.cause is ConnectException){
-                            Toast.makeText(
-                                this@ShowPortfolioActivity,
-                                "Check your connection!",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                        else{
-                            Toast.makeText(
-                                this@ShowPortfolioActivity,
-                                "Something bad happened!",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
+            val updatePortfolioBody = UpdatePortfolio(name.text.toString(),equipmentUpdateList)
+
+
+            mercatus.updatePortfolio(updatePortfolioBody,user_id!!.toLong(), "Token " + tokenV.toString(),portfolioID!!.toLong()).enqueue(object :
+                Callback<GetPortfolioBody> {
+                override fun onFailure(call: Call<GetPortfolioBody>, t: Throwable) {
+                    if(t.cause is ConnectException){
+                        Toast.makeText(
+                            this@ShowPortfolioActivity,
+                            "Check your connection!",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
-
-                    override fun onResponse(call: Call<List<ForexDataModel>>, response: Response<List<ForexDataModel>>) {
-                        if (response.code() == 200) {
-
-                            Log.d("SearchForexActivity",""+response)
-                            Log.d("SearchForexActivity1",""+response.body())
-                            Log.d("SearchForexActivity2",""+text)
-
-                            val res: List<ForexDataModel>? = response.body()
-
-                            for(i in res.orEmpty()){
-                                Log.d("SearchForexActivity4",""+i.name)
-                                if (i.name.contains(text.toString(), true)) {
-                                    for(k in equipmentList){
-                                        equipmentUpdateList.add(ForexUpdateBody(k.sym))
-                                    }
-                                    Log.d("SearchForexActivity5",""+i.name)
-                                    equipmentList.add(ForexShowBody(i.name,i.sym,i.pk))
-                                    equipmentUpdateList.add(ForexUpdateBody(i.sym))
-                                    Log.d("SearchForexActivity6",""+equipmentList)
-                                    val updatePortfolioBody = UpdatePortfolio(name.text.toString(),equipmentUpdateList)
-                                    Log.d("Activity7_equip",""+updatePortfolioBody.equipments)
-                                    Log.d("Activity7_name",""+updatePortfolioBody.name)
-
-                                    Log.d("Activity7_user_id_8",""+user_id!!.toLong())
-                                    Log.d("Activity7_port_id_8",""+portfolioID!!.toLong())
-
-
-
-                                    mercatus.updatePortfolio(updatePortfolioBody,user_id!!.toLong(), "Token " + tokenV.toString(),portfolioID!!.toLong()).enqueue(object :
-                                        Callback<GetPortfolioBody> {
-                                        override fun onFailure(call: Call<GetPortfolioBody>, t: Throwable) {
-                                            if(t.cause is ConnectException){
-                                                Toast.makeText(
-                                                    this@ShowPortfolioActivity,
-                                                    "Check your connection!",
-                                                    Toast.LENGTH_SHORT
-                                                ).show()
-                                            }
-                                            else{
-                                                Toast.makeText(
-                                                    this@ShowPortfolioActivity,
-                                                    "Something bad happened!",
-                                                    Toast.LENGTH_SHORT
-                                                ).show()
-                                            }
-                                        }
-                                        override fun onResponse(call: Call<GetPortfolioBody>, response: Response<GetPortfolioBody>) {
-
-                                            Log.d("portfolio_responsePor:",""+response)
-                                            Log.d("portfolio_bodyPort:",""+response.body())
-                                            Log.d("portfolio_user_idPort: ",""+user_id!!.toLong())
-                                            Log.d("portfolio_port_idPort: ",""+portfolioID)
-
-                                            if (response.code() == 200) {
-                                                Log.d("entered_successfuly: ",""+"")
-
-                                            }
-                                            else  {
-                                                Toast.makeText(this@ShowPortfolioActivity, "Show Portfolio Activity failed", Toast.LENGTH_SHORT)
-                                                    .show()
-                                            }
-                                        }
-                                    })
-                                }
-                            }
-
-                            //                 addEquipments(portfolioID.toInt(), equipmentList, adapter)
-                            val refreshActivity = intent
-                            finish()
-                            startActivity(refreshActivity)
-                            mAlertDialog.dismiss()
-                            //val users: List<UserRes>? = response.body()
-                            //Toast.makeText(this@SearchActivity, users?.get(0)?.first_name , Toast.LENGTH_SHORT).show()
-                        } else {
-                            Toast.makeText( this@ShowPortfolioActivity, "Search failed.", Toast.LENGTH_SHORT).show()
-                        }
+                    else{
+                        Toast.makeText(
+                            this@ShowPortfolioActivity,
+                            "Something bad happened!",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
+                }
+                override fun onResponse(call: Call<GetPortfolioBody>, response: Response<GetPortfolioBody>) {
 
+                    if (response.code() == 200) {
+                        Toast.makeText(this@ShowPortfolioActivity, "New equipment is added.", Toast.LENGTH_SHORT)
+                            .show()
 
-                })
-            }
-            //cancel button click of custom layout
-            mDialogView.dialogCancelBtn.setOnClickListener {
-                //dismiss dialog
-                mAlertDialog.dismiss()
-            }
-
-             */
+                    }
+                    else  {
+                        Toast.makeText(this@ShowPortfolioActivity, "Show Portfolio Activity failed", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                }
+            })
         }
-
-
-
-
-
-
 
         deletePortfolioButton.setOnClickListener {
 
@@ -353,48 +262,6 @@ class ShowPortfolioActivity : AppCompatActivity() {
             }
         })
     }
-
-    /*
-    private fun addEquipments(articleID: Int, equipmentsList: ArrayList<ForexShowBody>, adapter: ForexAdapter){
-        val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
-
-        val res = getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
-        val tokenV = res?.getString("token", "Data Not Found!")
-        val comBody = CreateCommentBody(commentText)
-
-        mer.makeComment(comBody,article_pk,"Token " + tokenV.toString()).enqueue(object :
-            Callback<ResponseBody> {
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                if(t.cause is ConnectException){
-                    Toast.makeText(
-                        this@ShowPortfolioActivity,
-                        "Check your connection!",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-                else{
-                    Toast.makeText(
-                        this@ShowPortfolioActivity,
-                        "Something bad happened!",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                if (response.code() == 201) {
-                    Toast.makeText(this@ShowPortfolioActivity, "Comment is added!", Toast.LENGTH_SHORT)
-                        .show()
-                }
-                else  {
-                    Toast.makeText(this@ShowPortfolioActivity, "Comment addition is failed.", Toast.LENGTH_SHORT)
-                        .show()
-                }
-            }
-        })
-    }
-
-
- */
     private fun deletePortfolio(name: TextView, portfolioID: Long,owner: TextView){
         val mercatus = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
         val res = getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
@@ -441,8 +308,6 @@ class ShowPortfolioActivity : AppCompatActivity() {
             }
         })
     }
-
-
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()

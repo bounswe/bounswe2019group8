@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:background="@color/lightBlue"
         android:padding="@dimen/padding_regular"
-        android:text="Name"
+        android:text="@string/name"
         android:textAppearance="@android:style/TextAppearance.Medium"
         android:textColor="@android:color/white"
         android:textStyle="bold" />
@@ -27,29 +27,25 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <at.blogc.android.views.ExpandableTextView
-                android:id="@+id/portfolio_owner_text"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:autoLink="web"
-                android:lineSpacingExtra="@dimen/line_spacing"
-                android:maxLines="5"
-                android:text="Owner"
-                app:animation_duration="300"
-                android:paddingBottom="4dp"
-                android:paddingStart="@dimen/new_margin"
-                android:paddingEnd="@dimen/new_margin"/>
-
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/portfolio_owner_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/padding_regular"
+                    android:text="@string/author"
+                    android:textAppearance="@android:style/TextAppearance.Small"
+                    android:textStyle="bold" />
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:orientation="horizontal"
                 android:background="@color/gray">
             </LinearLayout>
-
-
-
-
 
         </LinearLayout>
     </ScrollView>
