@@ -467,8 +467,22 @@ interface ApiInterface {
         @Header("Authorization") token: String
     ): retrofit2.Call<List<BuyAssetsModel>>
 
+    // ---------------------    NOTIFICATION SECTION  --------------------------
+    // Get all notifications count
+    @Headers("Content-Type:application/json")
+    @GET("users/{user_pk}/notifications/count")
+    fun getNotificationAmout(
+        @Path("user_pk") user_pk: Long,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<NotifyResultBody>
 
-
+    // Get all notifications list
+    @Headers("Content-Type:application/json")
+    @GET("users/{user_pk}/notifications")
+    fun getNotifications(
+        @Path("user_pk") user_pk: Long,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<List<NotificationsBody>>
 }
 class RetrofitInstance {
     companion object {

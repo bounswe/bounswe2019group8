@@ -3,7 +3,6 @@ package com.bounswe.mercatus.Fragments
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -15,10 +14,16 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.bounswe.mercatus.API.ApiInterface
+import com.bounswe.mercatus.API.RetrofitInstance
 import com.bounswe.mercatus.Fragments.Entrance.LoginActivity
-import com.bounswe.mercatus.Fragments.User.ModifyPasswordActivity
+import com.bounswe.mercatus.Models.NotifyResultBody
 import com.bounswe.mercatus.R
 import com.google.android.material.navigation.NavigationView
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.net.ConnectException
 
 
 class MainActivity : AppCompatActivity(){
@@ -53,6 +58,8 @@ class MainActivity : AppCompatActivity(){
             ), drawerLayout
         )
 
+        getNotificationAmount()
+
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
@@ -71,13 +78,8 @@ class MainActivity : AppCompatActivity(){
             true
         }
 
-        R.id.action_settings -> {
-            Toast.makeText(this, "Action setting", Toast.LENGTH_LONG).show()
-            Log.d("action settings","setting works")
-
-
-            val intent = Intent(this@MainActivity, ModifyPasswordActivity::class.java)
-            this@MainActivity?.onBackPressed()
+        R.id.notification -> {
+            val intent = Intent(this@MainActivity, NotificationsActivity::class.java)
             startActivity(intent)
             finish()
             true
@@ -98,5 +100,44 @@ class MainActivity : AppCompatActivity(){
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    private fun getNotificationAmount(){
+        val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
+
+        val res = getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
+        val tokenV = res.getString("token", "Data Not Found!")
+        val user_id = res.getString("user_id", "Data Not Found!")
+
+        mer.getNotificationAmout(user_id!!.toLong(), "Token " + tokenV.toString()).enqueue(object :
+            Callback<NotifyResultBody> {
+            override fun onFailure(call: Call<NotifyResultBody>, t: Throwable) {
+                if(t.cause is ConnectException){
+                    Toast.makeText(
+                        this@MainActivity,
+                        "Check your connection!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else{
+                    Toast.makeText(
+                        this@MainActivity,
+                        "Something bad happened!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+            override fun onResponse(call: Call<NotifyResultBody>, response: Response<NotifyResultBody>) {
+                if (response.code() == 200) {
+                    val res = response.body()?.count.toString()
+                    Toast.makeText(this@MainActivity, "You have $res notifications.", Toast.LENGTH_SHORT)
+                        .show()
+                }
+                else  {
+                    Toast.makeText(this@MainActivity, "Notification fetch failed.", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+        })
     }
 }
