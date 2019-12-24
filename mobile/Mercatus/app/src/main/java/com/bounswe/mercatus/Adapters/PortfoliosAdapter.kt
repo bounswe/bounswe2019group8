@@ -56,7 +56,7 @@ class PortfoliosAdapter(val context : Context, val portfoliosList: ArrayList<Por
             itemView.portfolio_name.setOnClickListener {
                 //When click author of an portfolio item, show profile
                 val intent = Intent(context, ShowPortfolioActivity::class.java)
-                intent.putExtra("portfolio_name", currentPortfolio?.pk.toString())
+                intent.putExtra("portfolio_id", currentPortfolio?.pk.toString())
                 context.startActivity(intent)
             }
             this.currentPortfolio = PortfolioShowBody(pk, owner,name,private)
