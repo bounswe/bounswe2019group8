@@ -21,7 +21,7 @@ class ArticleCard extends Component {
           <Button style={{fontWeight:'bolder', fontSize:11, height:30, width:'auto', marginBottom:16}} id='writtenBy' href={"/profile/" + this.props.articleAuthorId} variant="primary">
             <FaFeatherAlt style={{marginRight:4}}></FaFeatherAlt>by {this.state.articleAuthorId}
           </Button>
-          <Card.Text id='cardContent' style={{  padding: 10 }} className="text-truncate">{this.props.articleContent}</Card.Text>
+          <Card.Text id='cardContent' style={{  padding: 10 }}>{this.props.articleContent.substring(0, 80)+(this.props.articleContent.length < 80 ?  "...":"")}</Card.Text>
 
           <Button id='articleCardButton' href={"/articles/" + this.props.articlePk} block variant="outline-primary">
             <FaRegNewspaper style={{marginRight:4}}></FaRegNewspaper>Read the article

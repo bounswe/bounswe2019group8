@@ -309,7 +309,7 @@ class NewParitiesPage extends Component {
                 <Navbar.Collapse id="basic-navbar-nav"></Navbar.Collapse>
 
                 <Nav color="white" >
-                  <Nav.Link style={{ color: 'white', textDecoration: 'none' }}>Equipment Amount</Nav.Link>
+                  <Nav.Link style={{ color: 'white', textDecoration: 'none' }}>{this.state.firstParity} Amount</Nav.Link>
                 </Nav>
                 <FormControl
                   width="%50"
@@ -321,7 +321,7 @@ class NewParitiesPage extends Component {
                 />
                 <div style={{color: "#fff"}}>|</div>
                 <Nav color="white" >
-                  <Nav.Link style={{ color: 'white', textDecoration: 'none' }}>Currency Amount</Nav.Link>
+                  <Nav.Link style={{ color: 'white', textDecoration: 'none' }}>{this.state.buyWithParity} Amount</Nav.Link>
                 </Nav>
                 <FormControl
                   width="%50"

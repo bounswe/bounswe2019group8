@@ -5,11 +5,11 @@ import "./assetButtonHandler.css";
 
 class AssetButtonHandler extends Component {
     state = {  }
-    render() { 
-        return ( 
+    render() {
+        return (
             <div>
                 <Badge className="asset-button-in-profile" action href ={"/treq/" + this.props.el.tr_eq.sym} onClick={()=> this.handleClick()}>
-                        {this.props.el.amount.replace('.', ',') + ' ' + this.props.el.tr_eq.sym.split('_')[0] + ' (' + this.props.el.tr_eq.name + ')'}
+                        {this.props.el.amount + ' ' + this.props.el.tr_eq.sym.split('_')[0] + ' (' + this.props.el.tr_eq.name + ')'}
                 </Badge>
             </div>
          );
@@ -18,5 +18,5 @@ class AssetButtonHandler extends Component {
         this.props.history.push("/treq/" + this.props.el.tr_eq.sym);
       }
 }
- 
+
 export default withRouter(AssetButtonHandler);

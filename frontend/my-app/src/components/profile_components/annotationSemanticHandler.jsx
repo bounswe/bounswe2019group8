@@ -7,17 +7,18 @@ import { MdChromeReaderMode } from 'react-icons/md';
 import { FaStickyNote } from 'react-icons/fa';
 
 class AnnotationSemanticHandler extends Component {
-    state = { 
+    state = {
         articleName : ""
      }
-    render() { 
+    render() {
         console.log(this.props.result);
-            return ( 
+            return (
                 <div>
                 <ListGroupItem onClick={() => this.annotationClick()} className="search-list-item">
-                    
+
             <Badge className="annotation-btn">
-            <FaStickyNote style={{fontSize:20, marginRight:16, marginTop: 0}}></FaStickyNote>  
+            <FaStickyNote style={{fontSize:20, marginRight:16, marginTop: 0}}></FaStickyNote>
+            Annotation:
             { this.props.result.content }
             <MdChromeReaderMode style={{ color: 'green', fontSize: 24, marginLeft:50, marginRight: 10}}></MdChromeReaderMode>
             {this.state.articleName}
@@ -28,7 +29,7 @@ class AnnotationSemanticHandler extends Component {
     }
     annotationClick = () => {
             this.props.history.push("/articles/" + this.props.result.article);
-      };  
+      };
     componentWillMount(){
         var userId = localStorage.getItem("userId");
         var token = localStorage.getItem("userToken");
@@ -41,5 +42,5 @@ class AnnotationSemanticHandler extends Component {
       });
     }
 }
- 
+
 export default withRouter(AnnotationSemanticHandler);
