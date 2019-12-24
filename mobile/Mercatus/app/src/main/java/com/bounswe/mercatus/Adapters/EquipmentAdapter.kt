@@ -5,10 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bounswe.mercatus.Models.SearchBody
 import com.bounswe.mercatus.Models.TradingEquipments.ForexUpdateBody
 import com.bounswe.mercatus.R
-import kotlinx.android.synthetic.main.comment_layout.view.*
 import kotlinx.android.synthetic.main.item_eqp.view.*
 
 class EquipmentAdapter(val context : Context, val eqpList: ArrayList<ForexUpdateBody>): RecyclerView.Adapter<EquipmentAdapter.ViewHolder>() {
@@ -30,19 +28,24 @@ class EquipmentAdapter(val context : Context, val eqpList: ArrayList<ForexUpdate
     Each item in RecyclerView is called as viewholder.
      */
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-        var currentEqpShow : SearchBody? = null
+        var currentEqpShow : ForexUpdateBody? = null
         var currentPosition : Int = 0
-        init {
-            itemView.authorName.setOnClickListener {
-
-            }
-        }
 
         fun setData(eqpName: String, position: Int){
             itemView.eqpName.text = eqpName
-
-            this.currentEqpShow = SearchBody(eqpName)
+            itemView.deleteEqp.setOnClickListener {
+                delete(position)
+            }
+            this.currentEqpShow = ForexUpdateBody(eqpName)
             this.currentPosition = position
+        }
+    }
+
+    private fun delete(position: Int){
+        if(position < eqpList.size){
+            eqpList.removeAt(position)
+            notifyItemRemoved(position)
+            notifyItemRangeChanged(position, itemCount)
         }
     }
 }

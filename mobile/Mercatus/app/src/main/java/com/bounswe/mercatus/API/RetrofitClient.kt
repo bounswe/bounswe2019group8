@@ -414,7 +414,7 @@ interface ApiInterface {
         @Path("user_id") mid: Long,
         @Header("Authorization") token: String,
         @Path("portfolio_id") id: Long
-    ): retrofit2.Call<GetPortfolioBody>
+    ): retrofit2.Call<GetSpecificPortfolio>
 
     // Get Specific Portfolio
     @Headers("Content-Type:application/json")

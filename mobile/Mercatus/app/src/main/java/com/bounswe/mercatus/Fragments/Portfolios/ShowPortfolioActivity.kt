@@ -14,6 +14,7 @@ import com.bounswe.mercatus.Adapters.EquipmentAdapter
 import com.bounswe.mercatus.Adapters.ForexAdapter
 import com.bounswe.mercatus.Fragments.User.ShowProfileActivity
 import com.bounswe.mercatus.Models.GetPortfolioBody
+import com.bounswe.mercatus.Models.GetSpecificPortfolio
 import com.bounswe.mercatus.Models.TradingEquipments.ForexShowBody
 import com.bounswe.mercatus.Models.TradingEquipments.ForexUpdateBody
 import com.bounswe.mercatus.Models.UpdatePortfolio
@@ -38,11 +39,9 @@ class ShowPortfolioActivity : AppCompatActivity() {
         actionBar.setDisplayHomeAsUpEnabled(true)
 
         val name = findViewById<TextView>(R.id.showName)
-        val owner = findViewById<TextView>(R.id.showOwner)
-
         val portfolioID = intent.getStringExtra("portfolio_id")
 
-        getPortfolio(name, portfolioID!!.toLong(),owner)
+        getPortfolio()
 
         val rv = findViewById<RecyclerView>(R.id.recyclerViewEquipments)
         rv.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
@@ -71,7 +70,9 @@ class ShowPortfolioActivity : AppCompatActivity() {
         }
     }
 
-    private fun getPortfolio(name: TextView, portfolioID: Long,owner: TextView){
+    private fun getPortfolio(){
+        val port = intent.getStringExtra("portfolio_id")
+        val portfolioID = port.toLong()
         val mercatus = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
         val res = getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
         val tokenV = res.getString("token", "Data Not Found!")
@@ -81,8 +82,8 @@ class ShowPortfolioActivity : AppCompatActivity() {
         val eqpsList = ArrayList<ForexUpdateBody>()
 
         mercatus.getSpecificPortfolio(userID!!.toLong(), "Token " + tokenV.toString(),portfolioID).enqueue(object :
-            Callback<GetPortfolioBody> {
-            override fun onFailure(call: Call<GetPortfolioBody>, t: Throwable) {
+            Callback<GetSpecificPortfolio> {
+            override fun onFailure(call: Call<GetSpecificPortfolio>, t: Throwable) {
                 if(t.cause is ConnectException){
                     Toast.makeText(
                         this@ShowPortfolioActivity,
@@ -98,10 +99,10 @@ class ShowPortfolioActivity : AppCompatActivity() {
                     ).show()
                 }
             }
-            override fun onResponse(call: Call<GetPortfolioBody>, response: Response<GetPortfolioBody>) {
+            override fun onResponse(call: Call<GetSpecificPortfolio>, response: Response<GetSpecificPortfolio>) {
                 if (response.code() == 200) {
-                    name.text = response.body()?.name
-                    val res: List<ForexUpdateBody>? = response.body()!!.equipments
+                    showName.text = response.body()?.name
+                    val res: List<ForexUpdateBody>? = response.body()!!.tr_eqs
 
                     for(i in res.orEmpty()){
                         eqpsList.add(ForexUpdateBody(i.sym))
@@ -112,7 +113,7 @@ class ShowPortfolioActivity : AppCompatActivity() {
                     var adapter = EquipmentAdapter(this@ShowPortfolioActivity, eqpsList)
                     rv.adapter = adapter
                     adapter.notifyDataSetChanged()
-                    getUser(response.body()!!.owner, owner)
+                    getUser(response.body()!!.owner, showOwner)
 
                 }
                 else  {
@@ -192,6 +193,10 @@ class ShowPortfolioActivity : AppCompatActivity() {
                 if (response.code() == 200) {
                     Toast.makeText(this@ShowPortfolioActivity, "New equipment is added.", Toast.LENGTH_SHORT)
                         .show()
+
+                    val refreshActivity = intent
+                    finish()
+                    startActivity(refreshActivity)
 
                 }
                 else  {
