@@ -1,0 +1,59 @@
+.search-list-item{
+    background-color: white;
+    margin-top:2vh;
+    
+}
+.search-list-item:hover{
+    background-color: whitesmoke;
+}
+.outer{
+    display: flex;
+    flex-direction: row;
+    width:10vw;
+    margin-left:25vw;
+    margin-right: 25vw;
+}
+.user-btn{
+    background-color: white;
+    border-color: white;
+    color: black;
+    width: 10vw;
+}
+.annotation-btn{
+    background-color: white;
+    border-color: white;
+    color: black;
+    width: 30vw;
+    margin-left: 16vw;
+}
+.article-btn{
+    background-color: white;
+    border-color: white;
+    color: black;
+    width: 30vw;
+    margin-left: 16vw;
+    padding-right: 5vw;
+}
+.comment-btn{
+    background-color: white;
+    border-color: white;
+    color: black;
+    width: 30vw;
+    margin-left: 16vw;
+    padding-right: 5vw;
+}
+.event-btn{
+    background-color: white;
+    border-color: white;
+    color: black;
+    width: 30vw;
+    margin-left: 16vw;
+    padding-right: 5vw;
+}
+.trEq-btn{
+    background-color: white;
+    border-color: white;
+    color: black;
+    width: 30vw;
+    margin-left: 15vw;
+}

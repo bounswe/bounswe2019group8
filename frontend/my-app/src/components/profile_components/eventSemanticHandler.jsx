@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
-import { ListGroupItem, Button } from "react-bootstrap";
+import { ListGroupItem, Badge } from "react-bootstrap";
 import {withRouter} from "react-router-dom";
-
+import "./anySearchHandler.css";
+import {FaCalendarDay} from 'react-icons/fa';
 class ArticleSemanticHandler extends Component {
     state = {  }
     render() { 
         return ( 
             <div>
-            <ListGroupItem>
-                <Button onClick={() => this.eventClick()}>{"Found event: " + this.props.result.name}</Button>
+            <ListGroupItem className="search-list-item">
+                <Badge className="event-btn">
+                <FaCalendarDay style={{ color: 'green', fontSize: 24, marginLeft:50, marginRight: 10}}></FaCalendarDay>
+                    {this.props.result.name}
+                    </Badge>
                 {console.log(this.props.result)}
                 </ListGroupItem>
             </div>

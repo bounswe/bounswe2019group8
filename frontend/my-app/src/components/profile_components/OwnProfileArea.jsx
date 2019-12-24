@@ -1,10 +1,10 @@
 import React from "react";
-import { Button, Card, ListGroup, Row, Col, Dropdown, DropdownButton, Modal, ModalBody, ModalFooter, Form } from "react-bootstrap";
+import { Button, Card, ListGroup, Row, Col, Dropdown, DropdownButton, Modal, ModalBody, ModalFooter, Form, Badge } from "react-bootstrap";
 import UpdateCredentials from "./UpdateCredentials";
 import "./ProfileArea.css";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
-
+import AssetButtonHandler from "./assetButtonHandler";
 import { AiFillCamera } from "react-icons/ai";
 import { FaCameraRetro } from 'react-icons/fa'
 import { MdDelete, MdFavorite, MdFileUpload, MdEmail } from 'react-icons/md'
@@ -474,8 +474,9 @@ class OwnProfileArea extends React.Component {
                   'You have no assets.' :
                   <ul>
                     {this.state.assets.map(el =>
-                      <li>
-                        {el.amount.replace('.', ',') + ' ' + el.tr_eq.sym.split('_')[0] + ' (' + el.tr_eq.name + ')'}
+                      <li  >
+                        <AssetButtonHandler el={el}></AssetButtonHandler>
+                        
                       </li>
                     )}
                   </ul>

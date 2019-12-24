@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Card, ListGroup, ListGroupItem } from "react-bootstrap";
+import { Button, ListGroup, ListGroupItem, Badge } from "react-bootstrap";
 import axios from "axios";
 import {withRouter} from "react-router-dom";
 import TrEqSearchHandler from "./trEqSearchHandler";
@@ -8,6 +8,8 @@ import ArticleSemanticHandler from "./articleSemanticHandler";
 import CommentSemanticHandler from "./commentSemanticHandler";
 import AnnotationSemanticHandler from "./annotationSemanticHandler";
 import EventSemanticHandler from "./eventSemanticHandler";
+import "./searchResults.css";
+
 class SearchResults extends Component {
   state = {
       trEqList: [],
@@ -98,12 +100,11 @@ class SearchResults extends Component {
     }
 
     return(
-    <React.Fragment>
-       <Card style={{ width: "36rem", align: "center" }}>
-       {console.log(this.state.followings)}
+    <React.Fragment >
+       <div className="main-search-continer">
+         <Badge className="search-results-badge">Results</Badge>     
           <ListGroup className="list-group-flush">
-          <ListGroup.Item>
-             Results :
+          <ListGroup.Item className="search-list-group">
               <ListGroup className="list-group-flush">
                 {trEqListItems}
                 {userListItems}
@@ -115,7 +116,7 @@ class SearchResults extends Component {
             </ListGroup.Item>     
           </ListGroup>
        
-        </Card>
+        </div>
     </React.Fragment>
     )
     return(
