@@ -8,7 +8,7 @@ class TrEqSearchHandler extends Component {
         return ( 
             <div>
             <ListGroupItem>
-            <Button href="">{this.props.result.name}</Button>
+            <Button action href={"/treq/"+ this.props.result.sym}>{this.props.result.name}</Button>
             </ListGroupItem>
             </div>
          );

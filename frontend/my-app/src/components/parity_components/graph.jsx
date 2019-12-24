@@ -2,7 +2,7 @@ import { Line } from "react-chartjs-2";
 import React, { Component } from "react";
 import { Badge } from "react-bootstrap";
 import "./graph.css";
-
+import VoteHolder from "./voteholder"
 class Graph extends Component {
   //displayName = "LineExample";
   state = {
@@ -42,6 +42,7 @@ class Graph extends Component {
       <div className="col-md-6">
         <Badge className="graph-badge">{this.props.name}</Badge>
         <Badge className="graph-badge">Current Value :{this.props.currentValue}</Badge>
+        <VoteHolder commentPk ={this.props.parityPk}></VoteHolder>
         <Line data={data} height={150} />
       </div>
     );
