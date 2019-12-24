@@ -90,8 +90,8 @@ class CreateAssetsActivity : AppCompatActivity() {
 
 
         mer.buyAssets(cashBody,user_id!!.toLong(),"Token " + tokenV.toString()).enqueue(object :
-            Callback<List<BuyAssetsModel>> {
-            override fun onFailure(call: Call<List<BuyAssetsModel>>, t: Throwable) {
+            Callback<GetAssetsBody> {
+            override fun onFailure(call: Call<GetAssetsBody>, t: Throwable) {
                 if(t.cause is ConnectException){
                     Log.d("BuyAssetThrowIf",""+t)
 
@@ -126,34 +126,31 @@ class CreateAssetsActivity : AppCompatActivity() {
                      */
                 }
             }
-            override fun onResponse(call: Call<List<BuyAssetsModel>>, response: Response<List<BuyAssetsModel>>) {
+            override fun onResponse(call: Call<GetAssetsBody>, response: Response<GetAssetsBody>) {
 
-                val asset = ArrayList<GetAssetsBody>()
                 Log.d("BuyAsset",""+response.body())
 
-                if (response.code() == 201) {
+                if (response.code() == 200) {
                     Log.d("BuyAssetIf",""+response.body())
 
 
-                    val res: List<BuyAssetsModel>? = response.body()
+                    val res: GetAssetsBody? = response.body()
 
-                    for(i in res.orEmpty()){
+                  //  for(i in res){
                         //            asset.add(GetAssetsBody(i.owner,i.tr_eq,i.amount))
-                    }
+                  //  }
 
-                    Log.d("asdfsa",""+asset[0].amount)
 
-                    cashAmountFloat = asset[0].amount.toFloat()
-                    CashAmount.text = asset[0].amount.toString()
+                    cashAmountFloat = res!!.amount
+                    CashAmount.text = res!!.amount.toString()
 
                     val refreshActivity = intent
                     finish()
-                    startActivity(refreshActivity)
 
 
                 }
                 else  {
-                    Log.d("throwElse",""+asset[0].amount)
+                    Log.d("throwElse","")
                 }
             }
         })

@@ -465,7 +465,7 @@ interface ApiInterface {
         @Body info: BuyAssetsModel,
         @Path("user_id") id: Long,
         @Header("Authorization") token: String
-    ): retrofit2.Call<List<BuyAssetsModel>>
+    ): retrofit2.Call<GetAssetsBody>
 
     // ---------------------    NOTIFICATION SECTION  --------------------------
     // Get all notifications count

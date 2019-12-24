@@ -13,6 +13,7 @@ import com.bounswe.mercatus.API.RetrofitInstance
 import com.bounswe.mercatus.Fragments.Portfolios.ShowPortfolioActivity
 import com.bounswe.mercatus.Models.*
 import com.bounswe.mercatus.Models.TradingEquipments.ForexShowBody
+import com.bounswe.mercatus.Models.TradingEquipments.ForexUpdateBody
 import com.bounswe.mercatus.Models.User.UserRes
 import com.bounswe.mercatus.R
 import kotlinx.android.synthetic.main.portfolio_layout.view.*
@@ -25,10 +26,10 @@ class PortfoliosAdapter(val context : Context, val portfoliosList: ArrayList<Get
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.setData(portfoliosList[position].pk,
-            portfoliosList[position].equipments,
+            portfoliosList[position].tr_eqs,
             portfoliosList[position].owner,
             portfoliosList[position].name,
-            portfoliosList[position].followers,
+       //     portfoliosList[position].followers,
             portfoliosList[position].private,
             position)
     }
@@ -51,10 +52,10 @@ class PortfoliosAdapter(val context : Context, val portfoliosList: ArrayList<Get
 
         fun setData(
             pk: Long,
-            equipments: List<ForexShowBody>,
+            tr_eqs: List<ForexUpdateBody>,
             owner: Long,
             name: String,
-            followers: List<Long>,
+//            followers: List<Long>,
             private: Boolean,
             position: Int
         ){
@@ -69,7 +70,9 @@ class PortfoliosAdapter(val context : Context, val portfoliosList: ArrayList<Get
                 intent.putExtra("portfolio_name", currentPortfolio?.pk.toString())
                 context.startActivity(intent)
             }
-            this.currentPortfolio = GetPortfolioBody(pk, equipments, owner,name, followers,private)
+            this.currentPortfolio = GetPortfolioBody(pk, tr_eqs, owner,name,
+                //followers,
+                private)
             this.currentPosition = position
         }
     }
