@@ -100,4 +100,5 @@
     <string name="date_large">Date: </string>
     <string name="time_large">Time: </string>
     <string name="notifications">Notifications</string>
+    <string name="reason">Reason</string>
 </resources>

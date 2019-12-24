@@ -8,7 +8,6 @@ data class NotificationsBody(
     val source_comment: Long,
     val source_article: Long,
     val source_annotation: Long,
-    val followers: List<Long>,
     val is_read: Boolean,
     val created_at: String
 )

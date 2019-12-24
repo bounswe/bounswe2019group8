@@ -10,7 +10,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
+import com.bounswe.mercatus.Adapters.NotifyAdapter
 import com.bounswe.mercatus.Models.NotificationsBody
+import com.bounswe.mercatus.Models.NotifyShowBody
 import com.bounswe.mercatus.R
 import kotlinx.android.synthetic.main.activity_notifications.*
 import retrofit2.Call
@@ -63,17 +65,17 @@ class NotificationsActivity : AppCompatActivity() {
                         .show()
 
                     val respo: List<NotificationsBody>? = response.body()
-                    //val notiftyList = ArrayList<CommentShowTradingBody>()
+                    val notiftyList = ArrayList<NotifyShowBody>()
 
                     val rv = findViewById<RecyclerView>(R.id.recyclerViewNotify)
                     rv.layoutManager = LinearLayoutManager(this@NotificationsActivity, RecyclerView.VERTICAL, false)
 
-                    /*for(i in respo.orEmpty()){
+                    for(i in respo.orEmpty()){
                         notiftyList.add(
-                            ForexShowBody(
-                                i.name,
-                                i.sym,
-                                i.pk
+                            NotifyShowBody(
+                                i.reason,
+                                i.source_user,
+                                i.created_at
                             )
                         )
                     }
@@ -81,15 +83,11 @@ class NotificationsActivity : AppCompatActivity() {
                         notiftyList.removeAt(notiftyList.size-1)
                     }
 
-                    val adapter = ForexAdapter(root.context, notiftyList)
-
-
+                    val adapter = NotifyAdapter(this@NotificationsActivity, notiftyList)
 
                     rv.adapter = adapter
                     runLayoutAnimation()
                     adapter.notifyDataSetChanged()
-                     */
-
                 }
                 else  {
                     Toast.makeText(this@NotificationsActivity, "Notification fetch failed.", Toast.LENGTH_SHORT)

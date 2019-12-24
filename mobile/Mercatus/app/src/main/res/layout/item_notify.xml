@@ -4,7 +4,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <androidx.cardview.widget.CardView
-        android:id="@+id/eachItem"
+        android:id="@+id/eachNotifyItem"
         android:layout_margin="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -21,14 +21,14 @@
                 android:layout_height="wrap_content">
                 <TextView
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-                    android:id="@+id/txtName"
+                    android:id="@+id/txtNotifyName"
                     android:text="@string/name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
                 <TextView
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                    android:text="@string/surname"
+                    android:text="@string/reason"
                     android:id="@+id/txtReason"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />

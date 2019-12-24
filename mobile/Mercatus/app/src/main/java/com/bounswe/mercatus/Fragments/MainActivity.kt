@@ -81,7 +81,6 @@ class MainActivity : AppCompatActivity(){
         R.id.notification -> {
             val intent = Intent(this@MainActivity, NotificationsActivity::class.java)
             startActivity(intent)
-            finish()
             true
         }
 
@@ -139,5 +138,10 @@ class MainActivity : AppCompatActivity(){
                 }
             }
         })
+    }
+
+    override fun onResume() {
+        getNotificationAmount()
+        super.onResume()
     }
 }
