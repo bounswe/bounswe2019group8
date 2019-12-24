@@ -1,7 +1,7 @@
 
 .comment-card {
   border: none;
-  background-color: #acb7ae;
+  background-color: whitesmoke;
   letter-spacing:1.2px;
 }
 .comment-card:before, .comment-card:after {

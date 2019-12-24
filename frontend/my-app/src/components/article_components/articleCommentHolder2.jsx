@@ -25,10 +25,12 @@ class ArticleCommentHolder2 extends Component {
     }
     return (
       <React.Fragment>
-        <div className="outer-div" >
+        <div  className="outer-div" >
           <div className="article-comment-container">
           
-            <Badge className="comments-badge">Comments:</Badge>
+            <Badge style={{color:'white',borderBottom:'1px groove white',
+            borderRadius:0, fontSize:28, letterSpacing:4, fontWeight:'lighter'}}
+             className="comments-badge">Comments:</Badge>
             <div className="my-outer-div">{finalList}</div>
           </div>
         </div>
