@@ -48,7 +48,8 @@ class NewParitiesPage extends Component {
       graphType: "normal",
       reDo: true,
       modalShow: false,
-      modalMessage: 'asd'
+      modalMessage: 'asd',
+      currentPrices: {},
     };
     this.handleHide = this.handleHide.bind(this)
   }
@@ -132,6 +133,7 @@ class NewParitiesPage extends Component {
       </Modal>);
 
       //const graphTypes = ;
+      console.log(this.state);
 
         return (
       <React.Fragment>
@@ -158,7 +160,7 @@ class NewParitiesPage extends Component {
                   title="Graph Type"
                   id="basic-nav-dropdown"
                 >
-                  <NavDropdown.Item onClick={() => this.setGraphType("normal")}>Indicative</NavDropdown.Item>
+                  <NavDropdown.Item onClick={() => this.setGraphType("normal")}>Nominal</NavDropdown.Item>
                   <NavDropdown.Item onClick={() => this.setGraphType("MA5")}>Moving Average-5</NavDropdown.Item>
                   <NavDropdown.Item onClick={() => this.setGraphType("MA10")}>Moving Average-10</NavDropdown.Item>
                   <NavDropdown.Item onClick={() => this.setGraphType("MA15")}>Moving Average-15</NavDropdown.Item>
@@ -226,10 +228,13 @@ class NewParitiesPage extends Component {
                   placeholder={this.state.secondParity}
                   className="mr-sm-2"
                 />
-                <Button onClick={() => this.handleBuyClick()} id='searchButton' variant="outline-success">
+                {localStorage.getItem("userGroup") === "2" &&
+                  <Button onClick={() => this.handleBuyClick()} id='searchButton' variant="outline-success">
                   Buy/Sell
 
             </Button>
+                }
+
               </Navbar.Collapse>
             </Navbar>
             {this.state.buyClicked ?
@@ -240,7 +245,7 @@ class NewParitiesPage extends Component {
                 />
                 <Navbar.Collapse id="basic-navbar-nav"></Navbar.Collapse>
                 <Nav color="white" >
-                  <Nav.Link style={{ color: 'white', textDecoration: 'none' }}>Buy/Sell</Nav.Link>
+                  <Nav.Link style={{ color: 'white', textDecoration: 'none' }}>Equipment</Nav.Link>
                 </Nav>
                 <FormControl
                   readOnly
@@ -257,6 +262,7 @@ class NewParitiesPage extends Component {
                   placeholder={this.state.currentBuyingAmount + ' (' + this.state.firstParity + ')'}
                   className="mr-sm-2"
                 />
+                <div style={{color: "#fff"}}>|</div>
                 <NavDropdown
                   title="Currency"
                   id="basic-nav-dropdown"
@@ -279,39 +285,83 @@ class NewParitiesPage extends Component {
                   placeholder={this.state.currentAmount + ' (' + this.state.buyWithParity + ')'}
                   className="mr-sm-2"
                 />
+                <div style={{color: "#fff"}}>|</div>
                 <Nav color="white" >
-                  <Nav.Link style={{ color: 'white', textDecoration: 'none' }}>Amount</Nav.Link>
+                  <Nav.Link style={{ color: 'white', textDecoration: 'none' }}>Price</Nav.Link>
+                </Nav>
+                <FormControl
+                  readOnly
+                  type="text"
+                  placeholder={this.state.currentShowValue}
+                  className="mr-sm-2"
+                />
+
+              </Navbar>
+              : <div />
+            }
+
+            {this.state.buyClicked ?
+              <Navbar bg="dark" expand="lg" style={{ borderTop: '1px groove white' }} >
+                <Navbar.Toggle
+                  class="navbar-toggler"
+                  aria-controls="basic-navbar-nav"
+                />
+                <Navbar.Collapse id="basic-navbar-nav"></Navbar.Collapse>
+
+                <Nav color="white" >
+                  <Nav.Link style={{ color: 'white', textDecoration: 'none' }}>Equipment Amount</Nav.Link>
+                </Nav>
+                <FormControl
+                  width="%50"
+                  input type="number"
+                  placeholder={'(' + this.state.firstParity + ')'}
+                  className="mr-sm-2"
+                  onChange={this.changeEquipmentAmount}
+
+                />
+                <div style={{color: "#fff"}}>|</div>
+                <Nav color="white" >
+                  <Nav.Link style={{ color: 'white', textDecoration: 'none' }}>Currency Amount</Nav.Link>
                 </Nav>
                 <FormControl
                   width="%50"
                   input type="number"
                   placeholder={'(' + this.state.buyWithParity + ')'}
                   className="mr-sm-2"
-                  onChange={this.changeBuy}
+                  value={Math.round(this.state.buyAmount * this.state.currentShowValue *  100) /   100}
+                  readOnly
+
 
                 />
+
                 <Button onClick={() => this.handleCheckoutClick()} id='searchButton' variant="outline-success">
-                  Buy
+                  Buy {this.state.firstParity}
 
           </Button>
                 <Button onClick={() => this.handleSellClick()} id='searchButton' variant="outline-success">
-                  Sell
+                  Sell {this.state.firstParity}
           </Button>
               </Navbar>
               : <div />
             }
           </div>
           {this.state.parityGet
-            ? <GraphPage graphType={this.state.graphType} rateType={this.state.rateType} doubleTap={this.handleSearchClick} firstType={this.state.firstSym} secondType={this.state.secondSym} pk={this.state.parityPk} />
+            ? <GraphPage updateCurrentValue={p => this.setState({currentShowValue: p})} graphType={this.state.graphType} rateType={this.state.rateType} doubleTap={this.handleSearchClick} firstType={this.state.firstSym} secondType={this.state.secondSym} pk={this.state.parityPk} />
             : <div />
           }
         </React.Fragment>
         );
 
       }
+
+  updateCurrentPrice(sym) {
+    return;
+
+  }
   setParity = (name, pk, symbol) => {
     if (this.state.lastClicked === "first") {
           this.setState({ firstParity: name, firstSym: symbol, parityPk: pk })
+          this.updateCurrentPrice(symbol)
       this.handleSearchClick()
       if (this.state.firstType === "forex") {
           this.setState({ assetsBadges: this.state.forexBadges })
@@ -323,10 +373,12 @@ class NewParitiesPage extends Component {
       }
     if (this.state.lastClicked === "second") {
           this.setState({ secondParity: name, secondSym: symbol })
+          this.updateCurrentPrice(symbol);
       this.handleSearchClick();
       }
     if (this.state.lastClicked === "buywith") {
           this.setState({ buyWithParity: name, buyWithSym: symbol })
+this.updateCurrentPrice(symbol);
       this.handleSearchClick();
         window.setTimeout(this.handleCheckOut, 30)
       }
@@ -357,11 +409,17 @@ class NewParitiesPage extends Component {
           this.setState({ buyClicked: !this.state.buyClicked });
 
       }
-  changeBuy = event => {
+  changeEquipmentAmount = event => {
           this.setState({
             buyAmount: event.target.value
           });
       }
+
+      changeCurrencyAmount = event => {
+              this.setState({
+                buyAmount: event.target.value / this.state.currentPrice
+              });
+          }
   handleCheckOut = () => {
     var token = localStorage.getItem("userToken");
         var count1 = 0
@@ -400,7 +458,7 @@ class NewParitiesPage extends Component {
   handleCheckoutClick = () => {
           axios.post("http://8.209.81.242:8000/users/" + localStorage.getItem("userId") + "/assets",
             {
-              sell_amount: parseFloat(this.state.buyAmount),
+              buy_amount: parseFloat(this.state.buyAmount),
               buy_tr_eq_sym: this.state.firstSym,
               sell_tr_eq_sym: this.state.buyWithSym
             },
@@ -416,7 +474,7 @@ class NewParitiesPage extends Component {
               }) }
               ).catch(
                 (err) => {this.setState({
-                  modalMessage: 'An error has occured. Your transaction was cancelled. '
+                  modalMessage: 'Transaction was cancelled because an error has occured: ' + err.response.data
                 })}
               )
 
