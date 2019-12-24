@@ -244,10 +244,15 @@ class Home extends Component {
             key={Math.random() * 99}
             component={EventsPage}
           />
+               <Route
+            exact
+            path="/treq/:pk"
+            exact
+            key={Math.random() * 99}
+            component={NewParitiesPage}
+          />
           <Route exact path="/articlewrite" component={WriteArticlePageSummoner} />
-          <Route exact path="/treq" component={NewParitiesPage}/>
           <Route exact path="/events" component={EventsPage}/>
-          <Route exact path="/treq/:pk" component={GraphPage}/>
           <Route exact path="/verif_fail" component={VerificationFailPage}/>
           <Route exact path="/activations/:restOfUrl/:rest" component={DoVerify}/>
           <Route exact path="/upd_cred" component={UpdatePage}/>

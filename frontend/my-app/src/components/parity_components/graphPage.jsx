@@ -26,7 +26,7 @@ class GraphPage extends Component {
         return ( 
           <div style={{ width: '90%', margin: 'auto', paddingLeft: 100, paddingRight: 100, paddingTop: 30 }}>
           <div  style={{ width: '120%',height: "120%", marginLeft: -100  }} >
-            <Graph data={this.state.data} labels={this.state.labels} name={this.state.parityName} currentValue={this.state.currentValue}/>
+            <Graph data={this.state.data} labels={this.state.labels} name={this.state.parityName} currentValue={this.state.currentValue} parityPk={this.state.pk}/>
           </div>
           <div id="commentContainer" style={{ width: '860px',height: "480px", marginLeft:-90, marginTop: -455,  backgroundColor: 'rgb(237, 245, 255)'}}>
           </div>

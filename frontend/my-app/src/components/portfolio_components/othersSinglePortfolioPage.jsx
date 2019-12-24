@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import "./singleOwnPortfolioPage.css";
 import axios from "axios";
-import { ListGroup, ListGroupItem, Badge } from "react-bootstrap";
+import { ListGroup, ListGroupItem, Badge, Button } from "react-bootstrap";
 import FollowPortfolioButton from "./followPortfolioButton";
+import {FaExternalLinkAlt} from 'react-icons/fa'
+import "./removeTrEqButton.css";
 
 import { MdDoNotDisturbOn } from 'react-icons/md'
 class OthersSinglePortfolioPage extends Component {
@@ -25,6 +27,7 @@ class OthersSinglePortfolioPage extends Component {
         for (var i = 0; i < this.state.trEqs.length; i++) {
             groupItems.push(<ListGroupItem className='listGroup' style={{ width: '60%', fontSize: 24, letterSpacing: 1.5, margin: 'auto', marginBottom: 20 }}>
                 <Badge className="single-own-portfolio-inlist-badge"> {this.getName(this.state.trEqs[i].sym)} ({this.state.trEqs[i].sym})</Badge>
+                <div style={{float:'right'}}><Button action href ={"/treq/" + this.state.trEqs[i].sym} className = "trEq-remove-btn" ><FaExternalLinkAlt></FaExternalLinkAlt></Button></div>
             </ListGroupItem>)
         }
         console.log(this.state.ownerName);

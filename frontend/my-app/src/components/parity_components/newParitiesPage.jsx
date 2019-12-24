@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./parityBadgeHolder.css";
+import {withRouter} from "react-router-dom";
 import axios from "axios";
 import {
     Button,
@@ -39,9 +40,10 @@ class NewParitiesPage extends Component {
   assets:null,
   buyAmount:0,
   refresh:true,
-  rateType:"daily"
+  rateType:"daily",
+  reDo:true
    };
-  componentDidMount(){
+  componentWillMount(){
     var count1 =0
     var count2 =0;
     var allBadges ={commodity:[],stock:[],digital:[],forex:[],etf:[],index:[]};
@@ -84,7 +86,11 @@ class NewParitiesPage extends Component {
       for (var i = 0; i < stockJson.length; i++) {
         allBadges[stockJson[i].type].push(
           <NavLinkComponent thisName={stockJson[i].name} thisSymbol = {stockJson[i].sym} thisPk={stockJson[i].pk} setParity={this.setParity}></NavLinkComponent>);
-      }
+        if(this.props.match.params.pk === stockJson[i].sym && this.state.reDo){
+          this.setState({reDo:false, firstSym:stockJson[i].sym, firstParity:stockJson[i].name,firstType:stockJson[i].type, parityPk:stockJson[i].pk,parityGet:true})
+
+        }
+        }
       
     }
     this.setState({forexBadges:forexBadges,stockBadges:allBadges, dollarBadge:dollarBadge})
@@ -174,8 +180,8 @@ class NewParitiesPage extends Component {
                 className="mr-sm-2"
               />
              <Button onClick={()=> this.handleBuyClick()} id='searchButton'  variant="outline-success">
-                Buy
-            <FaSearchDollar style={{marginLeft: 6}}></FaSearchDollar>
+                Buy/Sell
+            
             </Button>
           </Navbar.Collapse>
         </Navbar>
@@ -187,7 +193,7 @@ class NewParitiesPage extends Component {
         />
         <Navbar.Collapse id="basic-navbar-nav"></Navbar.Collapse>
         <Nav color = "white" >
-              <Nav.Link style={{color: 'white', textDecoration: 'none'}}>Buying</Nav.Link>
+              <Nav.Link style={{color: 'white', textDecoration: 'none'}}>Buy/Sell</Nav.Link>
         </Nav>
         <FormControl
                 readOnly
@@ -205,7 +211,7 @@ class NewParitiesPage extends Component {
                 className="mr-sm-2"
               />      
         <NavDropdown
-              title="Buy With"
+              title="Currency"
               id="basic-nav-dropdown"
               onClick={() => this.setLastClicked("buywith")}
             >
@@ -227,7 +233,7 @@ class NewParitiesPage extends Component {
                 className="mr-sm-2"
               /> 
           <Nav color = "white" >
-              <Nav.Link style={{color: 'white', textDecoration: 'none'}}>Buy Amount</Nav.Link>
+              <Nav.Link style={{color: 'white', textDecoration: 'none'}}>Amount</Nav.Link>
         </Nav>
         <FormControl
                 width = "%50"
@@ -238,9 +244,11 @@ class NewParitiesPage extends Component {
               
         />
          <Button onClick={()=> this.handleCheckoutClick()} id='searchButton'  variant="outline-success">
-                Checkout
-            <FaSearchDollar style={{marginLeft: 6}}></FaSearchDollar>
-            </Button>
+                Buy
+          </Button>
+          <Button onClick={()=> this.handleSellClick()} id='searchButton'  variant="outline-success">
+                Sell
+          </Button>
         </Navbar>
         : <div/>
       }
@@ -351,6 +359,21 @@ class NewParitiesPage extends Component {
     })
     window.setTimeout(this.handleCheckOut, 30)   
   }
+  handleSellClick =()=>{
+    axios.post("http://8.209.81.242:8000/users/" + localStorage.getItem("userId")+"/assets", 
+    {
+      sell_amount: parseFloat(this.state.buyAmount),
+      buy_tr_eq_sym:this.state.buyWithSym,
+      sell_tr_eq_sym:this.state.firstSym
+    },
+    {
+      headers: {
+        Authorization: `Token ${localStorage.getItem("userToken")}`
+      }
+    })
+    window.setTimeout(this.handleCheckOut, 30)   
+  }
+
 }
 
-export default NewParitiesPage;
+export default withRouter(NewParitiesPage);
