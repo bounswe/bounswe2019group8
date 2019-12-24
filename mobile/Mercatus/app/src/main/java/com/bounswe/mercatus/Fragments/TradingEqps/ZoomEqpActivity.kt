@@ -64,9 +64,17 @@ class ZoomEqpActivity : AppCompatActivity() {
                     val forexPar: List<PriceModel>? = response.body()
                     val entries = ArrayList<Entry>()
                     var j = 0f
+                    if(forexPar != null && forexPar.isNotEmpty()){
+                        //j = forexPar[0].observe_date.substring(8,10).toFloat()
+                        val res = forexPar[0].observe_date
+                        currentDate.text = "Starting from: $res"
+
+                    }
                     for(i in forexPar.orEmpty()){
-                        entries.add(Entry(j, i.indicative_value.toFloat()))
-                        j++
+                        if(i.interval == "close"){
+                            entries.add(Entry(j, i.indicative_value.toFloat()))
+                            j++
+                        }
                     }
 
                     if(forexPar!!.isNotEmpty()){

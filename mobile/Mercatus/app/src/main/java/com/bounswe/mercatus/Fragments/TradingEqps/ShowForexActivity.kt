@@ -127,12 +127,22 @@ class ShowForexActivity : AppCompatActivity() {
                 if (response.code() == 200) {
                     val forexPar: List<PriceModel>? = response.body()
                     val entries = ArrayList<Entry>()
+
                     var j = 0f
-                    for(i in forexPar.orEmpty()){
-                        entries.add(Entry(j, i.indicative_value.toFloat()))
-                        j++
+                    if(forexPar != null && forexPar.isNotEmpty()){
+                        //j = forexPar[0].observe_date.substring(8,10).toFloat()
+                        val res = forexPar[0].observe_date
+                        currentDate.text = "Starting from: $res"
+
                     }
 
+                    for(i in forexPar.orEmpty()){
+                        if(i.interval == "close"){
+                            entries.add(Entry(j, i.indicative_value.toFloat()))
+                            j++
+                        }
+
+                    }
                     if(forexPar!!.isNotEmpty()){
                         val vl = LineDataSet(entries, forexName)
 
@@ -146,6 +156,7 @@ class ShowForexActivity : AppCompatActivity() {
                         lineChart.xAxis.labelRotationAngle = 0f
                         lineChart.data = LineData(vl)
                         lineChart.axisRight.isEnabled = false
+                        //lineChart.xAxis.isEnabled = false
                         lineChart.xAxis.axisMaximum = j+0.1f
                         lineChart.setTouchEnabled(true)
                         lineChart.description.text = "Days"

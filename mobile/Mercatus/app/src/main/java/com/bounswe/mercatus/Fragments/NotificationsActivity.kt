@@ -79,9 +79,6 @@ class NotificationsActivity : AppCompatActivity() {
                             )
                         )
                     }
-                    if(notiftyList.size > 1){
-                        notiftyList.removeAt(notiftyList.size-1)
-                    }
 
                     val adapter = NotifyAdapter(this@NotificationsActivity, notiftyList)
 

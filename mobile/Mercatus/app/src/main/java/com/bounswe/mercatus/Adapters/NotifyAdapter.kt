@@ -51,15 +51,19 @@ class NotifyAdapter(val context : Context, val notifyList: ArrayList<NotifyShowB
         }
 
         fun setData(reason: String, source_user : Long, created_at : String, position: Int){
-            var newReason : String
-            if(reason == "comment_create"){
-                newReason = "User created new comment on a article."
-            }
-            else if(reason == "article_create"){
-                newReason = "User wrote new article. Check out!"
-            }
-            else{
-                newReason = "User annotate on an article. Check out!"
+            val newReason : String = when (reason) {
+                "comment_create" -> {
+                    "User created new comment on a article."
+                }
+                "article_create" -> {
+                    "User wrote new article. Check out!"
+                }
+                "annotation_create" -> {
+                    "User annotate on an article. Check out!"
+                }
+                else -> {
+                    "New notification from the user!"
+                }
             }
             itemView.txtReason.text = newReason
             val hour = created_at.substring(11,19)

@@ -277,7 +277,7 @@ interface ApiInterface {
 
     // Get forex items parity value
     @Headers("Content-Type:application/json")
-    @GET("trading_equipments/{tr_eq_sym}/prices/intradaily")
+    @GET("trading_equipments/{tr_eq_sym}/prices/daily")
     fun getForexParity(
         @Path("tr_eq_sym") tr_eq_sym: String,
         @Header("Authorization") token: String
