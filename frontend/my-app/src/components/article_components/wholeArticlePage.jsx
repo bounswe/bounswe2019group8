@@ -333,7 +333,7 @@ class WholeArticlePage extends Component {
                 <FaHeart style={{ color: 'white', marginRight: 4 }}></FaHeart>
                 Rating: {this.state.rating}
               </Button>
-              {localStorage.getItem("userGroup") === "2" &&
+              {(localStorage.getItem("userGroup") === "2" ||localStorage.getItem("userGroup") === "1" ) &&
                  <p style={{ float: 'right' }}>
                  <ArticleLike incRating={this.incRating} decRating={this.decRating} makeLike={this.makeLike} makeNeutral={this.makeNeutral} likeState={this.state.likeState} articlePk={this.state.articlePk} />
                  <ArticleDislike incRating={this.incRating} decRating={this.decRating} makeDisslike={this.makeDisslike} makeNeutral={this.makeNeutral} likeState={this.state.likeState} articlePk={this.state.articlePk} />
