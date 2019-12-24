@@ -159,9 +159,9 @@ class ForexAdapter(val context : Context, val forexList: ArrayList<ForexShowBody
                     val forexPar: List<PriceModel>? = response.body()
 
                     if(forexPar!!.isNotEmpty()
-                        && !forexPar.first().ask_value.isNullOrBlank()
-                        && !forexPar.last().ask_value.isNullOrBlank()){
-                        if(forexPar.first().ask_value.toFloat() > forexPar.last().ask_value.toFloat()){
+                        && !forexPar.first().indicative_value.isNullOrBlank()
+                        && !forexPar.last().indicative_value.isNullOrBlank()){
+                        if(forexPar.first().indicative_value.toFloat() >= forexPar.last().indicative_value.toFloat()){
                             situationForex.setImageResource(R.drawable.ic_decrease)
                         }
                     }
