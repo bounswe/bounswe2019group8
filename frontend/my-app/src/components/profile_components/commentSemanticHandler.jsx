@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { ListGroupItem, Button } from "react-bootstrap";
+import { ListGroupItem, Badge } from "react-bootstrap";
 import {withRouter} from "react-router-dom";
+import "./anySearchHandler.css";
+import {MdComment} from 'react-icons/md';
 
 class CommentSemanticHandler extends Component {
     state = {  }
@@ -11,8 +13,11 @@ class CommentSemanticHandler extends Component {
         if(this.props.result.hasOwnProperty(prop)){
             return ( 
                 <div>
-                <ListGroupItem>
-                    <Button onClick={() => this.articleCommentClick()}>{"Found in comment: \"" + this.props.result.content + "\""}</Button>
+                <ListGroupItem onClick={() => this.articleCommentClick()} className="search-list-item">
+                    <Badge className="comment-btn" >
+                    <MdComment style={{ color: 'green', fontSize: 24, marginLeft:50, marginRight: 10}}></MdComment>
+                        {this.props.result.content}
+                        </Badge>
                     </ListGroupItem>
                 </div>
              );

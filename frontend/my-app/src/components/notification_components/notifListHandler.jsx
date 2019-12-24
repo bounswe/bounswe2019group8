@@ -3,8 +3,8 @@ import { ListGroup, ListGroupItem, Badge, Button } from "react-bootstrap";
 import axios from "axios";
 import "./notifListHandler.css";
 import { withRouter } from "react-router-dom";
-import { MdChromeReaderMode, MdComment, MdDateRange, MdAvTimer } from 'react-icons/md'
-import { FaStickyNote, FaUserCircle } from 'react-icons/fa'
+import { MdChromeReaderMode, MdComment, MdDateRange, MdAvTimer } from 'react-icons/md';
+import { FaStickyNote, FaUserCircle } from 'react-icons/fa';
 
 class NotifListHandler extends Component {
     state = {

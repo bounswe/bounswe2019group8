@@ -1,0 +1,22 @@
+.main-search-continer{
+    border-radius:12px;
+    margin-top: 20px;
+    background-color: #343a40;
+    width: 70vw;
+    margin-left: 15vw;
+    margin-right: 15vw;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+}
+.search-results-badge{
+    color: white;
+    font-size: 10vh;
+    width: 30vw;
+    margin-left: 20vw;
+    margin-right: 20vw;
+}
+.search-list-group{
+    background-color: #343a40;
+    border-radius: 12px;
+    border-color:white;
+}
