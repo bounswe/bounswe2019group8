@@ -35,7 +35,7 @@ class NewParitiesPage extends Component {
       currentAmount: 0,
       currentBuyingAmount: 0,
       firstType: null,
-      SecondType: null,
+      secondType: "forex",
       buyType: null,
       parityPk: 0,
       buyWith: "",
@@ -44,7 +44,8 @@ class NewParitiesPage extends Component {
       assets: null,
       buyAmount: 0,
       refresh: true,
-      rateType: "daily",
+      rateType: "daily_close",
+      graphType: "normal",
       reDo: true,
       modalShow: false,
       modalMessage: 'asd'
@@ -102,7 +103,8 @@ class NewParitiesPage extends Component {
       }
 
     }
-    this.setState({ forexBadges: forexBadges, stockBadges: allBadges, dollarBadge: dollarBadge })
+    this.setState({ forexBadges: forexBadges, stockBadges: allBadges, dollarBadge: dollarBadge,
+    secondBadge: allBadges["forex"] })
     if (this.state.firstType === "forex") {
       this.setState({ assetsBadges: forexBadges })
     }
@@ -120,14 +122,17 @@ class NewParitiesPage extends Component {
 
   render() {
     let modalResult =
-      <Modal show={this.state.modalShow} onHide={this.handleHide}>
+      (<Modal show={this.state.modalShow} onHide={this.handleHide}>
         <Modal.Header closeButton>
           <Modal.Title>Transaction</Modal.Title>
         </Modal.Header>
           <Modal.Body>{this.state.modalMessage}</Modal.Body>
           <Modal.Footer>
           </Modal.Footer>
-      </Modal>
+      </Modal>);
+
+      //const graphTypes = ;
+
         return (
       <React.Fragment>
           <div>
@@ -138,13 +143,28 @@ class NewParitiesPage extends Component {
                 aria-controls="basic-navbar-nav"
               />
               <Navbar.Collapse id="basic-navbar-nav">
+
                 <NavDropdown
-                  title="Rate"
+                  title="Interval"
                   id="basic-nav-dropdown"
                 >
-                  <NavDropdown.Item onClick={() => this.setRateType("daily")}>Daily</NavDropdown.Item>
-                  <NavDropdown.Item onClick={() => this.setRateType("intradaily")}>IntraDaily</NavDropdown.Item>
+                  <NavDropdown.Item onClick={() => this.setRateType("daily_close")}>Daily Close</NavDropdown.Item>
+                  <NavDropdown.Item onClick={() => this.setRateType("daily_open")}>Daily Open</NavDropdown.Item>
+                  <NavDropdown.Item onClick={() => this.setRateType("daily_high")}>Daily High</NavDropdown.Item>
+                  <NavDropdown.Item onClick={() => this.setRateType("daily_low")}>Daily Low</NavDropdown.Item>
+                  <NavDropdown.Item onClick={() => this.setRateType("intradaily")}>Intradaily</NavDropdown.Item>
                 </NavDropdown>
+                <NavDropdown
+                  title="Graph Type"
+                  id="basic-nav-dropdown"
+                >
+                  <NavDropdown.Item onClick={() => this.setGraphType("normal")}>Indicative</NavDropdown.Item>
+                  <NavDropdown.Item onClick={() => this.setGraphType("MA5")}>Moving Average-5</NavDropdown.Item>
+                  <NavDropdown.Item onClick={() => this.setGraphType("MA10")}>Moving Average-10</NavDropdown.Item>
+                  <NavDropdown.Item onClick={() => this.setGraphType("MA15")}>Moving Average-15</NavDropdown.Item>
+                  <NavDropdown.Item onClick={() => this.setGraphType("MA20")}>Moving Average-20</NavDropdown.Item>
+                </NavDropdown>
+                <div style={{color: "#fff"}}>|</div>
                 <NavDropdown
                   title="Main Parity Type"
                   id="basic-nav-dropdown"
@@ -208,7 +228,7 @@ class NewParitiesPage extends Component {
                 />
                 <Button onClick={() => this.handleBuyClick()} id='searchButton' variant="outline-success">
                   Buy/Sell
-  
+
             </Button>
               </Navbar.Collapse>
             </Navbar>
@@ -272,7 +292,7 @@ class NewParitiesPage extends Component {
                 />
                 <Button onClick={() => this.handleCheckoutClick()} id='searchButton' variant="outline-success">
                   Buy
-  
+
           </Button>
                 <Button onClick={() => this.handleSellClick()} id='searchButton' variant="outline-success">
                   Sell
@@ -282,12 +302,12 @@ class NewParitiesPage extends Component {
             }
           </div>
           {this.state.parityGet
-            ? <GraphPage rateType={this.state.rateType} doubleTap={this.handleSearchClick} firstType={this.state.firstSym} secondType={this.state.secondSym} pk={this.state.parityPk} />
+            ? <GraphPage graphType={this.state.graphType} rateType={this.state.rateType} doubleTap={this.handleSearchClick} firstType={this.state.firstSym} secondType={this.state.secondSym} pk={this.state.parityPk} />
             : <div />
           }
         </React.Fragment>
         );
-    
+
       }
   setParity = (name, pk, symbol) => {
     if (this.state.lastClicked === "first") {
@@ -310,7 +330,7 @@ class NewParitiesPage extends Component {
       this.handleSearchClick();
         window.setTimeout(this.handleCheckOut, 30)
       }
-  
+
     }
   setSecondParity = (firstParity2) => {
     var newParity = firstParity2
@@ -335,7 +355,7 @@ class NewParitiesPage extends Component {
         }
         handleBuyClick = () => {
           this.setState({ buyClicked: !this.state.buyClicked });
-    
+
       }
   changeBuy = event => {
           this.setState({
@@ -371,7 +391,11 @@ class NewParitiesPage extends Component {
   setRateType = (rateType) => {
           this.setState({ rateType: rateType })
     this.handleSearchClick()
-    
+
+      }
+      setGraphType = (graphType) => {
+        this.setState({ graphType })
+        this.handleSearchClick()
       }
   handleCheckoutClick = () => {
           axios.post("http://8.209.81.242:8000/users/" + localStorage.getItem("userId") + "/assets",
@@ -387,15 +411,15 @@ class NewParitiesPage extends Component {
             }).then(response => {
 
               this.setState({
-                modalMessage:'Your transaction was successful. Please check your assets.' 
-                    
+                modalMessage:'Your transaction was successful. Please check your assets.'
+
               }) }
               ).catch(
                 (err) => {this.setState({
                   modalMessage: 'An error has occured. Your transaction was cancelled. '
                 })}
               )
-            
+
     this.setState({
           modalShow: true
       })
@@ -415,8 +439,8 @@ class NewParitiesPage extends Component {
             }).then(response => {
 
               this.setState({
-                modalMessage:'Your transaction was successful. Please check your assets.' 
-                    
+                modalMessage:'Your transaction was successful. Please check your assets.'
+
               }) }
               ).catch(
                 (err) => {this.setState({
@@ -428,7 +452,7 @@ class NewParitiesPage extends Component {
             })
     window.setTimeout(this.handleCheckOut, 30)
       }
-    
+
     }
-    
+
     export default withRouter(NewParitiesPage);

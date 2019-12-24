@@ -34,22 +34,22 @@ class Graph extends Component {
           pointHoverBorderWidth: 2,
           pointRadius: 1,
           pointHitRadius: 10,
-          data: this.props.data
+          data: this.props.data,
         }
       ]
     };
     return (
-      <div className="col-md-6">
+      <div>
         <Badge className="graph-badge">{this.props.name}</Badge>
         <Badge className="graph-badge">Current Value :{this.props.currentValue}</Badge>
         <VoteHolder commentPk ={this.props.parityPk}></VoteHolder>
-        <Line data={data} height={250} />
+        <Line data={data}/>
       </div>
     );
   }
 
   componentWillMount(){
-    
+
   }
 }
 export default Graph;
