@@ -24,9 +24,6 @@ class EquipmentAdapter(val context : Context, val eqpList: ArrayList<ForexUpdate
     override fun getItemCount(): Int {
         return eqpList.size
     }
-    /*
-    Each item in RecyclerView is called as viewholder.
-     */
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         var currentEqpShow : ForexUpdateBody? = null
         var currentPosition : Int = 0
