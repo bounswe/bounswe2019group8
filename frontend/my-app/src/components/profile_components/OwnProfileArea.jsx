@@ -38,6 +38,7 @@ class OwnProfileArea extends React.Component {
       users: [],
       showCashIn: false,
       me: { followings: [], followers: [] },
+      profitLoss: null,
 
     };
     this.handleCashIn = this.handleCashIn.bind(this)
@@ -76,6 +77,13 @@ class OwnProfileArea extends React.Component {
       })
       .then(res => {
         this.setState({ users: res.data });
+      });
+    axios
+      .get("/profit_loss", {
+        headers: { 'Content-Type': 'multipart/form-data', Authorization: `Token ${token}` }
+      })
+      .then(res => {
+        this.setState({ profitLoss: res.data });
       });
     axios
       .get(url, { headers: { Authorization: `Token ${token}` } })
@@ -272,6 +280,30 @@ class OwnProfileArea extends React.Component {
         </div>
     }
 
+    let profitLossText = "";
+
+    if (this.state.profitLoss) {
+      const { cash_uploaded,  currentWorth } = this.state.profitLoss;
+      const profit =  Math.round((currentWorth - cash_uploaded)*100)/100;
+      const color = profit >  0 ? "#0f0"  : "#f00";
+      profitLossText = <div>You have deposited ${cash_uploaded} USD so far and your assets are currently worth {Math.round(currentWorth*100)/100} USD. Your net profit/loss so  far is <span style={{color}}>{profit}  USD</span> </div>;
+
+    }
+
+    const profitLossSection = (
+      <Card style={{ width: '70%', padding: 40, margin: 'auto', float: 'left', marginTop: 10, backgroundColor: '#343a40' }}>
+      <Row style={{ borderBottom: '1px solid white', paddingBottom: 12, color: 'white', letterSpacing: 7, fontSize: 20 }}>
+        Profit Loss
+
+      </Row>
+      <Row style={{ color: 'white', padding: 20 }}>
+
+      {profitLossText}
+
+      </Row>
+    </Card>
+    );
+
     let articlesRecommendedSection =
       <Row style={{ marginTop: 40, height: 400, overflowY: 'scroll', overflowX: 'hidden' }}>
         {this.state.recommendedArticles.map(el =>
@@ -369,7 +401,7 @@ class OwnProfileArea extends React.Component {
           </div>
         )}
       </Row>
-      
+
 
 
     return (
@@ -461,16 +493,16 @@ class OwnProfileArea extends React.Component {
             {this.state.section == 'Articles' ? articlesRecommendedSection :
               this.state.section == 'Portfolios' ? portfoliosRecommendedSection : null}
           </Card>
-          {localStorage.getItem("userGroup") === "2" && 
+          {localStorage.getItem("userGroup") === "2" &&
             <Card style={{ width: '70%', padding: 40, margin: 'auto', float: 'left', marginTop: 10, backgroundColor: '#343a40' }}>
             <Row style={{ borderBottom: '1px solid white', paddingBottom: 12, color: 'white', letterSpacing: 7, fontSize: 20 }}>
               YOUR ASSETS
               <FaPlusSquare onClick={this.handleCashIn} style={{ marginLeft: 10 }}></FaPlusSquare>
             </Row>
             <Row style={{ color: 'white', padding: 20 }}>
-              
+
               {
-                (this.state.assetsLoaded) ? 
+                (this.state.assetsLoaded) ?
                 (this.state.assets.length < 1 ||
                   (this.state.assets.length == 1 && this.state.assets[0].amount <= 0)) ?
                   'You have no assets.' :
@@ -478,20 +510,24 @@ class OwnProfileArea extends React.Component {
                     {this.state.assets.map(el =>
                       <li  >
                         <AssetButtonHandler el={el}></AssetButtonHandler>
-                        
+
                       </li>
                     )}
                   </ul>
-                
-                
-                
+
+
+
                 : 'Loading...'
               }
 
             </Row>
           </Card>
           }
-          
+
+          {
+            localStorage.getItem("userGroup") === "2" && profitLossSection
+          }
+
         </Col>
 
       </Row>

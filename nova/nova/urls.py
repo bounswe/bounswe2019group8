@@ -102,6 +102,8 @@ urlpatterns = [
 
     path('users/<int:user_pk>/assets', asset_views.assets_coll),
 
+    path('profit_loss', asset_views.profit_loss_res),
+
     # Annotations
     path('articles/<int:article_pk>/annotations', annotation_views.annotations_coll),
 

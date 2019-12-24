@@ -4,7 +4,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from ..permissions import IsTraderUser
 
-from nova.models import User, TradingEquipment, Price, Asset
+from nova.models import User, TradingEquipment, Price, Asset, ProfitLoss
 from nova.serializers import AssetSerializer, PriceSerializer
 from nova.utils.numeric import get_decimal_amount, get_current_price
 
@@ -32,7 +32,35 @@ def cash_coll(request, user_pk):
         cash_asset.amount += amount
         cash_asset.save()
 
+        try:
+            profit_loss = ProfitLoss.objects.get(owner=user)
+        except:
+            profit_loss = ProfitLoss.objects.create(owner=user)
+            profit_loss.save()
+
+        profit_loss.cash_uploaded += amount
+        profit_loss.save()
+
         return Response(AssetSerializer(cash_asset).data, status=status.HTTP_201_CREATED)
+
+
+@api_view(['GET'])
+@permission_classes((IsTraderUser,))
+def profit_loss_res(request):
+    try:
+        user = User.objects.get(pk=request.user.pk)
+    except User.DoesNotExist:
+        raise NotFound()
+
+    if request.method == 'GET':
+        profit_loss = ProfitLoss.objects.get(owner=user)
+        currentWorth = 0
+
+        for asset in user.assets.all():
+            currentWorth += asset.amount * get_current_price(asset.tr_eq_id).indicative_value
+
+        return Response({"cash_uploaded": profit_loss.cash_uploaded, "currentWorth": currentWorth},
+                        status=status.HTTP_200_OK)
 
 
 @api_view(['POST', 'GET'])
