@@ -24,7 +24,7 @@ import OwnPortfolioPage from "./components/portfolio_components/ownPortfolioPage
 import OthersPortfolioPage from "./components/portfolio_components/othersPortfolioPage";
 import SingleOwnPortfolioPage from "./components/portfolio_components/singleOwnPortfolioPage";
 import OthersSinglePortfolioPage from "./components/portfolio_components/othersSinglePortfolioPage";
-
+import GuestArticleHolder from "./components/article_components/guestArticleHolder";
 import NewParitiesPage from "./components/parity_components/newParitiesPage";
 
 import UpdatePage from "./components/profile_components/updatePage";
@@ -169,6 +169,13 @@ class Home extends Component {
           />
           <Route
             exact
+            path="/guest/articles"
+            exact
+            key={Math.random() * 973}
+            component={GuestArticleHolder}
+          />
+          <Route
+            exact
             path="/articles"
             exact
             key={Math.random() * 8123}
@@ -247,6 +254,13 @@ class Home extends Component {
                <Route
             exact
             path="/treq/:pk"
+            exact
+            key={Math.random() * 99}
+            component={NewParitiesPage}
+          />
+            <Route
+            exact
+            path="/guest/treq"
             exact
             key={Math.random() * 99}
             component={NewParitiesPage}

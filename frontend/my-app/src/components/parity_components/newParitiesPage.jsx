@@ -226,10 +226,13 @@ class NewParitiesPage extends Component {
                   placeholder={this.state.secondParity}
                   className="mr-sm-2"
                 />
-                <Button onClick={() => this.handleBuyClick()} id='searchButton' variant="outline-success">
+                {localStorage.getItem("userGroup") === "2" &&
+                  <Button onClick={() => this.handleBuyClick()} id='searchButton' variant="outline-success">
                   Buy/Sell
 
             </Button>
+                }
+                
               </Navbar.Collapse>
             </Navbar>
             {this.state.buyClicked ?
