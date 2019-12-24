@@ -483,6 +483,14 @@ interface ApiInterface {
         @Path("user_pk") user_pk: Long,
         @Header("Authorization") token: String
     ): retrofit2.Call<List<NotificationsBody>>
+
+    // ---------------------    RECOMMENDED SECTION  --------------------------
+    // Get all notifications count
+    @Headers("Content-Type:application/json")
+    @GET("articles/recommendations")
+    fun getRecommends(
+        @Header("Authorization") token: String
+    ): retrofit2.Call<List<GetArticleBody>>
 }
 class RetrofitInstance {
     companion object {

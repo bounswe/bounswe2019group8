@@ -15,9 +15,9 @@ import com.bounswe.mercatus.API.RetrofitInstance
 import com.bounswe.mercatus.Adapters.ArticlesAdapter
 import com.bounswe.mercatus.Adapters.ForexAdapter
 import com.bounswe.mercatus.Fragments.SearchActivity
+import com.bounswe.mercatus.Models.Article.GetArticleBody
 import com.bounswe.mercatus.Models.TradingEquipments.ForexDataModel
 import com.bounswe.mercatus.Models.TradingEquipments.ForexShowBody
-import com.bounswe.mercatus.Models.Article.GetArticleBody
 import com.bounswe.mercatus.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import retrofit2.Call
@@ -128,7 +128,7 @@ class HomeFragment : Fragment() {
 
         val articles = ArrayList<GetArticleBody>()
 
-        mer.getArticles("Token " + tokenV.toString()).enqueue(object :
+        mer.getRecommends("Token " + tokenV.toString()).enqueue(object :
             Callback<List<GetArticleBody>> {
             override fun onFailure(call: Call<List<GetArticleBody>>, t: Throwable) {
                 if(t.cause is ConnectException){
@@ -150,7 +150,7 @@ class HomeFragment : Fragment() {
                 if (response.code() == 200) {
                     val res: List<GetArticleBody>? = response.body()
 
-                    if(res!!.size < 3){
+                    if(res!!.size < 5){
                         for(i in res.orEmpty()){
                             articles.add(
                                 GetArticleBody(
@@ -164,7 +164,7 @@ class HomeFragment : Fragment() {
                         }
                     }
                     else{
-                        for(i in res.orEmpty().take(3)){
+                        for(i in res.orEmpty().take(5)){
                             articles.add(
                                 GetArticleBody(
                                     i.author,
