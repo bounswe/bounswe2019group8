@@ -160,7 +160,7 @@ class NewParitiesPage extends Component {
                   title="Graph Type"
                   id="basic-nav-dropdown"
                 >
-                  <NavDropdown.Item onClick={() => this.setGraphType("normal")}>Indicative</NavDropdown.Item>
+                  <NavDropdown.Item onClick={() => this.setGraphType("normal")}>Nominal</NavDropdown.Item>
                   <NavDropdown.Item onClick={() => this.setGraphType("MA5")}>Moving Average-5</NavDropdown.Item>
                   <NavDropdown.Item onClick={() => this.setGraphType("MA10")}>Moving Average-10</NavDropdown.Item>
                   <NavDropdown.Item onClick={() => this.setGraphType("MA15")}>Moving Average-15</NavDropdown.Item>
@@ -234,7 +234,7 @@ class NewParitiesPage extends Component {
 
             </Button>
                 }
-                
+
               </Navbar.Collapse>
             </Navbar>
             {this.state.buyClicked ?
@@ -474,7 +474,7 @@ this.updateCurrentPrice(symbol);
               }) }
               ).catch(
                 (err) => {this.setState({
-                  modalMessage: 'An error has occured. Your transaction was cancelled. '
+                  modalMessage: 'Transaction was cancelled because an error has occured: ' + err.response.data
                 })}
               )
 
