@@ -33,6 +33,8 @@
         <activity android:name=".Fragments.Articles.CreateEventActivity" />
         <activity android:name=".Fragments.ShowEventActivity" />
         <activity android:name=".Fragments.Portfolios.CreatePortfolioActivity" />
+      
+        <activity android:name=".Fragments.Articles.CreateAssetsActivity" />
         <activity android:name=".Fragments.Portfolios.ShowPortfolioActivity" />
         <activity
             android:name=".Fragments.TradingActivity"

@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import { ListGroupItem, Button } from "react-bootstrap";
+import { ListGroupItem, Badge } from "react-bootstrap";
 import {withRouter} from "react-router-dom";
 import axios from  "axios";
+import "./anySearchHandler.css";
+import { MdChromeReaderMode } from 'react-icons/md';
+import { FaStickyNote } from 'react-icons/fa';
 
 class AnnotationSemanticHandler extends Component {
     state = { 
@@ -11,8 +14,14 @@ class AnnotationSemanticHandler extends Component {
         console.log(this.props.result);
             return ( 
                 <div>
-                <ListGroupItem>
-                    <Button onClick={() => this.annotationClick()}>{"Found in annotation: \"" + this.props.result.content + "\" \t Article: " + this.state.articleName}</Button>
+                <ListGroupItem onClick={() => this.annotationClick()} className="search-list-item">
+                    
+            <Badge className="annotation-btn">
+            <FaStickyNote style={{fontSize:20, marginRight:16, marginTop: 0}}></FaStickyNote>  
+            { this.props.result.content }
+            <MdChromeReaderMode style={{ color: 'green', fontSize: 24, marginLeft:50, marginRight: 10}}></MdChromeReaderMode>
+            {this.state.articleName}
+            </Badge>
                     </ListGroupItem>
                 </div>
              );

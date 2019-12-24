@@ -49,7 +49,7 @@ class BasicNavbar extends Component {
           />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
-              <Nav.Link href="/treq">Trading Equipment</Nav.Link>
+              <Nav.Link href="/treq/initial">Trading Equipment</Nav.Link>
               <Nav.Link href="/events">Events</Nav.Link>
               <Nav.Link href="/articles">Articles</Nav.Link>
             </Nav>
@@ -200,6 +200,10 @@ class BasicNavbar extends Component {
     axios.get("http://8.209.81.242:8000/trading_equipments").then(res => {
       var equipmentList = res.data;
       localStorage.setItem("equipmentList", JSON.stringify(equipmentList));
+    });
+    axios.get("http://8.209.81.242:8000/trading_equipments_init").then(res => {
+      var equipmentList = res.data;
+      localStorage.setItem("equipmentList2", JSON.stringify(equipmentList));
     });
     axios
     .get("http://8.209.81.242:8000/articles").then(res => {

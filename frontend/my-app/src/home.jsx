@@ -26,6 +26,7 @@ import SingleOwnPortfolioPage from "./components/portfolio_components/singleOwnP
 import OthersSinglePortfolioPage from "./components/portfolio_components/othersSinglePortfolioPage";
 
 import NewParitiesPage from "./components/parity_components/newParitiesPage";
+import { ListGroupItem, ListGroup } from "react-bootstrap";
 
 import UpdatePage from "./components/profile_components/updatePage";
 import NotifPage from "./components/notification_components/notifPage";
@@ -100,14 +101,19 @@ class Home extends Component {
   renderPorfolio(p) {
     return <Card>
     <Card.Title>{p.name}</Card.Title>
-    <Card.Body>{p.tr_eqs.map(eq => <Row>{this.getName(eq.sym)}({eq.sym}) {this.getPrice(eq.sym)}</Row>)}</Card.Body>
+
+    <Card.Body>
+    <ListGroup className="list-group-flush">
+      {p.tr_eqs.map(eq => <ListGroupItem action href={"/treq/"+ eq.sym}>{this.getName(eq.sym)}({eq.sym}) {this.getPrice(eq.sym)}</ListGroupItem>)}
+    </ListGroup>
+    </Card.Body>
     </Card>;
   }
 
   renderHome() {
     return (<Row>
-      <Col><h2 className="text-center" style={{backgroundColor:"#fff"}}>Articles</h2><ArticleHolder2/></Col>
-      <Col><h2 className="text-center" style={{backgroundColor:"#fff"}}>Portfolios</h2>{this.state.portfolios.map(p => this.renderPorfolio(p))}</Col>
+      <Col><h2 className="text-center" style={{color:"#fff", borderRadius: 10, backgroundColor: "orange"}}>Articles</h2><ArticleHolder2/></Col>
+      <Col><h2 className="text-center" style={{color:"#fff", borderRadius: 10, backgroundColor: "orange"}}>Portfolios</h2>{this.state.portfolios.map(p => this.renderPorfolio(p))}</Col>
     </Row>
   );
   }
@@ -244,10 +250,15 @@ class Home extends Component {
             key={Math.random() * 99}
             component={EventsPage}
           />
+               <Route
+            exact
+            path="/treq/:pk"
+            exact
+            key={Math.random() * 99}
+            component={NewParitiesPage}
+          />
           <Route exact path="/articlewrite" component={WriteArticlePageSummoner} />
-          <Route exact path="/treq" component={NewParitiesPage}/>
           <Route exact path="/events" component={EventsPage}/>
-          <Route exact path="/treq/:pk" component={GraphPage}/>
           <Route exact path="/verif_fail" component={VerificationFailPage}/>
           <Route exact path="/activations/:restOfUrl/:rest" component={DoVerify}/>
           <Route exact path="/upd_cred" component={UpdatePage}/>

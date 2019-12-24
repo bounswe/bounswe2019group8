@@ -5,7 +5,9 @@ import "./singleOwnPortfolioPage.css";
 import AddTreqModal from "./addTreqModal";
 import RemoveTrEqButton from "./removeTrEqButton";
 import { withRouter } from "react-router-dom";
-import { MdDeleteSweep } from 'react-icons/md'
+import { MdDeleteSweep,MdLink, MdDelete} from 'react-icons/md'
+import {FaExternalLinkAlt} from 'react-icons/fa'
+import "./removeTrEqButton.css";
 class SingleOwnPortfolioPage extends Component {
     state = {
         trEqs: [],
@@ -27,7 +29,9 @@ class SingleOwnPortfolioPage extends Component {
                 <Badge className="single-own-portfolio-inlist-badge"> 
                 {this.getName(this.state.trEqs[i].sym)} ({this.state.trEqs[i].sym})
                 </Badge>
+               
                 <RemoveTrEqButton pk={this.props.match.params.pk} trEqs={this.state.trEqs} sym={this.state.trEqs[i].sym}></RemoveTrEqButton>
+                <div style={{float:'right'}}><Button action href ={"/treq/" + this.state.trEqs[i].sym} className = "trEq-remove-btn" ><FaExternalLinkAlt></FaExternalLinkAlt></Button></div>
             </ListGroupItem>)
         }
         return (

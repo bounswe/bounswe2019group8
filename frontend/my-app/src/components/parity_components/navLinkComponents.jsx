@@ -17,7 +17,7 @@ class NavLinkComponent extends Component {
   render() {
     return(
         
-        <NavDropdown.Item  onClick={() => this.props.setParity(this.props.thisName)}>
+        <NavDropdown.Item  onClick={() => this.props.setParity(this.props.thisName, this.props.thisPk, this.props.thisSymbol)}>
         {this.props.thisName}
         </NavDropdown.Item>
         
