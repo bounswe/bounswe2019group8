@@ -67,6 +67,7 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerViewDigital"
+                    android:layoutAnimation="@anim/layout_animation_fall_down"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="8dp"

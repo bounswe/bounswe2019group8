@@ -89,6 +89,7 @@
 
     <string name="digital">Digital</string>
     <string name="equipment">Equipment</string>
+    <string name="other">Other</string>
     <string name="increase">Increase</string>
     <string name="decrease">Decrease</string>
 
@@ -98,4 +99,6 @@
 
     <string name="date_large">Date: </string>
     <string name="time_large">Time: </string>
+    <string name="notifications">Notifications</string>
+    <string name="reason">Reason</string>
 </resources>

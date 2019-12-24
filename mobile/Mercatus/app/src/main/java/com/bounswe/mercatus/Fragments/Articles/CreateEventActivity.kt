@@ -6,14 +6,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
-import com.bounswe.mercatus.Models.CreateArticleBody
 import com.bounswe.mercatus.Models.CreateEventBody
-import com.bounswe.mercatus.Models.GetArticleBody
 import com.bounswe.mercatus.Models.GetEventBody
 import com.bounswe.mercatus.R
-import kotlinx.android.synthetic.main.activity_create_article.*
-import kotlinx.android.synthetic.main.activity_create_article.layContent
-import kotlinx.android.synthetic.main.activity_create_article.layTitle
 import kotlinx.android.synthetic.main.activity_create_event.*
 import retrofit2.Call
 import retrofit2.Callback

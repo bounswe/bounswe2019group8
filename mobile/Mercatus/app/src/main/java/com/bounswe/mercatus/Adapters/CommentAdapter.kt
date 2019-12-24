@@ -13,9 +13,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
 import com.bounswe.mercatus.Fragments.User.ShowProfileActivity
-import com.bounswe.mercatus.Models.CommentEditBody
-import com.bounswe.mercatus.Models.LikerModelComment
-import com.bounswe.mercatus.Models.UserRes
+import com.bounswe.mercatus.Models.Comments.CommentEditBody
+import com.bounswe.mercatus.Models.Comments.LikerModelComment
+import com.bounswe.mercatus.Models.User.UserRes
 import com.bounswe.mercatus.ModelsgetArticles.CommentShowBody
 import com.bounswe.mercatus.R
 import com.google.android.material.textfield.TextInputEditText

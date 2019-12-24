@@ -11,10 +11,10 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
 import com.bounswe.mercatus.Fragments.MainActivity
-import com.bounswe.mercatus.Models.SignInBody
-import com.bounswe.mercatus.Models.SignInRes
-import com.bounswe.mercatus.Models.UserBody
-import com.bounswe.mercatus.Models.UserRes
+import com.bounswe.mercatus.Models.User.SignInBody
+import com.bounswe.mercatus.Models.User.SignInRes
+import com.bounswe.mercatus.Models.User.UserBody
+import com.bounswe.mercatus.Models.User.UserRes
 import com.bounswe.mercatus.R
 import kotlinx.android.synthetic.main.activity_basic_user.*
 import retrofit2.Call
@@ -46,7 +46,8 @@ class BasicUserActivity : AppCompatActivity() {
     }
     private fun signin(email: String, password: String, editor: SharedPreferences.Editor){
         val mercatus = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
-        val signInInfo = SignInBody(email, password)
+        val signInInfo =
+            SignInBody(email, password)
 
         mercatus.signin(signInInfo).enqueue(object : Callback<SignInRes> {
             override fun onFailure(call: Call<SignInRes>, t: Throwable) {
@@ -139,7 +140,13 @@ class BasicUserActivity : AppCompatActivity() {
 
     private fun signup(date: String, email: String, name: String, surname: String, password: String){
         val mercatus = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
-        val registerInfo = UserBody(date,email,name, surname,password)
+        val registerInfo = UserBody(
+            date,
+            email,
+            name,
+            surname,
+            password
+        )
 
         mercatus.registerUser(registerInfo).enqueue(object :
             Callback<UserRes> {

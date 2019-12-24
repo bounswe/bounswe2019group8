@@ -1,31 +1,24 @@
 package com.bounswe.mercatus.Fragments.Portfolios
 
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import android.text.method.ScrollingMovementMethod
 import android.util.Log
-import android.view.LayoutInflater
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
-import com.bounswe.mercatus.Adapters.CommentAdapter
 import com.bounswe.mercatus.Adapters.ForexAdapter
 import com.bounswe.mercatus.Fragments.User.ShowProfileActivity
 import com.bounswe.mercatus.Models.*
-import com.bounswe.mercatus.ModelsgetArticles.CommentShowBody
-import com.bounswe.mercatus.ModelsgetArticles.EquipmentShowBody
+import com.bounswe.mercatus.Models.TradingEquipments.ForexShowBody
+import com.bounswe.mercatus.Models.TradingEquipments.ForexUpdateBody
+import com.bounswe.mercatus.Models.User.UserRes
 import com.bounswe.mercatus.R
-import kotlinx.android.synthetic.main.activity_show_article.*
 import kotlinx.android.synthetic.main.activity_show_portfolio.*
-import kotlinx.android.synthetic.main.dialog_new_category.*
-import kotlinx.android.synthetic.main.new_trading_equipment.view.*
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -342,7 +335,13 @@ class ShowPortfolioActivity : AppCompatActivity() {
                         val equipments_list: List<ForexShowBody>? = i.equipments
                         for(e in equipments_list.orEmpty()){
 
-                            equipmentsList.add(ForexShowBody(e.name, e.sym,e.pk))
+                            equipmentsList.add(
+                                ForexShowBody(
+                                    e.name,
+                                    e.sym,
+                                    e.pk
+                                )
+                            )
                         }
                     }
                     adapter.notifyDataSetChanged()

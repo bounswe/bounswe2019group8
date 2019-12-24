@@ -1,6 +1,18 @@
 package com.bounswe.mercatus.API
 
 import com.bounswe.mercatus.Models.*
+import com.bounswe.mercatus.Models.Article.CreateArticleBody
+import com.bounswe.mercatus.Models.Article.EditArticleBody
+import com.bounswe.mercatus.Models.Article.GetArticleBody
+import com.bounswe.mercatus.Models.Article.LikerModel
+import com.bounswe.mercatus.Models.Comments.CommentBody
+import com.bounswe.mercatus.Models.Comments.CommentEditBody
+import com.bounswe.mercatus.Models.Comments.CommentShowTradingBody
+import com.bounswe.mercatus.Models.Comments.LikerModelComment
+import com.bounswe.mercatus.Models.TradingEquipments.ForexDataModel
+import com.bounswe.mercatus.Models.TradingEquipments.OtherTradingBody
+import com.bounswe.mercatus.Models.TradingEquipments.PriceModel
+import com.bounswe.mercatus.Models.User.*
 import okhttp3.OkHttpClient
 import okhttp3.ResponseBody
 import okhttp3.logging.HttpLoggingInterceptor
@@ -254,7 +266,8 @@ interface ApiInterface {
     ): retrofit2.Call<ResponseBody>
 
 
-    ////// Trading Equipments Section
+    // ---------------------    Trading Equipments SECTION  --------------------------
+
     // Get forex items
     @Headers("Content-Type:application/json")
     @GET("trading_equipments/forex")
@@ -264,19 +277,19 @@ interface ApiInterface {
 
     // Get forex items parity value
     @Headers("Content-Type:application/json")
-    @GET("trading_equipments/{forex_id}/parities")
+    @GET("trading_equipments/{tr_eq_sym}/prices/daily")
     fun getForexParity(
-        @Path("forex_id") fid: Int,
+        @Path("tr_eq_sym") tr_eq_sym: String,
         @Header("Authorization") token: String
-    ): retrofit2.Call<List<ForexParityModel>>
+    ): retrofit2.Call<List<PriceModel>>
 
     // Get forex items prices
     @Headers("Content-Type:application/json")
-    @GET("trading_equipments/{forex_id}/current_prices")
+    @GET("trading_equipments/{tr_eq_sym}/prices/current")
     fun getForexPrices(
-        @Path("forex_id") fid: Int,
+        @Path("tr_eq_sym") tr_eq_sym: String,
         @Header("Authorization") token: String
-    ): retrofit2.Call<List<PriceModel>>
+    ): retrofit2.Call<PriceModel>
 
     // Get digital items
     @Headers("Content-Type:application/json")
@@ -284,6 +297,12 @@ interface ApiInterface {
     fun getDigital(
         @Header("Authorization") token: String
     ): retrofit2.Call<List<ForexDataModel>>
+
+    // Get other equipment items
+    @Headers("Content-Type:application/json")
+    @GET("trading_equipments")
+    fun getOtherEquipments(
+    ): retrofit2.Call<List<OtherTradingBody>>
 
     // Get comments for trading equipments
     @Headers("Content-Type:application/json")
@@ -350,14 +369,6 @@ interface ApiInterface {
         @Path("eqp_id") fid: Int,
         @Header("Authorization") token: String
     ): retrofit2.Call<List<PredictionModel>>
-
-    ////// Trading Equipments Section
-    // Get forex items
-    @Headers("Content-Type:application/json")
-    @GET("trading_equipments/forex")
-    fun getForexSearch(
-        @Header("Authorization") token: String
-    ): retrofit2.Call<List<ForexDataModel>>
 
     // Get all events
     @Headers("Content-Type:application/json")
@@ -456,8 +467,30 @@ interface ApiInterface {
         @Header("Authorization") token: String
     ): retrofit2.Call<List<BuyAssetsModel>>
 
+    // ---------------------    NOTIFICATION SECTION  --------------------------
+    // Get all notifications count
+    @Headers("Content-Type:application/json")
+    @GET("users/{user_pk}/notifications/count")
+    fun getNotificationAmout(
+        @Path("user_pk") user_pk: Long,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<NotifyResultBody>
 
+    // Get all notifications list
+    @Headers("Content-Type:application/json")
+    @GET("users/{user_pk}/notifications")
+    fun getNotifications(
+        @Path("user_pk") user_pk: Long,
+        @Header("Authorization") token: String
+    ): retrofit2.Call<List<NotificationsBody>>
 
+    // ---------------------    RECOMMENDED SECTION  --------------------------
+    // Get all notifications count
+    @Headers("Content-Type:application/json")
+    @GET("articles/recommendations")
+    fun getRecommends(
+        @Header("Authorization") token: String
+    ): retrofit2.Call<List<GetArticleBody>>
 }
 class RetrofitInstance {
     companion object {

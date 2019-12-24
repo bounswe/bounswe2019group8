@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
 import com.bounswe.mercatus.Adapters.DigitalAdapter
-import com.bounswe.mercatus.Models.ForexDataModel
-import com.bounswe.mercatus.Models.ForexShowBody
+import com.bounswe.mercatus.Models.TradingEquipments.ForexDataModel
+import com.bounswe.mercatus.Models.TradingEquipments.ForexShowBody
 import com.bounswe.mercatus.R
 import retrofit2.Call
 import retrofit2.Callback
@@ -95,7 +95,13 @@ class SearchDigitalActivity : AppCompatActivity() {
 
                             for(i in res.orEmpty()){
                                 if (i.name.contains(query, true)) {
-                                    digitalItems.add(ForexShowBody(i.name, i.sym, i.pk))
+                                    digitalItems.add(
+                                        ForexShowBody(
+                                            i.name,
+                                            i.sym,
+                                            i.pk
+                                        )
+                                    )
                                 }
                             }
                             if(digitalItems.isEmpty()){

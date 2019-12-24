@@ -42,16 +42,16 @@
         tools:layout="@layout/fragment_digital" />
 
     <fragment
+        android:id="@+id/nav_other"
+        android:name="com.bounswe.mercatus.ui.OtherFragment"
+        android:label="@string/other"
+        tools:layout="@layout/fragment_other" />
+
+    <fragment
         android:id="@+id/nav_profile"
         android:name="com.bounswe.mercatus.ui.ProfileFragment"
         android:label="@string/menu_profile"
         tools:layout="@layout/fragment_profile" />
-
-    <fragment
-        android:id="@+id/nav_profit"
-        android:name="com.bounswe.mercatus.ui.ProfitFragment"
-        android:label="@string/menu_profit"
-        tools:layout="@layout/fragment_profit" />
     <fragment
         android:id="@+id/nav_assets"
         android:name="com.bounswe.mercatus.ui.AssetsFragment"

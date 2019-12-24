@@ -3,7 +3,6 @@ package com.bounswe.mercatus.ui
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,9 +14,8 @@ import com.bounswe.mercatus.Fragments.User.ModifyActivity
 import com.bounswe.mercatus.Fragments.User.ModifyPasswordActivity
 import com.bounswe.mercatus.Fragments.User.FollowersActivity
 import com.bounswe.mercatus.Fragments.User.FollowingsActivity
-import com.bounswe.mercatus.Models.UserRes
+import com.bounswe.mercatus.Models.User.UserRes
 import com.bounswe.mercatus.R
-import kotlinx.android.synthetic.main.activity_create_portfolio.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

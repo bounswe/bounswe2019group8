@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Fragments.Entrance.VerificationActivity"></activity>
+        <activity android:name=".Fragments.NotificationsActivity"></activity>
+        <activity android:name=".Fragments.Entrance.VerificationActivity" />
         <activity android:name=".Fragments.Entrance.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,13 +31,10 @@
         <activity android:name=".Fragments.Articles.ShowArticleActivity" />
         <activity android:name=".Fragments.Articles.CreateArticleActivity" />
         <activity android:name=".Fragments.Articles.CreateEventActivity" />
-        <activity android:name=".Fragments.Articles.ShowEventActivity" />
+        <activity android:name=".Fragments.ShowEventActivity" />
         <activity android:name=".Fragments.Portfolios.CreatePortfolioActivity" />
+      
         <activity android:name=".Fragments.Articles.CreateAssetsActivity" />
-
-        <activity android:name=".Fragments.Portfolios.ShowPortfolioActivity" />
-        <activity android:name=".Fragments.Portfolios.CreatePortfolioActivity" />
-
         <activity android:name=".Fragments.Portfolios.ShowPortfolioActivity" />
         <activity
             android:name=".Fragments.TradingActivity"
@@ -52,7 +50,7 @@
             android:name=".Fragments.MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Fragments.Entrance.LoginActivity"></activity>
+        <activity android:name=".Fragments.Entrance.LoginActivity" />
         <activity android:name=".Fragments.User.ModifyActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

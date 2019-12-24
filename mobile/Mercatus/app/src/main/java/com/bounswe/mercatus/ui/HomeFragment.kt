@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,11 +17,12 @@ import com.bounswe.mercatus.API.RetrofitInstance
 import com.bounswe.mercatus.Adapters.ArticlesAdapter
 import com.bounswe.mercatus.Adapters.ForexAdapter
 import com.bounswe.mercatus.Fragments.SearchActivity
-import com.bounswe.mercatus.Models.ForexDataModel
-import com.bounswe.mercatus.Models.ForexShowBody
-import com.bounswe.mercatus.Models.GetArticleBody
+import com.bounswe.mercatus.Models.Article.GetArticleBody
+import com.bounswe.mercatus.Models.TradingEquipments.ForexDataModel
+import com.bounswe.mercatus.Models.TradingEquipments.ForexShowBody
 import com.bounswe.mercatus.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.android.synthetic.main.fragment_home.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -29,6 +32,7 @@ class HomeFragment : Fragment() {
     private lateinit var fab: FloatingActionButton
     private lateinit var rv1: RecyclerView
     private lateinit var rv2: RecyclerView
+    private var hasHeader: Boolean = false
 
     override fun onCreateView(
 
@@ -89,15 +93,28 @@ class HomeFragment : Fragment() {
 
                     if(respo!!.size < 10){
                         for(i in respo.orEmpty()){
-                            forexItems.add(ForexShowBody(i.name, i.sym, i.pk))
+                            forexItems.add(
+                                ForexShowBody(
+                                    i.name,
+                                    i.sym,
+                                    i.pk
+                                )
+                            )
                         }
                     }
                     else{
                         for(i in respo.orEmpty().take(10)){
-                            forexItems.add(ForexShowBody(i.name, i.sym, i.pk))
+                            forexItems.add(
+                                ForexShowBody(
+                                    i.name,
+                                    i.sym,
+                                    i.pk
+                                )
+                            )
                         }
                     }
                     var adapter = ForexAdapter(root.context, forexItems)
+                    runLayoutAnimation()
                     rv1.adapter = adapter
                 }
                 else  {
@@ -116,7 +133,7 @@ class HomeFragment : Fragment() {
 
         val articles = ArrayList<GetArticleBody>()
 
-        mer.getArticles("Token " + tokenV.toString()).enqueue(object :
+        mer.getRecommends("Token " + tokenV.toString()).enqueue(object :
             Callback<List<GetArticleBody>> {
             override fun onFailure(call: Call<List<GetArticleBody>>, t: Throwable) {
                 if(t.cause is ConnectException){
@@ -138,17 +155,34 @@ class HomeFragment : Fragment() {
                 if (response.code() == 200) {
                     val res: List<GetArticleBody>? = response.body()
 
-                    if(res!!.size < 3){
+                    if(res!!.size < 5){
                         for(i in res.orEmpty()){
-                            articles.add(GetArticleBody(i.author, i.title, i.content, i.rating, i.pk))
+                            articles.add(
+                                GetArticleBody(
+                                    i.author,
+                                    i.title,
+                                    i.content,
+                                    i.rating,
+                                    i.pk
+                                )
+                            )
                         }
                     }
                     else{
-                        for(i in res.orEmpty().take(3)){
-                            articles.add(GetArticleBody(i.author, i.title, i.content, i.rating, i.pk))
+                        for(i in res.orEmpty().take(5)){
+                            articles.add(
+                                GetArticleBody(
+                                    i.author,
+                                    i.title,
+                                    i.content,
+                                    i.rating,
+                                    i.pk
+                                )
+                            )
                         }
                     }
                     var adapter2 = ArticlesAdapter(root.context, articles)
+                    runLayoutAnimation2()
                     rv2.adapter = adapter2
                 }
                 else  {
@@ -157,5 +191,35 @@ class HomeFragment : Fragment() {
                 }
             }
         })
+    }
+    private fun runLayoutAnimation() = recyclerViewHomeForex.apply {
+        layoutAnimation = AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_fall_down)
+        adapter?.notifyDataSetChanged()
+        scheduleLayoutAnimation()
+
+        if (hasHeader) {
+            layoutAnimationListener = object : Animation.AnimationListener {
+                override fun onAnimationStart(animation: Animation?) {
+                    layoutManager?.findViewByPosition(0)?.clearAnimation()
+                }
+                override fun onAnimationEnd(animation: Animation?) = Unit
+                override fun onAnimationRepeat(animation: Animation?) = Unit
+            }
+        }
+    }
+    private fun runLayoutAnimation2() = recyclerViewHomeArticles.apply {
+        layoutAnimation = AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_fall_down)
+        adapter?.notifyDataSetChanged()
+        scheduleLayoutAnimation()
+
+        if (hasHeader) {
+            layoutAnimationListener = object : Animation.AnimationListener {
+                override fun onAnimationStart(animation: Animation?) {
+                    layoutManager?.findViewByPosition(0)?.clearAnimation()
+                }
+                override fun onAnimationEnd(animation: Animation?) = Unit
+                override fun onAnimationRepeat(animation: Animation?) = Unit
+            }
+        }
     }
 }

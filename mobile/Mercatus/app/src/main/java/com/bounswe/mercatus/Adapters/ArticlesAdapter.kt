@@ -17,9 +17,9 @@ import com.bounswe.mercatus.Fragments.Articles.EditArticleActivity
 import com.bounswe.mercatus.Fragments.Articles.ShowArticleActivity
 import com.bounswe.mercatus.Fragments.User.ShowProfileActivity
 import com.bounswe.mercatus.Models.CreateCommentBody
-import com.bounswe.mercatus.Models.GetArticleBody
-import com.bounswe.mercatus.Models.LikerModel
-import com.bounswe.mercatus.Models.UserRes
+import com.bounswe.mercatus.Models.Article.GetArticleBody
+import com.bounswe.mercatus.Models.Article.LikerModel
+import com.bounswe.mercatus.Models.User.UserRes
 import com.bounswe.mercatus.R
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -105,7 +105,14 @@ class ArticlesAdapter(val context : Context, val articlesList: ArrayList<GetArti
                 itemView.likeArticle, itemView.dislikeArticle,
                 itemView.likeArticleText, itemView.dislikeArticleText)
 
-            this.currentArticle = GetArticleBody(author, title, content,rating, pk)
+            this.currentArticle =
+                GetArticleBody(
+                    author,
+                    title,
+                    content,
+                    rating,
+                    pk
+                )
             this.currentPosition = position
         }
     }

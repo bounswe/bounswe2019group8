@@ -13,10 +13,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
 import com.bounswe.mercatus.Fragments.User.ShowProfileActivity
-import com.bounswe.mercatus.Models.CommentEditBody
-import com.bounswe.mercatus.Models.CommentShowTradingBody
-import com.bounswe.mercatus.Models.LikerModelComment
-import com.bounswe.mercatus.Models.UserRes
+import com.bounswe.mercatus.Models.Comments.CommentEditBody
+import com.bounswe.mercatus.Models.Comments.CommentShowTradingBody
+import com.bounswe.mercatus.Models.Comments.LikerModelComment
+import com.bounswe.mercatus.Models.User.UserRes
 import com.bounswe.mercatus.R
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -64,7 +64,13 @@ class CommentTradingAdapter(val context : Context, val commentList: ArrayList<Co
                 itemView.buttonEditComment,
                 itemView.makeLike, itemView.likeResult,
                 itemView.makeDislike, itemView.dislikeResult)
-            this.currentSearchShow = CommentShowTradingBody(author_id, comment, eqp_id, comment_id)
+            this.currentSearchShow =
+                CommentShowTradingBody(
+                    author_id,
+                    comment,
+                    eqp_id,
+                    comment_id
+                )
             this.currentPosition = position
         }
     }
@@ -255,7 +261,13 @@ class CommentTradingAdapter(val context : Context, val commentList: ArrayList<Co
                         val a = commentList.get(position).author
                         val p = commentList.get(position).pk
                         val tr = commentList.get(position).tr_eq
-                        val newCom = CommentShowTradingBody(a,newComment,p, tr)
+                        val newCom =
+                            CommentShowTradingBody(
+                                a,
+                                newComment,
+                                p,
+                                tr
+                            )
                         commentList.set(position, newCom)
                         notifyItemChanged(position)
                         notifyItemRangeChanged(position, itemCount)

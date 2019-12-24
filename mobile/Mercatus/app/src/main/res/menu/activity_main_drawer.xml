@@ -18,7 +18,7 @@
             android:title="@string/menu_events" />
         <item
             android:id="@+id/nav_portfolios"
-            android:icon="@drawable/ic_menu_explicit"
+            android:icon="@drawable/ic_local_parking_black_24dp"
             android:title="@string/menu_portfolios" />
     </group>
 
@@ -32,6 +32,10 @@
                 android:id="@+id/nav_digital"
                 android:icon="@drawable/ic_public_black_24dp"
                 android:title="@string/digital" />
+            <item
+                android:id="@+id/nav_other"
+                android:icon="@drawable/ic_swap_vertical_circle_black_24dp"
+                android:title="@string/other" />
         </menu>
     </item>
 
@@ -41,10 +45,6 @@
                 android:id="@+id/nav_profile"
                 android:icon="@drawable/ic_menu_face"
                 android:title="@string/menu_profile" />
-            <item
-                android:id="@+id/nav_profit"
-                android:icon="@drawable/ic_menu_trending"
-                android:title="@string/menu_profit" />
             <item
                 android:id="@+id/nav_assets"
                 android:icon="@drawable/ic_menu_trending"

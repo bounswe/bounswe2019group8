@@ -6,8 +6,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
-import com.bounswe.mercatus.Models.CreateArticleBody
-import com.bounswe.mercatus.Models.GetArticleBody
+import com.bounswe.mercatus.Models.Article.CreateArticleBody
+import com.bounswe.mercatus.Models.Article.GetArticleBody
 import com.bounswe.mercatus.R
 import kotlinx.android.synthetic.main.activity_create_article.*
 import retrofit2.Call
@@ -59,7 +59,10 @@ class CreateArticleActivity : AppCompatActivity() {
         val res = getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
         val tokenV = res.getString("token", "Data Not Found!")
 
-        val aB = CreateArticleBody(title, contentA)
+        val aB = CreateArticleBody(
+            title,
+            contentA
+        )
 
         mer.createArticle(aB,"Token " + tokenV.toString()).enqueue(object :
             Callback<GetArticleBody> {

@@ -9,8 +9,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
-import com.bounswe.mercatus.Models.UpdateUserBody
-import com.bounswe.mercatus.Models.UserRes
+import com.bounswe.mercatus.Models.User.UpdateUserBody
+import com.bounswe.mercatus.Models.User.UserRes
 import com.bounswe.mercatus.R
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.activity_modify.*
@@ -42,7 +42,8 @@ class ModifyActivity : AppCompatActivity() {
         val my_pk = res.getString("user_id", "Data Not Found!")
         val tokenV = res.getString("token", "Data Not Found!")
 
-        val newUser = UpdateUserBody(email, date)
+        val newUser =
+            UpdateUserBody(email, date)
         mercatus.updateUser(newUser , my_pk!!.toLong(), "Token " + tokenV.toString()).enqueue(object :
             Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {

@@ -11,7 +11,7 @@ import androidx.core.content.ContextCompat
 import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
 import com.bounswe.mercatus.Models.FollowBody
-import com.bounswe.mercatus.Models.UserRes
+import com.bounswe.mercatus.Models.User.UserRes
 import com.bounswe.mercatus.R
 import kotlinx.android.synthetic.main.activity_show_profile.*
 import okhttp3.ResponseBody

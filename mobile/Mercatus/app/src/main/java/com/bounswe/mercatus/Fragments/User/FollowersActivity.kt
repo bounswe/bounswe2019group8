@@ -10,8 +10,8 @@ import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
 import com.bounswe.mercatus.Adapters.CustomAdapter
 import com.bounswe.mercatus.Models.SearchShow
-import com.bounswe.mercatus.Models.UserFollower
-import com.bounswe.mercatus.Models.UserRes
+import com.bounswe.mercatus.Models.User.UserFollower
+import com.bounswe.mercatus.Models.User.UserRes
 import com.bounswe.mercatus.R
 import retrofit2.Call
 import retrofit2.Callback
