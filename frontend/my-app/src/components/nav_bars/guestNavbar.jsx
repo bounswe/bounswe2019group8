@@ -36,9 +36,9 @@ class GuestNavbar extends Component {
         />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link href="">Trading Equipment</Nav.Link>
-            <Nav.Link href="">Events</Nav.Link>
-            <Nav.Link href="">Articles</Nav.Link>
+            <Nav.Link onClick={() => this.trEqClick()} href="">Trading Equipment</Nav.Link>
+            <Nav.Link onClick={() => this.eventsClick()} href="">Events</Nav.Link>
+            <Nav.Link onClick={() => this.articleClick()} href="">Articles</Nav.Link>
           </Nav>
           <Button
             id="loginStyles"
@@ -71,8 +71,15 @@ class GuestNavbar extends Component {
   loginClick = () => {
     this.props.history.push("/login");
   };
-
-
+  articleClick = () => {
+    this.props.history.push("/guest/articles");
+  }
+  trEqClick = () => {
+    this.props.history.push("/guest/treq");
+  }
+  eventsClick = () => {
+    this.props.history.push("/events");
+  }
   componentDidMount() {
     
     axios.get("http://8.209.81.242:8000/trading_equipments").then(res => {

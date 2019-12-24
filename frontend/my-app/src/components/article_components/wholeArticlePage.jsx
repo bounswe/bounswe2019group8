@@ -333,10 +333,13 @@ class WholeArticlePage extends Component {
                 <FaHeart style={{ color: 'white', marginRight: 4 }}></FaHeart>
                 Rating: {this.state.rating}
               </Button>
-              <p style={{ float: 'right' }}>
-                <ArticleLike incRating={this.incRating} decRating={this.decRating} makeLike={this.makeLike} makeNeutral={this.makeNeutral} likeState={this.state.likeState} articlePk={this.state.articlePk} />
-                <ArticleDislike incRating={this.incRating} decRating={this.decRating} makeDisslike={this.makeDisslike} makeNeutral={this.makeNeutral} likeState={this.state.likeState} articlePk={this.state.articlePk} />
-              </p>
+              {localStorage.getItem("userGroup") === "2" &&
+                 <p style={{ float: 'right' }}>
+                 <ArticleLike incRating={this.incRating} decRating={this.decRating} makeLike={this.makeLike} makeNeutral={this.makeNeutral} likeState={this.state.likeState} articlePk={this.state.articlePk} />
+                 <ArticleDislike incRating={this.incRating} decRating={this.decRating} makeDisslike={this.makeDisslike} makeNeutral={this.makeNeutral} likeState={this.state.likeState} articlePk={this.state.articlePk} />
+               </p>
+              }
+             
 
             </div>
 
@@ -364,9 +367,12 @@ class WholeArticlePage extends Component {
           <div id='commentContainer' style={{ marginBottom: 16 }}>
             <ArticleCommentHolder articlePk={this.state.articlePk} />
           </div>
+          {localStorage.getItem("userGroup") === "2" || localStorage.getItem("userGroup") === "1" &&
           <div id='makeCommentContainer' style={{ float: 'left' }} >
-            <ArticleMakeComment refresh={this.refreshPage} articlePk={this.state.articlePk} />
-          </div>
+          <ArticleMakeComment refresh={this.refreshPage} articlePk={this.state.articlePk} />
+        </div>
+          }
+          
 
         </div>
 

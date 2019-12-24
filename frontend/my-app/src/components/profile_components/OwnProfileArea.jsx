@@ -369,6 +369,7 @@ class OwnProfileArea extends React.Component {
           </div>
         )}
       </Row>
+      
 
 
     return (
@@ -460,7 +461,8 @@ class OwnProfileArea extends React.Component {
             {this.state.section == 'Articles' ? articlesRecommendedSection :
               this.state.section == 'Portfolios' ? portfoliosRecommendedSection : null}
           </Card>
-          <Card style={{ width: '70%', padding: 40, margin: 'auto', float: 'left', marginTop: 10, backgroundColor: '#343a40' }}>
+          {localStorage.getItem("userGroup") === "2" && 
+            <Card style={{ width: '70%', padding: 40, margin: 'auto', float: 'left', marginTop: 10, backgroundColor: '#343a40' }}>
             <Row style={{ borderBottom: '1px solid white', paddingBottom: 12, color: 'white', letterSpacing: 7, fontSize: 20 }}>
               YOUR ASSETS
               <FaPlusSquare onClick={this.handleCashIn} style={{ marginLeft: 10 }}></FaPlusSquare>
@@ -488,6 +490,8 @@ class OwnProfileArea extends React.Component {
 
             </Row>
           </Card>
+          }
+          
         </Col>
 
       </Row>
