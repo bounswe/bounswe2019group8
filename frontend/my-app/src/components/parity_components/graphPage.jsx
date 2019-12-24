@@ -21,13 +21,12 @@ class GraphPage extends Component {
     data: [],
     boo: "",
     prices: [],
-    dorInt: this.props.rateType
+    dorInt: this.props.rateType,
   }
 
   render() {
     const { data, labels } = this.getDataForGraph();
-    console.log('data', data)
-    console.log('labels', labels)
+
     return (
       <div style={{ backgroundColor:'#343a40', paddingLeft:40, paddingRight:40,
        letterSpacing:2, width: '70%', margin: 'auto', marginTop: 20, paddingTop: 30 }}>
@@ -203,6 +202,7 @@ class GraphPage extends Component {
         current2 = parseFloat(res.data.indicative_value)
         console.log(current2)
         this.setState({ currentValue: current2 / current1 })
+        this.props.updateCurrentValue(current2 / current1)
       });
     });
   }
