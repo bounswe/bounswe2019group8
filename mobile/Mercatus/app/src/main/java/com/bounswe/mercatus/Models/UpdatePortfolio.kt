@@ -4,5 +4,5 @@ import com.bounswe.mercatus.Models.TradingEquipments.ForexUpdateBody
 
 data class UpdatePortfolio(
     val name: String,
-    val equipments: List<ForexUpdateBody>
+    val tr_eqs: List<ForexUpdateBody>
 )

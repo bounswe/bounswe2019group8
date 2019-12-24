@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
+import com.bounswe.mercatus.Adapters.EquipmentAdapter
 import com.bounswe.mercatus.Adapters.ForexAdapter
 import com.bounswe.mercatus.Fragments.User.ShowProfileActivity
 import com.bounswe.mercatus.Models.GetPortfolioBody
@@ -54,8 +55,6 @@ class ShowPortfolioActivity : AppCompatActivity() {
 
         val addEquipmentText = findViewById<TextView>(R.id.AddEquipmentText)
 
-        getEquipments(portfolioID.toLong(), equipmentList, adapter)
-
         add_a_new_trading_equipment.setOnClickListener {
             val equipmentSymbol = addEquipmentText.text.toString()
             if (isValidForm(equipmentSymbol)){
@@ -79,6 +78,7 @@ class ShowPortfolioActivity : AppCompatActivity() {
 
         val userID = res?.getString("user_id", "Data Not Found!")
 
+        val eqpsList = ArrayList<ForexUpdateBody>()
 
         mercatus.getSpecificPortfolio(userID!!.toLong(), "Token " + tokenV.toString(),portfolioID).enqueue(object :
             Callback<GetPortfolioBody> {
@@ -101,65 +101,22 @@ class ShowPortfolioActivity : AppCompatActivity() {
             override fun onResponse(call: Call<GetPortfolioBody>, response: Response<GetPortfolioBody>) {
                 if (response.code() == 200) {
                     name.text = response.body()?.name
+                    val res: List<ForexUpdateBody>? = response.body()!!.equipments
+
+                    for(i in res.orEmpty()){
+                        eqpsList.add(ForexUpdateBody(i.sym))
+                    }
+                    val rv = findViewById<RecyclerView>(R.id.recyclerViewEquipments)
+                    rv.layoutManager = LinearLayoutManager(this@ShowPortfolioActivity, RecyclerView.VERTICAL, false)
+
+                    var adapter = EquipmentAdapter(this@ShowPortfolioActivity, eqpsList)
+                    rv.adapter = adapter
+                    adapter.notifyDataSetChanged()
                     getUser(response.body()!!.owner, owner)
 
                 }
                 else  {
                     Toast.makeText(this@ShowPortfolioActivity, "Show Portfolio Activity failed", Toast.LENGTH_SHORT)
-                        .show()
-                }
-            }
-        })
-    }
-
-    private fun getEquipments(portfolioID: Long, equipmentsList: ArrayList<ForexShowBody>, adapter: ForexAdapter){
-        val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
-
-        val res = getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
-        val tokenV = res?.getString("token", "Data Not Found!")
-
-
-        mer.getPortfolios(portfolioID,"Token " + tokenV.toString()).enqueue(object :
-            Callback<List<GetPortfolioBody>> {
-            override fun onFailure(call: Call<List<GetPortfolioBody>>, t: Throwable) {
-                if(t.cause is ConnectException){
-                    Toast.makeText(
-                        this@ShowPortfolioActivity,
-                        "Check your connection!",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-                else{
-                    Toast.makeText(
-                        this@ShowPortfolioActivity,
-                        t.message,
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-            override fun onResponse(call: Call<List<GetPortfolioBody>>, response: Response<List<GetPortfolioBody>>) {
-
-                if (response.code() == 200) {
-                    val res: List<GetPortfolioBody>? = response.body()
-                    equipmentsList.clear()
-
-                    for(i in res.orEmpty()){
-                        val eqpList: List<ForexShowBody>? = i.equipments
-                        for(e in eqpList.orEmpty()){
-
-                            equipmentsList.add(
-                                ForexShowBody(
-                                    e.name,
-                                    e.sym,
-                                    e.pk
-                                )
-                            )
-                        }
-                    }
-                    adapter.notifyDataSetChanged()
-                }
-                else  {
-                    Toast.makeText(this@ShowPortfolioActivity, "Get equipments failed.", Toast.LENGTH_SHORT)
                         .show()
                 }
             }
