@@ -50,7 +50,7 @@ class GraphPage extends Component {
         </div>
         
         <div id='makeCommentContainer' style={{  }} >
-        {localStorage.getItem("userGroup") === "1" || localStorage.getItem("userGroup") === "2" &&
+        {(localStorage.getItem("userGroup") === "1" || localStorage.getItem("userGroup") === "2") &&
         <ParityMakeComment doubleTap={this.props.doubleTap} articlePk={this.state.pk} />
       }
             

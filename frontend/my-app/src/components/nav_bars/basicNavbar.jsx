@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import "./traderNavbar.css";
-
+import NotificationBadge from 'react-notification-badge';
 import WriteArticlePage from "../article_components/writeArticlePage";
 import ArticleHolder from "../article_components/articleHolder";
 import WholeArticlePage from "../article_components/wholeArticlePage";
 import { FaSignOutAlt, FaListAlt, FaUserCircle, FaSearchDollar } from "react-icons/fa";
 import { MdSettings, MdChromeReaderMode } from "react-icons/md";
-
+import {Effect} from 'react-notification-badge';
+import {IoIosNotificationsOutline} from "react-icons/io";
 import {
   Button,
   Form,
@@ -28,7 +29,8 @@ class BasicNavbar extends Component {
   changeHandler = event => {
     this.setState({
       searchText: event.target.value,
-      imageLink: ''
+      imageLink: '', 
+      notifCount: 0
     });
   };
   render() {
@@ -67,6 +69,14 @@ class BasicNavbar extends Component {
                 <FaSearchDollar style={{marginLeft: 6}}></FaSearchDollar>
 
               </Button>
+              <Button onClick={() => this.notifClick()} id='searchButton' href={"/profile/" + localStorage.getItem("userId") + "/notif"} variant="outline-success">
+              <NotificationBadge count={this.state.notifCount} effect={Effect.ROTATE_Y}/>
+                Notifications
+
+                <IoIosNotificationsOutline style={{marginLeft: 6}}>
+
+                </IoIosNotificationsOutline>
+              </Button>
             </Form>
             <NavDropdown
 
@@ -93,7 +103,7 @@ class BasicNavbar extends Component {
                 <FaListAlt style={{marginRight: 10}}></FaListAlt>
                 Portfolio                                                                                            
               </NavDropdown.Item>
-
+              
               <NavDropdown.Divider />
               <NavDropdown.Item onClick={() => this.logoutClick()}>
                 <FaSignOutAlt style={{ marginRight: 10 }} />
@@ -132,6 +142,10 @@ class BasicNavbar extends Component {
     this.props.history.push("/login");
     this.props.history.push("/profile/" + localStorage.getItem("userId") + "/portfolio");
   }
+  notifClick = () => {
+    this.props.history.push("/login");
+    this.props.history.push("/profile/" + localStorage.getItem("userId") + "/notif");
+  }
   logoutClick = () => {
     localStorage.setItem("userId", null);
     localStorage.setItem("userToken", null);
@@ -142,7 +156,7 @@ class BasicNavbar extends Component {
     localStorage.setItem("threeDaysEventsList", null);
     this.props.history.push("/login");
   };
-  componentDidMount() {
+  componentWillMount() {
     var url =
       "http://8.209.81.242:8000/users/" + localStorage.getItem("userId");
     var credentials1 = { ...this.state.credentials };
@@ -201,6 +215,12 @@ class BasicNavbar extends Component {
       var equipmentList = res.data;
       localStorage.setItem("equipmentList", JSON.stringify(equipmentList));
     });
+    axios
+        .get("http://8.209.81.242:8000/users/" + id +"/notifications/count",  {
+          headers: { Authorization: `Token ${token}` }}).then(res => {
+          this.setState({notifCount: res.data.count});
+        }
+        );
     axios.get("http://8.209.81.242:8000/trading_equipments_init").then(res => {
       var equipmentList = res.data;
       localStorage.setItem("equipmentList2", JSON.stringify(equipmentList));

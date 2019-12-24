@@ -367,7 +367,7 @@ class WholeArticlePage extends Component {
           <div id='commentContainer' style={{ marginBottom: 16 }}>
             <ArticleCommentHolder articlePk={this.state.articlePk} />
           </div>
-          {localStorage.getItem("userGroup") === "2" || localStorage.getItem("userGroup") === "1" &&
+          {(localStorage.getItem("userGroup") === "2" || localStorage.getItem("userGroup") === "1") &&
           <div id='makeCommentContainer' style={{ float: 'left' }} >
           <ArticleMakeComment refresh={this.refreshPage} articlePk={this.state.articlePk} />
         </div>
