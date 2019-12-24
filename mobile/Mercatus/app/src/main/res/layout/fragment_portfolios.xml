@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView4"
+        android:id="@+id/recyclerViewPortfolio"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:layout_constraintBottom_toBottomOf="@+id/recyclerView4"
-        app:layout_constraintEnd_toEndOf="@+id/recyclerView4"
+        app:layout_constraintBottom_toBottomOf="@+id/recyclerViewPortfolio"
+        app:layout_constraintEnd_toEndOf="@+id/recyclerViewPortfolio"
         app:srcCompat="@drawable/ic_edit" />
 </androidx.constraintlayout.widget.ConstraintLayout>

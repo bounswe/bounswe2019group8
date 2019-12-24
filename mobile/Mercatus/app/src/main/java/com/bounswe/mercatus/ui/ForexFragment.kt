@@ -43,7 +43,7 @@ class ForexFragment : Fragment() {
 
         getForexItems(root)
 
-        fab  = root.findViewById(R.id.fabForex)
+        fab = root.findViewById(R.id.fabForex)
         fab.setOnClickListener {
             val intent = Intent(root.context, SearchForexActivity::class.java)
             startActivity(intent)

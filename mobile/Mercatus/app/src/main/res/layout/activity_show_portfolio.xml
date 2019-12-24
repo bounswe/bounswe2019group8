@@ -47,7 +47,6 @@
                 android:orientation="horizontal">
 
             </LinearLayout>
-
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layAddEquipment"
                 android:layout_width="match_parent"
@@ -62,7 +61,6 @@
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
-
             <Button
                 android:id="@+id/add_a_new_trading_equipment"
                 android:layout_width="350dp"
@@ -71,7 +69,6 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="15dp"
                 android:text="Add a new Trading Equipment"
-                android:background="@drawable/button_shape1"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/buttonGuest"/>
@@ -131,23 +128,11 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:text="Delete Portfolio"
-                android:background="@drawable/button_shape1"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/buttonGuest"/>
 
         </LinearLayout>
     </LinearLayout>
-
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabRight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_comment_white" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
