@@ -41,12 +41,6 @@
                     android:layout_height="wrap_content" />
 
             </LinearLayout>
-            <ImageView
-                android:id="@+id/imageList"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/ic_arrow_forward" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </LinearLayout>

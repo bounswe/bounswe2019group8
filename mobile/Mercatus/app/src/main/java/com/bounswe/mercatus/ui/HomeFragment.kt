@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,6 +22,7 @@ import com.bounswe.mercatus.Models.TradingEquipments.ForexDataModel
 import com.bounswe.mercatus.Models.TradingEquipments.ForexShowBody
 import com.bounswe.mercatus.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.android.synthetic.main.fragment_home.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -29,6 +32,7 @@ class HomeFragment : Fragment() {
     private lateinit var fab: FloatingActionButton
     private lateinit var rv1: RecyclerView
     private lateinit var rv2: RecyclerView
+    private var hasHeader: Boolean = false
 
     override fun onCreateView(
 
@@ -110,6 +114,7 @@ class HomeFragment : Fragment() {
                         }
                     }
                     var adapter = ForexAdapter(root.context, forexItems)
+                    runLayoutAnimation()
                     rv1.adapter = adapter
                 }
                 else  {
@@ -177,6 +182,7 @@ class HomeFragment : Fragment() {
                         }
                     }
                     var adapter2 = ArticlesAdapter(root.context, articles)
+                    runLayoutAnimation2()
                     rv2.adapter = adapter2
                 }
                 else  {
@@ -185,5 +191,35 @@ class HomeFragment : Fragment() {
                 }
             }
         })
+    }
+    private fun runLayoutAnimation() = recyclerViewHomeForex.apply {
+        layoutAnimation = AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_fall_down)
+        adapter?.notifyDataSetChanged()
+        scheduleLayoutAnimation()
+
+        if (hasHeader) {
+            layoutAnimationListener = object : Animation.AnimationListener {
+                override fun onAnimationStart(animation: Animation?) {
+                    layoutManager?.findViewByPosition(0)?.clearAnimation()
+                }
+                override fun onAnimationEnd(animation: Animation?) = Unit
+                override fun onAnimationRepeat(animation: Animation?) = Unit
+            }
+        }
+    }
+    private fun runLayoutAnimation2() = recyclerViewHomeArticles.apply {
+        layoutAnimation = AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_fall_down)
+        adapter?.notifyDataSetChanged()
+        scheduleLayoutAnimation()
+
+        if (hasHeader) {
+            layoutAnimationListener = object : Animation.AnimationListener {
+                override fun onAnimationStart(animation: Animation?) {
+                    layoutManager?.findViewByPosition(0)?.clearAnimation()
+                }
+                override fun onAnimationEnd(animation: Animation?) = Unit
+                override fun onAnimationRepeat(animation: Animation?) = Unit
+            }
+        }
     }
 }
