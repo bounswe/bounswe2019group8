@@ -48,6 +48,9 @@ class PortfoliosAdapter(val context : Context, val portfoliosList: ArrayList<Por
 
         fun setData(pk: Long, owner: Long, name: String, private: Boolean, position: Int){
             itemView.portfolio_name.text = name
+            if(private){
+                itemView.imagePrivate.visibility = View.VISIBLE
+            }
             getUser(owner,itemView.portfolio_owner_text)
 
             itemView.portfolio_name.setOnClickListener {

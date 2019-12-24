@@ -1,53 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <TextView
-        android:id="@+id/portfolio_name"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <androidx.cardview.widget.CardView
+        android:id="@+id/eachItem"
+        android:layout_margin="5dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/lightBlue"
-        android:padding="@dimen/padding_regular"
-        android:text="@string/name"
-        android:textAppearance="@android:style/TextAppearance.Medium"
-        android:textColor="@android:color/white"
-        android:textStyle="bold" />
-
-    <ScrollView
-        android:paddingTop="4dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/portfolio_name">
-
+        android:layout_height="wrap_content">
         <LinearLayout
+            android:padding="10dp"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
+            android:weightSum="6">
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_weight="5"
+                android:layout_height="wrap_content">
                 <TextView
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                    android:id="@+id/portfolio_name"
+                    android:text="@string/name"
+                    android:layout_width="match_parent"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                    android:text="@string/author"
                     android:id="@+id/portfolio_owner_text"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/padding_regular"
-                    android:text="@string/author"
-                    android:textAppearance="@android:style/TextAppearance.Small"
-                    android:textStyle="bold" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:orientation="horizontal"
-                android:background="@color/gray">
-            </LinearLayout>
+                    android:layout_height="wrap_content" />
 
+            </LinearLayout>
+            <ImageView
+                android:id="@+id/imagePrivate"
+                android:visibility="gone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/ic_security_black_24dp" />
         </LinearLayout>
-    </ScrollView>
-
-</RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>
