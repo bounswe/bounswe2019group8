@@ -51,7 +51,16 @@ class NotifyAdapter(val context : Context, val notifyList: ArrayList<NotifyShowB
         }
 
         fun setData(reason: String, source_user : Long, created_at : String, position: Int){
-            val newReason = reason.replace('_', ' ')
+            var newReason : String
+            if(reason == "comment_create"){
+                newReason = "User created new comment on a article."
+            }
+            else if(reason == "article_create"){
+                newReason = "User wrote new article. Check out!"
+            }
+            else{
+                newReason = "User annotate on an article. Check out!"
+            }
             itemView.txtReason.text = newReason
             val hour = created_at.substring(11,19)
             itemView.txtDate.text = hour
@@ -71,7 +80,6 @@ class NotifyAdapter(val context : Context, val notifyList: ArrayList<NotifyShowB
         val mer = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
 
         val res = context.getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
-        val user_id = res.getString("user_id", "Data Not Found!")
         val tokenV = res.getString("token", "Data Not Found!")
 
         mer.getUser(author_id, "Token " + tokenV.toString()).enqueue(object :
