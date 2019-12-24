@@ -43,7 +43,7 @@ class Graph extends Component {
         <Badge className="graph-badge">{this.props.name}</Badge>
         <Badge className="graph-badge">Current Value :{this.props.currentValue}</Badge>
         <VoteHolder commentPk ={this.props.parityPk}></VoteHolder>
-        <Line data={data} height={150} />
+        <Line data={data} height={250} />
       </div>
     );
   }
