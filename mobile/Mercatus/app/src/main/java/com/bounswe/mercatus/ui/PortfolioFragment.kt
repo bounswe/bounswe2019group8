@@ -84,38 +84,44 @@ class PortfolioFragment : Fragment() {
 
                     for(i in res.orEmpty()){
 
-                        if(i.equipments == null && i.followers == null) {
+                        if(i.tr_eqs == null
+                            //&& i.followers == null
+                            ) {
                             portfolios.add(
                                 GetPortfolioBody(
                                     i.pk,
                                     emptyList()
                                     , i.owner
                                     , i.name,
-                                    emptyList(),
+                            //        emptyList(),
                                     i.private
                                 )
                             )
                         }
-                        else if(i.equipments != null && i.followers == null) {
+                        else if(i.tr_eqs != null
+                        //          && i.followers == null
+                        ) {
                             portfolios.add(
                                 GetPortfolioBody(
                                     i.pk,
-                                    i.equipments
+                                    i.tr_eqs
                                     , i.owner
                                     , i.name,
-                                    emptyList(),
+                                    //             emptyList(),
                                     i.private
                                 )
                             )
                         }
-                        else if(i.equipments == null && i.followers != null) {
+                        else if(i.tr_eqs == null
+                        //       && i.followers != null
+                        ) {
                             portfolios.add(
                                 GetPortfolioBody(
                                     i.pk,
                                     emptyList()
                                     , i.owner
                                     , i.name,
-                                    i.followers,
+                                    //              i.followers,
                                     i.private
                                 )
                             )
@@ -123,10 +129,10 @@ class PortfolioFragment : Fragment() {
                         else{   portfolios.add(
                                 GetPortfolioBody(
                                     i.pk,
-                                    i.equipments
+                                    i.tr_eqs
                                     , i.owner
                                     , i.name,
-                                    i.followers,
+                                    //             i.followers,
                                     i.private
                                 )
                             )
