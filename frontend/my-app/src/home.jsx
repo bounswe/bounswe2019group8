@@ -26,6 +26,7 @@ import SingleOwnPortfolioPage from "./components/portfolio_components/singleOwnP
 import OthersSinglePortfolioPage from "./components/portfolio_components/othersSinglePortfolioPage";
 
 import NewParitiesPage from "./components/parity_components/newParitiesPage";
+import { ListGroupItem, ListGroup } from "react-bootstrap";
 
 import UpdatePage from "./components/profile_components/updatePage";
 import NotifPage from "./components/notification_components/notifPage";
@@ -100,7 +101,12 @@ class Home extends Component {
   renderPorfolio(p) {
     return <Card>
     <Card.Title>{p.name}</Card.Title>
-    <Card.Body>{p.tr_eqs.map(eq => <Row>{this.getName(eq.sym)}({eq.sym}) {this.getPrice(eq.sym)}</Row>)}</Card.Body>
+
+    <Card.Body>
+    <ListGroup className="list-group-flush">
+      {p.tr_eqs.map(eq => <ListGroupItem action href={"/treq/"+ eq.sym}>{this.getName(eq.sym)}({eq.sym}) {this.getPrice(eq.sym)}</ListGroupItem>)}
+    </ListGroup>
+    </Card.Body>
     </Card>;
   }
 
