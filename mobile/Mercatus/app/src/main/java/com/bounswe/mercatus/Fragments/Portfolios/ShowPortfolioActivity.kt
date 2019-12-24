@@ -38,7 +38,6 @@ class ShowPortfolioActivity : AppCompatActivity() {
         actionBar!!.title = "Portfolio"
         actionBar.setDisplayHomeAsUpEnabled(true)
 
-        val name = findViewById<TextView>(R.id.showName)
         val portfolioID = intent.getStringExtra("portfolio_id")
 
         getPortfolio()
@@ -47,23 +46,10 @@ class ShowPortfolioActivity : AppCompatActivity() {
         rv.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 
         val equipmentList = ArrayList<ForexShowBody>()
-        val equipmentUpdateList = ArrayList<ForexUpdateBody>()
 
         var adapter = ForexAdapter(this@ShowPortfolioActivity, equipmentList)
         rv.adapter = adapter
 
-        val addEquipmentText = findViewById<TextView>(R.id.AddEquipmentText)
-
-        add_a_new_trading_equipment.setOnClickListener {
-            val equipmentSymbol = addEquipmentText.text.toString()
-            if (isValidForm(equipmentSymbol)){
-                equipmentUpdateList.add(ForexUpdateBody(equipmentSymbol))
-
-                val updatePortfolioBody = UpdatePortfolio(name.text.toString(),equipmentUpdateList)
-
-                updatePortfolio(portfolioID.toLong(), updatePortfolioBody)
-            }
-        }
 
         deletePortfolioButton.setOnClickListener {
             deletePortfolio(portfolioID.toLong())
@@ -114,6 +100,17 @@ class ShowPortfolioActivity : AppCompatActivity() {
                     rv.adapter = adapter
                     adapter.notifyDataSetChanged()
                     getUser(response.body()!!.owner, showOwner)
+
+                    add_a_new_trading_equipment.setOnClickListener {
+                        val equipmentSymbol = AddEquipmentText.text.toString()
+                        if (isValidForm(equipmentSymbol)){
+                            eqpsList.add(ForexUpdateBody(equipmentSymbol))
+
+                            val updatePortfolioBody = UpdatePortfolio(showName.text.toString(),eqpsList)
+
+                            updatePortfolio(portfolioID, updatePortfolioBody)
+                        }
+                    }
 
                 }
                 else  {
