@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bounswe.mercatus.API.ApiInterface
 import com.bounswe.mercatus.API.RetrofitInstance
 import com.bounswe.mercatus.Fragments.MainActivity
-import com.bounswe.mercatus.Fragments.User.ShowProfileActivity
 import com.bounswe.mercatus.Models.User.SignInBody
 import com.bounswe.mercatus.Models.User.SignInRes
 import com.bounswe.mercatus.R
@@ -27,7 +26,6 @@ class LoginActivity : AppCompatActivity() {
 
         val sharedPreferences = getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
-
 
         if(sharedPreferences.getString("token"," ") !=" "){
 
@@ -47,15 +45,6 @@ class LoginActivity : AppCompatActivity() {
             if (isValidForm(email, password)){
                 signin(email, password, editor)
             }
-        }
-
-        buttonGuest.setOnClickListener {
-            val intent = Intent(this, ShowProfileActivity::class.java)
-            startActivity(intent)
-            overridePendingTransition(
-                R.anim.slide_in_right,
-                R.anim.slide_out_left
-            )
         }
 
         buttonRegister.setOnClickListener {

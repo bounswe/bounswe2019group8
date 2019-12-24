@@ -53,7 +53,6 @@ class MainActivity : AppCompatActivity(){
                 R.id.nav_digital,
                 R.id.nav_other,
                 R.id.nav_profile,
-                R.id.nav_profit,
                 R.id.nav_assets
             ), drawerLayout
         )
@@ -71,7 +70,7 @@ class MainActivity : AppCompatActivity(){
             val preferences = getSharedPreferences("TOKEN_INFO", Context.MODE_PRIVATE)
             val editor = preferences.edit()
             editor.putString("token", " ")
-            editor.commit()
+            editor.apply()
 
             startActivity(intent)
             finish()

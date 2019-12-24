@@ -52,12 +52,6 @@
         android:name="com.bounswe.mercatus.ui.ProfileFragment"
         android:label="@string/menu_profile"
         tools:layout="@layout/fragment_profile" />
-
-    <fragment
-        android:id="@+id/nav_profit"
-        android:name="com.bounswe.mercatus.ui.ProfitFragment"
-        android:label="@string/menu_profit"
-        tools:layout="@layout/fragment_profit" />
     <fragment
         android:id="@+id/nav_assets"
         android:name="com.bounswe.mercatus.ui.AssetsFragment"

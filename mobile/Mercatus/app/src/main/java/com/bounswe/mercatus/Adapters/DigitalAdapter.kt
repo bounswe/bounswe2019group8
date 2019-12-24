@@ -99,14 +99,28 @@ class DigitalAdapter(val context : Context, val forexList: ArrayList<ForexShowBo
                     val forexPar: PriceModel? = response.body()
 
                     if(forexPar != null){
-                        if(forexPar.ask_value.length > 7 && forexPar.bid_value.length > 7){
-                            highVal.text = forexPar.ask_value.substring(0,7)
-                            lowVal.text = forexPar.bid_value.substring(0,7)
+                        if(!forexPar.ask_value.isNullOrBlank()
+                            && !forexPar.bid_value.isNullOrBlank()){
+                            if(forexPar.ask_value.length > 7 && forexPar.bid_value.length > 7){
+                                highVal.text = forexPar.ask_value.substring(0,7)
+                                lowVal.text = forexPar.bid_value.substring(0,7)
+                            }
+                            else{
+                                highVal.text = forexPar.ask_value
+                                lowVal.text = forexPar.bid_value
+                            }
                         }
                         else{
-                            highVal.text = forexPar.ask_value
-                            lowVal.text = forexPar.bid_value
+                            if(forexPar.indicative_value.length > 7){
+                                highVal.text = forexPar.indicative_value.substring(0,7)
+                                lowVal.text = forexPar.indicative_value.substring(0,7)
+                            }
+                            else{
+                                highVal.text = forexPar.indicative_value
+                                lowVal.text = forexPar.indicative_value
+                            }
                         }
+
                     }
                 }
                 else  {
@@ -143,8 +157,10 @@ class DigitalAdapter(val context : Context, val forexList: ArrayList<ForexShowBo
                 if (response.code() == 200) {
                     val forexPar: List<PriceModel>? = response.body()
 
-                    if(forexPar!!.isNotEmpty()){
-                        if(forexPar.first().ask_value.toFloat() > forexPar.last().ask_value.toFloat()){
+                    if(forexPar!!.isNotEmpty()
+                        && !forexPar.first().indicative_value.isNullOrBlank()
+                        && !forexPar.last().indicative_value.isNullOrBlank()){
+                        if(forexPar.first().indicative_value.toFloat() >= forexPar.last().indicative_value.toFloat()){
                             situationForex.setImageResource(R.drawable.ic_decrease)
                         }
                     }
