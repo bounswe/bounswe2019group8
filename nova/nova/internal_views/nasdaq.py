@@ -119,8 +119,9 @@ def delete_old_prices():
     yesterday = today - relativedelta(days=1)
 
     prices_to_delete = Price.objects.filter(
-        ~Q(interval='intraday') |
-        (Q(interval='intraday') & Q(observe_date__lt=yesterday))
+        ~Q(tr_eq=1776) &
+        (~Q(interval='intraday') |
+         (Q(interval='intraday') & Q(observe_date__lt=yesterday)))
     )
 
     prices_to_delete.delete()
